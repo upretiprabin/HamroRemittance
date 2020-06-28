@@ -11,4 +11,15 @@ let render = () => {
     );
 };
 
+if (module.hot) {
+    module.hot.accept('./App', () => {
+        const NextApp = require('./App').default;
+        render(
+            <NextApp />,
+            rootEl
+        );
+    });
+}
+
+
 render();

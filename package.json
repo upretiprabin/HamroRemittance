@@ -6,6 +6,7 @@
   "repository": {},
   "scripts": {
     "start": "webpack --progress --watch",
+    "front": "webpack-dev-server --mode development --inline --progress",
     "bundle": "webpack",
     "test": "mocha './src/main/webapp/*.test.js' --require babel-polyfill --compilers js:babel-register,.:mocha-image-compiler"
   },
@@ -28,6 +29,7 @@
     "babel-polyfill": "^6.26.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.12.21",
     "react-router-dom": "^5.2.0"
   }
 }
