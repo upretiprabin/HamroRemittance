@@ -1,0 +1,56 @@
+/* Custom app color variables are defined here
+*/
+
+
+//primary theme colors
+$picton-blue : #40B7E7;
+$seashell : #F0F0F0;
+$tundora : #231F20;
+$geraldine : #F46E67;
+$conifer : #A4D269;
+
+//fonts
+$font-family-sans-serif : sans-serif;
+$font-family-merriweather : 'Merriweather';
+$font-family-lato : "Lato", Helvetica, Arial, serif;
+$primary-font-family : $font-family-lato;
+
+$warning-color : #f49067;
+$success-color : #a1d258;
+
+$font-size : 16px;
+$primary-bg : $picton-blue;
+$secondary-bg : #f2f5f8;
+$tertiory-bg :  rgb(74, 223, 244);
+$data-table-title-bg : rgba(252, 252, 252, 1.0);
+$data-table-title-border-top : rgba(224, 224, 224, 1);
+$data-table-footer-text : rgba(69, 79, 91, 1.0);
+$primary-text : dimgrey;
+$secondary-text : black;
+$primary-btn : #1c5e79;
+$error : #ff0000d9;
+$primary-border : #d5d5d5;
+$sidebar-bg : rgb(46, 51, 68);
+$logo-bg : #2e7c9a;
+$title-primary : #ffffff;
+$menu-active : rgb(32, 35, 47);
+$header-gradient-1: #2e7b9a;
+$icon-bg: #369CC6;
+$header-gradient-2: #0f4a6c;
+$primary-info: #464D69;
+$primary-dropdwn : #FAFAFA;
+$secondary-border : #a3a3a3;
+$table-bg : darkgray;
+$row-select-primary : #e9f6fc;
+$row-select-secondary : #e3f7c9;
+$table-border : #f8f9fa;
+$blood-red: #ba1f1f;
+$box-shadow-color : rgba(64, 183, 231, 0.25);
+
+$map-marker-colors: #1B4080,#C89300,#186D88,#5B7F1D,#98968A,#C82800,#442765,#B900BC,#60B200,#996364 ;
+$map-polygon-colors: #f5d7b9,#a8a6a8,#b1d9ed,#c3b4e9,#f4e8a1,#acc0f6,#9ea2e7,#c79fa0,#f2a8e6,#b6eb93 ;
+
+//date-range-picker
+$range-end-color : $row-select-secondary;
+
+$signin-background-image : url('../../assets/img/signin_background.jpg');

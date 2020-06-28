@@ -1,0 +1,774 @@
+/* login form css, forgot-password form css */
+
+.app-main-container{
+  font-family: $primary-font-family !important;
+  color : $primary-text !important;
+  font-size: $font-size !important;
+}
+
+.rct-header-custom,.site-logo{
+  min-height: 85px !important;
+}
+
+.rct-session-wrapper{
+  background-image: $signin-background-image !important;
+  background-repeat: no-repeat;
+  background-size:100%;
+  left : -3px !important;
+}
+
+.MuiIconButton-root:not(.user-stat-icon){
+  color : $table-bg !important;
+}
+
+.bull{
+  font-size: 28px;
+  margin-right: 0.2rem;
+  position: relative;
+  top: 4px;
+}
+
+.bull-success{
+  color : $success-color;
+}
+
+.button-progress{
+  color: $primary-bg !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -12px;
+  margin-left: -12px;
+}
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem $box-shadow-color;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-color:$primary-bg !important;
+}
+
+.MuiFormLabel-root.Mui-focused{
+  color:$primary-bg !important;
+}
+
+.table-filter-label{
+  color: $primary-text;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 7px;
+}
+
+.badge{
+  font-weight: 700 !important;
+  padding: 5px 10px 4px !important;
+}
+
+.badge-info{
+  background-color: $primary-btn !important ;
+  color : $secondary-bg !important;
+}
+
+.bull-warning{
+  color : $warning-color;
+}
+
+.rct-app-content{
+  background-color: $secondary-bg !important;
+}
+
+.center-margin {
+  margin-top: 8% !important;
+}
+
+.black-text{
+  color : $primary-text !important;
+}
+
+.login-btn{
+  margin-top: 10% !important;
+  background-color: $primary-btn !important;
+  padding: 2.5% !important;
+}
+
+.mb-100{
+  margin-bottom: 22% !important;
+}
+
+.cred-label{
+  position: absolute;
+  display: block;
+  top: -65%;
+  font-size: smaller !important;
+}
+
+.invalid-input{
+  border: 1px solid $error !important;
+}
+
+
+.cred-error-label{
+  text-align: left !important;
+  position: absolute;
+  display: block;
+  font-size: smaller !important;
+  color : $error;
+  margin-top: 1%;
+}
+
+.send-reset-btn{
+  margin-top: 5% !important;
+  margin-bottom: 5% !important;
+  background-color: $primary-btn !important;
+  padding: 2.5% !important;
+}
+.forgot-password-text{
+  cursor: pointer;
+  font-size: inherit !important;
+  margin-top: 4% !important;
+  color: $primary-bg !important;
+
+}
+
+.forgot-password-text-forgot-page{
+  font-size: 25px !important;
+  font-weight: 300 !important;
+  color: $primary-bg !important;
+  margin-bottom: 4% !important;
+
+}
+
+.theme-text-color{
+  color: $primary-bg !important;
+}
+
+.version-text{
+  color: $secondary-text !important;
+  margin-bottom: -2% !important;
+  margin-top: 10% !important;
+}
+
+.sign-in-logo{
+  margin-top: 7% !important;
+  margin-bottom: 10% !important;
+}
+
+.forgot-password-logo{
+  margin-top: 2% !important;
+  margin-bottom: 8% !important;
+}
+
+.sign-in-form{
+  margin-left: 15% !important;
+  margin-right: 15% !important;
+}
+
+.sign-in-form input{
+  color : $secondary-text !important;
+}
+
+.sign-in-input-email{
+  border: 0 !important;
+  box-shadow: 0 0 !important;
+  border-bottom: 1.5px solid $primary-border !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  height: 35px !important;
+}
+
+.sign-in-input-password{
+  border: 0 !important;
+  box-shadow: 0 0 !important;
+  border-bottom: 0.5px solid $primary-border !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  height: 35px !important;
+}
+
+.sign-in-input-email:focus{
+  border-bottom: 1.5px solid $primary-bg !important;
+}
+
+.sign-in-input-email:focus~.cred-label{
+  color: $primary-bg !important;
+}
+
+.sign-in-input-password:focus{
+  border-bottom: 0.5px solid $primary-bg !important;
+}
+
+.sign-in-input-password:focus~.cred-label{
+  color: $primary-bg !important;
+}
+
+.error-email-input:focus{
+  border-bottom: 0.5px solid $error !important;
+}
+
+.error-email-input:focus~.error-email-label{
+  color: $error !important;
+}
+
+.error-email-label{
+  color: $error !important;
+}
+
+.div-disabled{
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+}
+
+.submit-loading{
+  background:$primary-text !important;
+  opacity: 0.5;
+  padding : 7px 25px 7px 25px !important;
+  pointer-events: none;
+}
+
+.font-size-16{
+  font-size: 16px;
+}
+
+/*sidebar css*/
+
+.sidebar-custom{
+  background: $sidebar-bg !important;
+  width: 20rem !important;
+}
+
+.logo-bg {
+  background: linear-gradient(to right, $header-gradient-1, $header-gradient-2) !important;
+}
+
+.side-title-custom{
+  color : $title-primary !important;
+  font-weight: bold !important;
+}
+
+.menu-icon-custom,.menu-custom{
+  color : $title-primary !important;
+}
+
+.rct-sidebar .rct-sidebar-nav .rct-mainMenu > li:not(.list-item) a.item-active {
+  background: $menu-active !important;
+}
+
+.rct-sidebar .rct-sidebar-nav .rct-mainMenu > li:not(.list-item) a:hover {
+  background: $menu-active !important;
+}
+
+/*header css*/
+.pd-custom{
+  padding : 1.04rem 1.5rem 0 1.5rem !important;
+}
+
+.rct-header-custom{
+  background: $title-primary !important
+}
+
+@mixin custom-btn-primary{
+  background:$primary-bg !important;
+  color: $title-primary !important;
+  cursor: pointer !important;
+}
+
+.cancel-btn{
+  color: $primary-bg;
+  padding: 7px 25px 7px 25px;
+}
+.cancel-btn:hover{
+  background-color: $table-bg;
+  color : $primary-text
+}
+.sweet-alert h2{
+  font-size: 16px !important;
+  text-align: left !important;
+  color:$secondary-text !important;
+}
+.sweet-alert .card-title{
+  font-weight: 400 !important;
+  color : $secondary-text !important;
+}
+
+.sweet-alert .modal-close-icon{
+  top :0 !important;
+  right : 0 !important;
+}
+
+.alert-message{
+  margin : 25px 0 10px 0;
+}
+
+.primary-btn{
+  @include custom-btn-primary;
+  padding : 7px 25px 7px 25px !important;
+}
+
+.primary-btn:hover{
+  opacity: 0.8;
+}
+
+.header-list{
+  margin-bottom: 11.2px !important;
+}
+
+.user-block-custom .dropdown-menu{
+  top : 29% !important;
+}
+
+.user-block-custom ul li:not(.user-profile-top) {
+  box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.02);
+  margin: 0.3125rem;
+}
+
+.user-block-custom ul li:not(.user-profile-top) a {
+  background-color: $title-primary !important;
+  padding: 0.75rem 1rem !important;
+  display: block !important;
+}
+
+.user-block-custom ul li:not(.user-profile-top) a span:not(.badge) {
+  color: $primary-info;
+  font-size: 0.875rem;
+  -webkit-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.user-block-custom .dropdown-menu {
+  background-color: $primary-dropdwn;
+  width: 200px;
+}
+
+.humburger {
+  border: none !important;
+  color: $title-primary !important;
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+}
+
+.school-settings{
+  font-size : 16px;
+  font-weight: 600;
+  color: $secondary-text;
+}
+
+.school-select div{
+  display: inline-block !important;
+}
+
+.school-select .MuiSelect-root{
+  padding: 5px !important;
+}
+
+.card-body {
+  border: none !important;
+}
+
+.stat-icon{
+  display: inline-block;
+  width: 60px !important;
+  height: 60px !important;
+  margin-top: 4% !important;
+  padding-left: 7px;
+  padding-top: 4px;
+  border-radius : 50% !important;
+}
+.stat-text{
+  color:$title-primary;
+  font-weight : 400;
+}
+
+.user-info{
+  cursor: pointer;
+}
+
+.user-profile-top{
+  background: $primary-bg;
+}
+
+.user-profile-box{
+  display: inline-block;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius : 50% !important;
+  background-color: $primary-btn !important;
+  color: $title-primary !important;
+  font-weight: 800;
+  position: relative;
+  padding-top: 7px;
+  top: -1px;
+  text-align: center;
+}
+
+.Mui-selected .modal-icon{
+  color: $primary-bg;
+}
+
+.MuiTabs-indicator{
+  background-color: $primary-bg !important;
+}
+
+.user-name{
+  color:black;
+  font-weight: 600;
+}
+
+.custom-border{
+  height: 53px;
+}
+
+.card-body{
+  padding: 1rem !important;
+}
+
+.custom-data-table{
+  box-shadow: none !important;
+  border-radius: 5px !important;
+}
+
+@mixin card-title-custom{
+  font-family: $primary-font-family !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-size: $font-size !important;
+  color: $secondary-text !important;
+}
+
+.card-title-custom{
+  @include card-title-custom
+}
+
+.custom-data-table h6{
+  @include card-title-custom
+}
+
+.custom-data-table table thead tr th{
+  background-color: $data-table-title-bg !important;
+  font-weight: bold !important;
+}
+
+.custom-data-table table thead tr{
+  border-top: 1px solid $data-table-title-border-top;
+
+}
+
+.custom-data-table table tfoot tr td{
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 24px 24px 0 24px !important;
+}
+
+.custom-data-table table tbody tr td{
+  font-family: $primary-font-family !important;
+  color : $primary-text !important;
+  padding-top: 12.5px !important;
+  padding-bottom: 12.5px !important;
+}
+
+.show-records{
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: $data-table-footer-text !important;
+}
+
+.page-link {
+  padding: 0.4rem 0.6rem 0.4rem 0.6rem;
+  background-color: $primary-bg;
+  color: $data-table-title-bg;
+  font-weight: bold;
+  border-radius: 0.15rem;
+  margin : 0.2rem;
+  border : 1px solid $data-table-title-bg;
+}
+
+.page-link:hover {
+  color: $primary-bg !important;
+  text-decoration: none !important;
+  background-color: $data-table-title-bg !important;
+  border : 1px solid $primary-bg !important;
+}
+
+.page-number:hover {
+  color: $data-table-title-bg !important;
+  text-decoration: none !important;
+  background-color: $primary-bg !important;
+}
+
+.page-item{
+  margin-right: 0.2rem !important;
+  margin-left: 0.2rem !important;
+}
+
+.page-item.active .page-link {
+  color: $primary-bg;
+  background-color: $data-table-title-bg;
+  border : 1px solid $primary-bg;
+}
+
+.page-link:focus {
+  box-shadow: none ;
+  text-decoration: none ;
+  color : $data-table-title-bg ;
+}
+
+.page-number{
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  background-color: $data-table-title-bg;
+  color: $primary-bg;
+}
+
+/*Footer css*/
+
+.rct-footer span{
+  font-size : $font-size !important;
+  font-family: $primary-font-family !important;
+  color : $primary-text !important;
+}
+
+
+/*circular progress */
+// custom.css
+.CircularProgressbar {
+  display: block;
+  width: 60px !important;
+  height: 60px !important;
+  margin-bottom:0.5rem !important;
+}
+
+.CircularProgressbar-text{
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+/*error boundary*/
+.error-boundary{
+  height: 740px;
+  text-align: center;
+  padding-top: 15%;
+  color: $error;
+}
+
+textarea{
+  resize: none;
+}
+
+@mixin hide-scroll{
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE and Edge */
+  .hide-scroll {
+    -ms-overflow-style: none;
+  }
+}
+
+@mixin hide-table-scroll{
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .data-table-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE and Edge */
+  .data-table-wrapper {
+    -ms-overflow-style: none;
+  }
+}
+
+.custom-modal{
+  width: 45%;
+  max-width: none !important;
+}
+
+@media (max-width: 1000px) {
+  .custom-modal{
+    width: 85%;
+  }
+}
+
+.tab-modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.tab-modal-body {
+  -ms-overflow-style: none;
+}
+
+.tab-modal-body{
+  height: 500px;
+  overflow-y: scroll;
+}
+
+/*datatable css*/
+.MuiTableRow-root.Mui-selected, .MuiTableRow-root.Mui-selected:hover, .MuiTableRow-root.MuiTableRow-hover:hover {
+  background-color: $row-select-primary !important;
+}
+
+.MuiTable-root th, .MuiTable-root td{
+  z-index: 0 !important;
+}
+
+.btn-danger{
+  color: $title-primary !important;
+}
+
+@mixin custom-table-row-style{
+  .data-table-wrapper table{
+    tbody tr td{
+      padding-top: 20px !important;
+      padding-bottom: 20px !important;
+    }
+  }
+}
+
+.body-header-toolbar{
+  position: absolute;
+  right: 10px;
+}
+
+@mixin toolbar-btn {
+  .toolbar-btn{
+    background: $title-primary !important;
+    border: 0.5px solid #d5d5d5 !important;
+    padding: 5px 9px 0 9px !important;
+    color : $primary-text !important;
+    font-weight: 900 !important;
+  }
+  .toolbar-btn:hover{
+    background: $table-bg !important;
+    color : $title-primary !important;
+  }
+}
+
+@include toolbar-btn;
+.filter-btn{
+  padding: 6px 11px 6px 11px !important;
+}
+
+.filter-bg{
+  background-color: #fafafa !important;
+}
+
+@mixin status-table{
+  .status-table td:first-child{
+    @include card-title-custom;
+  }
+  .status-table td{
+    padding : 5px !important;
+    font-size: 16px !important;
+  }
+  .success_select{
+    color:$primary-text  !important;
+  }
+}
+
+.tooltiptext{
+  visibility: hidden;
+  width: 120px;
+  color : white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  background: $primary-btn;
+  /* Position the tooltip */
+  position: absolute;
+  top:-55px;
+  right:-45px;
+  z-index: 1;
+}
+
+
+.map-marker:hover .tooltiptext {
+  visibility: visible;
+}
+
+.margin-left-5{
+  margin-left:5px;
+}
+
+.modal-close-icon{
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+}
+
+.label-icon{
+  margin-left: 0.5rem;
+  color:$table-bg;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-img{
+  width: 100%;
+  border: 1.5px solid #f4f7fa;
+}
+
+@mixin view-popup-label{
+  color : $primary-bg !important;
+  cursor: pointer;
+}
+
+@mixin data-table-wrapper-main{
+  height:600px !important;
+  overflow-y: scroll !important;
+  border: 1px solid #EBEDF2;
+  border-radius: 0.25rem;
+}
+
+@mixin data-table-wrapper-inner{
+  border: 1px solid #EBEDF2;
+  height: fit-content !important;
+  overflow-y: scroll !important;
+  max-height: 340px !important;
+  border-radius: 0.25rem;
+}
+
+@mixin dynamic-markers{
+  @for $j from 0 through 50{
+    $i : $j;
+    @if($i>9){
+      $i : $j%10;
+    }
+    $i : $i + 1;
+    $color : nth($map-marker-colors,$i);
+    #MUIDataTableBodyRow-#{$j} td{
+      color : $color !important;
+    }
+    .marker-#{$j} .tooltiptext{
+      color : $title-primary !important;
+      //border : 2px solid black !important;
+      font-weight: bold !important;
+      background-color: $color !important;
+    }
+  }
+}
+
+.react-audio-player{
+  width: 95% !important;
+}
+
+.audio-download:hover{
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.audio-download{
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  cursor: pointer;
+  color : $primary-text !important;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  border-radius:50%;
+  padding-top: 3px;
+}
