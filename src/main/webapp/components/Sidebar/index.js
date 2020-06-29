@@ -12,6 +12,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { collapsedSidebarAction } from 'Actions';
 
 // components
+import UserBlock from './UserBlock';
 import SidebarContent from './SidebarContent';
 
 class Sidebar extends Component {
@@ -21,7 +22,7 @@ class Sidebar extends Component {
 	}
 
 	shouldComponentUpdate(nextProps) {
-		const { enableSidebarBackgroundImage, selectedSidebarImage, isDarkSidenav,locale } = this.props;
+		const { enableSidebarBackgroundImage, selectedSidebarImage, isDarkSidenav, locale } = this.props;
 		if (enableSidebarBackgroundImage !== nextProps.enableSidebarBackgroundImage || selectedSidebarImage !== nextProps.selectedSidebarImage || isDarkSidenav !== nextProps.isDarkSidenav || locale) {
 			return true
 		} else {
@@ -48,7 +49,7 @@ class Sidebar extends Component {
 	}
 
 	updateDimensions = () => {
-		this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight});
+		this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
 	}
 
 	render() {
@@ -56,12 +57,16 @@ class Sidebar extends Component {
 		return (
 			<Fragment>
 				<div
-					className={'rct-sidebar sidebar-custom'}
+					className={classNames('rct-sidebar', { 'background-none': !enableSidebarBackgroundImage })}
+					style={{ backgroundImage: enableSidebarBackgroundImage ? `url(${selectedSidebarImage})` : 'none' }}
 				>
-					<div className={"rct-sidebar-content"}>
-						<div className="site-logo logo-bg">
-							<Link to="/" className="logo-mini mb-15 mt-15">
-								<img src={require('Assets/img/logo/appLogo.png')} className="mr-15" alt="site logo" width="75" height="25" />
+					<div className={classNames("rct-sidebar-content", { "sidebar-overlay-dark": isDarkSidenav, 'sidebar-overlay-light': !isDarkSidenav })}>
+						<div className="site-logo">
+							<Link to="/" className="logo-mini">
+								<img src={require('Assets/img/appLogo.png')} className="mr-15" alt="site logo" width="35" height="35" />
+							</Link>
+							<Link to="/" className="logo-normal">
+								<img src={require('Assets/img/appLogoText.png')} className="img-fluid" alt="site-logo" width="67" height="17" />
 							</Link>
 						</div>
 						<div className="rct-sidebar-wrap">
@@ -71,6 +76,7 @@ class Sidebar extends Component {
 								autoHideDuration={100}
 								style={{ height: 'calc(100vh - 60px)' }}
 							>
+								<UserBlock />
 								<SidebarContent />
 							</Scrollbars>
 						</div>

@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 
 // components
-import SessionSlider from '../components/Widgets/SessionSlider';
+import {
+    SessionSlider
+} from 'Components/Widgets';
 
 // app config
 import AppConfig from 'Constants/AppConfig';

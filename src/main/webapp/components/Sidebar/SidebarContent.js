@@ -6,8 +6,12 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import IntlMessages from 'Util/IntlMessages';
+
 import NavMenuItem from './NavMenuItem';
+
+// redux actions
 import { onToggleMenu } from 'Actions';
 
 class SidebarContent extends Component {
@@ -26,9 +30,9 @@ class SidebarContent extends Component {
             <div className="rct-sidebar-nav">
                 <nav className="navigation">
                     <List
-                        className="rct-mainMenu p-0 mt-25 list-unstyled"
+                        className="rct-mainMenu p-0 m-0 list-unstyled"
                         subheader={
-                            <ListSubheader className="side-title side-title-custom" component="li">
+                            <ListSubheader className="side-title" component="li">
                                 <IntlMessages id="sidebar.general" />
                             </ListSubheader>}
                     >
@@ -44,9 +48,8 @@ class SidebarContent extends Component {
                         )}
                     </List>
                     <List
-                        className="rct-mainMenu p-0 mt-25 list-unstyled"
-                        subheader={<ListSubheader className="side-title side-title-custom" component="li">
-                            <IntlMessages id="sidebar.settings" /></ListSubheader>}
+                        className="rct-mainMenu p-0 m-0 list-unstyled"
+                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.component" /></ListSubheader>}
                     >
                         {sidebarMenus.category2.map((menu, key) => {
                                 return (

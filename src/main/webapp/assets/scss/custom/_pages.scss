@@ -39,6 +39,7 @@
 .chat-sidebar {
    overflow: hidden;
    .user-wrap {
+      background: url("../img/profile-banner.jpg") no-repeat;
       background-size: cover;
       background-position: center center;
       height: 150px;
@@ -1166,7 +1167,7 @@ figure.img-wrapper {
 }
 .project-detail-wrapper{
    .breadcrumb{
-      a:last-child(){
+      a:last-child{
          color:#727891 !important;
       }
       .active.breadcrumb-item{
