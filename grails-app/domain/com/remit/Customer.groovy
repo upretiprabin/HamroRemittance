@@ -5,7 +5,7 @@ class Customer {
     String lastName
     String mobileNum
     String emailAddress
-    Date dateCreated
+    Date dateCreated = new Date()
 
     static constraints = {
     }

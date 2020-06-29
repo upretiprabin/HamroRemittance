@@ -17,6 +17,7 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    mode: "development" //TODO: revert later
 };
 

@@ -10,7 +10,7 @@ class Order {
     String trnNumber
     String pickUpLocation
     String transactionReason
-    static hasOne = [payingAgent:PayingAgent]
+    int payingAgentId
     Date dateCreated
 
 
