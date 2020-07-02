@@ -1,0 +1,75 @@
+/**
+ * Transaction
+ */
+
+import React, { Component } from 'react'
+import Controller from "../../controllers/transactionController"
+import { NotificationContainer } from "react-notifications";
+import ErrorBoundary from "Components/ErrorBoundary/index";
+import { connect } from 'react-redux';
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+// rct collapsible card
+import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
+import HorizontalLabelPositionBelowStepper from 'Components/Transaction/Stepper.js';
+class Index extends Component {
+
+    _isMounted = false;
+
+    state = {
+        data: null,
+        loading: false
+    };
+
+    componentDidMount() {
+        this._isMounted = true;
+        this.loadData();
+    }
+
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    changeState(data) {
+        if (this._isMounted) {
+            this.setState(data)
+        }
+    }
+
+    loadData() {
+        Controller.loadData(this);
+    }
+
+    render() {
+        const {
+            loading
+        } = this.state;
+        const options = {
+            filterType: 'textField',
+            rowsPerPage: 5
+        };
+        return (
+            <div className="dashboard-wrapper">
+                <ErrorBoundary>
+                    {loading &&
+                        <div className="page-loader d-flex justify-content-center mb-30">
+                            <CircularProgress />
+                        </div>
+                    }
+                    {!loading &&
+                        <div>
+                            <RctCollapsibleCard
+                                heading="Send Money"
+                            >
+                                <HorizontalLabelPositionBelowStepper />
+                            </RctCollapsibleCard>
+                        </div>
+                    }
+                    <NotificationContainer />
+                </ErrorBoundary>
+            </div>
+        )
+    }
+}
+
+export default connect(null)(Index);

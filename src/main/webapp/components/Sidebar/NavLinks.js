@@ -7,6 +7,13 @@ export default {
             "menu_icon": "dashboard",
             "path": "/app/dashboard",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.transaction",
+            "id": "transaction",
+            "menu_icon": "transaction",
+            "path": "/app/transaction",
+            "child_routes": null
         }
     ],
 

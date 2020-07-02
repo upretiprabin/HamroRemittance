@@ -1,6 +1,7 @@
 // routes
 import {
     AsyncDashboardComponent,
+    AsyncTransactionComponent,
     AsyncPomUsersComponent,
     AsyncMessageCenterComponent,
     AsyncAppointmentComponent,
@@ -15,5 +16,9 @@ export default [
     {
         path: 'dashboard',
         component: AsyncDashboardComponent
+    },
+    {
+        path: 'transaction',
+        component: AsyncTransactionComponent
     }
 ]

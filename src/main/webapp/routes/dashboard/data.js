@@ -117,3 +117,199 @@ export const onlineVisitorsData = {
    ],
    totalVisitors: '1655+'
 }
+export const txnTableData = [
+   {
+      "txn-id": "5efafbf1e596aa165487fd4e",
+      "recipient": "Henrietta French",
+      "email": "henriettafrench@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$1,641.15",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2019-02-25",
+      "txn-status": "Awaiting Payment"
+   },
+   {
+      "txn-id": "5efafbf16b08cb5131a08d03",
+      "recipient": "Lana Montgomery",
+      "email": "lanamontgomery@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$2,700.30",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-05-22",
+      "txn-status": "Pending"
+   },
+   {
+      "txn-id": "5efafbf174d3c1eb80198f85",
+      "recipient": "Duran Key",
+      "email": "durankey@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$3,472.94",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-01-16",
+      "txn-status": "On Hold"
+   },
+   {
+      "txn-id": "5efafbf1fdda9d8509dcc3a3",
+      "recipient": "Hayes Keith",
+      "email": "hayeskeith@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$2,845.25",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-03-02",
+      "txn-status": "Awaiting Payment"
+   },
+   {
+      "txn-id": "5efafbf1639264e7352129fd",
+      "recipient": "Violet Dudley",
+      "email": "violetdudley@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$3,393.08",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-05-13",
+      "txn-status": "On Hold"
+   },
+   {
+      "txn-id": "5efafbf1640af36d5754a64b",
+      "recipient": "Lessie Edwards",
+      "email": "lessieedwards@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$1,504.34",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-06-19",
+      "txn-status": "Completed"
+   },
+   {
+      "txn-id": "5efafbf1aac5c71f92c9e876",
+      "recipient": "Delaney Reyes",
+      "email": "delaneyreyes@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$2,460.75",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2019-08-03",
+      "txn-status": "On Hold"
+   },
+   {
+      "txn-id": "5efafbf16152a8766fdc33f9",
+      "recipient": "White Ball",
+      "email": "whiteball@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$3,340.91",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-06-27",
+      "txn-status": "On Hold"
+   },
+   {
+      "txn-id": "5efafbf1767bb490f822582b",
+      "recipient": "Julia Guerra",
+      "email": "juliaguerra@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$3,098.10",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2019-06-07",
+      "txn-status": "Pending"
+   },
+   {
+      "txn-id": "5efafbf1c5f7f3454b5d82a1",
+      "recipient": "Sims Duffy",
+      "email": "simsduffy@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$2,861.40",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2020-03-05",
+      "txn-status": "Pending"
+   },
+   {
+      "txn-id": "5efafbf11acc211c5ab9a8b7",
+      "recipient": "Schwartz Stephens",
+      "email": "schwartzstephens@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$3,363.08",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2019-10-01",
+      "txn-status": "Awaiting Collection"
+   },
+   {
+      "txn-id": "5efafbf18d4ea81cf96e6881",
+      "recipient": "Brigitte Collins",
+      "email": "brigittecollins@boilcat.com",
+      "send-country": "Nepal",
+      "amount": "$2,372.08",
+      "rate": 82.015,
+      "fee": 25,
+      "sent-date": "2019-02-24",
+      "txn-status": "Pending"
+   }
+]
+export const txnTableColumns = [
+   {
+       "name": "txn-id",
+       "label": "Transaction id",
+       "options": {
+           "filter": false,
+           "sort": false
+       }
+   },
+   {
+       "name": "recipient",
+       "label": "Recipient Name",
+       "options": {
+           "filter": true,
+           "sort": false
+       }
+   },
+   {
+       "name": "email",
+       "label": "Email",
+       "options": {
+           "filter": true,
+           "sort": false
+       }
+   },
+   {
+       "name": "sent-date",
+       "label": "Date",
+       "options": {
+           "filter": true,
+           "sort": true
+       }
+   },
+   {
+       "name": "send-country",
+       "label": "Country",
+       "options": {
+           "filter": true,
+           "sort": false
+       }
+   },
+   {
+       "name": "amount",
+       "label": "Amount",
+       "options": {
+           "filter": true,
+           "sort": false
+       }
+   },
+   {
+       "name": "txn-status",
+       "label": "Status",
+       "options": {
+           "filter": true,
+           "sort": false
+       }
+   }
+]
+export const txnTableOptions = {
+   filterType: 'dropdown',
+   responsive: 'stacked'
+};

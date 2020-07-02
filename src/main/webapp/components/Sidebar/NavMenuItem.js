@@ -42,6 +42,7 @@ class NavMenuItem extends Component {
         const { menu } = this.props;
         const menuIcons = {
             'dashboard' : 'fa-dashboard',
+            'transaction': 'fa-money',
             'settings' : 'fa-cog'
         };
         return (

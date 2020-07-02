@@ -14,6 +14,13 @@ const AsyncDashboardComponent = Loadable({
     loading: () => <RctPageLoader />,
 });
 
+// dashboard
+const AsyncTransactionComponent = Loadable({
+    loader: () => import("../../routes/transaction"),
+    loading: () => <RctPageLoader />,
+});
+
 export {
-    AsyncDashboardComponent
+    AsyncDashboardComponent,
+    AsyncTransactionComponent
 };

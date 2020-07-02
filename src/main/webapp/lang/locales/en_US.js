@@ -16,6 +16,7 @@ module.exports = {
    "sidebar.dashboard1": "Dashboard 1",
    "sidebar.dashboard2": "Dashboard 2",
    "sidebar.dashboard3": "Dashboard 3",
+   "sidebar.transaction": "Transaction",
    "sidebar.modules": "Modules",
    "sidebar.agency": "Agency",
    "sidebar.pages": "Pages",
