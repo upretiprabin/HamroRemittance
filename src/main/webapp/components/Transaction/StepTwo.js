@@ -21,14 +21,14 @@ const StepTwo = ({ saveData, formData }) => {
         calcRates(amount, target);
     }
     const calcRates = (amount, target) => {
-        amount = amount == "" ? 0 : parseInt(amount)
+        amount = amount == "" ? 0 : parseFloat(amount)
         const conversionData = formData[0]
         if (target == 'send') {
-            setRecieveAmount((amount * conversionData.rate).toFixed(2))
+            setRecieveAmount(Math.floor((amount * conversionData.rate) * 100) / 100)
             setSendAmount(amount == 0 ? '' : amount)
         }
         if (target == "recieve") {
-            setSendAmount((amount / conversionData.rate).toFixed(2))
+            setSendAmount(Math.ceil((amount / conversionData.rate) * 100) / 100)
             setRecieveAmount(amount == 0 ? '' : amount)
         }
     }
