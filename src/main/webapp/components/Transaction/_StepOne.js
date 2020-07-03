@@ -7,16 +7,13 @@ import React, { useState } from 'react';
 import { RctCardContent } from 'Components/RctCard';
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText, Input } from '@material-ui/core';
 
-const StepOne = ({ saveData }) => {
+const StepOne = ({ saveData,countries }) => {
     const [selectedCountry, setSelectedCountry] = useState('')
     const [ratesAndFees, setRatesAndFees] = useState({
         convertTo: "****",
         rate: "****",
         fees: "****"
     })
-    const [countries, setCountries] = useState([{ code: "NP", currency: 'NRS', name: "Nepal", rate: 87.16, fees: 9.49 }, {
-        code: "JP", name: "Japan", currency: 'YEN', rate: 88.85, fees: 9.99
-    },])
     const onCountryChange = (e) => {
         setSelectedCountry(e.target.value)
         const selected = countries.find(data => data.code === e.target.value)
@@ -35,9 +32,9 @@ const StepOne = ({ saveData }) => {
                         <div className="d-flex justify-content-around">
                             <div className="form-group">
                                 <FormControl fullWidth>
-                                    <InputLabel htmlFor="age-helper">Send Money To:</InputLabel>
+                                    <InputLabel htmlFor="country-helper">Send Money To:</InputLabel>
                                     <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
-                                        input={<Input name="age" id="age-helper" />}>
+                                        input={<Input name="country" id="country-helper" />}>
                                         <MenuItem value=""><em>None</em></MenuItem>
                                         {countries.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
                                     </Select>

@@ -13,18 +13,18 @@ function getSteps() {
     return ['Transaction details', 'Payment and amount details', 'Select Reciever', 'Reciever Details', 'Review Transaction'];
 }
 //TODO each stepper child components need to be aligned centered
-function getStepContent(stepIndex, saveStepData, data) {
+function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries) {
     switch (stepIndex) {
         case 0:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} />
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} />
         case 2:
-            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} />
         case 3:
-            return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} />
         case 4:
-            return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} />
         default:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
     }
@@ -70,8 +70,10 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     }
 
     render() {
+        console.log(this.state.stepsData)
         const steps = getSteps();
         const { activeStep } = this.state;
+        const { senderInfo, recieverInfo, countries } = this.props
         return (
             <div>
                 <Stepper activeStep={activeStep} alternativeLabel className="stepper-rtl">
@@ -91,7 +93,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                         </div>
                     ) : (
                             <div className="pl-40">
-                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData)}</div>
+                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, recieverInfo, countries)}</div>
                                 {this.state.activeStep != 0 ?
                                     <Button variant="contained" className="btn-danger text-white mr-10 mb-10" disabled={activeStep === 0} onClick={this.handleBack}>
                                         Back

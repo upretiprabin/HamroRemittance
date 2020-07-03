@@ -23,14 +23,20 @@ const StepTwo = ({ saveData, formData }) => {
     const calcRates = (amount, target) => {
         amount = amount == "" ? 0 : parseFloat(amount)
         const conversionData = formData[0]
+        var send, recieve
         if (target == 'send') {
-            setRecieveAmount(Math.floor((amount * conversionData.rate) * 100) / 100)
+            send = amount
+            recieve = Math.floor((amount * conversionData.rate) * 100) / 100
+            setRecieveAmount(recieve)
             setSendAmount(amount == 0 ? '' : amount)
         }
         if (target == "recieve") {
-            setSendAmount(Math.ceil((amount / conversionData.rate) * 100) / 100)
+            recieve = amount
+            send = Math.ceil((amount / conversionData.rate) * 100) / 100
+            setSendAmount(send)
             setRecieveAmount(amount == 0 ? '' : amount)
         }
+        saveData({ send: send, recieve: recieve })
     }
     const txnData = {
         send: `${sendAmount != '' ? sendAmount : 0} AUD`,

@@ -9,7 +9,9 @@ const loadData = (ctx) =>{
         .then(data=>{
             if(!data.data.hasOwnProperty("Error")){
                 stateData = {
-                    data : data
+                    countries : data.data.countiesData,
+                    recievers: data.data.recieverData,
+                    sender: data.data.userData
                 }
             }else{
                 if(data.data.Error === "no data available")

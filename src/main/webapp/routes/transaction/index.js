@@ -10,13 +10,15 @@ import { connect } from 'react-redux';
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 // rct collapsible card
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-import HorizontalLabelPositionBelowStepper from 'Components/Transaction/Stepper.js';
+import HorizontalLabelPositionBelowStepper from 'Components/Transaction/HorizontalLabelPositionBelowStepper.js';
 class Index extends Component {
 
     _isMounted = false;
 
     state = {
-        data: null,
+        countries: [],
+        recievers: [],
+        sender: null,
         loading: false
     };
 
@@ -58,10 +60,11 @@ class Index extends Component {
                     }
                     {!loading &&
                         <div>
-                            <RctCollapsibleCard
-                                heading="Send Money"
-                            >
-                                <HorizontalLabelPositionBelowStepper />
+                            <RctCollapsibleCard heading="Send Money">
+                                <HorizontalLabelPositionBelowStepper
+                                    senderInfo={this.state.sender}
+                                    recieverInfo={this.state.recievers}
+                                    countries={this.state.countries} />
                             </RctCollapsibleCard>
                         </div>
                     }

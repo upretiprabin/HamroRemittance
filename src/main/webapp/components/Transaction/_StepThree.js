@@ -8,9 +8,10 @@ import { RctCardContent } from 'Components/RctCard';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 
-const StepOne = ({ saveData }) => {
+const StepOne = ({ saveData, recieverInfo }) => {
     const redirectTo = id => {
         /***
+         * TODO
          * Redirect to add Recipient and dispatch and save current form data to store
          */
     }
@@ -24,12 +25,18 @@ const StepOne = ({ saveData }) => {
                                 <Form>
                                     <FormGroup>
                                         <Label>Reciever</Label>
-                                        <Input className="mb-20" type="select" bsSize="lg">
+                                        <Input className="mb-20" type="select" bsSize="lg" onChange={e => {
+                                            const selectedRecipient = recieverInfo.find(data => {
+                                                return data._id == e.target.value
+                                            })
+                                            if (selectedRecipient != null) {
+                                                saveData(selectedRecipient)
+                                            }
+                                        }}>
                                             <option value=''>Please Select Recipient</option>
-                                            <option>Large Select</option>
-                                            <option>Large Select</option>
-                                            <option>Large Select</option>
-                                            <option>Large Select</option>
+                                            {recieverInfo.map((data, index) =>
+                                                (<option key={index} value={data._id}>{`${data.name.fName} ${data.name.mName} ${data.name.lName}`}</option>)
+                                            )}
                                         </Input>
                                     </FormGroup>
                                 </Form>

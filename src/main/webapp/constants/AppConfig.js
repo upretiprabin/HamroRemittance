@@ -44,7 +44,7 @@ const AppConfig = {
     darkThemeColors: {
         darkBgColor: '#424242'
     },
-    copyRightText: '© Hamro Remittance',      // Copy Right Text
+    copyRightText: '© Hamro Remittance ' + (new Date()).getFullYear() ,      // Copy Right Text
     //support url
     supportUrl: "support@hamroremittance.com",
     middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareUrlResolver(domain,middleWareDevUrl),
