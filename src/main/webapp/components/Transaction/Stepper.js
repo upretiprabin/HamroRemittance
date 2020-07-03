@@ -3,9 +3,11 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import StepOne from './StepOne';
-import StepTwo from './StepTwo';
-import update from 'react-addons-update';
+import StepOne from './_StepOne';
+import StepTwo from './_StepTwo';
+import StepThree from './_StepThree';
+import StepFive from './_StepFive';
+import StepFour from './_StepFour';
 
 function getSteps() {
     return ['Transaction details', 'Payment and amount details', 'Select Reciever', 'Reciever Details', 'Review Transaction'];
@@ -13,18 +15,16 @@ function getSteps() {
 //TODO each stepper child components need to be aligned centered
 function getStepContent(stepIndex, saveStepData, data) {
     switch (stepIndex) {
-        // case 0:
-        //     return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} />
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} />
         case 2:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} />
         case 3:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} />
         case 4:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
+            return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} />
         default:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
     }
@@ -44,7 +44,8 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 if (typeof (this.state.stepsData[activeStep]) != 'undefined') {
                     updatedState = { activeStep: activeStep + 1 }
                 }
-            case 1:
+            default:
+                updatedState = { activeStep: activeStep + 1 }
 
         }
         this.setState(updatedState);

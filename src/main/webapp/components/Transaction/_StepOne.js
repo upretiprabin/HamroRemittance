@@ -32,20 +32,19 @@ const StepOne = ({ saveData }) => {
             <div className='col-sm-6 col-md-4 w-xs-half-block'>
                 <RctCardContent>
                     <div className='current-widget bg-info'>
-                        <div className="d-flex justify-content-between">
-                            <div className="align-items-start">
-                                <div className="form-group">
-                                    <FormControl fullWidth>
-                                        <InputLabel htmlFor="age-helper">Send Money To:</InputLabel>
-                                        <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
-                                            input={<Input name="age" id="age-helper" />}>
-                                            <MenuItem value=""><em>None</em></MenuItem>
-                                            {countries.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
-                                        </Select>
-                                        <FormHelperText>Select country to view rates</FormHelperText>
-                                    </FormControl>
-                                </div>
-                            </div></div>
+                        <div className="d-flex justify-content-around">
+                            <div className="form-group">
+                                <FormControl fullWidth>
+                                    <InputLabel htmlFor="age-helper">Send Money To:</InputLabel>
+                                    <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
+                                        input={<Input name="age" id="age-helper" />}>
+                                        <MenuItem value=""><em>None</em></MenuItem>
+                                        {countries.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
+                                    </Select>
+                                    <FormHelperText>Select country to view rates</FormHelperText>
+                                </FormControl>
+                            </div>
+                        </div>
 
                     </div>
                 </RctCardContent>
