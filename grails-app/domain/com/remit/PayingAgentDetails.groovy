@@ -1,8 +1,9 @@
 package com.remit
 
-class PayingAgent {
+class PayingAgentDetails {
     String name
     String address
+    String bankOrRemit
     Date dateCreated
 
     static constraints = {
