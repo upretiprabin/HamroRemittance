@@ -6,6 +6,7 @@ class PayingAgentTransaction {
     float creditAmount
     String amountType
     String remarks
+    Date dateCreated = new Date()
 
     static constraints = {
     }
