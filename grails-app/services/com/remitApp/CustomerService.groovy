@@ -11,7 +11,9 @@ class CustomerService {
     def saveCustomer(params){
         def customer = new Customer();
         customer.firstName = params.firstName
+        customer.middleName = params?.middleName
         customer.lastName = params.lastName
+        customer.dateOfBirth = params.dateOfBirth
         customer.mobileNum = params.mobileNum
         customer.emailAddress = params.emailAddress
         customer.save(flush: true, failOnError: true)
@@ -30,7 +32,9 @@ class CustomerService {
     def updateCustomer(params) {
         def customer = Customer.findById(params.id)
         customer.firstName = params.firstName
+        customer.middleName = params?.middleName
         customer.lastName = params.lastName
+        customer.dateOfBirth = params.dateOfBirth
         customer.mobileNum = params.mobileNum
         customer.emailAddress = params.emailAddress
         customer.save(flush: true, failOnError: true)
