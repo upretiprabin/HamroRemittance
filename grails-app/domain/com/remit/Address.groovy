@@ -13,7 +13,7 @@ class Address {
     static constraints = {
         addressLineOne(blank: false, nullable: false)
         addressLineTwo(blank: true, nullable: true)
-        suburbCity(blank: true, nullable: true)
+        suburbCity(blank: false, nullable: false)
         country(blank: false, nullable: false)
         stateProvince(blank: false, nullable: false)
         zipCode(blank: false, nullable: false)

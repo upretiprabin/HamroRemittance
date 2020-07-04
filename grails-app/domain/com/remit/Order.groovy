@@ -18,6 +18,7 @@ class Order {
     }
 
     static mapping = {
+        comments type: "text"
         staffNotes type: "text"
         transactionReason type: "text"
     }
