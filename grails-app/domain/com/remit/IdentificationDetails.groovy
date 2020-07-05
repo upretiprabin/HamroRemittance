@@ -2,7 +2,7 @@ package com.remit
 
 class IdentificationDetails {
     static belongsTo = [customer: Customer]
-    String idType
+    DocumentType documentType
     String identityNumber
     String issuedBy
     Date expiryDate
@@ -11,4 +11,9 @@ class IdentificationDetails {
 
     static constraints = {
     }
+}
+
+enum DocumentType {
+    PASSPORT,
+    DRIVINGLICENCE
 }
