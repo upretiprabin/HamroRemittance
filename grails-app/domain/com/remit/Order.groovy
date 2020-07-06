@@ -10,6 +10,7 @@ class Order {
     String trnNumber
     String pickUpLocation
     String transactionReason
+    String sourceOfFund
     int payingAgentId
     Date dateCreated
 

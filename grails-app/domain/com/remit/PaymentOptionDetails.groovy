@@ -12,6 +12,5 @@ class PaymentOptionDetails {
 
     static constraints = {
         payingAgentId(nullable: false, blank: false)
-
     }
 }

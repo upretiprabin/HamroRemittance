@@ -1,6 +1,8 @@
 package com.remitApp
 
 import com.remit.Customer
+import com.remit.Receiver
+import com.remit.Sender
 
 //import grails.gorm.transactions.Transactional
 //import grails.transaction.Transactional
@@ -17,6 +19,24 @@ class CustomerService {
         customer.mobileNum = params.mobileNum
         customer.emailAddress = params.emailAddress
         customer.save(flush: true, failOnError: true)
+
+        if(params?.sender){
+            addSender(customer)
+        }else if(params?.receiver){
+            addReceiver(customer);
+        }
+    }
+
+    def addSender(Customer customer){
+        Sender sender = new Sender()
+        sender.customer = customer
+        sender.save(flush: true, failOnError: true)
+    }
+
+    def addReceiver(Customer customer){
+        Receiver receiver = new Receiver()
+        receiver.customer = customer
+        receiver.save(failOnError: true, flush: true)
     }
 
     def getCustomer(paramsId){
