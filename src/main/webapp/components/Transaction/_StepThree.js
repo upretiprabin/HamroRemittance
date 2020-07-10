@@ -8,7 +8,7 @@ import { RctCardContent } from 'Components/RctCard';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 
-const StepOne = ({ saveData, recieverInfo }) => {
+const StepOne = ({ saveData, recieverInfo, isError }) => {
     const redirectTo = id => {
         /***
          * TODO
@@ -24,7 +24,7 @@ const StepOne = ({ saveData, recieverInfo }) => {
                             <div className="form-group">
                                 <Form>
                                     <FormGroup>
-                                        <Label>Reciever</Label>
+                                        <Label className={isError ? 'text-pink' : ''}>Reciever</Label>
                                         <Input className="mb-20" type="select" bsSize="lg" onChange={e => {
                                             const selectedRecipient = recieverInfo.find(data => {
                                                 return data._id == e.target.value

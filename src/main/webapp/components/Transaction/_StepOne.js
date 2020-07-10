@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { RctCardContent } from 'Components/RctCard';
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText, Input } from '@material-ui/core';
 
-const StepOne = ({ saveData,countries }) => {
+const StepOne = ({ saveData, countries, isError }) => {
     const [selectedCountry, setSelectedCountry] = useState('')
     const [ratesAndFees, setRatesAndFees] = useState({
         convertTo: "****",
@@ -17,12 +17,21 @@ const StepOne = ({ saveData,countries }) => {
     const onCountryChange = (e) => {
         setSelectedCountry(e.target.value)
         const selected = countries.find(data => data.code === e.target.value)
-        setRatesAndFees({
-            convertTo: selected.currency,
-            rate: selected.rate,
-            fees: selected.fees
-        })
-        saveData(selected)
+        if (selected) {
+            setRatesAndFees({
+                convertTo: selected.currency,
+                rate: selected.rate,
+                fees: selected.fees
+            })
+        } else {
+            setRatesAndFees({
+                convertTo: "****",
+                rate: "****",
+                fees: "****"
+            })
+        }
+
+        saveData(selected ? selected : undefined)
     }
     return (
         <div className="row" >
@@ -34,7 +43,7 @@ const StepOne = ({ saveData,countries }) => {
                                 <FormControl fullWidth>
                                     <InputLabel htmlFor="country-helper">Send Money To:</InputLabel>
                                     <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
-                                        input={<Input name="country" id="country-helper" />}>
+                                        input={<Input error={isError} name="country" id="country-helper" />}>
                                         <MenuItem value=""><em>None</em></MenuItem>
                                         {countries.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
                                     </Select>

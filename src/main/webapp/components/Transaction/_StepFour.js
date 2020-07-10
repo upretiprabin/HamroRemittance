@@ -6,11 +6,10 @@ import React, { useState, Fragment } from 'react';
 // rct card box
 import { RctCardContent } from 'Components/RctCard';
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-// import { FormControl, InputLabel, Select, MenuItem, FormHelperText, Input } from '@material-ui/core';
-import { Input, FormGroup, Table, TableBody, TableRow, TableCell, Select, MenuItem, InputLabel } from '@material-ui/core';
+import { Input, FormGroup, Table, TableBody, TableRow, TableCell, Select, MenuItem, InputLabel,FormControl,FormHelperText } from '@material-ui/core';
 import { Button } from 'reactstrap';
 
-const StepFour = ({ saveData, formData }) => {
+const StepFour = ({ saveData, formData,isError }) => {
     const [selectedPurpose, setSelectedPurpose] = useState('');
     const redirectTo = (e) => {
         /***
@@ -47,18 +46,26 @@ const StepFour = ({ saveData, formData }) => {
                                         <TableRow>
                                             <TableCell colSpan={2} align={"center"}><b>{'Purpose of Transfer'}: </b></TableCell>
                                             <TableCell>
-                                                <InputLabel htmlFor="purpose-helper">Select purpose of transfer</InputLabel>
-                                                <Select value={selectedPurpose} onChange={(e) => {
-                                                    setSelectedPurpose(e.target.value)
-                                                    if (e.target.value != '') { saveData({ purposeOfTransfer: e.target.value }) }
-                                                }}
-                                                    input={<Input name="purpose" id="purpose-helper" />}>
-                                                    <MenuItem value="Bill Sharing">Bill Sharing</MenuItem>
-                                                    <MenuItem value="Family Expenses">Family Expenses</MenuItem>
-                                                    <MenuItem value="Lend / Borrow">Lend / Borrow</MenuItem>
-                                                    <MenuItem value="Personal Use">Personal Use</MenuItem>
-                                                    <MenuItem value="Others">Others</MenuItem>
-                                                </Select>
+                                                <div>
+                                                    <div className="form-group">
+                                                        <FormControl fullWidth>
+                                                            <InputLabel htmlFor="purpose-helper">Select purpose of transfer</InputLabel>
+                                                            <Select
+                                                                onChange={(e) => {
+                                                                    setSelectedPurpose(e.target.value)
+                                                                    if (e.target.value != '') { saveData({ purposeOfTransfer: e.target.value }) }
+                                                                }}
+                                                                input={<Input name="purpose" error={isError} id="purpose-helper" />}>
+                                                                <MenuItem value="Bill Sharing">Bill Sharing</MenuItem>
+                                                                <MenuItem value="Family Expenses">Family Expenses</MenuItem>
+                                                                <MenuItem value="Lend / Borrow">Lend / Borrow</MenuItem>
+                                                                <MenuItem value="Personal Use">Personal Use</MenuItem>
+                                                                <MenuItem value="Others">Others</MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </div>
+                                                </div>
+                                               
                                             </TableCell>
                                         </TableRow>
                                     </Fragment>

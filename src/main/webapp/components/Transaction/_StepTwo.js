@@ -9,7 +9,7 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import { Input, FormGroup, Table, TableBody, TableRow, TableCell, } from '@material-ui/core';
 import { Form, Label, Toast } from 'reactstrap';
 
-const StepTwo = ({ saveData, formData }) => {
+const StepTwo = ({ saveData, formData, isError }) => {
     const [sendAmount, setSendAmount] = useState('')
     const [recieveAmount, setRecieveAmount] = useState('')
     const handleAmountChange = (e, target) => {
@@ -55,6 +55,7 @@ const StepTwo = ({ saveData, formData }) => {
                                 <FormGroup>
                                     <Label for="exampleNumber">Send Amount</Label>
                                     <Input
+                                        error={isError}
                                         type="number"
                                         placeholder="Amount to Send"
                                         value={sendAmount}
@@ -72,6 +73,7 @@ const StepTwo = ({ saveData, formData }) => {
                                 <FormGroup>
                                     <Label for="exampleNumber">Recieve Amount</Label>
                                     <Input
+                                        error={isError}
                                         type="number"
                                         placeholder="Amount to Recieve"
                                         value={recieveAmount}

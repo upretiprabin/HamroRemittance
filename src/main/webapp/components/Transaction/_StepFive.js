@@ -22,6 +22,9 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
         toPay: `${amount.send + currency.fees}`,
         fee: `${currency.fees} AUD`,
     }
+    const confirmTransaction = ()=>{
+        saveData(true)
+    }
     return (
         <div className="invoice-wrapper">
             <div className="row">
@@ -96,7 +99,9 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
                                 </div>
                                 <div className="totle-amount col-sm-12 col-md-4 text-right">
                                     <h2 className="invoice-title">{transactionDetails.toPay} AUD</h2>
-                                    <Button variant="contained" className="btn-success text-white btn-icon"><i className="ti-wallet mr-10"></i>Confirm Transaction</Button>
+                                    <Button variant="contained" className="btn-success text-white btn-icon" onClick={e=>{
+                                        confirmTransaction()
+                                    }}><i className="ti-wallet mr-10"></i>Confirm Transaction</Button>
                                 </div>
                             </div>
                         </div>
