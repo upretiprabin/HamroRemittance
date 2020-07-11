@@ -10,9 +10,9 @@ import { NotificationContainer } from 'react-notifications';
 import RctThemeProvider from './RctThemeProvider';
 //Main App
 import RctDefaultLayout from './DefaultLayout';
+import HorizontalLayout from './HorizontalLayout';
 // app signin
 import AppSignIn from './SignIn';
-import log from '../services/loggerService';
 import AppConfig from "Constants/AppConfig";
 import Signup from "./Signup";
 
@@ -56,8 +56,9 @@ class App extends Component {
                 <InitialPath
                     path={`${match.url}app`}
                     authUser={user}
-                    component={RctDefaultLayout}
+                    component={HorizontalLayout}
                 />
+                <Route path="/admin" component={RctDefaultLayout} />
                 <Route path="/signin" component={AppSignIn} />
                 <Route path="/signup" component={Signup} />
             </RctThemeProvider>
