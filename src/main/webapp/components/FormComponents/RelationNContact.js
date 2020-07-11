@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
-const RelationNContact = ({ relation, phone, email, onChangeValue }) => {
+const RelationNContact = ({ relation, phone, email, disabled, onChangeValue }) => {
     return (
         <>
             <div className='row mt-10'>
@@ -15,7 +15,9 @@ const RelationNContact = ({ relation, phone, email, onChangeValue }) => {
                             id="user-aLine1"
                             className="has-input input-lg"
                             placeholder="Relation to Sender*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
+                            disabled={disabled}
                         />
                         <span className="has-icon"><i className="ti-link"></i></span>
                         <FormFeedback>Required</FormFeedback>
@@ -31,6 +33,7 @@ const RelationNContact = ({ relation, phone, email, onChangeValue }) => {
                             id="user-phone"
                             className="has-input input-lg"
                             placeholder="Phone Number*"
+                            disabled={disabled}
                             onChange={(e) => {
                                 if (Number(e.target.value) || e.target.value == '')
                                     onChangeValue(e)
@@ -50,6 +53,7 @@ const RelationNContact = ({ relation, phone, email, onChangeValue }) => {
                             id="user-mail"
                             className="has-input input-lg"
                             placeholder="Email Address*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-email"></i></span>

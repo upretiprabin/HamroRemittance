@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
-const NameForm = ({ fName, mName, lName, onChangeValue }) => {
+const NameForm = ({ fName, mName, lName, onChangeValue, disabled }) => {
     return (
         <div className='row'>
             <div className='col-sm-12 col-md-6 col-lg-4'>
@@ -14,6 +14,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue }) => {
                         id="first-name"
                         className="has-input input-lg"
                         placeholder="First Name*"
+                        disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
                     <span className="has-icon"><i className="ti-user"></i></span>
@@ -30,6 +31,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue }) => {
                         id="middle-name"
                         className="has-input input-lg"
                         placeholder="Middle Name"
+                        disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
                     <span className="has-icon"><i className="ti-user"></i></span>
@@ -45,6 +47,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue }) => {
                         id="last-name"
                         className="has-input input-lg"
                         placeholder="Last Name*"
+                        disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
                     <span className="has-icon"><i className="ti-user"></i></span>

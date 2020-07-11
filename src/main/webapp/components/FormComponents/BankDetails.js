@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 
-const BankForm = ({ bank, branch, accNumber, onChangeValue }) => {
+const BankForm = ({ bank, branch, accNumber,disabled, onChangeValue }) => {
     return (
         <>
             <div className='row mt-10'>
@@ -15,6 +15,7 @@ const BankForm = ({ bank, branch, accNumber, onChangeValue }) => {
                             id="bank-name"
                             className="has-input input-lg"
                             placeholder="Bank Name*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="zmdi zmdi-home"></i></span>
@@ -31,6 +32,7 @@ const BankForm = ({ bank, branch, accNumber, onChangeValue }) => {
                             id="bank-branch"
                             className="has-input input-lg"
                             placeholder="Branch*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="zmdi zmdi-arrow-split"></i></span>
@@ -47,6 +49,7 @@ const BankForm = ({ bank, branch, accNumber, onChangeValue }) => {
                             id="account-number"
                             className="has-input input-lg"
                             placeholder="Account Number*"
+                            disabled={disabled}
                             onChange={(e) => {
                                 if (Number(e.target.value) || e.target.value == '' || e.target.value == "0")
                                     onChangeValue(e)

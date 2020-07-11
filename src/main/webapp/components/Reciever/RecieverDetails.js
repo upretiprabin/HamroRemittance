@@ -26,7 +26,25 @@ export default class RecieverDetails extends React.Component {
         accNumber: { value: '', error: false },
     }
     componentDidMount() {
-        userData = this.props.userData
+        var userData = this.props.userData
+        var updatedState = this.state;
+        if (this.props.userData != null) {
+            updatedState.fName.value = userData.name.fName
+            updatedState.mName.value = userData.name.mName
+            updatedState.lName.value = userData.name.lName
+            updatedState.aLine1.value = userData.address.aLine1
+            updatedState.aLine2.value = userData.address.aLine2
+            updatedState.state.value = userData.address.state
+            updatedState.zip.value = userData.address.zip
+            updatedState.country.value = userData.address.country
+            updatedState.relation.value = userData.relation
+            updatedState.phone.value = userData.phoneNumber
+            updatedState.email.value = userData.email
+            updatedState.bank.value = userData.bankDetails.name
+            updatedState.branch.value = userData.bankDetails.branch
+            updatedState.accNumber.value = userData.bankDetails.acNo
+            this.setState({ ...updatedState })
+        }
     }
     validator = () => {
         let error = false
@@ -76,7 +94,9 @@ export default class RecieverDetails extends React.Component {
             formData[obj] = this.state[obj].value
         }
         if (this.validator()) {
-            this.props.addReciver(formData)
+            console.log(formData)
+            /**TODO */
+            // this.props.disabled == null ? this.props.addReciver(formData) : this.props.updateReciever(formdata)
         }
     }
     render() {
@@ -84,7 +104,7 @@ export default class RecieverDetails extends React.Component {
         return (
             <div className="session-inner-wrapper">
                 <div className="container">
-                    <div className="row row-eq-height">
+                    <div className="row row-eq-height text-center">
                         <div className='col-sm-12 col-md-12 col-lg-12'>
                             <Label>User Details</Label>
                             <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
@@ -103,7 +123,7 @@ export default class RecieverDetails extends React.Component {
                                                 variant="contained"
                                                 size="large"
                                                 onClick={(e) => this.onSubmit(e)}
-                                            >Add Reciver</Button>
+                                            >{this.props.disabled == null ? 'Add Reciever' : 'Edit Reciver'}</Button>
                                         </FormGroup>
 
                                         <FormGroup className="m-15">

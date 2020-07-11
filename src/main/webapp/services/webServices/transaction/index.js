@@ -22,11 +22,12 @@ const loadData = (data) => {
                     _id: "5eff463bf7af7db563f0e1eb",
                     name: { fName: 'Ram', mName: '', lName: 'Maharjan' },
                     email: 'rammahz018@gmail.com',
+                    relation: "Friend",
                     address: {
-                        aLine1: 'Baneshwor - 3', aLine2: '', state: 'Bagmati',
+                        aLine1: 'Baneshwor - 3', aLine2: '', state: 'Bagmati', zip: '44600',
                         country: 'Nepal',
                     },
-                    phoneNumber: '+977 984 1453 564',
+                    phoneNumber: '9841453564',
                     bankDetails: {
                         name: "Civil Bank",
                         branch: 'Baneshwor',
@@ -36,11 +37,12 @@ const loadData = (data) => {
                     _id: "5eff463b1b3c901f846c104e",
                     name: { fName: 'Hari', mName: '', lName: 'Devkota' },
                     email: 'hari.devk999@gmail.com',
+                    relation: "Colleague",
                     address: {
-                        aLine1: 'Kavre - 8', aLine2: '', state: 'Bagmati',
+                        aLine1: 'Kavre - 8', aLine2: '', state: 'Bagmati', zip: '44600',
                         country: 'Nepal',
                     },
-                    phoneNumber: '+977 984 9458 564',
+                    phoneNumber: '9849458564',
                     bankDetails: {
                         name: "NIBL",
                         branch: 'Chabahil',

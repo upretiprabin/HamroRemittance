@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import countries from "./countries.json";
 
-const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onChangeValue }) => {
+const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry,disabled, onChangeValue }) => {
     return (
         <>
             <div className='row mt-10'>
@@ -16,6 +16,7 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                             id="user-aLine1"
                             className="has-input input-lg"
                             placeholder="Address line 1*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-location-pin"></i></span>
@@ -31,6 +32,7 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                             id="user-aLine2"
                             className="has-input input-lg"
                             placeholder="Address line 2"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-location-pin"></i></span>
@@ -48,6 +50,7 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                             id="zip-code"
                             className="has-input input-lg"
                             placeholder="Zip*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-line-dashed"></i></span>
@@ -64,6 +67,7 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                             id="state-name"
                             className="has-input input-lg"
                             placeholder="State*"
+                            disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-location-arrow"></i></span>
@@ -77,9 +81,10 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                             value={country.value}
                             name="country"
                             id="country"
+                            bsSize="lg"
                             className="input-lg"
                             placeholder="Country*"
-                            disabled={disabledCountry}
+                            disabled={disabledCountry || disabled}
                             onChange={(e) => onChangeValue(e)}>
                             <option value=''>Select Country</option>
                             {

@@ -43,14 +43,15 @@ const StepOne = ({ saveData, recieverInfo, isError }) => {
                                         <Form>
                                             <FormGroup>
                                                 <Label className={isError ? 'text-pink' : ''}>Reciever</Label>
-                                                <Input className="mb-20" type="select" bsSize="lg" onChange={e => {
-                                                    const selectedRecipient = recieverInfo.find(data => {
-                                                        return data._id == e.target.value
-                                                    })
-                                                    if (selectedRecipient != null) {
-                                                        saveData(selectedRecipient)
-                                                    }
-                                                }}>
+                                                <Input className="mb-20" type="select" bsSize="lg"
+                                                    onChange={e => {
+                                                        const selectedRecipient = recieverInfo.find(data => {
+                                                            return data._id == e.target.value
+                                                        })
+                                                        if (selectedRecipient != null) {
+                                                            saveData(selectedRecipient)
+                                                        }
+                                                    }}>
                                                     <option value=''>Please Select Recipient</option>
                                                     {recieverInfo.map((data, index) =>
                                                         (<option key={index} value={data._id}>{`${data.name.fName} ${data.name.mName} ${data.name.lName}`}</option>)

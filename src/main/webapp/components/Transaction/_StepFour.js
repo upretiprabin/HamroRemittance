@@ -6,11 +6,13 @@ import React, { useState, Fragment } from 'react';
 // rct card box
 import { RctCardContent } from 'Components/RctCard';
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-import { Input, FormGroup, Table, TableBody, TableRow, TableCell, Select, MenuItem, InputLabel,FormControl,FormHelperText } from '@material-ui/core';
+import { FormGroup, Input, Label } from 'reactstrap';
 import { Button } from 'reactstrap';
+import RecieverDetails from '../Reciever/RecieverDetails';
 
-const StepFour = ({ saveData, formData,isError }) => {
-    const [selectedPurpose, setSelectedPurpose] = useState('');
+const StepFour = ({ saveData, formData, isError }) => {
+    const [selectedPurpose, setSelectedPurpose] = useState('')
+    const [editableForm, setEditableForm] = useState(false)
     const redirectTo = (e) => {
         /***
          * redirect to edit recipient with recipient id
@@ -21,63 +23,42 @@ const StepFour = ({ saveData, formData,isError }) => {
         <>
             <div className="row text-center" >
                 <div className='col-sm-12 col-md-12 col-lg-12'>
-                    <RctCollapsibleCard heading="Reciever Details" fullBlock className=''>
-                        <div className="table-responsive">
-                            <Table>
-                                <colgroup>
-                                    <col style={{ width: '30%' }} />
-                                    <col style={{ width: '30%' }} />
-                                    <col style={{ width: '40%' }} />
-                                </colgroup>
-                                <TableBody>
-                                    <Fragment>
-                                        <CustomTableRow title={'Name'} headercolSpan={2} data={`${reciever.name.fName} ${reciever.name.mName} ${reciever.name.lName}`} />
-                                        <CustomTableRow title={'Phone Number'} headercolSpan={2} data={reciever.phoneNumber} />
-                                        <CustomTableRow title={'Email'} headercolSpan={2} data={reciever.email} />
-                                        <CustomTableRow title={'Address'} headercolSpan={2} data={''} />
-                                        <CustomTableRow title={'Address Line 1'} headercolSpan={1} data={reciever.address.aLine1} />
-                                        <CustomTableRow title={'Address Line 2'} headercolSpan={1} data={reciever.address.aLine2} />
-                                        <CustomTableRow title={'State'} headercolSpan={1} data={reciever.address.state} />
-                                        <CustomTableRow title={'Country'} headercolSpan={1} data={reciever.address.country} />
-                                        <CustomTableRow title={'Bank Details'} headercolSpan={2} data={''} />
-                                        <CustomTableRow title={'Bank'} headercolSpan={1} data={reciever.bankDetails.name} />
-                                        <CustomTableRow title={'Branch'} headercolSpan={1} data={reciever.bankDetails.branch} />
-                                        <CustomTableRow title={'Account Number'} headercolSpan={1} data={reciever.bankDetails.acNo} />
-                                        <TableRow>
-                                            <TableCell colSpan={2} align={"center"}><b>{'Purpose of Transfer'}: </b></TableCell>
-                                            <TableCell>
-                                                <div>
-                                                    <div className="form-group">
-                                                        <FormControl fullWidth>
-                                                            <InputLabel htmlFor="purpose-helper">Select purpose of transfer</InputLabel>
-                                                            <Select
-                                                                onChange={(e) => {
-                                                                    setSelectedPurpose(e.target.value)
-                                                                    if (e.target.value != '') { saveData({ purposeOfTransfer: e.target.value }) }
-                                                                }}
-                                                                input={<Input name="purpose" error={isError} id="purpose-helper" />}>
-                                                                <MenuItem value="Bill Sharing">Bill Sharing</MenuItem>
-                                                                <MenuItem value="Family Expenses">Family Expenses</MenuItem>
-                                                                <MenuItem value="Lend / Borrow">Lend / Borrow</MenuItem>
-                                                                <MenuItem value="Personal Use">Personal Use</MenuItem>
-                                                                <MenuItem value="Others">Others</MenuItem>
-                                                            </Select>
-                                                        </FormControl>
-                                                    </div>
-                                                </div>
-                                               
-                                            </TableCell>
-                                        </TableRow>
-                                    </Fragment>
-                                </TableBody>
-                            </Table>
-                        </div>
+                    <RctCollapsibleCard heading="Reciever Details" fullBlock>
+                        <RctCardContent>
+                            <RecieverDetails disabled={!editableForm} userData={reciever} cancel={e => { setEditableForm(false) }} />
+                            {!editableForm && <div>
+                                <div className="form-group text-center d-flex justify-content-center">
+                                    <FormGroup className="has-wrapper">
+                                        <Input
+                                            type="select"
+                                            value={selectedPurpose}
+                                            name="purpose"
+                                            bsSize="lg"
+                                            id="purpose"
+                                            className="input-lg"
+                                            placeholder="Purpose*"
+                                            onChange={(e) => {
+                                                setSelectedPurpose(e.target.value)
+                                                if (e.target.value != '') { saveData({ purposeOfTransfer: e.target.value }) }
+                                            }}>
+                                            <option value=''>Select Purpose of Transfer</option>
+                                            <option value="Bill Sharing">Bill Sharing</option>
+                                            <option value="Family Expenses">Family Expenses</option>
+                                            <option value="Lend / Borrow">Lend / Borrow</option>
+                                            <option value="Personal Use">Personal Use</option>
+                                            <option value="Others">Others</option>
+                                        </Input>
+                                    </FormGroup>
+                                </div>
+                            </div>}
+                        </RctCardContent>
                         <div className="text-right m-10">
                             <Button
+                                disabled={editableForm}
                                 className="mr-10 mb-10 btn-icon"
                                 color="info" size="lg"
                                 onClick={e => {
-                                    redirectTo('recipientForm')
+                                    setEditableForm(true)
                                 }}>
                                 <i className="zmdi zmdi-edit"></i> Edit Recipient
                         </Button>
@@ -90,21 +71,21 @@ const StepFour = ({ saveData, formData,isError }) => {
     )
 }
 
-const CustomTableRow = ({ title, headercolSpan, data }) => {
-    if (headercolSpan == 2)
-        return (
-            <TableRow>
-                <TableCell colSpan={headercolSpan} align={"center"}><b>{title}: </b></TableCell>
-                <TableCell>{data}</TableCell>
-            </TableRow>
-        )
-    else
-        return (
-            <TableRow>
-                <TableCell />
-                <TableCell colSpan={headercolSpan}>{title}:</TableCell>
-                <TableCell>{data}</TableCell>
-            </TableRow>
-        )
-}
+// const CustomTableRow = ({ title, headercolSpan, data }) => {
+//     if (headercolSpan == 2)
+//         return (
+//             <TableRow>
+//                 <TableCell colSpan={headercolSpan} align={"center"}><b>{title}: </b></TableCell>
+//                 <TableCell>{data}</TableCell>
+//             </TableRow>
+//         )
+//     else
+//         return (
+//             <TableRow>
+//                 <TableCell />
+//                 <TableCell colSpan={headercolSpan}>{title}:</TableCell>
+//                 <TableCell>{data}</TableCell>
+//             </TableRow>
+//         )
+// }
 export default StepFour;
