@@ -1,15 +1,7 @@
 // routes
 import {
     AsyncDashboardComponent,
-    AsyncTransactionComponent,
-    AsyncPomUsersComponent,
-    AsyncMessageCenterComponent,
-    AsyncAppointmentComponent,
-    AsyncAlertComponent,
-    AsyncAdminUserComponent,
-    AsyncUserAssignment,
-    AsyncGeofenceComponent,
-    AsyncSettingsComponent
+    AsyncTransactionComponent
 } from "Components/AsyncComponent/AsyncComponent";
 
 export default [

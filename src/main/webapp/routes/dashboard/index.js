@@ -63,6 +63,7 @@ class Index extends Component {
         const {
             loading
         } = this.state;
+        console.log("loading",loading)
         return (
             <div className="dashboard-wrapper">
                 <ErrorBoundary>
@@ -74,14 +75,12 @@ class Index extends Component {
                     {!loading &&
                         <div>
                             <div>
-                                <RctCollapsibleCard heading="Data Table" fullBlock>
-                                    <MUIDataTable
-                                        title={"Past Transactions"}
-                                        data={txnTableData}
-                                        columns={txnTableColumns}
-                                        options={txnTableOptions}
-                                    />
-                                </RctCollapsibleCard>
+                                <MUIDataTable
+                                    title={"Past Transactions"}
+                                    data={txnTableData}
+                                    columns={txnTableColumns}
+                                    options={txnTableOptions}
+                                />
                             </div>
                             <div className="row">
                                 <div className="col-sm-6 col-md-4 w-xs-half-block">

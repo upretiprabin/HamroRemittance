@@ -5,14 +5,14 @@ export default {
             "menu_title": "sidebar.dashboard",
             "id": "dashboard",
             "menu_icon": "dashboard",
-            "path": "/app/dashboard",
+            "path": "/admin/dashboard",
             "child_routes": null
         },
         {
             "menu_title": "sidebar.transaction",
             "id": "transaction",
             "menu_icon": "transaction",
-            "path": "/app/transaction",
+            "path": "/admin/transaction",
             "child_routes": null
         }
     ],
@@ -22,7 +22,7 @@ export default {
             "menu_title": "sidebar.settings",
             "id": "dashboard",
             "menu_icon": "settings",
-            "path": "/app/settings",
+            "path": "/admin/settings",
             "child_routes": null
         }
     ]
