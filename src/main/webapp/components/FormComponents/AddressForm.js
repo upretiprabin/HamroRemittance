@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
+import countries from "./countries.json";
 
 const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onChangeValue }) => {
     return (
@@ -72,16 +73,19 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry, onC
                 <div className='col-sm-12 col-md-6 col-lg-4'>
                     <FormGroup className="has-wrapper">
                         <Input
-                            type="text"
+                            type="select"
                             value={country.value}
                             name="country"
                             id="country"
-                            className="has-input input-lg"
+                            className="input-lg"
                             placeholder="Country*"
                             disabled={disabledCountry}
-                            onChange={(e) => onChangeValue(e)}
-                        />
-                        <span className="has-icon"><i className="ti-map-alt"></i></span>
+                            onChange={(e) => onChangeValue(e)}>
+                            <option value=''>Select Country</option>
+                            {
+                                countries.map((country, index) => <option key={index} value={country.name}>{country.name}</option>)
+                            }
+                        </Input>
                     </FormGroup>
                 </div>
             </div>

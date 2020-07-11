@@ -34,7 +34,7 @@ class Signup extends Component {
       password: { value: '', error: false },
       confirmPassword: { value: '', error: false },
       aLine1: { value: '', error: false },
-      aLine2: '',
+      aLine2: { value: '', error: false },
       state: { value: '', error: false },
       zip: { value: '', error: false },
       country: { value: 'Australia' },
@@ -63,82 +63,57 @@ class Signup extends Component {
       this.setState({ ...updatedState })
    }
    validator = () => {
-      var updatedState = this.state
-      var isError = false
-      if (updatedState.fName.value == '') {
-         updatedState.fName.error = true
-         isError = true
-      } else {
-         updatedState.fName.error = false
+      let error = false
+      let updatedState = this.state
+      for (let obj in updatedState) {
+         switch (obj) {
+            case 'phone':
+               if (!Validator.phoneValidator(updatedState[obj].value)) {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+            case 'email':
+               if (!Validator.emailValidator(updatedState[obj].value)) {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+            case 'password':
+               if (!Validator.passwordValidator(updatedState[obj].value)) {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+            case 'confirmPassword':
+               if (updatedState[obj].value === updatedState.password.value) {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+            case 'mName':
+            case 'aLine2':
+               break
+            default:
+               if (updatedState[obj].value == '') {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+         }
       }
-      if (updatedState.lName.value == '') {
-         updatedState.lName.error = true
-         isError = true
-      } else {
-         updatedState.lName.error = false
-      }
-      if (!Validator.phoneValidator(updatedState.phone.value)) {
-         updatedState.phone.error = true
-         isError = true
-      } else {
-         updatedState.phone.error = false
-      }
-      if (updatedState.dob.value == '') {
-         updatedState.dob.error = true
-         isError = true
-      } else {
-         updatedState.dob.error = false
-      }
-      if (!Validator.emailValidator(updatedState.email.value)) {
-         updatedState.email.error = true
-         isError = true
-      } else {
-         updatedState.email.error = false
-      }
-      if (!Validator.passwordValidator(updatedState.password.value)) {
-         updatedState.password.error = true
-
-      } else {
-         updatedState.password.error = false
-      }
-      if (updatedState.password !== updatedState.confirmPassword) {
-         updatedState.confirmPassword.error = true
-         isError = true
-      } else {
-         updatedState.confirmPassword.error = false
-      }
-      if (updatedState.aLine1.value == '') {
-         updatedState.aLine1.error = true
-         isError = true
-      } else {
-         updatedState.aLine1.error = false
-      }
-      if (updatedState.state.value == '') {
-         updatedState.state.error = true
-         isError = true
-      } else {
-         updatedState.state.error = false
-      }
-      if (updatedState.zip.value == '') {
-         updatedState.zip.error = true
-         isError = true
-      } else {
-         updatedState.zip.error = false
-      }
-      if (updatedState.sOfFund.value == '') {
-         updatedState.sOfFund.error = true
-         isError = true
-      } else {
-         updatedState.sOfFund.error = false
-      }
-      if (updatedState.nationality.value == '') {
-         updatedState.nationality.error = true
-         isError = true
-      } else {
-         updatedState.nationality.error = false
-      }
-      this.setState(updatedState)
-      return (isError)
+      this.setState({ ...updatedState })
+      return error
    }
    render() {
       const { fName, mName, lName, phone, dob, email, password, confirmPassword, aLine1, aLine2, state, zip, country, sOfFund, nationality } = this.state;
