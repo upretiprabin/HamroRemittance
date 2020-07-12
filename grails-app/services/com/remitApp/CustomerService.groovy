@@ -9,35 +9,54 @@ import com.remit.Sender
 
 //@Transactional
 class CustomerService {
+    def commonService
 
     def saveCustomer(params){
-        def customer = new Customer();
-        customer.firstName = params?.firstName
-        customer.middleName = params?.middleName
-        customer.lastName = params.lastName
-        customer.phoneNumber = params.phoneNumber
-        customer.password = params.password
-        customer.dateOfBirth = params.dateOfBirth
-        customer.nationality = params.nationality
-        customer.emailAddress = params.emailAddress
-        customer.save(flush: true, failOnError: true)a
+        def result = [:]
 
-        if(params?.sender){
-            addSender(customer)
-        }else if(params?.receiver){
-            addReceiver(customer);
+        //check email
+        def alreadyPresent = Customer.findByEmailAddress(params.emailAddress)
+        if(!alreadyPresent){
+            if(params?.sender){
+                addSender(params)
+            }else if(params?.receiver){
+                addReceiver(params);
+            }
+            result["success"] = "Saved successfully."
+        }else{
+            result["error"] = "Email Address already registered."
         }
+        return result
     }
 
-    def addSender(Customer customer){
+    def addSender(def params){
+        def dob = commonService.getFormattedDate(params.dateOfBirth)
+        println "dob ==== $dob"
         Sender sender = new Sender()
-        sender.customer = customer
+        sender.firstName = params?.firstName
+        sender.middleName = params?.middleName
+        sender.lastName = params.lastName
+        sender.phoneNumber = params.phoneNumber
+        sender.password = params.password
+        sender.dateOfBirth = dob
+        sender.nationality = params.nationality
+        sender.emailAddress = params.emailAddress
         sender.save(flush: true, failOnError: true)
     }
 
-    def addReceiver(Customer customer){
+    def addReceiver(def params){
+        def dob = commonService.getFormattedDate(params.dateOfBirth)
         Receiver receiver = new Receiver()
-        receiver.customer = customer
+        receiver.firstName = params?.firstName
+        receiver.middleName = params?.middleName
+        receiver.lastName = params.lastName
+        receiver.phoneNumber = params.phoneNumber
+        receiver.password = params.password
+        receiver.dateOfBirth = dob
+        receiver.nationality = params.nationality
+        receiver.emailAddress = params.emailAddress
+        receiver.senderId = params.senderId
+        receiver.relationshipToSender = params.relationshipToSender
         receiver.save(failOnError: true, flush: true)
     }
 
