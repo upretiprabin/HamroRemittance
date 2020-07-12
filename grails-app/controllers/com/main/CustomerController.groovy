@@ -5,6 +5,7 @@ import grails.converters.JSON
 
 class CustomerController {
     def customerService
+    def customerAddressService
 
    /* def index() {
         def customers = customerService.getAllCustomers()
@@ -15,9 +16,28 @@ class CustomerController {
 
         println "{request.json} = ${request.JSON}"
         def newParams = request.JSON
+        def addressParams = [:]
+        addressParams.addressLineOne = newParams.addressLineOne
+        addressParams.addressLineTwo = newParams.addressLineTwo
+        addressParams.suburbCity = newParams.suburbCity
+        addressParams.country = newParams.country
+        addressParams.stateProvince = newParams.stateProvince
+        addressParams.zipCode = newParams.zipCode
+        //TODO: remove addressParams from newParams
+        
         try{
             def result = customerService.saveCustomer(newParams)
-            render (["result":result] as JSON)
+            if(result.error){
+                render (["result":result.error] as JSON)
+            }else{
+                def savedCustomer = result.customer
+                println "{savedCustomer.id} = ${savedCustomer.id}"
+                def addressResult = customerAddressService.saveAddress(addressParams)
+                def savedAddress = addressResult.address
+                println "{savedAddress.id} = ${savedAddress.id}"
+                def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
+                render (["result":finalResult.message] as JSON)
+            }
         }catch(Exception ex){
             ex.printStackTrace()
             render (["Error":ex] as JSON)

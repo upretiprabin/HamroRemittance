@@ -17,12 +17,14 @@ class CustomerService {
         //check email
         def alreadyPresent = Customer.findByEmailAddress(params.emailAddress)
         if(!alreadyPresent){
+            def customer
             if(params?.sender){
-                addSender(params)
+                customer = addSender(params)
             }else if(params?.receiver){
-                addReceiver(params);
+                customer = addReceiver(params);
             }
-            result["success"] = "Saved successfully."
+            result["message"] = "Saved successfully."
+            result["customer"] = customer
         }else{
             result["error"] = "Email Address already registered."
         }
@@ -42,6 +44,7 @@ class CustomerService {
         sender.nationality = params.nationality
         sender.emailAddress = params.emailAddress
         sender.save(flush: true, failOnError: true)
+        return sender
     }
 
     def addReceiver(def params){
@@ -54,6 +57,7 @@ class CustomerService {
         receiver.senderId = params.senderId
         receiver.relationshipToSender = params.relationshipToSender
         receiver.save(failOnError: true, flush: true)
+        return receiver
     }
 
     def getCustomer(paramsId){

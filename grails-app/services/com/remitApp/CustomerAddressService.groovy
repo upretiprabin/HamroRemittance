@@ -21,14 +21,28 @@ class CustomerAddressService {
     }
 
     def saveAddress(params){
-        def address = new Address()
+        def result = [:]
+        Address address = new Address()
         address.addressLineOne = params.addressLineOne
         address.addressLineTwo = params.addressLineTwo
         address.suburbCity = params.suburbCity
         address.country = params.country
         address.stateProvince = params.stateProvince
-        address.zipCode = params.zipCoe
+        address.zipCode = params.zipCode
         address.save(flush: true, failOnError: true)
+        result["message"] = "Saved successfully."
+        result["address"] = address
+        return result
+    }
+
+    def saveCustomerAddress(Customer customer, Address address){
+        def result = [:]
+        CustomerAddress customerAddress = new CustomerAddress()
+        customerAddress.customer = customer
+        customerAddress.address = address
+        customerAddress.save(flush: true, failOnError: true)
+        result["message"] = "Saved successfully."
+        return result
     }
 
     def updateAddress(Customer customer, params){
