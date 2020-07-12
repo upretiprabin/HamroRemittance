@@ -14,7 +14,7 @@ buildscript {
 }
 
 version "0.1"
-group "remitApp"
+group "com.remitapp"
 
 apply plugin:"eclipse"
 apply plugin:"idea"

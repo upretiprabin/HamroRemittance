@@ -1,4 +1,4 @@
-package demo
+package com.remitapp
 
 class UrlMappings {
 

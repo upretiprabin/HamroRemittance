@@ -1,4 +1,4 @@
-package demo
+package com.remitapp
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration

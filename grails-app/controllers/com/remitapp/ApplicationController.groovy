@@ -1,4 +1,4 @@
-package demo
+package com.remitapp
 
 import grails.core.GrailsApplication
 import grails.util.Environment
