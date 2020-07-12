@@ -1,6 +1,6 @@
 package com.remitApp
 
-import com.remit.Order
+import com.remit.OrderDetails
 import com.remit.Receiver
 import com.remit.Sender
 import com.remit.Transaction
@@ -10,38 +10,45 @@ import grails.gorm.transactions.Transactional
 class TransactionService {
 
     def createNewTransactionAndOrder(params){
+        def returnResult = [:]
         def sender = Sender.findById(params.senderId)
         def receiver = Receiver.findById(params.receiverId)
+        if(sender == null || receiver == null){
+            returnResult["error"] = "Sender or Receiver no found.."
+        }else{
+            Transaction transaction = new Transaction()
+            transaction.sender = sender
+            transaction.receiver = receiver
+            transaction.subTotal = params.subTotal
+            transaction.total = params.total
+            transaction.exchangedTotal = params.exchangedTotal
+            transaction.currency = params.currency
+            transaction.customMessage = params.customMessage
+            transaction.save(flush: true, failOnError: true)
 
-        Transaction transaction = new Transaction()
-        transaction.sender = sender
-        transaction.receiver = receiver
-        transaction.subTotal = params.subTotal
-        transaction.total = params.total
-        transaction.exchangedTotal = params.exachangeTotal
-        transaction.currency = params.currency
-        transaction.customMessage = params.customMessage
-        transaction.save(flush: true, failOnError: true)
+            createNewOrder(params, transaction)
+            returnResult["message"] = "Successfully Saved.."
+        }
 
-        createNewOrder(params, transaction)
+        return returnResult
     }
 
     def createNewOrder(params, Transaction transaction){
 
-        Order order = new Order()
-        order.transaction = transaction
-        order.comments = params.comments
-        order.staffNotes = params.staffNotes
-        order.emailOriginalCopy = params.emailOriginalCopy
-        order.status = params.status
-        order.trnNumber = params.trnNumber
-        order.pickUpLocation = params.pickUpLocation
-        order.transactionReason = params.transactionReason
-        order.sourceOfFund = params.sourceOfFund
-        order.payingAgentId = params.payingAgentId
-        order.sendMoneyTo = params.sendMoneyTo
+        OrderDetails orderDetails = new OrderDetails()
+        orderDetails.transaction = transaction
+        orderDetails.comments = params.comments
+        orderDetails.staffNotes = params.staffNotes
+        orderDetails.emailOriginalCopy = params.emailOriginalCopy
+        orderDetails.status = params.status
+        orderDetails.trnNumber = params.trnNumber
+        orderDetails.pickUpLocation = params.pickUpLocation
+        orderDetails.transactionReason = params.transactionReason
+        orderDetails.sourceOfFund = params.sourceOfFund
+        orderDetails.payingAgentsId = params.payingAgentsId
+        orderDetails.sendMoneyTo = params.sendMoneyTo
 
-        order.save(flush: true, failOnError: true)
+        orderDetails.save(flush: true, failOnError: true)
 
     }
 }

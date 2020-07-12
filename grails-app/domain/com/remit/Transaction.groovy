@@ -6,12 +6,14 @@ class Transaction {
     float discount
     float total
     float exchangedTotal
-    float currency
+    String currency
     String customMessage
     Date dateCreated = new Date()
 
 
     static constraints = {
+        discount(nullable: true, blank: true)
+        customMessage(nullable: true, blank: true)
     }
 
     static mapping = {
