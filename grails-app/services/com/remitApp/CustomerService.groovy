@@ -45,15 +45,11 @@ class CustomerService {
     }
 
     def addReceiver(def params){
-        def dob = commonService.getFormattedDate(params.dateOfBirth)
         Receiver receiver = new Receiver()
         receiver.firstName = params?.firstName
         receiver.middleName = params?.middleName
         receiver.lastName = params.lastName
         receiver.phoneNumber = params.phoneNumber
-        receiver.password = params.password
-        receiver.dateOfBirth = dob
-        receiver.nationality = params.nationality
         receiver.emailAddress = params.emailAddress
         receiver.senderId = params.senderId
         receiver.relationshipToSender = params.relationshipToSender

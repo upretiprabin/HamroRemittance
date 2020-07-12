@@ -16,6 +16,9 @@ class Customer {
         middleName(blank: true, nullable: true)
         lastName(blank: false, nullable: false)
         phoneNumber(blank: false, nullable: false)
-        dateOfBirth(nullable: false)
+        emailAddress(nullable: false, blank: false)
+        password(nullable: true, blank: true)
+        nationality(nullable: true, blank: true)
+        dateOfBirth(nullable: true, blank: true)
     }
 }
