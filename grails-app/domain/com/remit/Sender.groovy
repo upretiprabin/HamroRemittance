@@ -1,8 +1,7 @@
 package com.remit
 
-class Sender {
+class Sender extends Customer{
 
-    static belongsTo = [customer: Customer]
     Date dateCreated
 
     static constraints = {

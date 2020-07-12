@@ -12,13 +12,15 @@ class CustomerService {
 
     def saveCustomer(params){
         def customer = new Customer();
-        customer.firstName = params.firstName
+        customer.firstName = params?.firstName
         customer.middleName = params?.middleName
         customer.lastName = params.lastName
+        customer.phoneNumber = params.phoneNumber
+        customer.password = params.password
         customer.dateOfBirth = params.dateOfBirth
-        customer.mobileNum = params.mobileNum
+        customer.nationality = params.nationality
         customer.emailAddress = params.emailAddress
-        customer.save(flush: true, failOnError: true)
+        customer.save(flush: true, failOnError: true)a
 
         if(params?.sender){
             addSender(customer)
@@ -51,11 +53,13 @@ class CustomerService {
 
     def updateCustomer(params) {
         def customer = Customer.findById(params.id)
-        customer.firstName = params.firstName
+        customer.firstName = params?.firstName
         customer.middleName = params?.middleName
         customer.lastName = params.lastName
+        customer.phoneNumber = params.phoneNumber
+        customer.password = params.password
         customer.dateOfBirth = params.dateOfBirth
-        customer.mobileNum = params.mobileNum
+        customer.nationality = params.nationality
         customer.emailAddress = params.emailAddress
         customer.save(flush: true, failOnError: true)
     }

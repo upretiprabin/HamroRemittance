@@ -12,6 +12,7 @@ class Order {
     String transactionReason
     String sourceOfFund
     int payingAgentId
+    String sendMoneyTo
     Date dateCreated
 
 

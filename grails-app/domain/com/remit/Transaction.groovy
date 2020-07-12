@@ -2,16 +2,13 @@ package com.remit
 
 class Transaction {
     static belongsTo = [sender: Sender, receiver: Receiver]
-    float exchangeRate
-    float serviceCharge
     float subTotal
-    float taxPercentage
     float discount
     float total
     float exchangedTotal
     float currency
     String customMessage
-    Date dateCreated
+    Date dateCreated = new Date()
 
 
     static constraints = {

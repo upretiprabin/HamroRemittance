@@ -1,9 +1,9 @@
 package com.remit
 
-class Receiver {
+class Receiver extends Customer{
 
-    static belongsTo = [customer: Customer]
-    String relationshipWithSender
+    int senderId
+    String relationshipToSender
     Date dateCreated
 
     static constraints = {
