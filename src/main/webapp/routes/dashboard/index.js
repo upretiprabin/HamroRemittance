@@ -63,7 +63,6 @@ class Index extends Component {
         const {
             loading
         } = this.state;
-        console.log("loading",loading)
         return (
             <div className="dashboard-wrapper">
                 <ErrorBoundary>
