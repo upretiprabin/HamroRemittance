@@ -8,7 +8,7 @@ const domain = "hamroremittance.com";
 const middleWareDevUrl = "http://127.0.0.1:8080/remitApp";
 
 const AppConfig = {
-    appLogo: require('Assets/img/site-logo.png'),          // App Logo
+    appLogo: require('Assets/img/app_logo.png'),          // App Logo
     appVersion: '1.0.0',                                    // App version
     brandName: 'Hamro Remittance',                                    // Brand Name
     navCollapsed: false,                                      // Sidebar collapse

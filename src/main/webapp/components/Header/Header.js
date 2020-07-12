@@ -29,8 +29,7 @@ import SearchForm from './SearchForm';
 import QuickLinks from './QuickLinks';
 import MobileSearchForm from './MobileSearchForm';
 
-// intl messages
-import IntlMessages from 'Util/IntlMessages';
+import AppConfig from 'Constants/AppConfig';
 
 class Header extends Component {
 
@@ -86,11 +85,8 @@ class Header extends Component {
 					<div className="d-flex align-items-center">
 						{(horizontalMenu || agencyMenu) &&
 							<div className="site-logo">
-								<Link to="/" className="logo-mini">
-									<img src={require('Assets/img/appLogo.png')} className="mr-15" alt="site logo" width="35" height="35" />
-								</Link>
 								<Link to="/" className="logo-normal">
-									<img src={require('Assets/img/appLogoText.png')} className="img-fluid" alt="site-logo" width="67" height="17" />
+									<img src={AppConfig.appLogo} className="img-fluid" alt="site-logo" width="67" height="17" />
 								</Link>
 							</div>
 						}
