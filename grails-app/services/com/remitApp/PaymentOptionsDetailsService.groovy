@@ -1,7 +1,7 @@
 package com.remitApp
 
-import com.remit.PayingAgentDetails
-import com.remit.PaymentOptionDetails
+import com.remitapp.PayingAgentDetails
+import com.remitapp.PaymentOptionDetails
 import grails.gorm.transactions.Transactional
 
 @Transactional

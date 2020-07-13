@@ -1,8 +1,8 @@
 package com.remitApp
 
-import com.remit.Customer
-import com.remit.Receiver
-import com.remit.Sender
+import com.remitapp.Customer
+import com.remitapp.Receiver
+import com.remitapp.Sender
 
 //import grails.gorm.transactions.Transactional
 //import grails.transaction.Transactional

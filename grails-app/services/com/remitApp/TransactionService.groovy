@@ -1,10 +1,10 @@
 package com.remitApp
 
-import com.remit.OrderDetails
-import com.remit.PayingAgentDetails
-import com.remit.Receiver
-import com.remit.Sender
-import com.remit.Transaction
+import com.remitapp.OrderDetails
+import com.remitapp.PayingAgentDetails
+import com.remitapp.Receiver
+import com.remitapp.Sender
+import com.remitapp.Transaction
 import grails.gorm.transactions.Transactional
 
 @Transactional

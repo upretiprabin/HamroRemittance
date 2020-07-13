@@ -1,8 +1,8 @@
 package com.remitApp
 
-import com.remit.Address
-import com.remit.Customer
-import com.remit.CustomerAddress
+import com.remitapp.Address
+import com.remitapp.Customer
+import com.remitapp.CustomerAddress
 import grails.gorm.transactions.Transactional
 
 @Transactional

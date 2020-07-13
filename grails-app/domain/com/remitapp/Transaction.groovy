@@ -1,4 +1,4 @@
-package com.remit
+package com.remitapp
 
 class Transaction {
     static belongsTo = [sender: Sender, receiver: Receiver]

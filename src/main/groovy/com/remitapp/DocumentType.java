@@ -1,4 +1,4 @@
-package com.main.remit;
+package com.remitapp;
 
 public enum DocumentType {
         PASSPORT,

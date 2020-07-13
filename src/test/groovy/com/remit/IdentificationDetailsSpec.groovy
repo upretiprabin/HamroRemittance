@@ -1,5 +1,6 @@
 package com.remit
 
+import com.remitapp.IdentificationDetails
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 

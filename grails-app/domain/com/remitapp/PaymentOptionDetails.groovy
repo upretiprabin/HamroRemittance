@@ -1,4 +1,4 @@
-package com.remit
+package com.remitapp
 
 class PaymentOptionDetails {
     String payingAgentId
