@@ -1,6 +1,7 @@
 package com.remitApp
 
 import com.remit.OrderDetails
+import com.remit.PayingAgentDetails
 import com.remit.Receiver
 import com.remit.Sender
 import com.remit.Transaction
@@ -50,5 +51,10 @@ class TransactionService {
 
         orderDetails.save(flush: true, failOnError: true)
 
+    }
+
+    def getAllPayingAgents(){
+        def payingAgentDetails = PayingAgentDetails.list()
+        return payingAgentDetails
     }
 }

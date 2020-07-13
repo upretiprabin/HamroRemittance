@@ -18,4 +18,14 @@ class TransactionController {
         }
 
     }
+
+    def getPayingAgents(){
+        try{
+            def result = transactionService.getAllPayingAgents()
+            render (["result":result] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
 }
