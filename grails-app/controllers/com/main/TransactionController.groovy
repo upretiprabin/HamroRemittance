@@ -28,4 +28,14 @@ class TransactionController {
             render (["Error":ex] as JSON)
         }
     }
+
+    def getCashPickTypes(){
+        try{
+            def result = transactionService.getCashPickTypes()
+            render (["result":result] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.remitApp
 
+import com.remit.BankDetails
 import com.remit.Customer
 import com.remit.Receiver
 import com.remit.Sender
@@ -58,6 +59,17 @@ class CustomerService {
         receiver.relationshipToSender = params.relationshipToSender
         receiver.save(failOnError: true, flush: true)
         return receiver
+    }
+
+    def saveBankDetails(Customer customer, def params){
+        def returnResult = [:]
+        BankDetails bankDetails = new BankDetails()
+        bankDetails.customer = customer
+        bankDetails.bankName = params.bankName
+        bankDetails.branchId = params.branchId
+        bankDetails.accountNumber = params.accountNumber
+        bankDetails.save(flush: true, failOnError: true)
+        returnResult["message"] = "Bank Details successfully Saved."
     }
 
     def getCustomer(paramsId){

@@ -8,7 +8,7 @@ class OrderDetails {
     Boolean emailOriginalCopy
     String status
     String trnNumber
-    String pickUpLocation
+    int cashPickUpId
     String transactionReason
     String sourceOfFund
     String payingAgentsId
@@ -22,7 +22,7 @@ class OrderDetails {
         emailOriginalCopy(nullable: true, balnk: true)
         status(nullable: true, balnk: true)
         trnNumber(nullable: true, balnk: true)
-        pickUpLocation(nullable: true, balnk: true)
+        cashPickUpId(nullable: true, balnk: true)
         transactionReason(nullable: true, balnk: true)
         sourceOfFund(nullable: true, balnk: true)
         payingAgentsId(nullable: true, balnk: true)

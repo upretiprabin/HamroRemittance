@@ -1,5 +1,6 @@
 package com.remitApp
 
+import com.remit.CashPickUp
 import com.remit.OrderDetails
 import com.remit.PayingAgentDetails
 import com.remit.Receiver
@@ -43,7 +44,7 @@ class TransactionService {
         orderDetails.emailOriginalCopy = params.emailOriginalCopy
         orderDetails.status = params.status
         orderDetails.trnNumber = params.trnNumber
-        orderDetails.pickUpLocation = params.pickUpLocation
+        orderDetails.cashPickUpId = params.cashPickUpId
         orderDetails.transactionReason = params.transactionReason
         orderDetails.sourceOfFund = params.sourceOfFund
         orderDetails.payingAgentsId = params.payingAgentsId
@@ -56,5 +57,10 @@ class TransactionService {
     def getAllPayingAgents(){
         def payingAgentDetails = PayingAgentDetails.list()
         return payingAgentDetails
+    }
+
+    def getCashPickTypes(){
+        def cashPickUpTypes = CashPickUp.list()
+        return cashPickUpTypes
     }
 }
