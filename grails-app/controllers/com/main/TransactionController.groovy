@@ -7,7 +7,7 @@ class TransactionController {
 
     def index() { }
 
-    def saveTransaction(params){
+    def saveTransaction(){
         def transactionParams = request.JSON
         try{
             def result = transactionService.createNewTransactionAndOrder(transactionParams)
