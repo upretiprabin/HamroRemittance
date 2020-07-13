@@ -1,4 +1,4 @@
-package com.remitapp
+package com.remitapp.um
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

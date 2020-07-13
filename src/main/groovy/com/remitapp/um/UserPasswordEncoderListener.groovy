@@ -1,5 +1,6 @@
-package com.remitapp
+package com.remitapp.um
 
+import com.remitapp.um.User
 import grails.plugin.springsecurity.SpringSecurityService
 import org.grails.datastore.mapping.engine.event.AbstractPersistenceEvent
 import org.grails.datastore.mapping.engine.event.PreInsertEvent

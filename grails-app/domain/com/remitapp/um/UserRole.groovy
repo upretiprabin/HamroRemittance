@@ -1,4 +1,4 @@
-package com.remitapp
+package com.remitapp.um
 
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString

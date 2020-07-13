@@ -1,9 +1,9 @@
 
 
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.remitapp.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.remitapp.UserRole'
-grails.plugin.springsecurity.authority.className = 'com.remitapp.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.remitapp.um.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.remitapp.um.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.remitapp.um.Role'
 grails.plugin.springsecurity.useBasicAuth = true
 grails.plugin.springsecurity.basic.realmName = "Remit App"
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
