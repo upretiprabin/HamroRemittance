@@ -1,5 +1,7 @@
 package com.remit
 
+import com.remitapp.Customer
+
 class BankDetails {
     static belongsTo = [customer: Customer]
     String bankName
