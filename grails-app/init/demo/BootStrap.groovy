@@ -1,7 +1,7 @@
 package demo
 
 import com.remit.CashPickUp
-import com.remit.PayingAgentDetails
+import com.remitapp.PayingAgentDetails
 
 class BootStrap {
 
