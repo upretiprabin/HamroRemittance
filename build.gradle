@@ -14,7 +14,7 @@ buildscript {
 }
 
 version "0.1"
-group "remitApp"
+group "com.remitapp"
 
 apply plugin:"eclipse"
 apply plugin:"idea"
@@ -67,6 +67,9 @@ dependencies {
     testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:2.47.1"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+
+    //spring security core
+    compile 'org.grails.plugins:spring-security-core:3.2.3'
 }
 
 bootRun {
