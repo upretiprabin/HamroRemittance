@@ -44,6 +44,9 @@ class Index extends Component {
     postData(data) {
         Controller.postData(this, data);
     }
+    addReceiver(data) {
+        Controller.addReceiver(this, data);
+    }
     render() {
         const {
             loading
@@ -67,7 +70,8 @@ class Index extends Component {
                                     senderInfo={this.state.sender}
                                     recieverInfo={this.state.recievers}
                                     countries={this.state.countries}
-                                    saveTransaction={data => this.postData(data)} />
+                                    saveTransaction={data => this.postData(data)}
+                                    addReceiver={data => { this.addReceiver(data) }} />
                             </RctCollapsibleCard>
                         </div>
                     }

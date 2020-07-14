@@ -11,14 +11,10 @@ import { Tabs, Tab } from '@material-ui/core';
 import RecieverDetails from '../Reciever/RecieverDetails'
 
 
-const StepOne = ({ saveData, recieverInfo, isError }) => {
+const StepOne = ({ saveData, recieverInfo, isError, addReceiver }) => {
     const [activeIndex, setActiveIndex] = useState(0)
-    const addReciver = data => {
-        console.log(data);
-        /**
-         * TODO add reciver data
-         * dispatch action to fetch reciverdetails
-         */
+    const postData = data => {
+        addReceiver(data)
     }
     return (
         <>
@@ -74,7 +70,7 @@ const StepOne = ({ saveData, recieverInfo, isError }) => {
                         </div>
                     </div>)
                 }
-                {activeIndex === 1 && <RctCardContent><RecieverDetails addReciver={addReciver} cancel={() => setActiveIndex(0)} /></RctCardContent>}
+                {activeIndex === 1 && <RctCardContent><RecieverDetails addReciver={postData} cancel={() => setActiveIndex(0)} /></RctCardContent>}
             </RctCollapsibleCard>
         </>
 

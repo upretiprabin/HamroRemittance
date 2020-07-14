@@ -14,14 +14,14 @@ function getSteps() {
     return ['Transaction details', 'Payment and amount details', 'Select Reciever', 'Reciever Details', 'Review Transaction'];
 }
 //TODO each stepper child components need to be aligned centered
-function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, error) {
+function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} />
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 2:
-            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} isError={error} />
+            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} isError={error} addReceiver={addReceiver} />
         case 3:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 4:
@@ -101,6 +101,28 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
             this.props.saveTransaction(postData)
         }
     }
+    addReceiver = (data) => {
+        let postData = {
+            firstName: data.fName,
+            middleName: data.mName,
+            lastName: data.lName,
+            relationshipToSender: data.relation,
+            phoneNumber: data.phone,
+            emailAddress: data.email,
+            senderId: this.props.senderInfo._id,
+            receiver: true,
+            addressLineOne: data.aLine1,
+            addressLineTwo: data.aLine2,
+            suburbCity: '',
+            country: data.country,
+            stateProvince: data.state,
+            zipCode: data.zip,
+            bankName: data.bank,
+            branchId: data.branch,
+            accountNumber: data.accNumber
+        }
+        this.props.addReceiver(postData)
+    }
     handleBack = () => {
         const { activeStep } = this.state;
         this.setState({
@@ -154,7 +176,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                         </div>
                     ) : (
                             <div className="pl-40">
-                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, recieverInfo, countries, this.state.isError)}</div>
+                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, recieverInfo, countries, this.addReceiver, this.state.isError)}</div>
                                 {this.state.activeStep != 0 ?
                                     <Button variant="contained" className="btn-danger text-white mr-10 mb-10" disabled={activeStep === 0} onClick={this.handleBack}>
                                         Back

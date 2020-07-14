@@ -1,4 +1,4 @@
-import { loadTransactionData, postTransationData, testData } from "../services/transactionService";
+import { loadTransactionData, postTransationData, testData, registerReceiver } from "../services/transactionService";
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
 
@@ -61,6 +61,32 @@ const postData = (ctx, data) => {
         })
 
 };
+const addReceiver = (ctx, data) => {
+    ctx.changeState({ loading: true })
+    registerReceiver(data)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                console.log('data posted')
+            } else {
+                if (data.data.Error === "no data available")
+                    log.info("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.changeState({
+                loading: false
+            })
+        })
+
+};
 
 
 const testTransaction = () => {
@@ -73,5 +99,6 @@ const testTransaction = () => {
 
 export default {
     loadData,
-    postData
+    postData,
+    addReceiver
 }

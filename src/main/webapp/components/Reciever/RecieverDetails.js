@@ -93,10 +93,9 @@ export default class RecieverDetails extends React.Component {
         for (let obj in this.state) {
             formData[obj] = this.state[obj].value
         }
-        if (this.validator()) {
-            console.log(formData)
+        if (!this.validator()) {
             /**TODO */
-            // this.props.disabled == null ? this.props.addReciver(formData) : this.props.updateReciever(formdata)
+            this.props.disabled == null ? this.props.addReciver(formData) : this.props.updateReciever(formdata)
         }
     }
     render() {

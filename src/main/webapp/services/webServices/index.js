@@ -5,11 +5,13 @@
 import User from './user';
 import Dashboard from './dashboard';
 import Transaction from './transaction';
+import Receiver from './receiver'
 
 export default {
     User,
     Dashboard,
-    Transaction
+    Transaction,
+    Receiver
 }
 
 
