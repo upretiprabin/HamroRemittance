@@ -19,7 +19,7 @@ const loadData = (data) => {
             data: {
                 countiesData: [{ code: "NP", currency: 'NRS', name: "Nepal", rate: 87.16, fees: 9.49 }, { code: "JP", name: "Japan", currency: 'YEN', rate: 88.85, fees: 9.99 },],
                 recieverData: [{
-                    _id: "5eff463bf7af7db563f0e1eb",
+                    _id: 1,
                     name: { fName: 'Ram', mName: '', lName: 'Maharjan' },
                     email: 'rammahz018@gmail.com',
                     relation: "Friend",
@@ -34,7 +34,7 @@ const loadData = (data) => {
                         acNo: 84223866063914
                     }
                 }, {
-                    _id: "5eff463b1b3c901f846c104e",
+                    _id: 2,
                     name: { fName: 'Hari', mName: '', lName: 'Devkota' },
                     email: 'hari.devk999@gmail.com',
                     relation: "Colleague",
@@ -51,7 +51,7 @@ const loadData = (data) => {
 
                 }],
                 userData: {
-                    _id: "5eff463bd8fd0aa6161a2db8",
+                    _id: 3,
                     email: 'lucile.keb@gmail.com',
                     phoneNumber: '+61 491 570 156',
                     name: { fName: 'Lucile', mName: '', lName: 'Beck' },
@@ -63,7 +63,13 @@ const loadData = (data) => {
         })
     })
 };
+const postData = (data) => {
+    const config = defaultConfig(data);
+    console.log(URL.TRANSACTION_CREATE, config)
+    return requestHandler.postData(URL.TRANSACTION_CREATE, config);
+}
 
 export default {
-    loadData
+    loadData,
+    postData
 }

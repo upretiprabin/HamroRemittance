@@ -41,7 +41,9 @@ class Index extends Component {
     loadData() {
         Controller.loadData(this);
     }
-
+    postData(data) {
+        Controller.postData(this, data);
+    }
     render() {
         const {
             loading
@@ -64,7 +66,8 @@ class Index extends Component {
                                 <HorizontalLabelPositionBelowStepper
                                     senderInfo={this.state.sender}
                                     recieverInfo={this.state.recievers}
-                                    countries={this.state.countries} />
+                                    countries={this.state.countries}
+                                    saveTransaction={data => this.postData(data)} />
                             </RctCollapsibleCard>
                         </div>
                     }

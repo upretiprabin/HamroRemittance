@@ -1,20 +1,20 @@
 // api
 import api from 'Api';
-import {userFromLocalStorage} from "../../sagas/AuthenticationManager";
+import { userFromLocalStorage } from "../../sagas/AuthenticationManager";
 import log from '../loggerService';
 
 //api interceptors
 api.interceptors.request.use(function (config) {
-    if(config.noAuth){
+    if (config.noAuth) {
         delete config.noAuth;
         return config
     }
-    if(!config.auth){
+    if (!config.auth) {
         let user = userFromLocalStorage();
-        if(user?.sessionPassword && user?.primaryEmail){
+        if (user?.sessionPassword && user?.primaryEmail) {
             config.auth = {
-                username : user.primaryEmail,
-                password : user.sessionPassword
+                username: user.primaryEmail,
+                password: user.sessionPassword
             }
         }
     }
@@ -26,26 +26,29 @@ api.interceptors.request.use(function (config) {
 
 api.interceptors.response.use(function (response) {
     return response;
-},function(error){
-    let authorizedStatusList = [403,401];
-    if(authorizedStatusList.includes(error.response?.status)){
-        if(location.pathname !== "/signin")
+}, function (error) {
+    let authorizedStatusList = [403, 401];
+    if (authorizedStatusList.includes(error.response?.status)) {
+        if (location.pathname !== "/signin")
             location.href = "/signin";
     }
     return Promise.reject(error);
 });
 
-const fakeData = ()=>{
-    return new Promise((res,rej)=>{
-        res({data:'aa11'})
-    }).then((d)=>d)
+const fakeData = () => {
+    return new Promise((res, rej) => {
+        res({ data: 'aa11' })
+    }).then((d) => d)
 };
 
-const loadData = (url,config)=>{
+const loadData = (url, config) => {
     // return api(url,config);
     return fakeData();
 };
+const postData = (url, config) => {
+    return api(url, config);
+}
 
 export default {
-    loadData
+    loadData, postData
 }

@@ -1,4 +1,4 @@
-import {userFromLocalStorage} from "../sagas/AuthenticationManager";
+import { userFromLocalStorage } from "../sagas/AuthenticationManager";
 import middleware from "Middleware";
 
 export const loadTransactionData = () => {
@@ -7,3 +7,7 @@ export const loadTransactionData = () => {
         email
     });
 };
+
+export const postTransationData = (data) => {
+    return middleware.Transaction.postData(data);
+}

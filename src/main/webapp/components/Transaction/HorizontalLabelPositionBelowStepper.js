@@ -25,7 +25,7 @@ function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo,
         case 3:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 4:
-            return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} isError={error} finish/>
+            return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} isError={error} />
         default:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
     }
@@ -73,9 +73,9 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 }
                 break
             case 4:
-                if(stepsData[activeStep] == true){
-                    updatedState = {activeStep: activeStep + 1}
-                }else {
+                if (stepsData[activeStep] == true) {
+                    updatedState = { activeStep: activeStep + 1 }
+                } else {
                     this.setError('Please confim transaction!')
                 }
                 break
@@ -86,6 +86,21 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
         this.setState(updatedState);
     };
 
+    saveTransaction = () => {
+        if (this.state.activeStep == 4 && this.state.stepsData[4] == true) {
+            let postData = {
+                "sendMoneyTo": this.state.stepsData[0].name,
+                "senderId": this.props.senderInfo._id,
+                "receiverId": this.state.stepsData[2]._id,
+                "subTotal": this.state.stepsData[1].send,
+                "total": this.state.stepsData[1].send + this.state.stepsData[0].fees,
+                "exchangedTotal": this.state.stepsData[1].recieve,
+                "currency": "AUD",
+                "transactionReason": this.state.stepsData[3].purposeOfTransfer,
+            };
+            this.props.saveTransaction(postData)
+        }
+    }
     handleBack = () => {
         const { activeStep } = this.state;
         this.setState({
@@ -101,7 +116,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     saveStepData = (data, index) => {
         const updatedStepData = [...this.state.stepsData]
         updatedStepData[index] = data
-        this.setState({ stepsData: updatedStepData })
+        this.setState({ stepsData: updatedStepData }, this.saveTransaction)
         this.setError('');
     }
     setError = (errorMessage) => {
@@ -111,7 +126,6 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
         })
     }
     render() {
-        console.log(this.state.stepsData)
         const steps = getSteps();
         const { activeStep } = this.state;
         const { senderInfo, recieverInfo, countries } = this.props
@@ -136,7 +150,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                         <div className="pl-40">
                             <p>Your request has been sent for proecessing. Would you like to start another transaction?</p>
                             <Button variant="contained" className="btn btn-success text-white m-10" onClick={this.handleReset}>Yes</Button>
-                            <Button variant="contained" className="btn btn-danger text-white m-10" onClick={e=>{/***TODO: redirect to transaction page */}}>No</Button>
+                            <Button variant="contained" className="btn btn-danger text-white m-10" onClick={e => {/***TODO: redirect to transaction page */ }}>No</Button>
                         </div>
                     ) : (
                             <div className="pl-40">
