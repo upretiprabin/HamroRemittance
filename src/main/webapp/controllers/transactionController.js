@@ -1,10 +1,11 @@
-import {loadTransactionData} from "../services/transactionService";
+import {loadTransactionData,testData} from "../services/transactionService";
 import log from "../services/loggerService"
 import {NotificationManager} from "react-notifications";
 
 const loadData = (ctx) =>{
     ctx.changeState({loading : true})
     let stateData = {};
+    testTransaction();
     loadTransactionData()
         .then(data=>{
             if(!data.data.hasOwnProperty("Error")){
@@ -34,6 +35,13 @@ const loadData = (ctx) =>{
         })
 
 };
+
+const testTransaction = ()=>{
+    testData()
+        .then((data)=>{
+            console.log(data.data)
+        })
+}
 
 
 export default {

@@ -7,3 +7,10 @@ export const loadTransactionData = () => {
         email
     });
 };
+
+export const testData = () => {
+    let email = userFromLocalStorage().primaryEmail;
+    return middleware.Transaction.testData({
+        email
+    });
+};

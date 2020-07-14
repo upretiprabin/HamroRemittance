@@ -38,4 +38,8 @@ class TransactionController {
             render (["Error":ex] as JSON)
         }
     }
+
+    def testData(){
+        render ([result:true] as JSON)
+    }
 }

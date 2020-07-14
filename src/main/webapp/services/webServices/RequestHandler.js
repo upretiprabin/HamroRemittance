@@ -28,10 +28,10 @@ api.interceptors.response.use(function (response) {
     return response;
 },function(error){
     let authorizedStatusList = [403,401];
-    if(authorizedStatusList.includes(error.response?.status)){
-        if(location.pathname !== "/signin")
-            location.href = "/signin";
-    }
+    // if(authorizedStatusList.includes(error.response?.status)){
+    //     if(location.pathname !== "/signin")
+    //         location.href = "/signin";
+    // }
     return Promise.reject(error);
 });
 
