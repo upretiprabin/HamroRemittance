@@ -45,7 +45,7 @@ const StepOne = ({ saveData, countries, isError }) => {
                                     <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
                                         input={<Input error={isError} name="country" id="country-helper" />}>
                                         <MenuItem value=""><em>None</em></MenuItem>
-                                        {countries.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
+                                        {countries?.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
                                     </Select>
                                     <FormHelperText>Select country to view rates</FormHelperText>
                                 </FormControl>

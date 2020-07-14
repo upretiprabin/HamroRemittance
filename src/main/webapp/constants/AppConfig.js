@@ -5,7 +5,7 @@
 import {middleWareUrlResolver} from '../services/utilsService';
 
 const domain = "hamroremittance.com";
-const middleWareDevUrl = "http://127.0.0.1:8080/remitApp";
+const middleWareDevUrl = "http://127.0.0.1:8080";
 
 const AppConfig = {
     appLogo: require('Assets/img/app_logo.png'),          // App Logo

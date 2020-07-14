@@ -1,4 +1,4 @@
-package com.main
+package com.remitapp
 
 import grails.converters.JSON
 
@@ -7,7 +7,7 @@ class TransactionController {
 
     def index() { }
 
-    def saveTransaction(params){
+    def saveTransaction(){
         def transactionParams = request.JSON
         try{
             def result = transactionService.createNewTransactionAndOrder(transactionParams)
@@ -27,5 +27,19 @@ class TransactionController {
             ex.printStackTrace()
             render (["Error":ex] as JSON)
         }
+    }
+
+    def getCashPickTypes(){
+        try{
+            def result = transactionService.getCashPickTypes()
+            render (["result":result] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
+
+    def testData(){
+        render ([result:true] as JSON)
     }
 }

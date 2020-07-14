@@ -26,12 +26,12 @@ api.interceptors.request.use(function (config) {
 
 api.interceptors.response.use(function (response) {
     return response;
-}, function (error) {
-    let authorizedStatusList = [403, 401];
-    if (authorizedStatusList.includes(error.response?.status)) {
-        if (location.pathname !== "/signin")
-            location.href = "/signin";
-    }
+},function(error){
+    let authorizedStatusList = [403,401];
+    // if(authorizedStatusList.includes(error.response?.status)){
+    //     if(location.pathname !== "/signin")
+    //         location.href = "/signin";
+    // }
     return Promise.reject(error);
 });
 
@@ -41,9 +41,9 @@ const fakeData = () => {
     }).then((d) => d)
 };
 
-const loadData = (url, config) => {
-    // return api(url,config);
-    return fakeData();
+const loadData = (url,config)=>{
+    return api(url,config);
+    // return fakeData();
 };
 const postData = (url, config) => {
     return api(url, config);

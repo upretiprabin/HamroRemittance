@@ -47,7 +47,7 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
                                     <span>Email: {senderInfo.email}</span>
                                 </div>
                                 <div className="add-card">
-                                    <h4 className="mb-15">Reciever</h4>
+                                    <h4 className="mb-15">Receiver</h4>
                                     <span className="name">{`${recipient.name.fName} ${recipient.name.mName} ${recipient.name.lName}`}</span>
                                     <span>{recipient.address.aLine1}</span>
                                     <span>{recipient.address.aLine2 + ' ' + recipient.address.state}</span>

@@ -1,4 +1,4 @@
-package com.main
+package com.remitapp
 
 import grails.converters.JSON
 
@@ -23,6 +23,11 @@ class CustomerController {
         addressParams.country = newParams.country
         addressParams.stateProvince = newParams.stateProvince
         addressParams.zipCode = newParams.zipCode
+
+        def bankDetails = [:]
+        bankDetails.bankName = newParams.bankName
+        bankDetails.branchId = newParams.branchId
+        bankDetails.accountNumber = newParams.accountNumber
         //TODO: remove addressParams from newParams
         
         try{
@@ -32,6 +37,10 @@ class CustomerController {
             }else{
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
+
+                def bankDetailsResult = customerService.saveBankDetails(savedCustomer, bankDetails)
+                println "bankDetailsResult = $bankDetailsResult"
+
                 def addressResult = customerAddressService.saveAddress(addressParams)
                 def savedAddress = addressResult.address
                 println "{savedAddress.id} = ${savedAddress.id}"

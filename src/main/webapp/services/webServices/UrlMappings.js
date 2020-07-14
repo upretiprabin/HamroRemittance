@@ -11,6 +11,7 @@ export default {
 
     //Transaction endpoints
     TRANSACTION_CREATE: 'transaction/saveTransaction',
+    TRANSACTION_TEST_DATA : 'transaction/testData',
 
     //Reciever endpoints
     RECIEVER_REGISTER : "customer/saveCustomer",
