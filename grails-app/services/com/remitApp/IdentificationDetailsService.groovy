@@ -1,6 +1,6 @@
 package com.remitApp
 
-import com.remit.IdentificationDetails
+import com.remitapp.IdentificationDetails
 import grails.gorm.transactions.Transactional
 
 @Transactional

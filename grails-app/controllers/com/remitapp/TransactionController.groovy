@@ -1,4 +1,4 @@
-package com.main
+package com.remitapp
 
 import grails.converters.JSON
 
@@ -37,5 +37,27 @@ class TransactionController {
             ex.printStackTrace()
             render (["Error":ex] as JSON)
         }
+    }
+
+    def getReceivers(){
+        def receiverParams = request.JSON
+        try{
+            def result = transactionService.getAllReceivers(receiverParams)
+            render (["result":result] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
+
+    def getCompanyCharges(){
+        try{
+            def result = transactionService.getCompanyChargesDetails()
+            render (["result":result] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+
     }
 }

@@ -1,7 +1,8 @@
 package demo
 
-import com.remit.CashPickUp
-import com.remit.PayingAgentDetails
+import com.remitapp.CashPickUp
+import com.remitapp.CompanyCharges
+import com.remitapp.PayingAgentDetails
 
 class BootStrap {
 
@@ -18,9 +19,9 @@ class BootStrap {
         payingAgentDetails2.name = "Himalayan Bank"
         payingAgentDetails2.address = "Bhaktapur"
         payingAgentDetails2.bankOrRemit = "Bank"
-        payingAgentDetails2.save(flush: true, failOnError: true)*/
+        payingAgentDetails2.save(flush: true, failOnError: true)
 
-        /*CashPickUp cashPickUp = new CashPickUp()
+        CashPickUp cashPickUp = new CashPickUp()
         cashPickUp.type = "Bank"
         cashPickUp.save(flush:true, failOnError: true)
         CashPickUp cashPickUp1 = new CashPickUp()
@@ -28,7 +29,14 @@ class BootStrap {
         cashPickUp1.save(flush:true, failOnError: true)
         CashPickUp cashPickUp2 = new CashPickUp()
         cashPickUp2.type = "Cash"
-        cashPickUp2.save(flush:true, failOnError: true)*/
+        cashPickUp2.save(flush:true, failOnError: true)
+
+        CompanyCharges companyCharges = new CompanyCharges()
+        companyCharges.exchangeRate = 87.54
+        companyCharges.serviceCharge = 9.8
+        companyCharges.taxPercentage = 5.2
+        companyCharges.defaultCurrency = "NPR"
+        companyCharges.save(flush: true, failOnError:true)*/
     }
     def destroy = {
     }

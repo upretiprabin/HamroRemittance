@@ -1,11 +1,13 @@
 package com.remitApp
 
-import com.remit.CashPickUp
-import com.remit.OrderDetails
-import com.remit.PayingAgentDetails
-import com.remit.Receiver
-import com.remit.Sender
-import com.remit.Transaction
+import com.remitapp.CashPickUp
+import com.remitapp.CompanyCharges
+import com.remitapp.Customer
+import com.remitapp.OrderDetails
+import com.remitapp.PayingAgentDetails
+import com.remitapp.Receiver
+import com.remitapp.Sender
+import com.remitapp.Transaction
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -62,5 +64,17 @@ class TransactionService {
     def getCashPickTypes(){
         def cashPickUpTypes = CashPickUp.list()
         return cashPickUpTypes
+    }
+
+    def getAllReceivers(def params){
+//        def senderId = Integer.parseInt(params.senderId)
+        def receivers = Customer.findAllBySenderId(params.senderId)
+        println "receivers = $receivers"
+        return receivers
+    }
+
+    def getCompanyChargesDetails(){
+        def cashPickUps = CompanyCharges.list()
+        return cashPickUps
     }
 }
