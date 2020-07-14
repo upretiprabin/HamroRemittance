@@ -1,4 +1,4 @@
-package com.main
+package com.remitapp
 
 import grails.converters.JSON
 

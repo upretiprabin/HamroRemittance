@@ -6,6 +6,9 @@ export default {
     USER_LOGOUT : 'user/logout',
 
     //dashboard endpoints
-    DASHBOARD_LOAD_DATA : 'dashboard/loadData'
+    DASHBOARD_LOAD_DATA : 'dashboard/loadData',
+
+    //transaction endpoints
+    TRANSACTION_TEST_DATA : 'transaction/testData'
 
 }

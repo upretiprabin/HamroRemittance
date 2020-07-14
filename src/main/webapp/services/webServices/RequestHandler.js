@@ -42,8 +42,8 @@ const fakeData = ()=>{
 };
 
 const loadData = (url,config)=>{
-    // return api(url,config);
-    return fakeData();
+    return api(url,config);
+    // return fakeData();
 };
 
 export default {
