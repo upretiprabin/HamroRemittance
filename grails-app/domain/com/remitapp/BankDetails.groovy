@@ -1,4 +1,4 @@
-package com.remit
+package com.remitapp
 
 import com.remitapp.Customer
 

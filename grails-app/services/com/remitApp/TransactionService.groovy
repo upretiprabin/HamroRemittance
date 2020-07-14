@@ -1,5 +1,8 @@
 package com.remitApp
 
+import com.remitapp.CashPickUp
+import com.remitapp.CompanyCharges
+import com.remitapp.Customer
 import com.remitapp.OrderDetails
 import com.remitapp.PayingAgentDetails
 import com.remitapp.Receiver
@@ -56,5 +59,22 @@ class TransactionService {
     def getAllPayingAgents(){
         def payingAgentDetails = PayingAgentDetails.list()
         return payingAgentDetails
+    }
+
+    def getCashPickUpTypes(){
+        def cashPickUpTypes = CashPickUp.list()
+        return cashPickUpTypes
+    }
+
+    def getAllReceivers(def params){
+//        def senderId = Integer.parseInt(params.senderId)
+        def receivers = Customer.findAllBySenderId(params.senderId)
+        println "receivers = $receivers"
+        return receivers
+    }
+
+    def getCompanyChargesDetails(){
+        def cashPickUps = CompanyCharges.list()
+        return cashPickUps
     }
 }
