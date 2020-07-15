@@ -22,6 +22,7 @@ import AppConfig from 'Constants/AppConfig';
 // validators
 import Validator from '../util/Validators'
 
+const sorceOfFund = ['Salary', 'Business', 'Sales of assets', 'Borrowing', 'Other']
 class Signup extends Component {
 
    state = {
@@ -266,16 +267,22 @@ class Signup extends Component {
                                     <div className='col-sm-12 col-md-12 col-lg-12'>
                                        <FormGroup className="has-wrapper">
                                           <Input
+                                             type="select"
                                              invalid={sOfFund.error}
-                                             type="text"
                                              value={sOfFund.value}
                                              name="sOfFund"
-                                             id="sOfFund"
-                                             className="has-input input-lg"
-                                             placeholder="Source of funds*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-money"></i></span>
+                                             id="sOfFundSelect"
+                                             bsSize="lg"
+                                             className="input-lg"
+                                             onChange={(e) => {
+                                                this.onChangeValue(e)
+                                             }}>
+                                             <option value=''>Select One</option>
+                                             {
+                                                sorceOfFund.map((data, index) => <option key={index} value={data}>{data}</option>)
+                                             }
+                                          </Input>
+                                         
                                           <FormFeedback>Required</FormFeedback>
                                        </FormGroup>
                                     </div>

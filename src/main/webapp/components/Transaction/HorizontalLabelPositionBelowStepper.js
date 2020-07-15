@@ -17,7 +17,7 @@ function getSteps() {
 function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} />
+            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data}/>
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 2:

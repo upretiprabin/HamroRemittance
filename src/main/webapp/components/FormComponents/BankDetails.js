@@ -1,7 +1,9 @@
 import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
+import banks from './banks.json'
+const branches = ['Branch A', 'Branch B', 'Branch C', 'Branch D', 'Branch E', 'Branch F', 'Branch G']
 
-const BankForm = ({ bank, branch, accNumber,disabled, onChangeValue }) => {
+const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
     return (
         <>
             <div className='row mt-10'>
@@ -9,16 +11,19 @@ const BankForm = ({ bank, branch, accNumber,disabled, onChangeValue }) => {
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={bank.error}
-                            type="text"
                             value={bank.value}
                             name="bank"
                             id="bank-name"
                             className="has-input input-lg"
-                            placeholder="Bank Name*"
                             disabled={disabled}
-                            onChange={(e) => onChangeValue(e)}
-                        />
-                        <span className="has-icon"><i className="zmdi zmdi-home"></i></span>
+                            type="select"
+                            bsSize="lg"
+                            onChange={(e) => onChangeValue(e)}>
+                            <option value=''>Select Bank*</option>
+                            {
+                                banks.map((bank, index) => <option key={index} value={bank}>{bank}</option>)
+                            }
+                        </Input>
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
@@ -26,16 +31,20 @@ const BankForm = ({ bank, branch, accNumber,disabled, onChangeValue }) => {
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={branch.error}
-                            type="text"
+                            type="select"
                             value={branch.value}
                             name="branch"
                             id="bank-branch"
                             className="has-input input-lg"
-                            placeholder="Branch*"
                             disabled={disabled}
+                            bsSize="lg"
                             onChange={(e) => onChangeValue(e)}
-                        />
-                        <span className="has-icon"><i className="zmdi zmdi-arrow-split"></i></span>
+                        >
+                            <option value=''>Select Branch*</option>
+                            {
+                                branches.map((branch, index) => <option key={index} value={branch}>{branch}</option>)
+                            }
+                        </Input>
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>

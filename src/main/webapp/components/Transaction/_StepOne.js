@@ -1,19 +1,24 @@
 /**
  * Stepper 1 Transaction Details
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // rct card box
 import { RctCardContent } from 'Components/RctCard';
 import { FormControl, InputLabel, Select, MenuItem, FormHelperText, Input } from '@material-ui/core';
 
-const StepOne = ({ saveData, countries, isError }) => {
+const StepOne = ({ saveData, countries, isError, formData }) => {
     const [selectedCountry, setSelectedCountry] = useState('')
     const [ratesAndFees, setRatesAndFees] = useState({
         convertTo: "****",
         rate: "****",
         fees: "****"
     })
+    useEffect(() => {
+        if (formData[0] != null) {
+            setSelectedCountry(formData[0].code)
+        }
+    }, [])
     const onCountryChange = (e) => {
         setSelectedCountry(e.target.value)
         const selected = countries.find(data => data.code === e.target.value)
