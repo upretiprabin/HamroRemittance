@@ -7,10 +7,10 @@ class CustomerController {
     def customerService
     def customerAddressService
 
-   /* def index() {
-        def customers = customerService.getAllCustomers()
-        println "{customers as JSON} = ${customers as JSON}"
-    }*/
+    /* def index() {
+         def customers = customerService.getAllCustomers()
+         println "{customers as JSON} = ${customers as JSON}"
+     }*/
 
     def saveCustomer(){
 
@@ -29,7 +29,7 @@ class CustomerController {
         bankDetails.branchId = newParams.branchId
         bankDetails.accountNumber = newParams.accountNumber
         //TODO: remove addressParams from newParams
-        
+
         try{
             def result = customerService.saveCustomer(newParams)
             if(result.error){
@@ -54,9 +54,52 @@ class CustomerController {
 
     }
 
-   /* def getCustomer(params){
-        customerService.getCustomer(params.id)
-    }*/
+    def updateCustomer(){
+
+        def customerParams = request.JSON
+        def addressParams = [:]
+        addressParams.customerId = customerParams.customerId
+        addressParams.addressLineOne = customerParams.addressLineOne
+        addressParams.addressLineTwo = customerParams.addressLineTwo
+        addressParams.suburbCity = customerParams.suburbCity
+        addressParams.country = customerParams.country
+        addressParams.stateProvince = customerParams.stateProvince
+        addressParams.zipCode = customerParams.zipCode
+
+        def bankDetails = [:]
+        bankDetails.customerId = customerParams.customerId
+        bankDetails.bankName = customerParams.bankName
+        bankDetails.branchId = customerParams.branchId
+        bankDetails.accountNumber = customerParams.accountNumber
+        //TODO: remove addressParams from newParams
+
+        try{
+            def result = customerService.updateCustomer(customerParams)
+            println "result ==== $result"
+            if(result?.error){
+                render (["result":result.error] as JSON)
+            }else{
+                def savedCustomer = result?.customer
+                println "{savedCustomer.id} = ${savedCustomer.id}"
+
+                def bankDetailsResult = customerService.updateBankDetails(savedCustomer, bankDetails)
+                println "bankDetailsResult ==== $bankDetailsResult"
+
+                def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
+                def savedAddress = addressResult.address
+                println "savedAddress === $savedAddress"
+                render (["result":addressResult.message] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+
+    }
+
+    /* def getCustomer(params){
+         customerService.getCustomer(params.id)
+     }*/
 
     /*def updateUser(){
         def requestJson = request.JSON
