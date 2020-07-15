@@ -74,7 +74,13 @@ class TransactionService {
     }
 
     def getCompanyChargesDetails(){
-        def cashPickUps = CompanyCharges.list()
-        return cashPickUps
+        def companyCharges = CompanyCharges.list()
+        return companyCharges
+    }
+
+    def getCompanyChargesByCountry(def params){
+        def country = params.country
+        def companyCharges = CompanyCharges.findByCountry(country)
+        return companyCharges
     }
 }
