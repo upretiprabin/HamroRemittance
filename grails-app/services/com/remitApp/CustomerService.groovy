@@ -1,5 +1,6 @@
 package com.remitApp
 
+import com.remitapp.BankDetails
 import com.remitapp.Customer
 import com.remitapp.Receiver
 import com.remitapp.Sender
@@ -31,10 +32,44 @@ class CustomerService {
         return result
     }
 
+    def updateCustomer(params){
+        def result = [:]
+        try{
+            def customer
+            if(params?.sender){
+                customer = updateSender(params)
+            }else if(params?.receiver){
+                customer = updateReceiver(params);
+            }
+            result["message"] = "Saved successfully."
+            result["customer"] = customer
+        }catch(Exception ex){
+            ex.printStackTrace()
+            result["error"] = "Error occurred while saving.."
+        }
+        return result
+    }
+
     def addSender(def params){
         def dob = commonService.getFormattedDate(params.dateOfBirth)
         println "dob ==== $dob"
         Sender sender = new Sender()
+        sender.firstName = params?.firstName
+        sender.middleName = params?.middleName
+        sender.lastName = params.lastName
+        sender.phoneNumber = params.phoneNumber
+        sender.password = params.password
+        sender.dateOfBirth = dob
+        sender.nationality = params.nationality
+        sender.emailAddress = params.emailAddress
+        sender.save(flush: true, failOnError: true)
+        return sender
+    }
+
+    def updateSender(def params){
+        def dob = commonService.getFormattedDate(params.dateOfBirth)
+        println "dob ==== $dob"
+        Sender sender = Sender.findById(params.customerId)
         sender.firstName = params?.firstName
         sender.middleName = params?.middleName
         sender.lastName = params.lastName
@@ -60,6 +95,44 @@ class CustomerService {
         return receiver
     }
 
+    def updateReceiver(def params){
+        Receiver receiver = Receiver.findById(params.customerId)
+        receiver.firstName = params?.firstName
+        receiver.middleName = params?.middleName
+        receiver.lastName = params.lastName
+        receiver.phoneNumber = params.phoneNumber
+        receiver.emailAddress = params.emailAddress
+        receiver.senderId = params.senderId
+        receiver.relationshipToSender = params.relationshipToSender
+        receiver.save(failOnError: true, flush: true)
+        return receiver
+    }
+
+    def saveBankDetails(Customer customer, def params){
+        def returnResult = [:]
+        BankDetails bankDetails = new BankDetails()
+        bankDetails.customer = customer
+        bankDetails.bankName = params.bankName
+        bankDetails.branchId = params.branchId
+        bankDetails.accountNumber = params.accountNumber
+        bankDetails.save(flush: true, failOnError: true)
+        returnResult["message"] = "Bank Details successfully Saved."
+    }
+
+    def updateBankDetails(Customer customer, def params){
+        def returnResult = [:]
+        println "{params.customerId} = ${params.customerId}"
+        Customer customerToEdit = Customer.findById(params.customerId)
+        BankDetails bankDetails = BankDetails.findByCustomer(customerToEdit)
+        println "customer = $customer"
+        bankDetails.customer = customer
+        bankDetails.bankName = params.bankName
+        bankDetails.branchId = params.branchId
+        bankDetails.accountNumber = params.accountNumber
+        bankDetails.save(flush: true, failOnError: true)
+        returnResult["message"] = "Bank Details successfully Saved."
+    }
+
     def getCustomer(paramsId){
         def customer = Customer.findById(paramsId)
         return customer
@@ -68,19 +141,6 @@ class CustomerService {
     def getAllCustomers(){
         def allCustomers = Customer.list()
         return allCustomers
-    }
-
-    def updateCustomer(params) {
-        def customer = Customer.findById(params.id)
-        customer.firstName = params?.firstName
-        customer.middleName = params?.middleName
-        customer.lastName = params.lastName
-        customer.phoneNumber = params.phoneNumber
-        customer.password = params.password
-        customer.dateOfBirth = params.dateOfBirth
-        customer.nationality = params.nationality
-        customer.emailAddress = params.emailAddress
-        customer.save(flush: true, failOnError: true)
     }
 
     def deleteCustomer(customerId){
