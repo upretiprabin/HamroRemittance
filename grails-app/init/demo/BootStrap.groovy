@@ -31,7 +31,8 @@ class BootStrap {
         cashPickUp2.type = "Cash"
         cashPickUp2.save(flush:true, failOnError: true)
 
-        CompanyCharges companyCharges = new CompanyCharges()
+        /*CompanyCharges companyCharges = new CompanyCharges()
+        companyCharges.country = "Nepal"
         companyCharges.exchangeRate = 87.54
         companyCharges.serviceCharge = 9.8
         companyCharges.taxPercentage = 5.2

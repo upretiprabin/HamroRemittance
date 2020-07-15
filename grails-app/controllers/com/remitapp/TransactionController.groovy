@@ -29,9 +29,9 @@ class TransactionController {
         }
     }
 
-    def getCashPickTypes(){
+    def getCashPickUpTypes(){
         try{
-            def result = transactionService.getCashPickTypes()
+            def result = transactionService.getCashPickUpTypes()
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
@@ -59,5 +59,20 @@ class TransactionController {
             render (["Error":ex] as JSON)
         }
 
+    }
+
+    def fetchCompanyCharges(){
+        def countryParam = request.JSON
+        try{
+            def companyCharges = transactionService.getCompanyChargesByCountry(countryParam)
+            render (["result":companyCharges] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
+
+    def testData(){
+        render ([result:true] as JSON)
     }
 }
