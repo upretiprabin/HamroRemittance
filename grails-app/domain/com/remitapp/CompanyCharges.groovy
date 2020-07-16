@@ -2,6 +2,7 @@ package com.remitapp
 
 class CompanyCharges {
 
+    String country
     float exchangeRate
     float serviceCharge
     float taxPercentage

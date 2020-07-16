@@ -61,6 +61,17 @@ class TransactionController {
 
     }
 
+    def fetchCompanyCharges(){
+        def countryParam = request.JSON
+        try{
+            def companyCharges = transactionService.getCompanyChargesByCountry(countryParam)
+            render (["result":companyCharges] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
+
     def testData(){
         render ([result:true] as JSON)
     }
