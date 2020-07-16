@@ -12,7 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 
 // components
-import SessionSlider from '../components/Widgets/SessionSlider';
+// import SessionSlider from '../components/Widgets/SessionSlider';
 import NameForm from '../components/FormComponents/NameForm'
 import AddressForm from '../components/FormComponents/AddressForm';
 
@@ -276,9 +276,9 @@ class Signup extends Component {
                               </Form>
                            </div>
                         </div>
-                        <div className="col-sm-3 col-md-3 col-lg-3">
+                        {/*<div className="col-sm-3 col-md-3 col-lg-3">
                            <SessionSlider />
-                        </div>
+                        </div>*/}
                      </div>
                   </div>
                </div>

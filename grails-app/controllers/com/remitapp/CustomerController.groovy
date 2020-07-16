@@ -32,6 +32,7 @@ class CustomerController {
 
         try{
             def result = customerService.saveCustomer(newParams)
+            println "result ===== $result"
             if(result.error){
                 render (["result":result.error] as JSON)
             }else{
@@ -45,6 +46,7 @@ class CustomerController {
                 def savedAddress = addressResult.address
                 println "{savedAddress.id} = ${savedAddress.id}"
                 def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
+                println "finalResult = $finalResult"
                 render (["result":finalResult.message] as JSON)
             }
         }catch(Exception ex){
