@@ -49,7 +49,7 @@ class TransactionService {
         orderDetails.emailOriginalCopy = params.emailOriginalCopy
         orderDetails.status = params.status
         orderDetails.trnNumber = params.trnNumber
-        orderDetails.pickUpLocation = params.pickUpLocation
+        orderDetails.cashPickUpId = params.cashPickUpId
         orderDetails.transactionReason = params.transactionReason
         orderDetails.sourceOfFund = params.sourceOfFund
         orderDetails.payingAgentsId = params.payingAgentsId
