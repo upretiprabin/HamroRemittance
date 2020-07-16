@@ -18,7 +18,7 @@ const loadData = (data) => {
 const postReciever = (data) => {
     const config = defaultConfig(data);
     console.log(URL.RECIEVER_REGISTER, config)
-    return requestHandler.postData(URL.RECIEVER_REGISTER, config);
+    return requestHandler.loadData(URL.RECIEVER_REGISTER, config);
 }
 
 export default {

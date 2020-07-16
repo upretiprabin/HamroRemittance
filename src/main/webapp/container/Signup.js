@@ -22,7 +22,7 @@ import AppConfig from 'Constants/AppConfig';
 // validators
 import Validator from '../util/Validators'
 
-const sorceOfFund = ['Salary', 'Business', 'Sales of assets', 'Borrowing', 'Other']
+
 class Signup extends Component {
 
    state = {
@@ -36,10 +36,10 @@ class Signup extends Component {
       confirmPassword: { value: '', error: false },
       aLine1: { value: '', error: false },
       aLine2: { value: '', error: false },
+      subUrb: { value: '', error: false },
       state: { value: '', error: false },
       zip: { value: '', error: false },
       country: { value: 'Australia' },
-      sOfFund: { value: '', error: false },
       nationality: { value: '', error: false },
    };
 
@@ -117,7 +117,7 @@ class Signup extends Component {
       return error
    }
    render() {
-      const { fName, mName, lName, phone, dob, email, password, confirmPassword, aLine1, aLine2, state, zip, country, sOfFund, nationality } = this.state;
+      const { fName, mName, lName, phone, dob, email, password, confirmPassword, aLine1, aLine2, subUrb, state, zip, country, nationality } = this.state;
       const { loading } = this.props;
       return (
          <QueueAnim type="bottom" duration={2000}>
@@ -262,31 +262,7 @@ class Signup extends Component {
                                        </FormGroup>
                                     </div>
                                  </div>
-                                 <AddressForm aLine1={aLine1} aLine2={aLine2} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
-                                 <div className='row'>
-                                    <div className='col-sm-12 col-md-12 col-lg-12'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             type="select"
-                                             invalid={sOfFund.error}
-                                             value={sOfFund.value}
-                                             name="sOfFund"
-                                             id="sOfFundSelect"
-                                             bsSize="lg"
-                                             className="input-lg"
-                                             onChange={(e) => {
-                                                this.onChangeValue(e)
-                                             }}>
-                                             <option value=''>Select One</option>
-                                             {
-                                                sorceOfFund.map((data, index) => <option key={index} value={data}>{data}</option>)
-                                             }
-                                          </Input>
-                                         
-                                          <FormFeedback>Required</FormFeedback>
-                                       </FormGroup>
-                                    </div>
-                                 </div>
+                                 <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
                                  <h5>By submitting this form, you accept Hamro Remittance's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
                                  <FormGroup className="mb-15">
                                     <Button

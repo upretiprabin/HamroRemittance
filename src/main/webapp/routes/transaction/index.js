@@ -40,6 +40,8 @@ class Index extends Component {
 
     loadData() {
         Controller.loadData(this);
+        Controller.loadReceivers(this);
+        Controller.loadCompanyCharges(this);
     }
     postData(data) {
         Controller.postData(this, data);

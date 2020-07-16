@@ -17,11 +17,11 @@ function getSteps() {
 function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
-            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data}/>
+            return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data} />
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 2:
-            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} isError={error} addReceiver={addReceiver} />
+            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} isError={error} addReceiver={addReceiver} formData={data} />
         case 3:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 4:
@@ -66,10 +66,10 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 }
                 break
             case 3:
-                if (!!stepsData[activeStep] && !!(stepsData[activeStep]?.purposeOfTransfer != '')) {
+                if (!!stepsData[activeStep] && !!(stepsData[activeStep]?.purposeOfTransfer != '') && !!(stepsData[activeStep]?.sorceOfFund != '')) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
-                    this.setError('Please select purpose of transaction!')
+                    this.setError('Please select purpose of transaction and source of funds!')
                 }
                 break
             case 4:

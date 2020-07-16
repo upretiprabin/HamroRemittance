@@ -17,6 +17,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
     useEffect(() => {
         if (formData[0] != null) {
             setSelectedCountry(formData[0].code)
+            onCountryChange({ target: { value: formData[0].code } })
         }
     }, [])
     const onCountryChange = (e) => {

@@ -1,7 +1,7 @@
 /**
  * Stepper 1 Transaction Details
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // rct card box
 import { RctCardContent } from 'Components/RctCard';
@@ -11,11 +11,17 @@ import { Tabs, Tab } from '@material-ui/core';
 import RecieverDetails from '../Reciever/RecieverDetails'
 
 
-const StepOne = ({ saveData, recieverInfo, isError, addReceiver }) => {
+const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => {
     const [activeIndex, setActiveIndex] = useState(0)
+    const [selected, setSelected] = useState('')
     const postData = data => {
         addReceiver(data)
     }
+    useEffect(() => {
+        if (formData[2] != null) {
+            setSelected(formData[2]._id)
+        }
+    }, [])
     return (
         <>
             <Tabs
@@ -40,7 +46,9 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver }) => {
                                             <FormGroup>
                                                 <Label className={isError ? 'text-pink' : ''}>Reciever</Label>
                                                 <Input className="mb-20" type="select" bsSize="lg"
+                                                    value={selected}
                                                     onChange={e => {
+                                                        setSelected(e.target.value)
                                                         const selectedRecipient = recieverInfo.find(data => {
                                                             return data._id == e.target.value
                                                         })

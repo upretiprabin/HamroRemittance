@@ -1,7 +1,7 @@
 /**
  * Stepper 2 Payment and Amount Details
  */
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useState, useRef, Fragment, useEffect } from 'react';
 
 // rct card box
 import { RctCardContent } from 'Components/RctCard';
@@ -12,6 +12,13 @@ import { Form, Label, Toast } from 'reactstrap';
 const StepTwo = ({ saveData, formData, isError }) => {
     const [sendAmount, setSendAmount] = useState('')
     const [recieveAmount, setRecieveAmount] = useState('')
+
+    useEffect(() => {
+        if (formData[1] != null) {
+            handleAmountChange({ target: { value: formData[1].send } }, 'send')
+        }
+    }, [])
+
     const handleAmountChange = (e, target) => {
         let amount = e.target.value
 
@@ -42,7 +49,7 @@ const StepTwo = ({ saveData, formData, isError }) => {
         send: `${sendAmount != '' ? sendAmount : 0} AUD`,
         recieve: `${recieveAmount != '' ? recieveAmount : 0} ${formData[0].currency}`,
         rate: `1 AUD = ${formData[0].rate} ${formData[0].currency}`,
-        toPay: `${(parseFloat(sendAmount == '' ? 0 : sendAmount) + parseFloat(formData[0].fees)).toFixed(2)} AUD`,
+        toPay: `${(sendAmount == '' ? 0 : (parseFloat(sendAmount) + parseFloat(formData[0].fees)).toFixed(2))} AUD`,
         fee: `${formData[0].fees} AUD`,
     }
     return (

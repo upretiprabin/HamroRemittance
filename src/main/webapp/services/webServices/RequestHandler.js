@@ -45,10 +45,7 @@ const loadData = (url,config)=>{
     return api(url,config);
     // return fakeData();
 };
-const postData = (url, config) => {
-    return api(url, config);
-}
 
 export default {
-    loadData, postData
+    loadData
 }

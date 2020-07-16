@@ -2,15 +2,15 @@ import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import countries from "./countries.json";
 
-const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry,disabled, onChangeValue }) => {
+const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCountry, disabled, onChangeValue }) => {
     return (
         <>
             <div className='row mt-10'>
-                <div className='col-sm-12 col-md-6 col-lg-6'>
+                <div className='col-sm-12 col-md-6 col-lg-4'>
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={aLine1.error}
-                            type="aLine1"
+                            type="text"
                             value={aLine1.value}
                             name="aLine1"
                             id="user-aLine1"
@@ -23,10 +23,10 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry,disa
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
-                <div className='col-sm-12 col-md-6 col-lg-6'>
+                <div className='col-sm-12 col-md-6 col-lg-4'>
                     <FormGroup className="has-wrapper">
                         <Input
-                            type="aLine2"
+                            type="text"
                             value={aLine2.value}
                             name="aLine2"
                             id="user-aLine2"
@@ -36,6 +36,23 @@ const AddressForm = ({ aLine1, aLine2, state, zip, country, disabledCountry,disa
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-location-pin"></i></span>
+                    </FormGroup>
+                </div>
+                <div className='col-sm-12 col-md-6 col-lg-4'>
+                    <FormGroup className="has-wrapper">
+                        <Input
+                            invalid={subUrb.error}
+                            type="text"
+                            value={subUrb.value}
+                            name="subUrb"
+                            id="user-subUrb"
+                            className="has-input input-lg"
+                            placeholder="SubUrb*"
+                            disabled={disabled}
+                            onChange={(e) => onChangeValue(e)}
+                        />
+                        <span className="has-icon"><i className="ti-location-pin"></i></span>
+                        <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
             </div>

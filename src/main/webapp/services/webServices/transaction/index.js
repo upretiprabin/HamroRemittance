@@ -48,7 +48,7 @@ const loadData = (data) => {
                         branch: 'Chabahil',
                         acNo: 74951054681914
                     }
-    
+
                 }],
                 userData: {
                     _id: 3,
@@ -66,7 +66,19 @@ const loadData = (data) => {
 const postData = (data) => {
     const config = defaultConfig(data);
     console.log(URL.TRANSACTION_CREATE, config)
-    return requestHandler.postData(URL.TRANSACTION_CREATE, config);
+    return requestHandler.loadData(URL.TRANSACTION_CREATE, config);
+}
+const loadReceivers = (data) => {
+    const config = defaultConfig(data);
+    console.log(URL.GET_RECIEVERS, config)
+    return requestHandler.loadData(URL.GET_RECIEVERS, config);
+}
+const loadCompanyCharges = () => {
+    const config = {
+        method: 'get'
+    };
+    console.log(URL.GET_COMPANY_CHARGES, config)
+    return requestHandler.loadData(URL.GET_COMPANY_CHARGES, config);
 }
 
 const testData = (data) => {
@@ -77,5 +89,7 @@ const testData = (data) => {
 export default {
     loadData,
     postData,
-    testData
+    testData,
+    loadReceivers,
+    loadCompanyCharges
 }

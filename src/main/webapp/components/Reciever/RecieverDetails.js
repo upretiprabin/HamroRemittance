@@ -15,6 +15,7 @@ export default class RecieverDetails extends React.Component {
         lName: { value: '', error: false },
         aLine1: { value: '', error: false },
         aLine2: { value: '', error: false },
+        subUrb: { value: '', error: false },
         state: { value: '', error: false },
         zip: { value: '', error: false },
         country: { value: '', error: false },
@@ -99,7 +100,7 @@ export default class RecieverDetails extends React.Component {
         }
     }
     render() {
-        const { fName, mName, lName, aLine2, aLine1, state, zip, country, relation, phone, email, bank, branch, accNumber } = this.state
+        const { fName, mName, lName, aLine2, aLine1, subUrb, state, zip, country, relation, phone, email, bank, branch, accNumber } = this.state
         return (
             <div className="session-inner-wrapper">
                 <div className="container">
@@ -108,7 +109,8 @@ export default class RecieverDetails extends React.Component {
                             <Label>User Details</Label>
                             <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <RelationNContact relation={relation} phone={phone} email={email} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
-                            <AddressForm aLine1={aLine1} aLine2={aLine2} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
+                            <Label>User Address</Label>
+                            <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <Divider />
                             <Label className='mt-10'>Bank Details</Label>
                             <BankForm bank={bank} branch={branch} accNumber={accNumber} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
