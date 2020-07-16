@@ -62,7 +62,7 @@ const postData = (ctx, data) => {
 
 };
 const loadReceivers = (ctx) => {
-    ctx.changeState({ loading: true })
+    // ctx.changeState({ loading: true })
     let stateData = {};
     //TODO : change later
     let data = { "senderId": 2 }
@@ -72,7 +72,7 @@ const loadReceivers = (ctx) => {
                 let recieverData = []
                 data.data.result.forEach(el => {
                     recieverData.push({
-                        _id: 1,
+                        _id: el.id,
                         name: { fName: el.firstName, mName: el.middleName, lName: el.lastName },
                         email: el.emailAddress,
                         relation: el.relationshipToSender,
@@ -107,7 +107,7 @@ const loadReceivers = (ctx) => {
         .finally(() => {
             ctx.changeState({
                 ...stateData,
-                loading: false
+                // loading: false
             })
         })
 
@@ -155,11 +155,12 @@ const loadCompanyCharges = (ctx) => {
 
 };
 const addReceiver = (ctx, data) => {
-    ctx.changeState({ loading: true })
+    // ctx.changeState({ loading: true })
     registerReceiver(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 console.log('data posted')
+                loadReceivers(ctx);
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -174,9 +175,9 @@ const addReceiver = (ctx, data) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.changeState({
-                loading: false
-            })
+            // ctx.changeState({
+            //     loading: false
+            // })
         })
 
 };

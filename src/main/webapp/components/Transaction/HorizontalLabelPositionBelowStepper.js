@@ -13,7 +13,7 @@ import { SnackbarContent, Snackbar } from '@material-ui/core';
 function getSteps() {
     return ['Transaction details', 'Payment and amount details', 'Select Reciever', 'Reciever Details', 'Review Transaction'];
 }
-//TODO each stepper child components need to be aligned centered
+
 function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
@@ -113,7 +113,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
             receiver: true,
             addressLineOne: data.aLine1,
             addressLineTwo: data.aLine2,
-            suburbCity: '',
+            suburbCity: data.subUrb,
             country: data.country,
             stateProvince: data.state,
             zipCode: data.zip,

@@ -20,6 +20,7 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => 
     useEffect(() => {
         if (formData[2] != null) {
             setSelected(formData[2]._id)
+            setActiveIndex(0)
         }
     }, [])
     return (
