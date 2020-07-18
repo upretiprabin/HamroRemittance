@@ -8,11 +8,11 @@ export const loadTransactionData = () => {
     });
 };
 
-export const postTransationData = (data) => {
+export const postTransactionData = (data) => {
     return middleware.Transaction.postData(data);
 }
 export const registerReceiver = (data) => {
-    return middleware.Receiver.postReciever(data);
+    return middleware.Receiver.postReceiver(data);
 }
 
 export const loadReceiverData = (data) => {

@@ -8,7 +8,7 @@ import { RctCardContent } from 'Components/RctCard';
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Tabs, Tab } from '@material-ui/core';
-import RecieverDetails from '../Reciever/RecieverDetails'
+import ReceiverDetails from '../Receiver/ReceiverDetails'
 
 
 const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) => {
@@ -17,6 +17,7 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
     const [selected, setSelected] = useState('')
     const postData = data => {
         addReceiver(data)
+        setActiveIndex(0)
     }
     useEffect(() => {
         if (formData[2] != null) {
@@ -52,8 +53,7 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
                                                     onChange={e => {
                                                         setSelected(e.target.value)
                                                         const selectedRecipient = receiverInfo.find(data => {
-                                                            console.log("data",data)
-                                                            return data._id === e.target.value
+                                                            return data._id == e.target.value
                                                         })
                                                         if (selectedRecipient != null) {
                                                             saveData(selectedRecipient)
@@ -81,7 +81,7 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
                         </div>
                     </div>)
                 }
-                {activeIndex === 1 && <RctCardContent><RecieverDetails addReciver={postData} cancel={() => setActiveIndex(0)} /></RctCardContent>}
+                {activeIndex === 1 && <RctCardContent><ReceiverDetails addReceiver={postData} cancel={() => setActiveIndex(0)} /></RctCardContent>}
             </RctCollapsibleCard>
         </>
 

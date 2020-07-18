@@ -1,4 +1,4 @@
-import { loadTransactionData, postTransationData, testData, registerReceiver, loadReceiverData, loadCompanyChargesData } from "../services/transactionService";
+import { loadTransactionData, postTransactionData, testData, registerReceiver, loadReceiverData, loadCompanyChargesData } from "../services/transactionService";
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
 
@@ -37,7 +37,7 @@ const loadData = (ctx) => {
 };
 const postData = (ctx, data) => {
     ctx.changeState({ loading: true })
-    postTransationData(data)
+    postTransactionData(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 console.log('data posted')

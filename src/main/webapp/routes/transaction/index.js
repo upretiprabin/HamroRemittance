@@ -61,6 +61,7 @@ class Index extends Component {
             filterType: 'textField',
             rowsPerPage: 5
         };
+        console.log(this.state)
         return (
             <div className="dashboard-wrapper">
                 <ErrorBoundary>
@@ -74,7 +75,7 @@ class Index extends Component {
                             <RctCollapsibleCard heading="Send Money">
                                 <HorizontalLabelPositionBelowStepper
                                     senderInfo={sender}
-                                    recieverInfo={receivers}
+                                    receiverInfo={receivers}
                                     countries={countries}
                                     saveTransaction={data => this.postData(data)}
                                     addReceiver={data => { this.addReceiver(data) }} />

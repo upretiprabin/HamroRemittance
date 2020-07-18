@@ -17,7 +17,7 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
     const [currency, amount, recipient, purpose] = selectedData
     const transactionDetails = {
         send: `${amount.send} AUD`,
-        recieve: `${amount.recieve} ${currency.currency}`,
+        receive: `${amount.receive} ${currency.currency}`,
         rate: `1 AUD = ${currency.rate} ${currency.currency}`,
         toPay: `${amount.send + currency.fees}`,
         fee: `${currency.fees} AUD`,
@@ -74,8 +74,8 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
                                             <td>{transactionDetails.send}</td>
                                         </tr>
                                         <tr align="center">
-                                            <td>Reciever Gets</td>
-                                            <td>{transactionDetails.recieve}</td>
+                                            <td>Receiver Gets</td>
+                                            <td>{transactionDetails.receive}</td>
                                         </tr>
                                         <tr align="center">
                                             <td>Rate</td>
@@ -95,7 +95,7 @@ const StepFive = ({ saveData, selectedData, senderInfo }) => {
                             <div className="note-wrapper row">
                                 <div className="invoice-note col-sm-12 col-md-8">
                                     <h2 className="invoice-title">Note</h2>
-                                    <p className="fs-14 text-pink">Please verify the details of reciever party before proceeding as error in details provided might result in delay of the transaction.</p>
+                                    <p className="fs-14 text-pink">Please verify the details of receiver party before proceeding as error in details provided might result in delay of the transaction.</p>
                                 </div>
                                 <div className="totle-amount col-sm-12 col-md-4 text-right">
                                     <h2 className="invoice-title">{transactionDetails.toPay} AUD</h2>

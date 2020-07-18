@@ -15,6 +15,7 @@ function getSteps() {
 }
 
 function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo, countries, addReceiver, error) {
+    console.log('gerere>>>>>>>',receiverInfo)
     switch (stepIndex) {
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data} />
@@ -41,8 +42,8 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
 
     handleNext = () => {
         const { activeStep, stepsData } = this.state;
-        console.log("activeStep",activeStep)
-        console.log("stepsData",stepsData)
+        console.log("activeStep", activeStep)
+        console.log("stepsData", stepsData)
         var updatedState;
 
         switch (activeStep) {
@@ -68,7 +69,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 }
                 break
             case 3:
-                if (!!stepsData[activeStep] && !!(stepsData[activeStep]?.purposeOfTransfer != '') && !!(stepsData[activeStep]?.sorceOfFund != '')) {
+                if (!!stepsData[activeStep] && !!(stepsData[activeStep]?.purposeOfTransfer != '') && !!(stepsData[activeStep]?.sourceOfFund != '')) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
                     this.setError('Please select purpose of transaction and source of funds!')
@@ -78,7 +79,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 if (stepsData[activeStep] == true) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
-                    this.setError('Please confim transaction!')
+                    this.setError('Please confirm transaction!')
                 }
                 break
             default:
@@ -96,9 +97,10 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 "receiverId": this.state.stepsData[2]._id,
                 "subTotal": this.state.stepsData[1].send,
                 "total": this.state.stepsData[1].send + this.state.stepsData[0].fees,
-                "exchangedTotal": this.state.stepsData[1].recieve,
+                "exchangedTotal": this.state.stepsData[1].receive,
                 "currency": "AUD",
                 "transactionReason": this.state.stepsData[3].purposeOfTransfer,
+                "sourceOfFund": this.state.stepsData[3].sourceOfFund
             };
             this.props.saveTransaction(postData)
         }
@@ -152,7 +154,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     render() {
         const steps = getSteps();
         const { activeStep } = this.state;
-        const { senderInfo, recieverInfo, countries } = this.props
+        const { senderInfo, receiverInfo , countries } = this.props
         return (
             <div>
                 <Snackbar
@@ -172,13 +174,13 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 <div>
                     {this.state.activeStep === steps.length ? (
                         <div className="pl-40">
-                            <p>Your request has been sent for proecessing. Would you like to start another transaction?</p>
+                            <p>Your request has been sent for processing. Would you like to start another transaction?</p>
                             <Button variant="contained" className="btn btn-success text-white m-10" onClick={this.handleReset}>Yes</Button>
                             <Button variant="contained" className="btn btn-danger text-white m-10" onClick={e => {/***TODO: redirect to transaction page */ }}>No</Button>
                         </div>
                     ) : (
                             <div className="pl-40">
-                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, recieverInfo, countries, this.addReceiver, this.state.isError)}</div>
+                                <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, receiverInfo, countries, this.addReceiver, this.state.isError)}</div>
                                 {this.state.activeStep != 0 ?
                                     <Button variant="contained" className="btn-danger text-white mr-10 mb-10" disabled={activeStep === 0} onClick={this.handleBack}>
                                         Back

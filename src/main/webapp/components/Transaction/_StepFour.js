@@ -8,10 +8,10 @@ import { RctCardContent } from 'Components/RctCard';
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 import { FormGroup, Input, Label } from 'reactstrap';
 import { Button } from 'reactstrap';
-import RecieverDetails from '../Reciever/RecieverDetails';
+import ReceiverDetails from '../Receiver/ReceiverDetails';
 import { Divider } from '@material-ui/core';
 
-const sorceOfFund = ['Salary', 'Business', 'Sales of assets', 'Borrowing', 'Other']
+const sourceOfFund = ['Salary', 'Business', 'Sales of assets', 'Borrowing', 'Other']
 
 const StepFour = ({ saveData, formData, isError }) => {
     const [selectedPurpose, setSelectedPurpose] = useState('')
@@ -24,18 +24,18 @@ const StepFour = ({ saveData, formData, isError }) => {
     }
     useEffect(() => {
         if (formData[3] != null) {
-            setSelectedSOFunds(formData[3].sorceOfFund)
+            setSelectedSOFunds(formData[3].sourceOfFund)
             setSelectedPurpose(formData[3].purposeOfTransfer)
         }
     }, [])
-    const reciever = formData[2];
+    const receiver = formData[2];
     return (
         <>
             <div className="row text-center" >
                 <div className='col-sm-12 col-md-12 col-lg-12'>
-                    <RctCollapsibleCard heading="Reciever Details" fullBlock>
+                    <RctCollapsibleCard heading="Receiver Details" fullBlock>
                         <RctCardContent>
-                            <RecieverDetails disabled={!editableForm} userData={reciever} cancel={e => { setEditableForm(false) }} />
+                            <ReceiverDetails disabled={!editableForm} userData={receiver} cancel={e => { setEditableForm(false) }} />
                             {!editableForm &&
                                 <div className="session-inner-wrapper">
                                     <div className="container">
@@ -55,14 +55,14 @@ const StepFour = ({ saveData, formData, isError }) => {
                                                             setSelectedSOFunds(e.target.value)
                                                             if (e.target.value != '') {
                                                                 saveData({
-                                                                    sorceOfFund: e.target.value,
+                                                                    sourceOfFund: e.target.value,
                                                                     purposeOfTransfer: selectedPurpose
                                                                 })
                                                             }
                                                         }}>
                                                         <option value=''>Select Source of funds</option>
                                                         {
-                                                            sorceOfFund.map((data, index) => <option key={index} value={data}>{data}</option>)
+                                                            sourceOfFund.map((data, index) => <option key={index} value={data}>{data}</option>)
                                                         }
                                                     </Input>
                                                 </FormGroup>
@@ -82,7 +82,7 @@ const StepFour = ({ saveData, formData, isError }) => {
                                                             setSelectedPurpose(e.target.value)
                                                             if (e.target.value != '') {
                                                                 saveData({
-                                                                    sorceOfFund: selectedSOFunds,
+                                                                    sourceOfFund: selectedSOFunds,
                                                                     purposeOfTransfer: e.target.value
                                                                 })
                                                             }

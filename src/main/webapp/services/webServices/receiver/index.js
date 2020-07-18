@@ -15,7 +15,7 @@ const loadData = (data) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.DASHBOARD_LOAD_DATA, config);
 };
-const postReciever = (data) => {
+const postReceiver = (data) => {
     const config = defaultConfig(data);
     console.log(URL.RECIEVER_REGISTER, config)
     return requestHandler.loadData(URL.RECIEVER_REGISTER, config);
@@ -23,5 +23,5 @@ const postReciever = (data) => {
 
 export default {
     loadData,
-    postReciever
+    postReceiver
 }

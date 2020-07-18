@@ -11,7 +11,7 @@ import { Form, Label, Toast } from 'reactstrap';
 
 const StepTwo = ({ saveData, formData, isError }) => {
     const [sendAmount, setSendAmount] = useState('')
-    const [recieveAmount, setRecieveAmount] = useState('')
+    const [receiveAmount, setReceiveAmount] = useState('')
 
     useEffect(() => {
         if (formData[1] != null) {
@@ -30,24 +30,24 @@ const StepTwo = ({ saveData, formData, isError }) => {
     const calcRates = (amount, target) => {
         amount = amount == "" ? 0 : parseFloat(amount)
         const conversionData = formData[0]
-        var send, recieve
+        var send, receive
         if (target == 'send') {
             send = amount
-            recieve = Math.floor((amount * conversionData.rate) * 100) / 100
-            setRecieveAmount(recieve)
+            receive = Math.floor((amount * conversionData.rate) * 100) / 100
+            setReceiveAmount(receive)
             setSendAmount(amount == 0 ? '' : amount)
         }
-        if (target == "recieve") {
-            recieve = amount
+        if (target == "receive") {
+            receive = amount
             send = Math.ceil((amount / conversionData.rate) * 100) / 100
             setSendAmount(send)
-            setRecieveAmount(amount == 0 ? '' : amount)
+            setReceiveAmount(amount == 0 ? '' : amount)
         }
-        saveData({ send: send, recieve: recieve })
+        saveData({ send: send, receive: receive })
     }
     const txnData = {
         send: `${sendAmount != '' ? sendAmount : 0} AUD`,
-        recieve: `${recieveAmount != '' ? recieveAmount : 0} ${formData[0].currency}`,
+        receive: `${receiveAmount != '' ? receiveAmount : 0} ${formData[0].currency}`,
         rate: `1 AUD = ${formData[0].rate} ${formData[0].currency}`,
         toPay: `${(sendAmount == '' ? 0 : (parseFloat(sendAmount) + parseFloat(formData[0].fees)).toFixed(2))} AUD`,
         fee: `${formData[0].fees} AUD`,
@@ -78,13 +78,13 @@ const StepTwo = ({ saveData, formData, isError }) => {
                         <div className='current-widget bg-success'>
                             <Form>
                                 <FormGroup>
-                                    <Label for="exampleNumber">Recieve Amount</Label>
+                                    <Label for="exampleNumber">Receive Amount</Label>
                                     <Input
                                         error={isError}
                                         type="number"
-                                        placeholder="Amount to Recieve"
-                                        value={recieveAmount}
-                                        onChange={e => handleAmountChange(e, 'recieve')}>
+                                        placeholder="Amount to Receive"
+                                        value={receiveAmount}
+                                        onChange={e => handleAmountChange(e, 'receive')}>
                                     </Input>
                                 </FormGroup>
                             </Form>
@@ -108,8 +108,8 @@ const StepTwo = ({ saveData, formData, isError }) => {
                                             <TableCell align="center">{txnData.rate}</TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell align="center"><b>Reciever Gets: </b></TableCell>
-                                            <TableCell align="center">{txnData.recieve}</TableCell>
+                                            <TableCell align="center"><b>Receiver Gets: </b></TableCell>
+                                            <TableCell align="center">{txnData.receive}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell align="center"><b>Fee: </b></TableCell>

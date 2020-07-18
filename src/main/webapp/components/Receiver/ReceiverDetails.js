@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { Label } from 'reactstrap';
 import Validator from '../../util/Validators';
 
-export default class RecieverDetails extends React.Component {
+export default class ReceiverDetails extends React.Component {
     state = {
         fName: { value: '', error: false },
         mName: { value: '', error: false },
@@ -96,7 +96,7 @@ export default class RecieverDetails extends React.Component {
         }
         if (!this.validator()) {
             /**TODO */
-            this.props.disabled == null ? this.props.addReciver(formData) : this.props.updateReciever(formdata)
+            this.props.disabled == null ? this.props.addReceiver(formData) : this.props.updateReceiver(formdata)
         }
     }
     render() {
@@ -124,7 +124,7 @@ export default class RecieverDetails extends React.Component {
                                                 variant="contained"
                                                 size="large"
                                                 onClick={(e) => this.onSubmit(e)}
-                                            >{this.props.disabled == null ? 'Add Reciever' : 'Edit Reciver'}</Button>
+                                            >{this.props.disabled == null ? 'Add Receiver' : 'Edit Receiver'}</Button>
                                         </FormGroup>
 
                                         <FormGroup className="m-15">
