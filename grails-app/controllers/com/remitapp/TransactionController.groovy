@@ -78,6 +78,21 @@ class TransactionController {
         }
     }
 
+    def deleteTransaction(){
+        def transactionParams = request.JSON
+        try{
+            def result = transactionService.deleteTransactionById(transactionParams)
+            if(result.message){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error": "No transaction found to delete."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+    }
+
     def testData(){
         render ([result:true] as JSON)
     }

@@ -120,4 +120,15 @@ class TransactionService {
         }
         System.out.println("--deleteOrderDetails---")
     }
+
+    def deleteTransactionById(transactionParams){
+        def returnMessage = [:]
+        Transaction transaction = Transaction.findById(transactionParams.transactionId)
+        if(transaction){
+            deleteOrderDetails(transaction)
+            deleteTransaction(transaction)
+            returnMessage['message'] = "Transaction successfully deleted."
+        }
+        return returnMessage
+    }
 }
