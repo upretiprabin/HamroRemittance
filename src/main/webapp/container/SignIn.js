@@ -124,9 +124,9 @@ class SignIn extends Component {
                                        </Form>
                                    </div>
                                </div>
-                               {/*<div className="col-sm-5 col-md-5 col-lg-4">*/}
-                                   {/*<SessionSlider />*/}
-                               {/*</div>*/}
+                               <div className="col-sm-5 col-md-5 col-lg-4">
+                                   <SessionSlider />
+                               </div>
                            </div>
                        </div>
                    </div>
