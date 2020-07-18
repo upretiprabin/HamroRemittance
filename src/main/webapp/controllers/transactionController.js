@@ -71,25 +71,30 @@ const loadReceivers = (ctx) => {
             if (!data.data.hasOwnProperty("Error")) {
                 let receiverData = []
                 data.data.result.forEach(el => {
+                    console.log("el",el)
+                    let receiverInfo = el.receiver;
+                    let address = el.address;
+                    let bankDetails = el.bankDetails;
+
                     receiverData.push({
-                        _id: el.id,
-                        name: { fName: el.firstName, mName: el.middleName, lName: el.lastName },
-                        email: el.emailAddress,
-                        relation: el.relationshipToSender,
+                        _id: receiverInfo?.id,
+                        name: { fName: receiverInfo?.firstName, mName: receiverInfo?.middleName, lName: receiverInfo?.lastName },
+                        email: receiverInfo?.emailAddress,
+                        relation: receiverInfo?.relationshipToSender,
                         address: {
-                            aLine1: 'Baneshwor - 3', aLine2: '', state: 'Bagmati', zip: '44600',
-                            country: 'Nepal',
+                            aLine1: address?.addressLineOne, aLine2: address?.addressLineTwo, state: address?.stateProvince, zip: address?.zipCode,
+                            country: address?.country,
                         },
-                        phoneNumber: el.phoneNumber,
+                        phoneNumber: receiverInfo?.phoneNumber,
                         bankDetails: {
-                            name: "Kumari Bank Ltd",
-                            branch: 'Branch A',
-                            acNo: 84223866063914
+                            name: bankDetails?.bankName,
+                            branch: bankDetails?.branchId,
+                            acNo: bankDetails?.accountNumber
                         }
                     })
                 });
                 stateData = {
-                    recievers: receiverData
+                    receivers: receiverData
                 }
             } else {
                 if (data.data.Error === "No receiver found")

@@ -11,17 +11,17 @@ import StepFour from './_StepFour';
 import { SnackbarContent, Snackbar } from '@material-ui/core';
 
 function getSteps() {
-    return ['Transaction details', 'Payment and amount details', 'Select Reciever', 'Reciever Details', 'Review Transaction'];
+    return ['Transaction details', 'Payment and amount details', 'Select Receiver', 'Receiver Details', 'Review Transaction'];
 }
 
-function getStepContent(stepIndex, saveStepData, data, senderInfo, recieverInfo, countries, addReceiver, error) {
+function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data} />
         case 1:
             return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 2:
-            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} recieverInfo={recieverInfo} isError={error} addReceiver={addReceiver} formData={data} />
+            return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} receiverInfo={receiverInfo} isError={error} addReceiver={addReceiver} formData={data} />
         case 3:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 4:
@@ -41,6 +41,8 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
 
     handleNext = () => {
         const { activeStep, stepsData } = this.state;
+        console.log("activeStep",activeStep)
+        console.log("stepsData",stepsData)
         var updatedState;
 
         switch (activeStep) {

@@ -11,8 +11,9 @@ import { Tabs, Tab } from '@material-ui/core';
 import RecieverDetails from '../Reciever/RecieverDetails'
 
 
-const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => {
+const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) => {
     const [activeIndex, setActiveIndex] = useState(0)
+    console.log("activeIndex at step three",activeIndex)
     const [selected, setSelected] = useState('')
     const postData = data => {
         addReceiver(data)
@@ -33,8 +34,8 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => 
                 textColor="primary"
                 indicatorColor="primary"
                 centered>
-                <Tab label="Select Reciever" />
-                <Tab label="Add Reciever" />
+                <Tab label="Select Receiver" />
+                <Tab label="Add Receiver" />
             </Tabs>
             <RctCollapsibleCard customClasses="mark">
                 {activeIndex === 0 && (
@@ -45,20 +46,21 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => 
                                     <div className="form-group">
                                         <Form>
                                             <FormGroup>
-                                                <Label className={isError ? 'text-pink' : ''}>Reciever</Label>
+                                                <Label className={isError ? 'text-pink' : ''}>Receiver</Label>
                                                 <Input className="mb-20" type="select" bsSize="lg"
                                                     value={selected}
                                                     onChange={e => {
                                                         setSelected(e.target.value)
-                                                        const selectedRecipient = recieverInfo.find(data => {
-                                                            return data._id == e.target.value
+                                                        const selectedRecipient = receiverInfo.find(data => {
+                                                            console.log("data",data)
+                                                            return data._id === e.target.value
                                                         })
                                                         if (selectedRecipient != null) {
                                                             saveData(selectedRecipient)
                                                         }
                                                     }}>
                                                     <option value=''>Please Select Recipient</option>
-                                                    {recieverInfo.map((data, index) =>
+                                                    {receiverInfo && receiverInfo.map((data, index) =>
                                                         (<option key={index} value={data._id}>{`${data.name.fName} ${data.name.mName} ${data.name.lName}`}</option>)
                                                     )}
                                                 </Input>
@@ -70,7 +72,7 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => 
                                             onClick={e => {
                                                 setActiveIndex(1)
                                             }}>
-                                            <i className="zmdi zmdi-account-add"></i> Add Recipient
+                                            <i className="zmdi zmdi-account-add" /> Add Recipient
                                             </Button>
                                     </div>
                                 </div>
@@ -86,4 +88,4 @@ const StepOne = ({ saveData, recieverInfo, isError, addReceiver, formData }) => 
     )
 }
 
-export default StepOne;
+export default StepThree;

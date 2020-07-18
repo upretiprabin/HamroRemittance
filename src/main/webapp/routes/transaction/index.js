@@ -17,7 +17,7 @@ class Index extends Component {
 
     state = {
         countries: [],
-        recievers: [],
+        receivers: [],
         sender: null,
         loading: false
     };
@@ -51,8 +51,12 @@ class Index extends Component {
     }
     render() {
         const {
-            loading
+            loading,
+            sender,
+            countries,
+            receivers
         } = this.state;
+        console.log("receivers at index",receivers)
         const options = {
             filterType: 'textField',
             rowsPerPage: 5
@@ -69,9 +73,9 @@ class Index extends Component {
                         <div>
                             <RctCollapsibleCard heading="Send Money">
                                 <HorizontalLabelPositionBelowStepper
-                                    senderInfo={this.state.sender}
-                                    recieverInfo={this.state.recievers}
-                                    countries={this.state.countries}
+                                    senderInfo={sender}
+                                    recieverInfo={receivers}
+                                    countries={countries}
                                     saveTransaction={data => this.postData(data)}
                                     addReceiver={data => { this.addReceiver(data) }} />
                             </RctCollapsibleCard>
