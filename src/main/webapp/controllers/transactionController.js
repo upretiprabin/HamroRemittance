@@ -101,6 +101,7 @@ const loadReceivers = (ctx) => {
             }
         })
         .catch(e => {
+            console.log(e)
             log.error(e);
             NotificationManager.error("Error Occurred!")
         })

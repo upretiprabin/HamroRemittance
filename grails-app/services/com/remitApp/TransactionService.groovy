@@ -70,7 +70,7 @@ class TransactionService {
     }
 
     def getAllReceivers(def params){
-        def returnMap = [:]
+        def returnList = []
         def receivers = Customer.findAllBySenderId(params.senderId)
         if(receivers){
             receivers.eachWithIndex { receiver, index ->
@@ -80,13 +80,12 @@ class TransactionService {
                 receiverMap.receiver = receiver
                 receiverMap.address = address
                 receiverMap.bankDetails = bankDetails
-
-                returnMap.put(index,receiverMap)
+                returnList.add(receiverMap)
             }
         }else{
             return null
         }
-        return returnMap
+        return returnList
     }
 
     def getCustomerAddress(Customer customer){
