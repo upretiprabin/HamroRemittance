@@ -35,7 +35,7 @@ class CustomerController {
             def result = customerService.saveCustomer(newParams)
             println "result ===== $result"
             if(result.error){
-                render (["result":result.error] as JSON)
+                render (["Error":result.error] as JSON)
             }else{
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
@@ -80,7 +80,7 @@ class CustomerController {
             def result = customerService.updateCustomer(customerParams)
             println "result ==== $result"
             if(result?.error){
-                render (["result":result.error] as JSON)
+                render (["Error":result.error] as JSON)
             }else{
                 def savedCustomer = result?.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
@@ -120,7 +120,7 @@ class CustomerController {
                 customerAddressService.deleteCustomerAddress(customer)
                 bankDetailsService.deleteBankDetails(customer)
             }else{
-                render (["result":"Not enough delete parameters."] as JSON)
+                render (["Error":"Not enough delete parameters."] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()
