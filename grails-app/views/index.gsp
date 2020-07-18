@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <asset:stylesheet href="main.css"/>
 </head>
 <body>
 <div id="root"></div>
