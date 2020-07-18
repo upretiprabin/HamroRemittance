@@ -9,6 +9,7 @@ class TransactionController {
 
     def saveTransaction(){
         def transactionParams = request.JSON
+        println "transactionParams ==== $transactionParams"
         try{
             def result = transactionService.createNewTransactionAndOrder(transactionParams)
             render (["result":result] as JSON)

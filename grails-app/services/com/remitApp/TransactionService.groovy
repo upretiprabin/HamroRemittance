@@ -20,7 +20,7 @@ class TransactionService {
         def sender = Sender.findById(params.senderId)
         def receiver = Receiver.findById(params.receiverId)
         if(sender == null || receiver == null){
-            returnResult["Error"] = "Sender or Receiver no found.."
+            returnResult["Error"] = "Sender or Receiver not found.."
         }else{
             Transaction transaction = new Transaction()
             transaction.sender = sender
@@ -98,7 +98,26 @@ class TransactionService {
         return companyCharges
     }
 
-    def deleteTransaction(Sender sender){
-        def transaction = Transaction.findBySender(sender)
+    def deleteTransactions(Sender sender){
+        def transactions = Transaction.findBySender(sender)
+        if(transactions){
+            transactions.each{ transaction ->
+                deleteOrderDetails(transaction)
+                deleteTransaction(transaction)
+            }
+        }
+    }
+
+    def deleteTransaction(Transaction transaction){
+        transaction.delete(flush: true, failOnError:true)
+        System.out.println("--deleteOrderDetails--transaction-")
+    }
+
+    def deleteOrderDetails(Transaction transaction){
+        def orderDetails = OrderDetails.findByTransaction(transaction)
+        if(orderDetails){
+            orderDetails.delete(flush: true, failOnError: true)
+        }
+        System.out.println("--deleteOrderDetails---")
     }
 }
