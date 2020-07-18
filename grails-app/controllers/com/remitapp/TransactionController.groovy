@@ -15,7 +15,7 @@ class TransactionController {
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while saving transaction."] as JSON)
         }
 
     }
@@ -26,7 +26,7 @@ class TransactionController {
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while fetching paying agents."] as JSON)
         }
     }
 
@@ -36,7 +36,7 @@ class TransactionController {
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while fetching cash pick up types."] as JSON)
         }
     }
 
@@ -47,7 +47,7 @@ class TransactionController {
             result = transactionService.getAllReceivers(receiverParams)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while fetching receivers list."] as JSON)
             return
         }
         if(result)
@@ -62,7 +62,7 @@ class TransactionController {
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while getting company charges."] as JSON)
         }
 
     }
@@ -74,7 +74,7 @@ class TransactionController {
             render (["result":companyCharges] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while fetching company charges."] as JSON)
         }
     }
 
@@ -89,7 +89,7 @@ class TransactionController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":"Error occurred while deleting transaction."] as JSON)
         }
     }
 
