@@ -108,31 +108,6 @@ class CustomerService {
         return receiver
     }
 
-    def saveBankDetails(Customer customer, def params){
-        def returnResult = [:]
-        BankDetails bankDetails = new BankDetails()
-        bankDetails.customer = customer
-        bankDetails.bankName = params.bankName
-        bankDetails.branchId = params.branchId
-        bankDetails.accountNumber = params.accountNumber
-        bankDetails.save(flush: true, failOnError: true)
-        returnResult["message"] = "Bank Details successfully Saved."
-    }
-
-    def updateBankDetails(Customer customer, def params){
-        def returnResult = [:]
-        println "{params.customerId} = ${params.customerId}"
-        Customer customerToEdit = Customer.findById(params.customerId)
-        BankDetails bankDetails = BankDetails.findByCustomer(customerToEdit)
-        println "customer = $customer"
-        bankDetails.customer = customer
-        bankDetails.bankName = params.bankName
-        bankDetails.branchId = params.branchId
-        bankDetails.accountNumber = params.accountNumber
-        bankDetails.save(flush: true, failOnError: true)
-        returnResult["message"] = "Bank Details successfully Saved."
-    }
-
     def getCustomer(paramsId){
         def customer = Customer.findById(paramsId)
         return customer

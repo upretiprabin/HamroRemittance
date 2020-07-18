@@ -53,7 +53,6 @@ class TransactionController {
             render(["result":result] as JSON)
         else
             render (["Error" : "No receiver found"] as JSON)
-
     }
 
     def getCompanyCharges(){

@@ -6,6 +6,7 @@ import grails.converters.JSON
 class CustomerController {
     def customerService
     def customerAddressService
+    def bankDetailsService
 
     /* def index() {
          def customers = customerService.getAllCustomers()
@@ -39,7 +40,7 @@ class CustomerController {
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                def bankDetailsResult = customerService.saveBankDetails(savedCustomer, bankDetails)
+                def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
                 println "bankDetailsResult = $bankDetailsResult"
 
                 def addressResult = customerAddressService.saveAddress(addressParams)
@@ -84,7 +85,7 @@ class CustomerController {
                 def savedCustomer = result?.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                def bankDetailsResult = customerService.updateBankDetails(savedCustomer, bankDetails)
+                def bankDetailsResult = bankDetailsService.updateBankDetails(savedCustomer, bankDetails)
                 println "bankDetailsResult ==== $bankDetailsResult"
 
                 def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
@@ -99,42 +100,32 @@ class CustomerController {
 
     }
 
-    /* def getCustomer(params){
-         customerService.getCustomer(params.id)
-     }*/
-
-    /*def updateUser(){
-        def requestJson = request.JSON
-        def email = requestJson.email
-        def schoolName = requestJson.schoolName
-        def userJson = requestJson.user
-        if(email == null || schoolName == null || userJson == null){
-            render (["Error":"invalid parameters"] as JSON)
-            return
-        }
-        def user = null
-        def result = null
-        def errorMessage = null
+    def deleteCustomer(){
+        def customerParams = request.JSON
+        Customer customer = Customer.findById(customerParams.customerId)
         try{
-            (result,user) = userService.update(email,schoolName,userJson)
-            if(result.contains("success"))
-                user = userService.getUserModelWithExtraFields(user)
-            else
-                errorMessage = result
-        }catch(CustomException e){
-            log.error(e)
-            render(["Error":e.message] as JSON)
-            return
-        }
-        catch(e){
-            log.error("Error Occurred!",e)
-            render (status:500, text:["Error":"error occurred"] as JSON, contentType: "application/json")
-            return
-        }
-        if(errorMessage)
-            render (["Error":errorMessage] as JSON)
-        else
-            render (["result":user] as JSON)
-    }*/
+            if(customerParams.receiver){
+                //delete customer address,address bank details, customer
+                customerAddressService.deleteCustomerAddress(customer)
+                bankDetailsService.deleteBankDetails(customer)
+                customerService.deleteCustomer(customer)
+            }else if(customerParams.sender){
+                //delete address
+                //delete bank details
+                //delete customer
+                //delete all the receivers
+                //delete all the transactions
+                //delete all the orders
 
+                customerAddressService.deleteCustomerAddress(customer)
+                bankDetailsService.deleteBankDetails(customer)
+            }else{
+                render (["result":"Not enough delete parameters."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":ex] as JSON)
+        }
+
+    }
 }
