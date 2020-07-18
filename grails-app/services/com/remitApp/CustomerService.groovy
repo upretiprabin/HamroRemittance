@@ -59,7 +59,6 @@ class CustomerService {
         sender.middleName = params?.middleName
         sender.lastName = params.lastName
         sender.phoneNumber = params.phoneNumber
-        sender.password = params.password
         sender.dateOfBirth = dob
         sender.nationality = params.nationality
         sender.emailAddress = params.emailAddress
@@ -75,7 +74,6 @@ class CustomerService {
         sender.middleName = params?.middleName
         sender.lastName = params.lastName
         sender.phoneNumber = params.phoneNumber
-        sender.password = params.password
         sender.dateOfBirth = dob
         sender.nationality = params.nationality
         sender.emailAddress = params.emailAddress
