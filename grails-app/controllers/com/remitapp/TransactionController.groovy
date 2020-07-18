@@ -41,13 +41,19 @@ class TransactionController {
 
     def getReceivers(){
         def receiverParams = request.JSON
+        def result = null
         try{
-            def result = transactionService.getAllReceivers(receiverParams)
-            render (["result":result] as JSON)
+            result = transactionService.getAllReceivers(receiverParams)
         }catch(Exception ex){
             ex.printStackTrace()
             render (["Error":ex] as JSON)
+            return
         }
+        if(result)
+            render(["result":result] as JSON)
+        else
+            render (["Error" : "No receiver found"] as JSON)
+
     }
 
     def getCompanyCharges(){

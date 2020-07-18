@@ -69,9 +69,9 @@ const loadReceivers = (ctx) => {
     loadReceiverData(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                let recieverData = []
+                let receiverData = []
                 data.data.result.forEach(el => {
-                    recieverData.push({
+                    receiverData.push({
                         _id: el.id,
                         name: { fName: el.firstName, mName: el.middleName, lName: el.lastName },
                         email: el.emailAddress,
@@ -89,10 +89,10 @@ const loadReceivers = (ctx) => {
                     })
                 });
                 stateData = {
-                    recievers: recieverData
+                    recievers: receiverData
                 }
             } else {
-                if (data.data.Error === "no data available")
+                if (data.data.Error === "No receiver found")
                     log.info("No data");
                 else {
                     log.error(data.data.Error);

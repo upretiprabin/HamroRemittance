@@ -84,9 +84,8 @@ class TransactionService {
                 returnMap.put(index,receiverMap)
             }
         }else{
-            returnMap["error"] = "No receivers found."
+            return null
         }
-        println "returnMap = ${returnMap as JSON}"
         return returnMap
     }
 
