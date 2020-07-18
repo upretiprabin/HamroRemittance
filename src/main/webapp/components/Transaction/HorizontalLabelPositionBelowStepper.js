@@ -15,7 +15,6 @@ function getSteps() {
 }
 
 function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo, countries, addReceiver, error) {
-    console.log('gerere>>>>>>>',receiverInfo)
     switch (stepIndex) {
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data} />
@@ -42,8 +41,6 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
 
     handleNext = () => {
         const { activeStep, stepsData } = this.state;
-        console.log("activeStep", activeStep)
-        console.log("stepsData", stepsData)
         var updatedState;
 
         switch (activeStep) {
@@ -100,7 +97,8 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 "exchangedTotal": this.state.stepsData[1].receive,
                 "currency": "AUD",
                 "transactionReason": this.state.stepsData[3].purposeOfTransfer,
-                "sourceOfFund": this.state.stepsData[3].sourceOfFund
+                "sourceOfFund": this.state.stepsData[3].sourceOfFund,
+                "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
             };
             this.props.saveTransaction(postData)
         }
