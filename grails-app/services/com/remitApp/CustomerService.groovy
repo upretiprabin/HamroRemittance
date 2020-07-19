@@ -1,6 +1,5 @@
 package com.remitApp
 
-import com.remitapp.BankDetails
 import com.remitapp.Customer
 import com.remitapp.Receiver
 import com.remitapp.Sender
@@ -11,6 +10,8 @@ import com.remitapp.Sender
 //@Transactional
 class CustomerService {
     def commonService
+    def customerAddressService
+    def bankDetailsService
 
     def saveCustomer(params){
         def result = [:]
@@ -58,7 +59,6 @@ class CustomerService {
         sender.middleName = params?.middleName
         sender.lastName = params.lastName
         sender.phoneNumber = params.phoneNumber
-        sender.password = params.password
         sender.dateOfBirth = dob
         sender.nationality = params.nationality
         sender.emailAddress = params.emailAddress
@@ -74,7 +74,6 @@ class CustomerService {
         sender.middleName = params?.middleName
         sender.lastName = params.lastName
         sender.phoneNumber = params.phoneNumber
-        sender.password = params.password
         sender.dateOfBirth = dob
         sender.nationality = params.nationality
         sender.emailAddress = params.emailAddress
@@ -118,9 +117,28 @@ class CustomerService {
         return allCustomers
     }
 
-    def deleteCustomer(customerId){
+    def deleteCustomerById(customerId){
         def customer = Customer.findById(customerId)
         if(customer)
-            customer.delete(failOnError: true, flush:  true)
+            deleteCustomer(customer)
+    }
+
+    def deleteAllReceivers(customerParams){
+        def receivers = Customer.findAllBySenderId(customerParams.customerId)
+        println "receivers ==== $receivers"
+        receivers.each{ receiver ->
+            deleteReceiver(receiver)
+        }
+    }
+
+    def deleteReceiver(Customer receiver){
+        customerAddressService.deleteCustomerAddress(receiver)
+        bankDetailsService.deleteBankDetails(receiver)
+        deleteCustomer(receiver)
+    }
+
+    def deleteCustomer(Customer customer){
+        println "customer === $customer"
+        customer.delete(failOnError: true, flush:  true)
     }
 }
