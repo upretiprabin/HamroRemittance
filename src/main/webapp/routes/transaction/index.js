@@ -56,12 +56,10 @@ class Index extends Component {
             countries,
             receivers
         } = this.state;
-        console.log("receivers at index",receivers)
         const options = {
             filterType: 'textField',
             rowsPerPage: 5
         };
-        console.log(this.state)
         return (
             <div className="dashboard-wrapper">
                 <ErrorBoundary>
