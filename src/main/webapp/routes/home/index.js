@@ -156,8 +156,8 @@ class Index extends Component {
                                             few steps you need to follow to make your transaction.</p>
                                         <ul className="list-unstyled text-3 line-height-5">
                                             <li><i className="fa fa-check mr-2"/>Create an account for free</li>
-                                            <li><i className="fa fa-check mr-2"/>Select the amount.</li>
-                                            <li><i className="fa fa-check mr-2"/>Pick your transfer method.</li>
+                                            <li><i className="fa fa-check mr-2"/>Select the amount</li>
+                                            <li><i className="fa fa-check mr-2"/>Pick your transfer method</li>
                                             <li><i className="fa fa-check mr-2"/>Pick existing recipient or create new
                                                 one
                                             </li>
