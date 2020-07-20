@@ -19,6 +19,7 @@
     <!-- Use For Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Heebo:100,300,400,500,700,800,900" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i' type='text/css'>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
     <asset:stylesheet href="main.css"/>
 </head>
