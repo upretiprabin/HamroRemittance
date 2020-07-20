@@ -9,3 +9,32 @@ body{
 .btn-primary:hover{
   opacity: 0.8;
 }
+.text-9{
+  font-size: 2.25rem !important;
+}
+.text-4{
+  font-size: 1.125rem !important;
+}
+.text-3{
+  font-size: 1rem !important;
+}
+.featured-box:not(.style-5) .featured-box-icon {
+  display: inline-block;
+  font-size: 40px;
+  height: 45px;
+  line-height: 45px;
+  padding: 0;
+  width: 45px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #4c4d4d;
+  border-radius: 0;
+}
+.featured-box h3, .featured-box h4 {
+  font-size: 20px !important;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+p {
+  line-height: 1.9;
+}
