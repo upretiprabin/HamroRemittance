@@ -1,0 +1,45 @@
+.footer{
+  background: #fff;
+  color: #252b33;
+  padding: 4.125rem 0 !important;
+  border-top: 1px solid #ecf3f5;
+}
+.social-icons {
+  margin: 0;
+  padding: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.social-icons li {
+  margin: 0 6px 4px;
+  padding: 0;
+  overflow: visible;
+}
+.social-icons li:hover.social-icons-facebook a, .social-icons.social-icons-colored li.social-icons-facebook a {
+  color: #3B5998;
+}
+.social-icons li:hover a {
+  color: #999;
+}
+.social-icons li a {
+  display: block;
+  height: 26px;
+  line-height: 26px;
+  width: 26px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.footer-copyright {
+  border-top: 1px solid #e2e8ea;
+  padding: 0 0;
+  color: $primary-text;
+}
+.fa:hover{
+  color: $primary-text !important;
+}
