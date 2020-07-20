@@ -263,7 +263,7 @@ class Signup extends Component {
                                     </div>
                                  </div>
                                  <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
-                                 <h5>By submitting this form, you accept Hamro Remittance's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
+                                 <h5>By submitting this form, you accept Hamro Remit's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
                                  <FormGroup className="mb-15">
                                     <Button
                                        className="btn-info text-white btn-block w-100"

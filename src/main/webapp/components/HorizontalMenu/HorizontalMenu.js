@@ -32,10 +32,10 @@ class HorizontalMenu extends Component {
                                     <a><span className={"header-menu"}>HOW IT WORKS</span></a>
                                 </li>
                                 <li className="list-inline-item">
-                                    <a><span className={"header-menu"}>LOG IN</span></a>
+                                    <a href={"/signin"}><span className={"header-menu"}>LOG IN</span></a>
                                 </li>
                                 <li className="list-inline-item sign-up">
-                                    <a className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></a>
+                                    <a href={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></a>
                                 </li>
                             </ul>
                         </div>

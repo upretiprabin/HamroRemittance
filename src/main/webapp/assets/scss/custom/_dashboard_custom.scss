@@ -1,0 +1,50 @@
+.dashboard-wrapper{
+  .session-slider{
+    $wallpapers : "../img/dashboard/166027.jpg","../img/dashboard/166015.jpg","../img/dashboard/166134.jpg";
+    .wallpaper{
+      width: 1920px;
+      height: 576px;
+    }
+    @for $i from 0 through 2{
+      $img : nth($wallpapers,$i+1);
+      .wall-#{$i}{
+        background: url($img);
+      }
+    }
+  }
+
+  .send{
+    width: 30%;
+    position: absolute;
+    top: 20%;
+    left: 33%;
+    text-align: center;
+    background: #eed6d4;
+    padding: 25px;
+    border-radius: 8px;
+    .btn-primary{
+      width: 100% !important;
+      padding: 10px !important;
+      background: $secondary-btn !important;
+      .MuiButton-label{
+        color: $primary-bg;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input::before {
+    content: url("../flag-icons/fr.png");
+    margin-right: 8px;
+    position: relative;
+    top: 2px;
+    height: 2px;
+    width: 2px;
+  }
+
+  .select-country .MuiFormControl-root{
+    width: 100% !important;
+    text-align: left !important;
+  }
+}

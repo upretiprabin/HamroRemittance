@@ -15,13 +15,6 @@ class RctHorizontalLayout extends Component {
     renderPage() {
         const { pathname } = this.props.location;
         const { children, match } = this.props;
-        if (pathname === `${match.url}/chat` || pathname.startsWith(`${match.url}/mail`) || pathname === `${match.url}/todo`) {
-            return (
-                <div className="rct-page-content p-0">
-                    {children}
-                </div>
-            );
-        }
         return (
             <Scrollbars
                 className="rct-scroll"
@@ -29,7 +22,7 @@ class RctHorizontalLayout extends Component {
                 autoHideDuration={100}
                 style={{ height: 'calc(100vh - 100px)' }}
             >
-                <div className="rct-page-content">
+                <div className="rct-page-content p-0">
                     {children}
                     <Footer />
                 </div>
@@ -45,7 +38,7 @@ class RctHorizontalLayout extends Component {
                         <div className="rct-app-content">
                             <div className="rct-page">
                                 <HorizontalMenu />
-                                {/*{this.renderPage()}*/}
+                                {this.renderPage()}
                             </div>
                         </div>
                     </div>

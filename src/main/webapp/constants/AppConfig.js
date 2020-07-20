@@ -10,7 +10,7 @@ const middleWareDevUrl = "http://127.0.0.1:8080";
 const AppConfig = {
     appLogo: require('Assets/img/app_logo.png'),          // App Logo
     appVersion: '1.0.0',                                    // App version
-    brandName: 'Hamro Remittance',                                    // Brand Name
+    brandName: 'Hamro Remit',                                    // Brand Name
     navCollapsed: false,                                      // Sidebar collapse
     darkMode: false,
     miniSidebar: false,                                       // Mini Sidebar
@@ -44,7 +44,7 @@ const AppConfig = {
     darkThemeColors: {
         darkBgColor: '#424242'
     },
-    copyRightText: '© Hamro Remittance ' + (new Date()).getFullYear() ,      // Copy Right Text
+    copyRightText: '© Hamro Remit ' + (new Date()).getFullYear() ,      // Copy Right Text
     //support url
     supportUrl: "support@hamroremittance.com",
     middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareUrlResolver(domain,middleWareDevUrl),

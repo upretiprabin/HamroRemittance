@@ -3,3 +3,9 @@ body{
   font-size: 14px;
   line-height: 22px;
 }
+.btn-primary{
+  background: $primary-btn !important;
+}
+.btn-primary:hover{
+  opacity: 0.8;
+}
