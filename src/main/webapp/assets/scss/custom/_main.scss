@@ -3,6 +3,17 @@
 	height: 100%;
 	width: 100%;
 }
+.rct-header{
+	box-shadow: $footer-box-shadow;
+	background-color: $footer-bg;
+	padding: 1.25rem; //20px;
+	z-index: 9;
+	h5 {
+		margin-bottom: 0;
+		color: $gray-600;
+		font-size: 0.875rem; //14px;
+	}
+}
 .app-main-container {
 	display: flex;
 	flex-wrap: nowrap;

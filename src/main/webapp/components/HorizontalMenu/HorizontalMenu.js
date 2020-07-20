@@ -8,100 +8,27 @@ import IntlMessages from 'Util/IntlMessages';
 import navLinks from './NavLinks';
 
 import NavMenuItem from './NavMenuItem';
+import {Link} from "react-router-dom";
+import AppConfig from 'Constants/AppConfig';
 
 class HorizontalMenu extends Component {
-	render() {
-		return (
-			<div className="horizontal-menu">
-				<ul className="list-unstyled nav">
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-view-dashboard"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.general" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category1.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-widgets"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.modules" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category2.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-view-carousel"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.component" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category3.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-wrench"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.features" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category4.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-assignment-check"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.applications" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category5.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-					<li className="nav-item">
-						<a href="#" onClick={e => e.preventDefault()} className="nav-link">
-							<i className="zmdi zmdi-assignment-check"></i>
-							<span className="menu-title"><IntlMessages id="sidebar.extensions" /></span>
-						</a>
-						<ul className="list-unstyled sub-menu">
-							{navLinks.category6.map((menu, key) => (
-								<NavMenuItem
-									menu={menu}
-									key={key}
-								/>
-							))}
-						</ul>
-					</li>
-				</ul>
-			</div>
-		);
-	}
+    render() {
+        return (
+            <div className="horizontal-menu">
+                <div className="container">
+                    <div className = "rct-header d-flex">
+                        <div className="site-logo">
+                            <Link to="/" className="logo-normal">
+                                <img src={AppConfig.appLogo} className="" alt="site-logo" width="95" height="45" />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default HorizontalMenu;

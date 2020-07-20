@@ -43,12 +43,9 @@ class RctHorizontalLayout extends Component {
                 <div className="app-container">
                     <div className="rct-page-wrapper">
                         <div className="rct-app-content">
-                            <div className="app-header">
-                                <Header horizontalMenu />
-                            </div>
                             <div className="rct-page">
                                 <HorizontalMenu />
-                                {this.renderPage()}
+                                {/*{this.renderPage()}*/}
                             </div>
                         </div>
                     </div>
