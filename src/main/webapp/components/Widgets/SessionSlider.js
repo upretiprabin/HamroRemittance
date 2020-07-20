@@ -17,7 +17,7 @@ export default class SessionSlider extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            autoplay: false,
+            autoplay: true,
             swipe: true,
             touchMove: true,
             swipeToSlide: true,

@@ -21,6 +21,10 @@ import {
     RecentOrdersWidget,
     SupportRequest
 } from "Components/Widgets";
+import {
+    Player, ControlBar,BigPlayButton
+} from 'video-react';
+import DownloadButton from '../../components/VideoDownloadButton/DownloadButton';
 
 // components
 import {
@@ -84,7 +88,7 @@ class Index extends Component {
                     <h5>Today's Rate : 83.2900 NPR</h5>
                     <MatButton className="btn btn-primary mt-10">Continue</MatButton>
                 </div>
-                <div className="choose">
+                <div className="choose mb-40">
                     <Card body>
                         <h2 className={"text-9 text-center mt-60"}>Why should you choose Hamro Remit?</h2>
                         <p className="text-4 text-center mb-5">Here’s Top 4 reasons why</p>
@@ -103,7 +107,7 @@ class Index extends Component {
                                         <div className="featured-box-icon text-primary">
                                             <i className="fa fa-share fa-lg" aria-hidden="true"/>                                        </div>
                                         <h3>Faster Payments</h3>
-                                        <p className="text-3">We have developed our system to be quick. We won't keep you waiting for long.</p>
+                                        <p className="text-3">We have developed our system to be quick. We won't keep you waiting for long</p>
                                     </div>
                                 </div>
                                 <div className="col-sm-6 col-lg-3 mb-5 mb-lg-0">
@@ -111,7 +115,7 @@ class Index extends Component {
                                         <div className="featured-box-icon text-primary">
                                             <i className="fa fa-dollar fa-lg" aria-hidden="true"/>                                        </div>
                                         <h3>Lower Fees</h3>
-                                        <p className="text-3">We charge very reasonable service to our customer.</p>
+                                        <p className="text-3">We charge very reasonable service to our customer</p>
                                     </div>
                                 </div>
                                 <div className="col-sm-6 col-lg-3 mb-5 mb-lg-0">
@@ -125,6 +129,38 @@ class Index extends Component {
                             </div>
                         </div>
                     </Card>
+                </div>
+                <div className="how-it-works section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="video-player-wrapper col-lg-6">
+                                    <Player
+                                        poster="https://reactify.theironnetwork.org/data/images/bunny-poster.jpg"
+                                        src="http://media.w3.org/2010/05/bunny/movie.mp4"
+                                    >
+                                        <ControlBar autoHide={false}>
+                                            <DownloadButton order={7} />
+                                            <BigPlayButton position="center" />
+                                        </ControlBar>
+                                    </Player>
+                            </div>
+                            <div className="col-lg-6 mt-5 mt-lg-0">
+                                <div className="ml-4">
+                                    <h2 className="text-9">How does it work?</h2>
+                                    <p className="text-4">Hamro remit is very fast, simple and safe. Here are the few steps you need to follow to make your transaction.</p>
+                                    <ul className="list-unstyled text-3 line-height-5">
+                                        <li><i className="fa fa-check mr-2"/>Create an account for free</li>
+                                        <li><i className="fa fa-check mr-2"/>Select the amount.</li>
+                                        <li><i className="fa fa-check mr-2"/>Pick your transfer method.</li>
+                                        <li><i className="fa fa-check mr-2"/>Pick existing recipient or create new one</li>
+                                        <li><i className="fa fa-check mr-2"/>Confirm and send</li>
+                                    </ul>
+                                    <a href="#" className="btn btn-outline-primary shadow-none mt-2">
+                                        Open a Free Account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -6,6 +6,15 @@ body{
 .btn-primary{
   background: $primary-btn !important;
 }
+.btn-outline-primary {
+  color: $primary-btn;
+  background-color: transparent;
+  background-image: none;
+  border-color: $primary-btn;
+}
+.btn-outline-primary:hover {
+  background-color: $primary-btn;
+}
 .btn-primary:hover{
   opacity: 0.8;
 }
@@ -37,4 +46,54 @@ body{
 }
 p {
   line-height: 1.9;
+}
+.section {
+  position: relative;
+  padding: 5.5rem 0;
+}
+
+a, a:focus {
+  color: $primary-btn;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.bg-dark-3 {
+  background-color: #2b343c !important;
+}
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+.border-0 {
+  border: 0!important;
+}
+.opacity-8 {
+  opacity: 0.8;
+}
+.card-img {
+  width: 100%;
+  border-radius: calc(.25rem - 1px);
+}
+.p-0 {
+  padding: 0!important;
+}
+
+.shadow-md {
+  -webkit-box-shadow: 0 0 50px -35px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 50px -35px rgba(0, 0, 0, 0.4);
+}
+.m-auto {
+  margin: auto!important;
+}
+.rounded-circle {
+  border-radius: 50%!important;
+}
+.bg-white {
+  background-color: #fff!important;
+}
+.fa{
+  color : $primary-btn !important;
+}
+.line-height-5 {
+  line-height: 1.8 !important;
 }
