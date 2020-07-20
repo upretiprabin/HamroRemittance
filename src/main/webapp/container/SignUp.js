@@ -12,27 +12,19 @@ import {
     signIn
 } from 'Actions';
 
-class SignIn extends Component {
+class SignUp extends Component {
 
-   state = {
-      email: '',
-      password: ''
-   };
+    state = {
+        email: '',
+        password: '',
+        fullName : ''
+    };
 
-	/**
-	 * On User Login
-	 */
-   onUserLogin() {
-      if (this.state.email !== '' && this.state.password !== '') {
-         this.props.signIn(this.state, this.props.history);
-      }
-   }
-
-   onKeyPress(event){
-       if(event.key === "Enter"){
-           this.onUserLogin();
-       }
-   }
+    onKeyPress(event){
+        if(event.key === "Enter"){
+            this.onUserSignUp();
+        }
+    }
 
     /**
      * On User Sign Up
@@ -41,16 +33,23 @@ class SignIn extends Component {
         this.props.history.push('/signup');
     }
 
-   render() {
-       const { email, password } = this.state;
-       const { loading } = this.props;
-       return (
-           <QueueAnim type="bottom" duration={2000}>
-               <div className="app-horizontal rct-session-wrapper">
-                   {loading &&
-                   <LinearProgress />
-                   }
-                   <div className="container-fluid px-0 h-100">
+    /**
+     * On Login
+     */
+    onUserSignIn() {
+        this.props.history.push('/signIn');
+    }
+
+    render() {
+        const { email, password, fullName } = this.state;
+        const { loading } = this.props;
+        return (
+            <QueueAnim type="bottom" duration={2000}>
+                <div className="app-horizontal rct-session-wrapper">
+                    {loading &&
+                    <LinearProgress />
+                    }
+                    <div className="container-fluid px-0 h-100">
                         <div className="row no-gutters h-100">
                             <div className="col-md-6">
                                 <div className="hero-wrap d-flex align-items-center h-100">
@@ -70,10 +69,8 @@ class SignIn extends Component {
                                         </div>
                                         <div className="row no-gutters my-auto">
                                             <div className="col-10 col-lg-9 mx-auto">
-                                                <h1 className="text-11 text-white mb-4">Welcome back!</h1>
-                                                <p className="text-4 text-white line-height-4 mb-5">We are glad to see
-                                                    you again! </p>
-                                                <p className="text-4 text-white line-height-4 mb-5">Instant money transfer from Australia to Nepal.</p>
+                                                <h1 className="text-11 text-white mb-4">Get Verified!</h1>
+                                                <p className="text-4 text-white line-height-4 mb-5">Every day, Hamro Remit makes thousands of customers happy.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -83,8 +80,19 @@ class SignIn extends Component {
                                 <div className="container my-4">
                                     <div className="row">
                                         <div className="col-11 col-lg-9 col-xl-8 mx-auto">
-                                            <h3 className="ml-5 mb-4">Log In</h3>
+                                            <h3 className="ml-5 mb-4">Sign Up</h3>
                                             <form id="loginForm" method="post">
+                                                <FormGroup className="has-wrapper">
+                                                    <Input
+                                                        type="text"
+                                                        value={fullName}
+                                                        name="user-fullName"
+                                                        id="user-fullName"
+                                                        className="has-input input-lg"
+                                                        placeholder="Full Name"
+                                                        onChange={(event) => this.setState({ fullName: event.target.value })}
+                                                    />
+                                                </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
                                                         type="mail"
@@ -109,45 +117,40 @@ class SignIn extends Component {
                                                     />
                                                     <span className="has-icon"><i className="ti-lock"/></span>
                                                 </FormGroup>
-                                                <div className="row">
-                                                    <div className="col-sm text-center mb-4">
-                                                        <a className="btn-link" href="#">Forgot Password ?</a>
-                                                    </div>
-                                                </div>
                                                 <FormGroup className="mb-15">
                                                     <Button
                                                         color="primary"
                                                         className="btn-block btn-primary text-white w-100"
                                                         variant="contained"
                                                         size="large"
-                                                        onClick={() => this.onUserLogin()}
+                                                        onClick={() => this.onUserSignUp()}
                                                     >
-                                                        Log In
+                                                        Sign Up
                                                     </Button>
                                                 </FormGroup>
                                             </form>
                                             <p className="text-3 text-center text-muted">
-                                                Don't have an account?
-                                                <a href={"#"} className="ml-5 btn-link" onClick={() => this.onUserSignUp()}>Sign Up</a>
+                                                Already have an account?
+                                                <a href={"#"} className="ml-5 btn-link" onClick={() => this.onUserSignIn()}>Log In</a>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                   </div>
-               </div>
-           </QueueAnim>
-       );
-   }
+                    </div>
+                </div>
+            </QueueAnim>
+        );
+    }
 }
 
 // map state to props
 const mapStateToProps = ({ authUser }) => {
-   const { loading } = authUser;
-   return { loading }
+    const { loading } = authUser;
+    return { loading }
 };
 
 export default connect(mapStateToProps, {
     signIn
-})(SignIn);
+})(SignUp);

@@ -48,6 +48,10 @@ class Index extends Component {
         Controller.loadData(this);
     }
 
+    onUserLogin() {
+        this.props.history.push('/signin');
+    }
+
     render() {
         const {
             loading
@@ -59,6 +63,7 @@ class Index extends Component {
             }
         ];
 
+        const countryRate = 83.29;
         return (
             <ErrorBoundary>
                 {loading &&
@@ -82,8 +87,8 @@ class Index extends Component {
                                 selection={"Nepal"}
                             />
                         </div>
-                        <h5>Today's Rate : 83.2900 NPR</h5>
-                        <MatButton className="btn btn-primary mt-10">Continue</MatButton>
+                        <h5>Today's Rate : {countryRate} NPR</h5>
+                        <MatButton className="btn btn-primary mt-10" onClick={() => this.onUserLogin()}>Continue</MatButton>
                     </div>
                     <div className="choose mb-40">
                         <Card body>
@@ -158,7 +163,7 @@ class Index extends Component {
                                             </li>
                                             <li><i className="fa fa-check mr-2"/>Confirm and send</li>
                                         </ul>
-                                        <a href="#" className="btn btn-outline-primary shadow-none mt-2">
+                                        <a href="/signup" className="btn btn-outline-primary shadow-none mt-2">
                                             Open a Free Account</a>
                                     </div>
                                 </div>

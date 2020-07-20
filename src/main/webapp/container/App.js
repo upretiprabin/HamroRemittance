@@ -14,7 +14,7 @@ import HorizontalLayout from './HorizontalLayout';
 // app signin
 import AppSignIn from './SignIn';
 import AppConfig from "Constants/AppConfig";
-import Signup from "./Signup";
+import Signup from "./SignUp";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not

@@ -23,7 +23,7 @@ import AppConfig from 'Constants/AppConfig';
 import Validator from '../util/Validators'
 
 
-class Signup extends Component {
+class OldSignup extends Component {
 
    state = {
       fName: { value: '', error: false },
@@ -294,4 +294,4 @@ const mapStateToProps = ({ authUser }) => {
    return { loading };
 };
 
-export default connect(mapStateToProps)(Signup);
+export default connect(mapStateToProps)(OldSignup);
