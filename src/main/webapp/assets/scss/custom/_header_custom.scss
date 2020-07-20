@@ -1,0 +1,25 @@
+.horizontal-menu{
+  .header-menu{
+    color: $primary-text;
+    font-weight: 500;
+    margin: 0 15px 0 15px;
+  }
+  .header-menu:hover,.header-menu:focus,.header-menu:active{
+    color: $app_color_text;
+  }
+  .menus{
+    position: absolute;
+    right: 10%;
+    .sign-up{
+      .btn-primary{
+        background: $app_color_text !important;
+      }
+      .btn-primary:hover{
+        opacity: 0.8;
+      }
+      .header-menu{
+        color: $primary-bg !important;
+      }
+    }
+  }
+}
