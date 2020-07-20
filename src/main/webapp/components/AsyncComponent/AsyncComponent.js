@@ -8,6 +8,12 @@ import Loadable from 'react-loadable';
 // rct page loader
 import RctPageLoader from 'Components/RctPageLoader/RctPageLoader';
 
+// home
+const AsyncHomeComponent = Loadable({
+    loader: () => import("../../routes/home"),
+    loading: () => <RctPageLoader />,
+});
+
 // dashboard
 const AsyncDashboardComponent = Loadable({
     loader: () => import("../../routes/dashboard"),
@@ -22,5 +28,6 @@ const AsyncTransactionComponent = Loadable({
 
 export {
     AsyncDashboardComponent,
+    AsyncHomeComponent,
     AsyncTransactionComponent
 };

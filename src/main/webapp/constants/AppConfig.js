@@ -48,7 +48,7 @@ const AppConfig = {
     //support url
     supportUrl: "support@hamroremittance.com",
     middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareUrlResolver(domain,middleWareDevUrl),
-    homePage : "dashboard"
+    homePage : "home"
 };
 
 export default AppConfig;
