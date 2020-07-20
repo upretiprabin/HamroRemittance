@@ -93,6 +93,20 @@ class TransactionController {
         }
     }
 
+    def fetchTransactionStatus(){
+        try{
+            def result = transactionService.returnTransactionStatus()
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Transaction status not found in the database."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching transaction status."] as JSON)
+        }
+    }
+
     def testData(){
         render ([result:true] as JSON)
     }

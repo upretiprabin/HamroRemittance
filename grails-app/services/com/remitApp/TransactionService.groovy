@@ -8,6 +8,7 @@ import com.remitapp.PayingAgentDetails
 import com.remitapp.Receiver
 import com.remitapp.Sender
 import com.remitapp.Transaction
+import com.remitapp.TransactionStatus
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -90,6 +91,11 @@ class TransactionService {
     def getCompanyChargesDetails(){
         def companyCharges = CompanyCharges.list()
         return companyCharges
+    }
+
+    def returnTransactionStatus(){
+        def txnStatus = TransactionStatus.list()
+        return txnStatus
     }
 
     def getCompanyChargesByCountry(def params){

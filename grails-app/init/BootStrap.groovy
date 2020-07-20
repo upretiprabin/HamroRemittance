@@ -1,6 +1,7 @@
 import com.remitapp.CashPickUp
 import com.remitapp.CompanyCharges
 import com.remitapp.PayingAgentDetails
+import com.remitapp.TransactionStatus
 import com.remitapp.um.*
 
 class BootStrap {
@@ -52,6 +53,16 @@ class BootStrap {
 //        companyCharges.taxPercentage = 5.2
 //        companyCharges.defaultCurrency = "NPR"
 //        companyCharges.save(flush: true, failOnError:true)
+
+       /* TransactionStatus transactionStatus = new TransactionStatus()
+        transactionStatus.statusId = "awaitingPayments"
+        transactionStatus.statusDesc = "Awaiting Payments"
+        transactionStatus.save(flush:true, failOnError: true)
+
+        TransactionStatus transactionStatus1 = new TransactionStatus()
+        transactionStatus1.statusId = "onlineEntry"
+        transactionStatus1.statusDesc = "Online Entry"
+        transactionStatus1.save(flush:true, failOnError: true)*/
     }
     def destroy = {
     }
