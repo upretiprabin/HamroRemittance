@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { Form, FormGroup, Input } from 'reactstrap';
+import { FormGroup, Input } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
 import {
@@ -17,7 +14,7 @@ class SignUp extends Component {
     state = {
         email: '',
         password: '',
-        fullName : ''
+        showPassword : false
     };
 
     onKeyPress(event){
@@ -40,8 +37,17 @@ class SignUp extends Component {
         this.props.history.push('/signIn');
     }
 
+    onShowPassword(){
+        let pwdDom = document.getElementById("pwd");
+        if(!this.state.showPassword)
+            pwdDom.type = "text";
+        else
+            pwdDom.type = "password";
+        this.setState({showPassword:!this.state.showPassword});
+    }
+
     render() {
-        const { email, password, fullName } = this.state;
+        const { email, password } = this.state;
         const { loading } = this.props;
         return (
             <QueueAnim type="bottom" duration={2000}>
@@ -84,17 +90,6 @@ class SignUp extends Component {
                                             <form id="loginForm" method="post">
                                                 <FormGroup className="has-wrapper">
                                                     <Input
-                                                        type="text"
-                                                        value={fullName}
-                                                        name="user-fullName"
-                                                        id="user-fullName"
-                                                        className="has-input input-lg"
-                                                        placeholder="Full Name"
-                                                        onChange={(event) => this.setState({ fullName: event.target.value })}
-                                                    />
-                                                </FormGroup>
-                                                <FormGroup className="has-wrapper">
-                                                    <Input
                                                         type="mail"
                                                         value={email}
                                                         name="user-mail"
@@ -115,7 +110,9 @@ class SignUp extends Component {
                                                         placeholder="Password"
                                                         onChange={(event) => this.setState({ password: event.target.value })}
                                                     />
-                                                    <span className="has-icon"><i className="ti-lock"/></span>
+                                                    <span onClick={()=>{
+                                                        this.onShowPassword();
+                                                    }} title={"Show"} className="has-icon"><i className="ti-eye"/></span>
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button

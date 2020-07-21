@@ -107,7 +107,7 @@ class SignIn extends Component {
                                                         placeholder="Password"
                                                         onChange={(event) => this.setState({ password: event.target.value })}
                                                     />
-                                                    <span className="has-icon"><i className="ti-lock"/></span>
+                                                    <span title={"Show"} className="has-icon"><i className="ti-eye"/></span>
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button
