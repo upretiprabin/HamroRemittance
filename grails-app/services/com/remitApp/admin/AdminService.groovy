@@ -51,4 +51,13 @@ class AdminService {
         }
         return returnList
     }
+
+    def saveOrderDetailsStatus(params){
+        def returnList = []
+        def orderDetailsToUpdate = OrderDetails.findById(params.orderDetailsId)
+        orderDetailsToUpdate.status = params.status
+        orderDetailsToUpdate.save(flush: true, failOnError: true)
+        returnList.add("Saved Successfully.")
+        return returnList
+    }
 }

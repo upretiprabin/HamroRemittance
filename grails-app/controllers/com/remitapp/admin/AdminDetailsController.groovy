@@ -36,4 +36,19 @@ class AdminDetailsController {
             render (["Error":"Error occurred while fetching transaction details by status."] as JSON)
         }
     }
+
+    def storeTransactionStatusUpdate(){
+        def statusParams = request.JSON
+        try{
+            def result = adminService.saveOrderDetailsStatus(statusParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while saving status."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while saving status."] as JSON)
+        }
+    }
 }
