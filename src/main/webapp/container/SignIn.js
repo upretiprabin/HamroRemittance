@@ -109,11 +109,6 @@ class SignIn extends Component {
                                                     />
                                                     <span className="has-icon"><i className="ti-lock"/></span>
                                                 </FormGroup>
-                                                <div className="row">
-                                                    <div className="col-sm text-center mb-4">
-                                                        <a className="btn-link" href="#">Forgot Password ?</a>
-                                                    </div>
-                                                </div>
                                                 <FormGroup className="mb-15">
                                                     <Button
                                                         color="primary"
@@ -126,6 +121,11 @@ class SignIn extends Component {
                                                     </Button>
                                                 </FormGroup>
                                             </form>
+                                            <div className="row">
+                                                <div className="col-sm text-left mb-4 ml-5">
+                                                    <a className="btn-link" href="#">Forgotten Password ?</a>
+                                                </div>
+                                            </div>
                                             <p className="text-3 text-center text-muted">
                                                 Don't have an account?
                                                 <a href={"#"} className="ml-5 btn-link" onClick={() => this.onUserSignUp()}>Sign Up</a>
