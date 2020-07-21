@@ -32,7 +32,6 @@ class Verify extends Component {
     render() {
         const email  = "upretiprabin7946@gmail.com";
         const {otp} = this.state;
-        console.log("otp",otp)
         return (
             <div className="app-horizontal rct-session-wrapper">
                 <div className="container-fluid px-0 h-100">
@@ -67,7 +66,7 @@ class Verify extends Component {
                                 <div className="row">
                                     <div className="col-11 col-lg-9 col-xl-8 mx-auto">
                                         <h2 className="ml-5 mb-4 text-center">Email Verification</h2>
-                                        <h3 className="ml-5 mb-10 text-center">Please enter the 4-digit code sent to your mobile</h3>
+                                        <h3 className="ml-5 mb-10 text-center">Please enter the 4-digit code sent to your email</h3>
                                         <h5 className="ml-5 mb-4 text-center text-primary"><i>{email}</i></h5>
                                         <Form>
                                             <FormGroup className="mb-30">
