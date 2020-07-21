@@ -51,4 +51,19 @@ class AdminDetailsController {
             render (["Error":"Exception occurred while saving status."] as JSON)
         }
     }
+
+    def saveTrnValue(){
+        def statusParams = request.JSON
+        try{
+            def result = adminService.saveOrderDetailsTrnValue(statusParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while saving TRN number."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while saving status."] as JSON)
+        }
+    }
 }
