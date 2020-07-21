@@ -6,3 +6,21 @@ body{
 .ti-eye{
   cursor: pointer;
 }
+
+.text-primary{
+  color : $primary-btn !important;
+}
+
+.otp-container{
+  justify-content: center;
+  input{
+    width: 5rem !important;
+    text-align: center !important;
+    margin : 0 1rem 0 1rem !important;
+  }
+}
+.otp-btn{
+  margin: auto !important;
+  width: 70% !important;
+  margin-bottom: 0.9375rem !important
+}

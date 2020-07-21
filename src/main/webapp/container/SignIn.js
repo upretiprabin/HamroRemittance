@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { Form, FormGroup, Input } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
 import {
@@ -84,7 +81,7 @@ class SignIn extends Component {
                                     <div className="row">
                                         <div className="col-11 col-lg-9 col-xl-8 mx-auto">
                                             <h3 className="ml-5 mb-4">Log In</h3>
-                                            <form id="loginForm" method="post">
+                                            <Form>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
                                                         type="mail"
@@ -117,10 +114,10 @@ class SignIn extends Component {
                                                         size="large"
                                                         onClick={() => this.onUserLogin()}
                                                     >
-                                                        Log In
+                                                        <span className={"p-5"}>Log In</span>
                                                     </Button>
                                                 </FormGroup>
-                                            </form>
+                                            </Form>
                                             <div className="row">
                                                 <div className="col-sm text-left mb-4 ml-5">
                                                     <a className="btn-link" href="#">Forgotten Password ?</a>

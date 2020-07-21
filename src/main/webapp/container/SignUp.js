@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { FormGroup, Input } from 'reactstrap';
+import {Form, FormGroup, Input } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
@@ -27,7 +27,7 @@ class SignUp extends Component {
      * On User Sign Up
      */
     onUserSignUp() {
-        this.props.history.push('/signup');
+        this.props.history.push('/verify');
     }
 
     /**
@@ -87,7 +87,7 @@ class SignUp extends Component {
                                     <div className="row">
                                         <div className="col-11 col-lg-9 col-xl-8 mx-auto">
                                             <h3 className="ml-5 mb-4">Sign Up</h3>
-                                            <form id="loginForm" method="post">
+                                            <Form>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
                                                         type="mail"
@@ -122,10 +122,10 @@ class SignUp extends Component {
                                                         size="large"
                                                         onClick={() => this.onUserSignUp()}
                                                     >
-                                                        Sign Up
+                                                        <span className={"p-5"}>Sign Up</span>
                                                     </Button>
                                                 </FormGroup>
-                                            </form>
+                                            </Form>
                                             <p className="text-3 text-center text-muted">
                                                 Already have an account?
                                                 <a href={"#"} className="ml-5 btn-link" onClick={() => this.onUserSignIn()}>Log In</a>

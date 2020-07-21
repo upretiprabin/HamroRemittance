@@ -15,6 +15,7 @@ import HorizontalLayout from './HorizontalLayout';
 import AppSignIn from './SignIn';
 import AppConfig from "Constants/AppConfig";
 import Signup from "./SignUp";
+import Verify from "./Verify";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -57,6 +58,7 @@ class App extends Component {
                 <Route path="/admin" component={RctDefaultLayout} />
                 <Route path="/signin" component={AppSignIn} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/verify" component={Verify} />
             </RctThemeProvider>
         );
     }
