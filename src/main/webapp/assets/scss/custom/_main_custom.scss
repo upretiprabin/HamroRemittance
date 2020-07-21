@@ -24,3 +24,15 @@ body{
   width: 70% !important;
   margin-bottom: 0.9375rem !important
 }
+
+@mixin hide-scroll{
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE and Edge */
+  .hide-scroll {
+    -ms-overflow-style: none;
+  }
+}

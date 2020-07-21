@@ -24,7 +24,7 @@ class Verify extends Component {
      * On User Sign Up
      */
     onUserSignUp() {
-        this.props.history.push('/signup');
+        this.props.history.push('/register');
     }
 
     handleChange = otp => this.setState({ otp });

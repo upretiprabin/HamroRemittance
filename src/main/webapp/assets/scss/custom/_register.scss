@@ -1,0 +1,10 @@
+.register-wrapper{
+    .register-card{
+      overflow-y: scroll;
+      height: 750px !important;
+      @media(max-width: 600px){
+        height: calc(100vh - 200px) !important;
+      }
+  }
+  @include hide-scroll;
+}

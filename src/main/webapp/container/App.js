@@ -16,6 +16,7 @@ import AppSignIn from './SignIn';
 import AppConfig from "Constants/AppConfig";
 import Signup from "./SignUp";
 import Verify from "./Verify";
+import Register from "./Register";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -59,6 +60,7 @@ class App extends Component {
                 <Route path="/signin" component={AppSignIn} />
                 <Route path="/signup" component={Signup} />
                 <Route path="/verify" component={Verify} />
+                <Route path="/register" component={Register} />
             </RctThemeProvider>
         );
     }

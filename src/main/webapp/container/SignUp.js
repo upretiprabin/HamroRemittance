@@ -14,6 +14,7 @@ class SignUp extends Component {
     state = {
         email: '',
         password: '',
+        confirmPassword : '',
         showPassword : false
     };
 
@@ -47,7 +48,7 @@ class SignUp extends Component {
     }
 
     render() {
-        const { email, password } = this.state;
+        const { email, password, confirmPassword} = this.state;
         const { loading } = this.props;
         return (
             <QueueAnim type="bottom" duration={2000}>
@@ -103,7 +104,7 @@ class SignUp extends Component {
                                                 <FormGroup className="has-wrapper">
                                                     <Input
                                                         value={password}
-                                                        type="Password"
+                                                        type="password"
                                                         name="user-pwd"
                                                         id="pwd"
                                                         className="has-input input-lg"
@@ -113,6 +114,17 @@ class SignUp extends Component {
                                                     <span onClick={()=>{
                                                         this.onShowPassword();
                                                     }} title={"Show"} className="has-icon"><i className="ti-eye"/></span>
+                                                </FormGroup>
+                                                <FormGroup className="has-wrapper">
+                                                    <Input
+                                                        value={confirmPassword}
+                                                        type="password"
+                                                        name="confirmPwd"
+                                                        id="confirmPwd"
+                                                        className="has-input input-lg"
+                                                        placeholder="Confirm Password"
+                                                        onChange={(event) => this.setState({ confirmPassword: event.target.value })}
+                                                    />
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button
