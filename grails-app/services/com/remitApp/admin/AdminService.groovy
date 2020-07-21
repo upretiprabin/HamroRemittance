@@ -18,8 +18,12 @@ class AdminService {
     }
 
     def getAllTransactionOrdersByStatus(params){
-        def orderDetails = OrderDetails.findAllByStatus(params.status)
-        def returnList = makeData(orderDetails)
+        println "params = $params"
+        def returnList = []
+        if(params.status){
+            def orderDetails = OrderDetails.findAllByStatus(params.status)
+            returnList = makeData(orderDetails)
+        }
         return returnList
     }
 
