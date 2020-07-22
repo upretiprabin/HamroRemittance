@@ -2,10 +2,12 @@ package com.remitApp.admin
 
 import com.remitapp.CashPickUp
 import com.remitapp.OrderDetails
+import com.remitapp.Transaction
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class AdminService {
+    def transactionService
 
     def serviceMethod() {
 
@@ -72,5 +74,17 @@ class AdminService {
             returnList.add("Saved Successfully.")
         }
         return returnList
+    }
+
+    def deleteTransactionOrderDetails(params){
+        def returnMessage = []
+        def orderDetailsToDelete = OrderDetails.findById(params.orderDetailsId)
+        if(orderDetailsToDelete){
+            Transaction transaction = orderDetailsToDelete.transaction
+            orderDetailsToDelete.delete(flush: true, failOnError: true)
+            transactionService.deleteTransaction(transaction)
+            returnMessage.add("Deleted Successfully.")
+        }
+        return returnMessage
     }
 }
