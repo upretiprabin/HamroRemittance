@@ -76,9 +76,9 @@ class AdminService {
         return returnList
     }
 
-    def deleteTransactionOrderDetails(params){
+    def deleteTransactionOrderDetails(orderDetailsId){
         def returnMessage = []
-        def orderDetailsToDelete = OrderDetails.findById(params.orderDetailsId)
+        def orderDetailsToDelete = OrderDetails.findById(orderDetailsId)
         if(orderDetailsToDelete){
             Transaction transaction = orderDetailsToDelete.transaction
             orderDetailsToDelete.delete(flush: true, failOnError: true)

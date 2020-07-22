@@ -73,7 +73,7 @@ class AdminDetailsController {
             if(errorCount == 0){
                 render (["result":"Bulk update successfully completed."] as JSON)
             }else{
-                render (["Error":"Exception occurred while performing bulk status update with error count: "+errorCount] as JSON)
+                render (["Error":"Exception occurred while performing bulk status update with error counts: "+errorCount] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()
@@ -98,13 +98,30 @@ class AdminDetailsController {
 
     def deleteTransactionOrderDetails(){
         def statusParams = request.JSON
+        println "statusParams === $statusParams"
+        def orderDetailsIds = statusParams.orderDetailsId
+        println "orderDetailsIds = $orderDetailsIds"
+        def errorCount = 0
         try{
-            def result = adminService.deleteTransactionOrderDetails(statusParams)
-            if(result){
-                render (["result":result] as JSON)
-            }else{
-                render (["Error":"Error occurred while deleting transaction details."] as JSON)
+            if(!orderDetailsIds instanceof List){
+                println "here---"
+                orderDetailsIds = [orderDetailsIds]
             }
+            orderDetailsIds.each {eachId ->
+                try{
+                    def result = adminService.deleteTransactionOrderDetails(eachId)
+                    if(result.isEmpty()) throw new Exception("Exception occurred..")
+                }catch(Exception ex){
+                    ex.printStackTrace()
+                    errorCount++
+                }
+            }
+            if(errorCount == 0){
+                render (["result":"Delete successfully completed."] as JSON)
+            }else{
+                render (["Error":"Exception occurred while performing delete with error counts: "+errorCount] as JSON)
+            }
+
         }catch(Exception ex){
             ex.printStackTrace()
             render (["Error":"Exception occurred while deleting transaction details."] as JSON)
