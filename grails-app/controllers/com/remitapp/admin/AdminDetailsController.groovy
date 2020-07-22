@@ -52,6 +52,35 @@ class AdminDetailsController {
         }
     }
 
+    def updateTransactionStatusBulk(){
+        def statusParams = request.JSON
+        println "statusParams = $statusParams"
+        def request = statusParams.request
+        println "request = $request"
+        int errorCount = 0
+        try{
+            request.each { eachVal ->
+                println "eachVal = $eachVal"
+                try{
+                    def result = adminService.saveOrderDetailsStatus(eachVal)
+                    if(result.isEmpty()) throw new Exception("Exception occurred..")
+                }catch(Exception ex){
+                    ex.printStackTrace()
+                    errorCount++
+                }
+            }
+            println "errorCount = $errorCount"
+            if(errorCount == 0){
+                render (["result":"Bulk update successfully completed."] as JSON)
+            }else{
+                render (["Error":"Exception occurred while performing bulk status update with error count: "+errorCount] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while performing bulk status update."] as JSON)
+        }
+    }
+
     def saveTrnValue(){
         def statusParams = request.JSON
         try{

@@ -55,18 +55,22 @@ class AdminService {
     def saveOrderDetailsStatus(params){
         def returnList = []
         def orderDetailsToUpdate = OrderDetails.findById(params.orderDetailsId)
-        orderDetailsToUpdate.status = params.status
-        orderDetailsToUpdate.save(flush: true, failOnError: true)
-        returnList.add("Saved Successfully.")
+        if(orderDetailsToUpdate){
+            orderDetailsToUpdate.status = params.status
+            orderDetailsToUpdate.save(flush: true, failOnError: true)
+            returnList.add("Saved Successfully.")
+        }
         return returnList
     }
 
     def saveOrderDetailsTrnValue(params){
         def returnList = []
         def orderDetailsToUpdate = OrderDetails.findById(params.orderDetailsId)
-        orderDetailsToUpdate.trnNumber = params.trnNumber
-        orderDetailsToUpdate.save(flush: true, failOnError: true)
-        returnList.add("Saved Successfully.")
+        if(orderDetailsToUpdate){
+            orderDetailsToUpdate.trnNumber = params.trnNumber
+            orderDetailsToUpdate.save(flush: true, failOnError: true)
+            returnList.add("Saved Successfully.")
+        }
         return returnList
     }
 }
