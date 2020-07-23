@@ -40,7 +40,7 @@ class AdminDetailsController {
     def storeTransactionStatusUpdate(){
         def statusParams = request.JSON
         try{
-            def result = adminService.saveOrderDetailsStatus(statusParams)
+            def result = adminService.saveOrderDetailsStatus(statusParams.orderDetailsId, statusParams.status)
             if(result){
                 render (["result":result] as JSON)
             }else{
@@ -57,12 +57,16 @@ class AdminDetailsController {
         println "statusParams = $statusParams"
         def request = statusParams.request
         println "request = $request"
+        def orderDetailsId = request.orderDetailsId
+        println "orderDetailsId = $orderDetailsId"
+        def status = request.status
+        println "status = $status"
         int errorCount = 0
         try{
-            request.each { eachVal ->
+            orderDetailsId.each { eachVal ->
                 println "eachVal = $eachVal"
                 try{
-                    def result = adminService.saveOrderDetailsStatus(eachVal)
+                    def result = adminService.saveOrderDetailsStatus(eachVal,status)
                     if(result.isEmpty()) throw new Exception("Exception occurred..")
                 }catch(Exception ex){
                     ex.printStackTrace()
