@@ -29,7 +29,7 @@ const loginUser = (email,password) => {
             password: password
         }
     };
-    return requestHandler.loadData(URL.USER_LOGIN_USER,config);
+    // return requestHandler.loadData(URL.USER_LOGIN_USER,config);
 };
 
 const logout = () => {

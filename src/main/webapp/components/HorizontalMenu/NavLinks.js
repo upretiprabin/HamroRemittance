@@ -14,6 +14,13 @@ export default {
             "menu_icon": "transaction",
             "path": "/app/transaction",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.admin-dashboard",
+            "id": "admin-dashboard",
+            "menu_icon": "admin-dashboard",
+            "path": "/app/admin-dashboard",
+            "child_routes": null
         }
     ],
 

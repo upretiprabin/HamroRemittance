@@ -12,6 +12,7 @@ module.exports = {
    "sidebar.component": "Component",
    "sidebar.features": "Features",
    "sidebar.applications": "Applications",
+   "sidebar.admin-dashboard": "Admin-Dashboard",
    "sidebar.dashboard": "Dashboard",
    "sidebar.dashboard1": "Dashboard 1",
    "sidebar.dashboard2": "Dashboard 2",
