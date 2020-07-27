@@ -3,7 +3,6 @@ package com.remitapp.um
 import com.remitApp.UserService
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
-import grails.compiler.GrailsCompileStatic
 
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
@@ -17,6 +16,7 @@ class User implements Serializable {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
+    Date dateCreated = new Date()
 
     Set<Role> getAuthorities() {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
@@ -41,6 +41,7 @@ class User implements Serializable {
                 username :it.username,
                 accountLocked :it.accountLocked,
                 accountExpired :it.accountExpired,
+                dateCreated :UserService.df.format(it.dateCreated),
                 enabled: it.enabled
         ]
     }
