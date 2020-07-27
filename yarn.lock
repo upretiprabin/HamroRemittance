@@ -8540,6 +8540,11 @@ react-onclickoutside@^6.5.0:
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.9.0.tgz#a54bc317ae8cf6131a5d78acea55a11067f37a1f"
   integrity sha512-8ltIY3bC7oGhj2nPAvWOGi+xGFybPNhJM0V1H8hY/whNcXgmDeaeoCMPPd8VatrpTsUWjb/vGzrmu6SrXVty3A==
 
+react-otp-input@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-2.0.1.tgz#7119dd5d8d786ac5a791557964982d4c73abaec6"
+  integrity sha512-pfn5NWjEtYeLlZn4dN7oY5A8PxKMbthEj06R5lY33y7/TUhfaCB1Gukr+uQCQFgKb+juDBR7+OPX5x5JkY/VUA==
+
 react-overlays@^2.0.0-0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-2.1.1.tgz#ffe2090c4a10da6b8947a1c7b1a67d0457648a0d"

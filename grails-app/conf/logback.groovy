@@ -23,17 +23,16 @@ appender('STDOUT', ConsoleAppender) {
 }
 
 def targetDir = BuildSettings.TARGET_DIR
-if (Environment.isDevelopmentMode() && targetDir != null) {
-    appender("FULL_STACKTRACE", FileAppender) {
-        file = "${targetDir}/stacktrace.log"
-        append = true
-        encoder(PatternLayoutEncoder) {
-            pattern = "%level %logger - %msg%n"
-        }
+appender("FULL_STACKTRACE", FileAppender) {
+    file = "${targetDir}/stacktrace.log"
+    append = true
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
     }
-    logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
-    root(ERROR, ['STDOUT', 'FULL_STACKTRACE'])
 }
-else {
-    root(ERROR, ['STDOUT'])
+appender('TRACE_CONSOLE', ConsoleAppender) {
+    encoder(PatternLayoutEncoder) {
+        pattern = "%d{ISO8601} [%thread] %level %logger{0} %m%n"    }
 }
+logger("StackTrace", INFO, ['TRACE_CONSOLE'], false)
+root(INFO, ['STDOUT', 'TRACE_CONSOLE'])
