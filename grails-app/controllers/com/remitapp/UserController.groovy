@@ -26,9 +26,11 @@ class UserController {
         def requestJson = request.JSON
         def username = requestJson.username
         def password = requestJson.password
-        def user = null
+        def result = null
         try{
-            user = userService.create(username, password)
+            def user = userService.create(username, password)
+            if(user)
+                result = userService.sendVerificationToken(username)
         }catch(CustomException e){
             log.error("Error occurred! $e")
             render (["Error" : e.message] as JSON)
@@ -38,6 +40,75 @@ class UserController {
             render (["Error" : "Error Occurred! Please check logs."] as JSON)
             return
         }
-        render (['result':user] as JSON)
+        if(result)
+            render (['result':result] as JSON)
+        else
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def sendVerificationCode(){
+        def requestJson = request.JSON
+        def username = requestJson.username
+        def result = null
+        try{
+            result = userService.sendVerificationToken(username)
+        }catch(CustomException e){
+            log.error("Error occurred! $e")
+            render (["Error" : e.message] as JSON)
+            return
+        }catch(e){
+            log.error("Error occurred! $e")
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+            return
+        }
+        if(result)
+            render (['result':result] as JSON)
+        else
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+    }
+
+    def delete(){
+        def requestJson = request.JSON
+        def userId = requestJson.id
+        def result = null
+        try{
+            result = userService.deleteUserAndItsAssociations(userId)
+        }catch(CustomException e){
+            log.error("Error occurred! $e")
+            render (["Error" : e.message] as JSON)
+            return
+        }catch(e){
+            log.error("Error occurred! $e")
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+            return
+        }
+        render (['result':result] as JSON)
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def verifyUser(){
+        def requestJson = request.JSON
+        def verificationToken = requestJson.token
+        def username = requestJson.username
+        def result = null
+        try{
+            result = userService.verifyUser(verificationToken,username)
+        }catch(CustomException e){
+            log.error("Error occurred! $e")
+            render (["Error" : e.message] as JSON)
+            return
+        }catch(e){
+            log.error("Error occurred! $e")
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+            return
+        }
+        if(result == "expired"){
+            render (["Error" : "Token already expired!"] as JSON)
+            return
+        }
+
+        render (['result':result] as JSON)
     }
 }

@@ -70,6 +70,10 @@ dependencies {
 
     //spring security core
     compile 'org.grails.plugins:spring-security-core:3.2.3'
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.10.6'
+    compile 'org.grails.plugins:mail:3.0.0'
+
 }
 
 bootRun {
