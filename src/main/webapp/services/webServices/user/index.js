@@ -5,11 +5,11 @@
 // api
 import requestHandler from '../RequestHandler';
 import URL from '../UrlMappings';
-import {userFromLocalStorage} from "../../../sagas/AuthenticationManager";
+import { userFromLocalStorage } from "../../../sagas/AuthenticationManager";
 import AppConfig from "Constants/AppConfig";
 
-const defaultConfig = (data)=>({
-    method:'post',
+const defaultConfig = (data) => ({
+    method: 'post',
     data
 });
 
@@ -17,28 +17,29 @@ const defaultConfig = (data)=>({
 /**
  * login
  */
-const loginUser = (email,password) => {
+const loginUser = (email, password) => {
     let data = {
         email: email
     };
     let config = {
-        method:'post',
+        method: 'post',
         data,
-        auth:{
+        auth: {
             username: email,
             password: password
         }
     };
-    // return requestHandler.loadData(URL.USER_LOGIN_USER,config);
+    // return new Promise((res, rej) => { res({ data: { result: "" } }) })
+    return requestHandler.loadData(URL.USER_LOGIN_USER,config);
 };
 
 const logout = () => {
     let user = userFromLocalStorage();
     let data = {
-        email:user?.primaryEmail
+        email: user?.primaryEmail
     };
     let config = defaultConfig(data);
-    return requestHandler.loadData(URL.USER_LOGOUT,config);
+    return requestHandler.loadData(URL.USER_LOGOUT, config);
 };
 
 export default {

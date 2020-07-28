@@ -456,3 +456,9 @@
     }
   }
 }
+
+#user-profile a{
+	display: none; 
+}
+
+#user-profile:hover a, #user-profile.hover a { display: block;}

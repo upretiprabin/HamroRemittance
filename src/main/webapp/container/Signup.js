@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from 'react-router-dom';
-import { Form, FormGroup, Input, FormFeedback } from 'reactstrap';
+import { Form, FormGroup, Input, FormFeedback, Label } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 
@@ -21,6 +21,8 @@ import AppConfig from 'Constants/AppConfig';
 
 // validators
 import Validator from '../util/Validators'
+import { Divider } from '@material-ui/core';
+import DocumentIdentification from '../components/FormComponents/DocumentIdentification';
 
 
 class Signup extends Component {
@@ -41,6 +43,10 @@ class Signup extends Component {
       zip: { value: '', error: false },
       country: { value: 'Australia' },
       nationality: { value: '', error: false },
+      docType: { value: '', error: false },
+      docExpiry: { value: '', error: false },
+      docId: { value: '', error: false },
+      file: { value: null, error: false }
    };
 
 	/**
@@ -61,6 +67,11 @@ class Signup extends Component {
    onChangeValue = e => {
       let updatedState = this.state;
       updatedState[e.target.name].value = e.target.value
+      this.setState({ ...updatedState })
+   }
+   onFileSelected = e => {
+      let updatedState = this.state
+      updatedState.file.value = e.target.files[0]
       this.setState({ ...updatedState })
    }
    validator = () => {
@@ -93,7 +104,15 @@ class Signup extends Component {
                }
                break
             case 'confirmPassword':
-               if (updatedState[obj].value === updatedState.password.value) {
+               if (updatedState[obj].value !== updatedState.password.value) {
+                  updatedState[obj].error = true
+                  error = true
+               } else {
+                  updatedState[obj].error = false
+               }
+               break
+            case 'file':
+               if (updatedState[obj].value === null) {
                   updatedState[obj].error = true
                   error = true
                } else {
@@ -117,7 +136,12 @@ class Signup extends Component {
       return error
    }
    render() {
-      const { fName, mName, lName, phone, dob, email, password, confirmPassword, aLine1, aLine2, subUrb, state, zip, country, nationality } = this.state;
+      const {
+         fName, mName, lName,
+         phone, dob, email, password, confirmPassword,
+         aLine1, aLine2, subUrb, state, zip, country, nationality,
+         docType, docExpiry, docId, file
+      } = this.state;
       const { loading } = this.props;
       return (
          <QueueAnim type="bottom" duration={2000}>
@@ -152,12 +176,13 @@ class Signup extends Component {
                <div className="session-inner-wrapper">
                   <div className="container">
                      <div className="row row-eq-height">
-                        <div className="col-sm-9 col-md-9 col-lg-9">
+                        <div className="col-sm-12 col-md-12 col-lg-12">
                            <div className="session-body text-center">
                               <div className="session-head mb-15">
                                  <h2>Get started with {AppConfig.brandName}</h2>
                               </div>
                               <Form>
+                                 <Label>User Details</Label>
                                  <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} />
                                  <div className='row mt-10'>
                                     <div className='col-sm-12 col-md-6 col-lg-6'>
@@ -192,7 +217,7 @@ class Signup extends Component {
                                              }}
                                           />
                                           <span className="has-icon"><i className="ti-mobile"></i></span>
-                                          <FormFeedback>Required</FormFeedback>
+                                          <FormFeedback>Invalid</FormFeedback>
                                        </FormGroup>
                                     </div>
                                  </div>
@@ -262,7 +287,10 @@ class Signup extends Component {
                                        </FormGroup>
                                     </div>
                                  </div>
+                                 <Label>User Address</Label>
                                  <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
+                                 <Label>User Documents</Label>
+                                 <DocumentIdentification file={file} docType={docType} docExpiry={docExpiry} docId={docId} onChangeValue={this.onChangeValue} onFileSelected={this.onFileSelected} />
                                  <h5>By submitting this form, you accept Hamro Remittance's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
                                  <FormGroup className="mb-15">
                                     <Button
@@ -283,7 +311,7 @@ class Signup extends Component {
                   </div>
                </div>
             </div>
-         </QueueAnim>
+         </QueueAnim >
       );
    }
 }
