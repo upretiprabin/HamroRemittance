@@ -11,12 +11,8 @@ import RctThemeProvider from './RctThemeProvider';
 //Main App
 import RctDefaultLayout from './DefaultLayout';
 import HorizontalLayout from './HorizontalLayout';
-// app signin
-import AppSignIn from './SignIn';
 import AppConfig from "Constants/AppConfig";
-import Signup from "./SignUp";
-import Verify from "./Verify";
-import Register from "./Register";
+import {AsyncSessionPage404Component} from "../components/AsyncComponent/AsyncComponent";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -45,7 +41,7 @@ class App extends Component {
 
     render() {
         const { location, match, user } = this.props;
-        if (location.pathname === '/') {
+        if (location.pathname === '/' || location.pathname === '/app') {
             return (<Redirect to={'/app/'+AppConfig.homePage} />);
         }
         return (
@@ -57,10 +53,7 @@ class App extends Component {
                     component={HorizontalLayout}
                 />
                 <Route path="/admin" component={RctDefaultLayout} />
-                <Route path="/signin" component={AppSignIn} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/verify" component={Verify} />
-                <Route path="/register" component={Register} />
+                <Route component={AsyncSessionPage404Component} />
             </RctThemeProvider>
         );
     }

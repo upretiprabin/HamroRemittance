@@ -2,15 +2,8 @@
  * Horizontal Menu
  */
 import React, { Component } from 'react';
-
-import IntlMessages from 'Util/IntlMessages';
-
-import navLinks from './NavLinks';
-
-import NavMenuItem from './NavMenuItem';
 import {Link} from "react-router-dom";
 import AppConfig from 'Constants/AppConfig';
-import Button from "@material-ui/core/Button/Button";
 
 class HorizontalMenu extends Component {
     render() {

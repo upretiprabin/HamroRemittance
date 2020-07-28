@@ -10,8 +10,7 @@ class UrlMappings {
         }
 
         "/"(view: '/index')
-        "/app/*"(view: '/index')
-        "/admin/*"(view: '/index')
+        "/**"(view: '/index')
         "500"(view: '/error')
         "404"(view: '/index')
     }

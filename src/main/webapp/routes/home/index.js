@@ -52,6 +52,10 @@ class Index extends Component {
         this.props.history.push('/signin');
     }
 
+    signUp(){
+        this.props.history.push('/signup');
+    }
+
     render() {
         const {
             loading
@@ -163,7 +167,7 @@ class Index extends Component {
                                             </li>
                                             <li><i className="fa fa-check mr-2"/>Confirm and send</li>
                                         </ul>
-                                        <a href="/signup" className="btn btn-outline-primary shadow-none mt-2">
+                                        <a href="#" onClick={() => this.signUp()} className="btn btn-outline-primary shadow-none mt-2">
                                             Open a Free Account</a>
                                     </div>
                                 </div>

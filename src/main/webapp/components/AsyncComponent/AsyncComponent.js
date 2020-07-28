@@ -26,8 +26,15 @@ const AsyncTransactionComponent = Loadable({
     loading: () => <RctPageLoader />,
 });
 
+// Session Page 404
+const AsyncSessionPage404Component = Loadable({
+    loader: () => import("Routes/session/404"),
+    loading: () => <RctPageLoader />,
+});
+
 export {
     AsyncDashboardComponent,
     AsyncHomeComponent,
-    AsyncTransactionComponent
+    AsyncTransactionComponent,
+    AsyncSessionPage404Component
 };

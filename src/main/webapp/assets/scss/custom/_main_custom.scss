@@ -36,3 +36,9 @@ body{
     -ms-overflow-style: none;
   }
 }
+.error-wrapper{
+  background: url("../img/dashboard/buddha.jpg") !important;
+  .error-body{
+    color: white !important;
+  }
+}

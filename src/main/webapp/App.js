@@ -10,6 +10,11 @@ import './lib/reactifyCss';
 import App from './container/App';
 import store from './store';
 import ForgotPassword from "./container/ForgotPassword";
+import AppSignIn from "./container/SignIn";
+import Signup from "./container/SignUp";
+import Verify from "./container/Verify";
+import Register from "./container/Register";
+import {AsyncSessionPage404Component} from "./components/AsyncComponent/AsyncComponent";
 
 const MainApp = () => (
 	<Provider store={store}>
@@ -17,6 +22,10 @@ const MainApp = () => (
 			<Router>
 				<Switch>
                     <Route exact path="/forgot-password" component={ForgotPassword} />
+                    <Route path="/signin" component={AppSignIn} />
+                    <Route path="/signup" component={Signup} />
+                    <Route path="/verify" component={Verify} />
+                    <Route path="/register" component={Register} />
 					<Route path="/" component={App} />
 				</Switch>
 			</Router>
