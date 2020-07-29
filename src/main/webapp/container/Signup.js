@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Form, FormGroup, Input, FormFeedback, Label } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
@@ -23,6 +23,12 @@ import AppConfig from 'Constants/AppConfig';
 import Validator from '../util/Validators'
 import { Divider } from '@material-ui/core';
 import DocumentIdentification from '../components/FormComponents/DocumentIdentification';
+
+import Controller from "../controllers/userController"
+
+import {
+   signIn
+} from 'Actions';
 
 
 class Signup extends Component {
@@ -53,16 +59,17 @@ class Signup extends Component {
 	 * On User Signup
 	 */
    onUserSignUp() {
+      var formData = {}
       if (!this.validator()) {
-         var formData = {}
          for (let obj in this.state) {
             formData[obj] = this.state[obj].value
          }
          console.log(formData)
          /**
-          * TODO register
+          * TODO register and redirect to dashboard on successful sign in
           */
       }
+      Controller.register(this,formData)
    }
    onChangeValue = e => {
       let updatedState = this.state;
@@ -87,30 +94,30 @@ class Signup extends Component {
                   updatedState[obj].error = false
                }
                break
-            case 'email':
-               if (!Validator.emailValidator(updatedState[obj].value)) {
-                  updatedState[obj].error = true
-                  error = true
-               } else {
-                  updatedState[obj].error = false
-               }
-               break
-            case 'password':
-               if (!Validator.passwordValidator(updatedState[obj].value)) {
-                  updatedState[obj].error = true
-                  error = true
-               } else {
-                  updatedState[obj].error = false
-               }
-               break
-            case 'confirmPassword':
-               if (updatedState[obj].value !== updatedState.password.value) {
-                  updatedState[obj].error = true
-                  error = true
-               } else {
-                  updatedState[obj].error = false
-               }
-               break
+            // case 'email':
+            //    if (!Validator.emailValidator(updatedState[obj].value)) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
+            // case 'password':
+            //    if (!Validator.passwordValidator(updatedState[obj].value)) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
+            // case 'confirmPassword':
+            //    if (updatedState[obj].value !== updatedState.password.value) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
             case 'file':
                if (updatedState[obj].value === null) {
                   updatedState[obj].error = true
@@ -185,23 +192,7 @@ class Signup extends Component {
                                  <Label>User Details</Label>
                                  <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} />
                                  <div className='row mt-10'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={email.error}
-                                             type="mail"
-                                             value={email.value}
-                                             name="email"
-                                             id="user-mail"
-                                             className="has-input input-lg"
-                                             placeholder="Email Address*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-email"></i></span>
-                                          <FormFeedback>Email address in not valid</FormFeedback>
-                                       </FormGroup>
-                                    </div>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={phone.error}
@@ -220,42 +211,7 @@ class Signup extends Component {
                                           <FormFeedback>Invalid</FormFeedback>
                                        </FormGroup>
                                     </div>
-                                 </div>
-                                 <div className='row'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={password.error}
-                                             value={password.value}
-                                             type="Password"
-                                             name="password"
-                                             id="pwd"
-                                             className="has-input input-lg"
-                                             placeholder="Password*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-lock"></i></span>
-                                          <FormFeedback>Password must contain more than 8 characters, 1 or more special character and a combination of upper and lowercase characters</FormFeedback>
-                                       </FormGroup>
-                                    </div><div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={confirmPassword.error}
-                                             value={confirmPassword.value}
-                                             type="password"
-                                             name="confirmPassword"
-                                             id="confm-pwd"
-                                             className="has-input input-lg"
-                                             placeholder="Confirm Password*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-lock"></i></span>
-                                          <FormFeedback>Passwords dont match or empty passwords</FormFeedback>
-                                       </FormGroup>
-                                    </div>
-                                 </div>
-                                 <div className='row mt-10'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={dob.error}
@@ -270,7 +226,7 @@ class Signup extends Component {
                                           <FormFeedback>Required</FormFeedback>
                                        </FormGroup>
                                     </div>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={nationality.error}
@@ -322,4 +278,4 @@ const mapStateToProps = ({ authUser }) => {
    return { loading };
 };
 
-export default connect(mapStateToProps)(Signup);
+export default withRouter(connect(mapStateToProps, { signIn })(Signup));

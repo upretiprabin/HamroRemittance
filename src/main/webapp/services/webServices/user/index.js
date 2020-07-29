@@ -29,8 +29,8 @@ const loginUser = (email, password) => {
             password: password
         }
     };
-    // return new Promise((res, rej) => { res({ data: { result: "" } }) })
-    return requestHandler.loadData(URL.USER_LOGIN_USER,config);
+    return new Promise((res, rej) => { res({ data: { result: "" } }) })
+    // return requestHandler.loadData(URL.USER_LOGIN_USER,config);
 };
 
 const logout = () => {
@@ -42,7 +42,15 @@ const logout = () => {
     return requestHandler.loadData(URL.USER_LOGOUT, config);
 };
 
+const registerUser = (data) =>{
+    let config = defaultConfig(data);
+    /**TODO remove fake data and call endpoint after data has all keys present */
+    // return requestHandler.loadData(URL.USER_REGISTER, config);
+    return new Promise((res, rej) => { res({ data: { result: "" } }) })
+}
+
 export default {
     loginUser,
-    logout
+    logout,
+    registerUser
 }
