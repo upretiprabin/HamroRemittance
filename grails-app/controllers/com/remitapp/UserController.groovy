@@ -111,4 +111,24 @@ class UserController {
 
         render (['result':result] as JSON)
     }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def isUserEnabled(){
+        def requestJson = request.JSON
+        def username = requestJson.username
+        def password = requestJson.password
+        def result = null
+        try{
+            result = userService.checkUser(username,password)
+        }catch(CustomException e){
+            log.error("Error occurred! $e")
+            render (["Error" : e.message] as JSON)
+            return
+        }catch(e){
+            log.error("Error occurred! $e")
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+            return
+        }
+        render (['result':result] as JSON)
+    }
 }

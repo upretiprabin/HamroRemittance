@@ -18,12 +18,8 @@ const defaultConfig = (data)=>({
  * login
  */
 const loginUser = (email,password) => {
-    let data = {
-        email: email
-    };
     let config = {
         method:'post',
-        data,
         auth:{
             username: email,
             password: password
@@ -41,7 +37,20 @@ const logout = () => {
     return requestHandler.loadData(URL.USER_LOGOUT,config);
 };
 
+const isUserEnabled = (username,password) => {
+    let data = {
+        username,
+        password : btoa(password)
+    };
+    let config = {
+        method:'post',
+        data
+    };
+    return requestHandler.loadData(URL.USER_IS_USER_ENABLED,config);
+};
+
 export default {
     loginUser,
+    isUserEnabled,
     logout
 }

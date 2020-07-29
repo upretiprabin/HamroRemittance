@@ -16,6 +16,7 @@ class UserService {
 
     def emailService
     def utilsService
+    def springSecurityService
 
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd")
 
@@ -132,5 +133,29 @@ class UserService {
         }catch(CustomException e){
             throw e
         }
+    }
+
+    def checkUser(def username, def password){
+        User user = User.findByUsername(username)
+        if(!user){
+            throw new CustomException("Invalid username or password!")
+        }
+        if(!validatePassword(getDecodedPassword(password),user))
+            throw new CustomException("Invalid username or password!")
+        if(!user.enabled)
+            throw new CustomException("You must confirm your account first before logging in. Please check your email (including spam folders) for a confirmation email message.")
+        if(user.accountLocked)
+            throw new CustomException("Account locked!")
+        if(user.accountExpired)
+            throw new CustomException("Account expired!")
+    }
+
+    def validatePassword(password,user){
+        return springSecurityService.passwordEncoder.isPasswordValid(user.password,password,null)
+    }
+
+    def getDecodedPassword(def encoded){
+        byte[] decoded = encoded.decodeBase64()
+        return new String(decoded)
     }
 }

@@ -8,20 +8,22 @@ import AppConfig from 'Constants/AppConfig';
 import {
     signIn
 } from 'Actions';
+import {validateEmail} from 'Helpers/helpers'
 
 class SignIn extends Component {
 
    state = {
       email: '',
-      password: ''
+      password: '',
+      invalidEmail:false
    };
 
 	/**
 	 * On User Login
 	 */
    onUserLogin() {
-      if (this.state.email !== '' && this.state.password !== '') {
-         this.props.signIn(this.state, this.props.history);
+      if (this.state.email !== '' && !this.state.invalidEmail && this.state.password !== '') {
+          this.props.signIn(this.state, this.props.history);
       }
    }
 
@@ -30,6 +32,25 @@ class SignIn extends Component {
            this.onUserLogin();
        }
    }
+
+    handleEmail(event){
+        return new Promise((res,rej)=>{
+            this.setState({ email: event.target.value });
+            res();
+        }).then(()=>this.emailValidator())
+    }
+
+    handlePassword(event){
+        return new Promise((res,rej)=>{
+            this.setState({ password: event.target.value });
+            res();
+        })
+    }
+
+    emailValidator(){
+        let validate = validateEmail(this.state.email);
+        validate ? this.setState({invalidEmail:false}) : this.setState({invalidEmail:true});
+    };
 
     /**
      * On User Sign Up
@@ -40,7 +61,7 @@ class SignIn extends Component {
 
    render() {
        const { email, password } = this.state;
-       const { loading } = this.props;
+       const { loading,user } = this.props;
        return (
            <QueueAnim type="bottom" duration={2000}>
                <div className="app-horizontal rct-session-wrapper">
@@ -90,9 +111,11 @@ class SignIn extends Component {
                                                         id="user-mail"
                                                         className="has-input input-lg"
                                                         placeholder="Email Address"
-                                                        onChange={(event) => this.setState({ email: event.target.value })}
+                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onChange={(event) => this.handleEmail(event)}
                                                     />
                                                     <span className="has-icon"><i className="ti-email"/></span>
+                                                    <span className={this.state.invalidEmail?"cred-error-label":"d-none"}>Email must be a valid format</span>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
@@ -102,7 +125,8 @@ class SignIn extends Component {
                                                         id="pwd"
                                                         className="has-input input-lg"
                                                         placeholder="Password"
-                                                        onChange={(event) => this.setState({ password: event.target.value })}
+                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onChange={(event) => this.handlePassword(event)}
                                                     />
                                                     <span title={"Show"} className="has-icon"><i className="ti-eye"/></span>
                                                 </FormGroup>

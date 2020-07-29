@@ -51,6 +51,9 @@ const signOutRequest = async () =>
         .then(authUser => authUser)
         .catch(error => error);
 
+const isUserEnabledCheck = (email, password)=>
+    middleware.User.isUserEnabled(email,password);
+
 /**
  * Signin User With Email & Password
  */
@@ -72,7 +75,23 @@ export function* signInUserWithEmailPassword({ payload }) {
     }
     catch (error) {
         log.error(error.message);
-        yield put(signinUserFailure(error.message));
+        try{
+            const checkUser = yield call(isUserEnabledCheck, email,password);
+            if(checkUser.message){
+                yield put(signinUserFailure(checkUser.message));
+            }else{
+                let result = checkUser.data.Error;
+                if(result){
+                    if(result.toString().toLowerCase() === "account locked"){
+                        clearLocalStorage()
+                    }
+                    yield put(signinUserFailure(result));
+                }
+            }
+        }catch(error){
+            log.error(error.message);
+            yield put(signinUserFailure(error.message));
+        }
     }
 }
 

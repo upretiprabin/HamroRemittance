@@ -4,6 +4,7 @@ export default {
     USER_FORGOT_PASSWORD: 'user/sendForgotPasswordEmail',
     USER_RESET_PASSWORD: 'user/resetPassword',
     USER_LOGOUT: 'user/logout',
+    USER_IS_USER_ENABLED : 'user/isUserEnabled',
     USER_REGISTER: 'customer/saveCustomer',
 
     //dashboard endpoints

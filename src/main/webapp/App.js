@@ -14,7 +14,7 @@ import AppSignIn from "./container/SignIn";
 import Signup from "./container/SignUp";
 import Verify from "./container/Verify";
 import Register from "./container/Register";
-import {AsyncSessionPage404Component} from "./components/AsyncComponent/AsyncComponent";
+import { NotificationContainer } from 'react-notifications';
 
 const MainApp = () => (
 	<Provider store={store}>
@@ -29,6 +29,7 @@ const MainApp = () => (
 					<Route path="/" component={App} />
 				</Switch>
 			</Router>
+			<NotificationContainer/>
 		</MuiPickersUtilsProvider>
 	</Provider>
 );

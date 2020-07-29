@@ -1,6 +1,7 @@
 package com.remitapp.um
 
 import com.remitApp.UserService
+import grails.plugin.springsecurity.SpringSecurityService
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -9,6 +10,8 @@ import groovy.transform.ToString
 class User implements Serializable {
 
     private static final long serialVersionUID = 1
+
+    SpringSecurityService springSecurityService
 
     String username
     String password
@@ -22,7 +25,21 @@ class User implements Serializable {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
     }
 
-    static transients = ['collectClosure']
+    static transients = ['collectClosure', 'springSecurityService']
+
+    def beforeInsert() {
+        encodePassword()
+    }
+
+    def beforeUpdate() {
+        if (isDirty('password')) {
+            encodePassword()
+        }
+    }
+
+    protected void encodePassword() {
+        password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+    }
 
     static constraints = {
         password nullable: false, blank: false, password: true
