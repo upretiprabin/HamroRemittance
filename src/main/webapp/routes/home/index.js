@@ -139,7 +139,7 @@ class Index extends Component {
                             </div>
                         </Card>
                     </div>
-                    <div className="how-it-works section">
+                    <div id={"how-it-works"} className="how-it-works section">
                         <div className="container">
                             <div className="row">
                                 <div className="video-player-wrapper col-lg-6">

@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
 
 // rct theme provider
@@ -13,6 +13,11 @@ import RctDefaultLayout from './DefaultLayout';
 import HorizontalLayout from './HorizontalLayout';
 import AppConfig from "Constants/AppConfig";
 import {AsyncSessionPage404Component} from "../components/AsyncComponent/AsyncComponent";
+import ForgotPassword from "./ForgotPassword";
+import AppSignIn from "./SignIn";
+import Signup from "./SignUp";
+import Verify from "./Verify";
+import Register from "./Register";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -47,13 +52,22 @@ class App extends Component {
         return (
             <RctThemeProvider>
                 <NotificationContainer />
-                <InitialPath
-                    path={`${match.url}app`}
-                    authUser={user}
-                    component={HorizontalLayout}
-                />
-                <Route path="/admin" component={RctDefaultLayout} />
-                <Route component={AsyncSessionPage404Component} />
+                <Router>
+                    <Switch>
+                        <InitialPath
+                            path={`${match.url}app`}
+                            authUser={user}
+                            component={HorizontalLayout}
+                        />
+                        <Route path="/admin" component={RctDefaultLayout} />
+                        <Route path="/forgot-password" component={ForgotPassword} />
+                        <Route path="/signin" component={AppSignIn} />
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/verify" component={Verify} />
+                        <Route path="/register" component={Register} />
+                        <Route component={AsyncSessionPage404Component} />
+                    </Switch>
+                </Router>
             </RctThemeProvider>
         );
     }

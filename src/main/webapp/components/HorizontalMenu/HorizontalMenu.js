@@ -12,23 +12,23 @@ class HorizontalMenu extends Component {
                 <div className="container">
                     <div className = "rct-header d-flex">
                         <div className="site-logo mr-15">
-                            <Link to="/" className="logo-normal">
-                                <img src={AppConfig.appLogo} className="" alt="site-logo" width="100" height="50" />
-                            </Link>
+                            <a href="/" className="logo-normal">
+                                <img src={AppConfig.appLogo} className="" alt="site-logo" width="100" height="55" />
+                            </a>
                         </div>
                         <div className={"mt-15 menus"}>
                             <ul className="list-inline footer-menus mb-0">
                                 <li className="list-inline-item">
-                                    <a><span className={"header-menu"}>SEND</span></a>
+                                    <Link to={"#"}><span className={"header-menu"}>SEND</span></Link>
                                 </li>
                                 <li className="list-inline-item">
-                                    <a><span className={"header-menu"}>HOW IT WORKS</span></a>
+                                    <a href={"#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
                                 </li>
                                 <li className="list-inline-item">
-                                    <a href={"/signin"}><span className={"header-menu"}>LOG IN</span></a>
+                                    <Link to={"/signin"}><span className={"header-menu"}>LOG IN</span></Link>
                                 </li>
                                 <li className="list-inline-item sign-up">
-                                    <a href={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></a>
+                                    <Link to={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></Link>
                                 </li>
                             </ul>
                         </div>

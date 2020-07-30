@@ -25,11 +25,11 @@ export default class ErrorBoundary extends React.Component {
                 <div className={"error-boundary"}>
                     <span><WarningIcon/></span>
                     <h2>Something went wrong.</h2>
-                    {/*<details style={{ whiteSpace: 'pre-wrap' }}>*/}
-                        {/*{this.state.error && this.state.error.toString()}*/}
-                        {/*<br />*/}
-                        {/*{this.state.errorInfo.componentStack}*/}
-                    {/*</details>*/}
+                    <details style={{ whiteSpace: 'pre-wrap' }}>
+                        {this.state.error && this.state.error.toString()}
+                        <br />
+                        {this.state.errorInfo.componentStack}
+                    </details>
                 </div>
             );
         }

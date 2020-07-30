@@ -81,7 +81,7 @@ class SignIn extends Component {
                                                     <a className="d-flex"
                                                        href="/"
                                                        title="Hamro Remit">
-                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={50} width={100}/>
+                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100}/>
                                                     </a>
                                                 </div>
                                             </div>

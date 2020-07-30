@@ -69,7 +69,7 @@ export function* signInUserWithEmailPassword({ payload }) {
         else {
             localStorage.setItem('user', JSON.stringify(signInUser.data));
             yield put(signinUserSuccess(signInUser.data));
-            history.push('/');
+            history.push('/app/home');
             NotificationManager.success('User Logged In');
         }
     }

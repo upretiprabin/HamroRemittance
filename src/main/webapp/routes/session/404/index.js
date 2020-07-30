@@ -17,9 +17,9 @@ export default class NotFound extends Component {
                      <div className="app-horizontal container">
                         <div className="d-flex justify-content-between">
                            <div className="session-logo">
-                              <Link to="/">
+                              <a href="/">
                                  <img src={AppConfig.appLogo} alt="session-logo" className="img-fluid" width="110" height="35" />
-                              </Link>
+                              </a>
                            </div>
                            <div className="session-social-icon">
                               <IconButton className="text-white" aria-label="facebook">
@@ -43,7 +43,9 @@ export default class NotFound extends Component {
                            <h2 className="oops">Oops.. </h2>
                            <h2 className="bold mb-0">404</h2>
                            <h2 className="error-msg mb-30">Sorry, page not found</h2>
-                           <Button component={Link} to="/" variant="contained" className="btn-light btn-lg">Go To Home Page</Button>
+                           <a href={"/"}>
+                               <Button variant="contained" className="btn-light btn-lg">Go To Home Page</Button>
+                           </a>
                         </div>
                      </div>
                   </div>
