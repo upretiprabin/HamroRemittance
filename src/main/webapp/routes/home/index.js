@@ -10,10 +10,6 @@ import { connect } from 'react-redux';
 import {Card} from "reactstrap";
 import MatButton from '@material-ui/core/Button';
 import Select from "../../components/Select/Select"
-import {
-    Player, ControlBar,BigPlayButton
-} from 'video-react';
-import DownloadButton from '../../components/VideoDownloadButton/DownloadButton';
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 // components
@@ -141,35 +137,65 @@ class Index extends Component {
                     </div>
                     <div id={"how-it-works"} className="how-it-works section">
                         <div className="container">
-                            <div className="row">
-                                <div className="video-player-wrapper col-lg-6">
-                                    <Player
-                                        poster="https://reactify.theironnetwork.org/data/images/bunny-poster.jpg"
-                                        src="http://media.w3.org/2010/05/bunny/movie.mp4"
-                                    >
-                                        <ControlBar autoHide={false}>
-                                            <DownloadButton order={7}/>
-                                            <BigPlayButton position="center"/>
-                                        </ControlBar>
-                                    </Player>
-                                </div>
-                                <div className="col-lg-6 mt-5 mt-lg-0">
-                                    <div className="ml-4">
-                                        <h2 className="text-9">How does it work?</h2>
-                                        <p className="text-4">Hamro remit is very fast, simple and safe. Here are the
-                                            few steps you need to follow to make your transaction.</p>
-                                        <ul className="list-unstyled text-3 line-height-5">
-                                            <li><i className="fa fa-check mr-2"/>Create an account for free</li>
-                                            <li><i className="fa fa-check mr-2"/>Select the amount</li>
-                                            <li><i className="fa fa-check mr-2"/>Pick your transfer method</li>
-                                            <li><i className="fa fa-check mr-2"/>Pick existing recipient or create new
-                                                one
-                                            </li>
-                                            <li><i className="fa fa-check mr-2"/>Confirm and send</li>
-                                        </ul>
-                                        <a href="#" onClick={() => this.signUp()} className="btn btn-outline-primary shadow-none mt-2">
-                                            Open a Free Account</a>
+                            <div className="container">
+                                <h2 className="text-9 text-center text-uppercase font-weight-400">How does it work?</h2>
+                                <p className="text-4 text-center font-weight-300 mb-70">Hamro remit is very fast, simple and safe. Here are the
+                                    few steps you need to follow to make your transaction.</p>
+                                <div className="row">
+                                    <div className="col-sm-4 mb-4">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">1</span></div>
+                                            <h3 className="mb-3">Create an account</h3>
+                                            <p className="text-3 font-weight-300">Sign up for your free
+                                                personal account just in a minute.</p>
+                                        </div>
                                     </div>
+                                    <div className="col-sm-4 mb-4">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">2</span></div>
+                                            <h3 className="mb-3">Select the amount</h3>
+                                            <p className="text-3 font-weight-300">Select the required amount. You will get our transfer rates and service charge instantly.</p>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4 mb-4 mb-sm-0">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">3</span></div>
+                                            <h3 className="mb-3">Pick your transfer method</h3>
+                                            <p className="text-3 font-weight-300">You can pay via Bank or Local Remit.</p>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4 mb-4 mb-sm-0">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">4</span></div>
+                                            <h3 className="mb-3">Select recipient</h3>
+                                            <p className="text-3 font-weight-300">Pick existing recipient or create new
+                                                one</p>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4 mb-4 mb-sm-0">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">5</span></div>
+                                            <h3 className="mb-3">Verify document and source</h3>
+                                            <p className="text-3 font-weight-300">Upload your identity document and mention source of fund</p>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4 mb-4 mb-sm-0">
+                                        <div className="featured-box style-4">
+                                            <div className="featured-box-icon text-dark shadow-none border-bottom"><span
+                                                className="w-100 text-20 font-weight-500">6</span></div>
+                                            <h3 className="mb-3">Confirm and send</h3>
+                                            <p className="text-3 font-weight-300">Confirm your transaction with the help of detailed summary</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="text-center mt-2">
+                                    <a href="#" onClick={() => this.signUp()} className="btn btn-outline-primary shadow-none mt-2">
+                                    Open a Free Account</a>
                                 </div>
                             </div>
                         </div>

@@ -51,4 +51,27 @@
   .featured-box .text-primary{
     color : $primary-btn !important;
   }
+
+  .featured-box.style-4 .featured-box-icon {
+    margin: 0 auto 1.5rem;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    flex-shrink: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.03);
+  }
+
+  .featured-box:not(.style-5) .featured-box-icon {
+    font-size: 40px;
+    line-height: 45px;
+    padding: 0;
+    border-radius: 0;
+  }
 }

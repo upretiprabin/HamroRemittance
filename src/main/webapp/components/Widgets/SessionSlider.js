@@ -4,9 +4,6 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 
-// api
-import api from 'Api';
-
 export default class SessionSlider extends Component {
 
     render() {
@@ -34,7 +31,7 @@ export default class SessionSlider extends Component {
                                     src={img}
                                     alt="session-slider"
                                     className="img-fluid"
-                                    width={1920}
+                                    width={"100%"}
                                     height={500}
                                 />
                             </div>
