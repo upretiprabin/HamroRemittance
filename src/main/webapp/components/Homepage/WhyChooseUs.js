@@ -6,7 +6,7 @@ const WhyChooseUs = ({}) =>{
         <div className="choose mb-40">
         <Card body>
             <h2 className={"text-9 text-center mt-60"}>Why should you choose Hamro Remit?</h2>
-            <p className="text-4 text-center mb-5">Here’s Top 4 reasons why</p>
+            <p className="text-4 text-center mb-70">Here’s Top 4 reasons why</p>
             <div className="mt-30 container mb-30">
                 <div className="row">
                     <div className="col-sm-6 col-lg-3 mb-5 mb-lg-0">
