@@ -7,7 +7,7 @@ const HowItWorks = ({onSignUp})=>{
                 <div className="container">
                     <h2 className="text-9 text-center text-uppercase font-weight-400">How does it work?</h2>
                     <p className="text-4 text-center font-weight-300 mb-70">Hamro remit is very fast, simple and safe. Here are the
-                        few steps you need to follow to make your transaction.</p>
+                        few steps you need to follow to make your transaction</p>
                     <div className="row">
                         <div className="col-sm-4 mb-4">
                             <div className="featured-box style-4">
@@ -15,7 +15,7 @@ const HowItWorks = ({onSignUp})=>{
                                     className="w-100 text-20 font-weight-500">1</span></div>
                                 <h3 className="mb-3">Create an account</h3>
                                 <p className="text-3 font-weight-300">Sign up for your free
-                                    personal account just in a minute.</p>
+                                    personal account just in a minute</p>
                             </div>
                         </div>
                         <div className="col-sm-4 mb-4">
@@ -23,7 +23,7 @@ const HowItWorks = ({onSignUp})=>{
                                 <div className="featured-box-icon text-dark shadow-none border-bottom"><span
                                     className="w-100 text-20 font-weight-500">2</span></div>
                                 <h3 className="mb-3">Select the amount</h3>
-                                <p className="text-3 font-weight-300">Select the required amount. You will get our transfer rates and service charge instantly.</p>
+                                <p className="text-3 font-weight-300">Select the required amount. You will get our transfer rates and service charge instantly</p>
                             </div>
                         </div>
                         <div className="col-sm-4 mb-4 mb-sm-0">
@@ -31,7 +31,7 @@ const HowItWorks = ({onSignUp})=>{
                                 <div className="featured-box-icon text-dark shadow-none border-bottom"><span
                                     className="w-100 text-20 font-weight-500">3</span></div>
                                 <h3 className="mb-3">Pick your transfer method</h3>
-                                <p className="text-3 font-weight-300">You can pay via Bank or Local Remit.</p>
+                                <p className="text-3 font-weight-300">You can pay via Bank or Local Remit</p>
                             </div>
                         </div>
                         <div className="col-sm-4 mb-4 mb-sm-0">
