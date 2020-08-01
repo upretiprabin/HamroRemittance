@@ -54,12 +54,11 @@ const registerUser = (data) =>{
     /**TODO remove fake data and call endpoint after data has all keys present */
     // return requestHandler.loadData(URL.USER_REGISTER, config);
     return new Promise((res, rej) => { res({ data: { result: "" } }) })
-}
+};
 
 export default {
     loginUser,
-    logout,
-    registerUser
+    registerUser,
     isUserEnabled,
     logout
 }

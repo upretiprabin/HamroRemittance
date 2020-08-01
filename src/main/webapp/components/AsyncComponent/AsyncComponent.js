@@ -40,8 +40,7 @@ const AsyncAdminDashboardComponent = Loadable({
 export {
     AsyncDashboardComponent,
     AsyncHomeComponent,
-    AsyncTransactionComponent,
-    AsyncSessionPage404Component
+    AsyncSessionPage404Component,
     AsyncTransactionComponent,
     AsyncAdminDashboardComponent
 };
