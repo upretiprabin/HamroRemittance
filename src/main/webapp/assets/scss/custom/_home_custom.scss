@@ -19,13 +19,13 @@
     top: 20%;
     left: 34%;
     text-align: center;
-    background: #eab87df7;
+    background: #ffffffe0;
     padding: 25px;
     border-radius: 8px;
     .btn-primary{
       width: 100% !important;
       padding: 10px !important;
-      background: $secondary-btn !important;
+      background: $primary-btn !important;
       .MuiButton-label{
         color: $primary-bg;
         font-size: 20px;
@@ -35,12 +35,8 @@
   }
 
   .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input::before {
+    @include currency-flag-prepend;
     content: url("../flag-icons/flag-np.svg");
-    margin-right: 8px;
-    position: relative;
-    top: 1px;
-    height: 2px;
-    width: 2px;
   }
 
   .select-country .MuiFormControl-root{
@@ -73,5 +69,17 @@
     line-height: 45px;
     padding: 0;
     border-radius: 0;
+  }
+}
+
+.send-money{
+  .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input::before {
+    @include currency-flag-prepend;
+    content: url("../flag-icons/flag-np.svg");
+  }
+  .aud .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input::before {
+    @include currency-flag-prepend;
+    top: 2px !important;
+    content: url("../flag-icons/flag-aus.png");
   }
 }

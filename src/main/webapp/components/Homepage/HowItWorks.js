@@ -5,8 +5,8 @@ const HowItWorks = ({onSignUp})=>{
         <div id={"how-it-works"} className="how-it-works section">
             <div className="container">
                 <div className="container">
-                    <h2 className="text-9 text-center text-uppercase font-weight-400">How does it work?</h2>
-                    <p className="text-4 text-center font-weight-300 mb-70">Hamro remit is very fast, simple and safe. Here are the
+                    <h2 className="text-9 text-center">How does it work?</h2>
+                    <p className="text-4 text-center mb-70">Hamro remit is very fast, simple and safe. Here are the
                         few steps you need to follow to make your transaction</p>
                     <div className="row">
                         <div className="col-sm-4 mb-4">

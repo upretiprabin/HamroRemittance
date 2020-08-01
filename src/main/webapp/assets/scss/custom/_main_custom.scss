@@ -52,33 +52,11 @@ body{
   margin-left: 5px;
 }
 
-.font-weight-500 {
-  font-weight: 500 !important;
-}
 
-.font-weight-300 {
-  font-weight: 300 !important;
-}
-
-.featured-box.style-4 {
-  text-align: center;
-}
-
-.featured-box {
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
+@mixin currency-flag-prepend{
+  margin-right: 8px;
   position: relative;
-}
-
-.text-20 {
-  font-size: 5.75rem !important;
-}
-
-.mb-4, .my-4 {
-  margin-bottom: 1.5rem!important;
-}
-
-.shadow-none {
-  box-shadow: none!important;
+  top: 1px;
+  height: 2px;
+  width: 2px;
 }

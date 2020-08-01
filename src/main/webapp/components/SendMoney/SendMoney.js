@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from "../Select/Select";
 import MatButton from "@material-ui/core/Button/Button";
-import {Form, FormGroup, Input, Label} from 'reactstrap';
+import {Form, FormGroup, Input, Label, Card, CardTitle} from 'reactstrap';
 
 const countryList = [
     {
@@ -17,22 +17,30 @@ const countryList2 = [
     }
 ];
 
+const style = {
+    "width":"70%"
+};
+
+const inputGroupTextStyle = {
+    "width" : "45px"
+};
+
 const SendMoney = ({
                        fee,
                        countryRate,
                        onContinue
                    }) =>{
     return (
-        <div className={"send-money"}>
+        <div className={"send-money ml-5"}>
             <Form>
                 <FormGroup className={"text-left"}>
                     <Label for="youSend">You Send</Label>
-                    <div className="input-group">
+                    <div style={style} className="input-group">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">$</span>
+                            <span className="input-group-text" style={inputGroupTextStyle}>$</span>
                         </div>
                         <Input className={"w-50"} type="text" name="youSend" id="youSend"/>
-                        <div className="input-group-append">
+                        <div className="aud input-group-append select-country">
                             <Select
                                 optionList={countryList2}
                                 selection={"AUD"}
@@ -42,9 +50,9 @@ const SendMoney = ({
                 </FormGroup>
                 <FormGroup className={"text-left"}>
                     <Label for="recipientGets">Recipient Gets</Label>
-                    <div className="input-group">
+                    <div style={style} className="input-group">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">Rs.</span>
+                            <span className="input-group-text" style={inputGroupTextStyle}>Rs.</span>
                         </div>
                         <Input className={"w-50"} type="text" name="recipientGets" id="recipientGets"/>
                         <div className="input-group-append">
@@ -56,9 +64,9 @@ const SendMoney = ({
                     </div>
                 </FormGroup>
             </Form>
-            <p className="mb-1 text-left">Total fees - <span className="font-weight-500">7.21 AUD</span></p>
+            <p className="mb-1 text-left">Total fees : <span className="font-weight-500">7.21 AUD</span></p>
             <p className="mb-1 text-left">The current exchange rate is <span className="font-weight-500">1 AUD = {countryRate} NPR</span></p>
-            <MatButton className="btn btn-primary mt-10" onClick={onContinue}>Continue</MatButton>
+            <MatButton style={style} className="btn btn-primary text-white mt-10 p-10" onClick={onContinue}>Continue</MatButton>
         </div>
     );
 };

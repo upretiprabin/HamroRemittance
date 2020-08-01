@@ -16,6 +16,7 @@ import {AsyncSessionPage404Component} from "../components/AsyncComponent/AsyncCo
 import ForgotPassword from "./ForgotPassword";
 import AppSignIn from "./SignIn";
 import Signup from "./SignUp";
+import InstantSend from "./InstantSend";
 import Verify from "./Verify";
 import Register from "./Register";
 
@@ -63,6 +64,7 @@ class App extends Component {
                         <Route path="/forgot-password" component={ForgotPassword} />
                         <Route path="/signin" component={AppSignIn} />
                         <Route path="/signup" component={Signup} />
+                        <Route path="/send" component={InstantSend} />
                         <Route path="/verify" component={Verify} />
                         <Route path="/register" component={Register} />
                         <Route component={AsyncSessionPage404Component} />

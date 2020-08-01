@@ -19,7 +19,7 @@ class HorizontalMenu extends Component {
                         <div className={"mt-15 menus"}>
                             <ul className="list-inline footer-menus mb-0">
                                 <li className="list-inline-item">
-                                    <Link to={"#"}><span className={"header-menu"}>SEND</span></Link>
+                                    <Link to={"/send"}><span className={"header-menu"}>SEND</span></Link>
                                 </li>
                                 <li className="list-inline-item">
                                     <a href={"#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
