@@ -60,3 +60,16 @@ body{
   height: 2px;
   width: 2px;
 }
+
+.table{
+  tr:nth-child(odd){
+    td{
+      background: $table-border;
+    }
+  }
+  tfoot{
+    tr td{
+      background: none !important;
+    }
+  }
+}
