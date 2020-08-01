@@ -32,9 +32,16 @@ const AsyncSessionPage404Component = Loadable({
     loading: () => <RctPageLoader />,
 });
 
+// admin-dashboard
+const AsyncAdminDashboardComponent = Loadable({
+    loader: () => import("../../routes/admin-dashboard"),
+    loading: () => <RctPageLoader />,
+});
 export {
     AsyncDashboardComponent,
     AsyncHomeComponent,
     AsyncTransactionComponent,
     AsyncSessionPage404Component
+    AsyncTransactionComponent,
+    AsyncAdminDashboardComponent
 };

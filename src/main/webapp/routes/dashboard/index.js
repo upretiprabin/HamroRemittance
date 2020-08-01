@@ -5,32 +5,15 @@
 import React, { Component } from 'react'
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import ErrorBoundary from "Components/ErrorBoundary/index";
-import Controller from "../../controllers/dashboardController"
 import { NotificationContainer } from "react-notifications";
 import { connect } from 'react-redux';
 // rct collapsible card
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-import IntlMessages from 'Util/IntlMessages';
 
-import {
-    VisitorAreaChartWidget,
-    SalesAreaChartWidget,
-    OrdersAreaChartWidget,
-    RecentOrdersWidget,
-    SupportRequest
-} from "Components/Widgets";
-
-
-// widgets data
-import {
-    visitorsData,
-    salesData,
-    ordersData,
-    txnTableColumns,
-    txnTableData,
-    txnTableOptions
-} from './data';
-import MUIDataTable from 'mui-datatables';
+import ReceiverList from '../../components/Dashboard/ReceiverList';
+import UserTransactionDetails from '../../components/Dashboard/UserTransactionDetails';
+import UserProfileCard from '../../components/Dashboard/UserProfileCard';
+import SendMoneyNow from '../../components/Dashboard/SendMoneyNow';
 
 class Index extends Component {
 
@@ -56,7 +39,7 @@ class Index extends Component {
     }
 
     loadData() {
-        Controller.loadData(this);
+        // Controller.loadData(this);
     }
 
     render() {
@@ -73,55 +56,35 @@ class Index extends Component {
                         </div>
                     }
                     {!loading &&
-                        <div>
-                            <div>
-                                <MUIDataTable
-                                    title={"Past Transactions"}
-                                    data={txnTableData}
-                                    columns={txnTableColumns}
-                                    options={txnTableOptions}
-                                />
-                            </div>
+                        <div className="container">
                             <div className="row">
-                                <div className="col-sm-6 col-md-4 w-xs-half-block">
-                                    <VisitorAreaChartWidget
-                                        data={visitorsData}
-                                    />
+                                <div className="col-sm-12 col-md-12 col-lg-8">
+                                    <RctCollapsibleCard
+                                        heading='Recent Transactions'
+                                        collapsible
+                                        fullBlock
+                                    >
+                                        <UserTransactionDetails />
+                                    </RctCollapsibleCard>
+                                </div>
+                                <div className="col-sm-12 col-md-12 col-lg-4">
+                                   <UserProfileCard/>
+
+                                    {/* Send Money Button */}
+                                    <RctCollapsibleCard>
+                                        <SendMoneyNow />
+                                    </RctCollapsibleCard>
+
+                                    {/* Reciever List */}
+                                    <RctCollapsibleCard
+                                        heading='Receivers'
+                                        collapsible
+                                        fullBlock
+                                    >
+                                        <ReceiverList />
+                                    </RctCollapsibleCard>
                                 </div>
 
-                                <div className="col-sm-12 col-md-4 w-xs-half-block">
-                                    <OrdersAreaChartWidget
-                                        data={ordersData}
-                                    />
-                                </div>
-                                <div className="col-sm-6 col-md-4 w-xs-full">
-                                    <SalesAreaChartWidget
-                                        data={salesData}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row">
-                                <RctCollapsibleCard
-                                    colClasses="col-sm-12 col-md-4 col-lg-4 w-xs-full"
-                                    heading={<IntlMessages id="widgets.supportRequest" />}
-                                    collapsible
-                                    reloadable
-                                    closeable
-                                    fullBlock
-                                    customClasses="overflow-hidden"
-                                >
-                                    <SupportRequest />
-                                </RctCollapsibleCard>
-                                <RctCollapsibleCard
-                                    colClasses="col-sm-12 col-md-8 col-lg-8 w-xs-full"
-                                    heading={<IntlMessages id="widgets.RecentOrders" />}
-                                    collapsible
-                                    reloadable
-                                    closeable
-                                    fullBlock
-                                >
-                                    <RecentOrdersWidget />
-                                </RctCollapsibleCard>
                             </div>
                         </div>
                     }

@@ -1,16 +1,14 @@
-import { loadDashboardData, loadUserData, loadUserTxnDetails } from "../services/dashboardService";
-import { loadCompanyChargesData, loadReceiverData } from '../services/transactionService'
+import { loadAdminDashboardData, loadTxnStatusData, loadFilteredAdminData, postBulkUpdateData, updateStatus,deleteTransaction } from "../services/adminDashboardService";
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
-//TODO: fetch data from endpoints when done
+
 const loadData = (ctx) => {
-    let stateData = {};
-    loadDashboardData()
+    let tableData = [];
+    ctx.setIsLoading(true)
+    loadAdminDashboardData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                stateData = {
-                    userData: data.data.result
-                }
+                tableData = data.data.result
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -25,21 +23,17 @@ const loadData = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.changeState({
-                ...stateData,
-                loading: false
-            })
+            ctx.setTableData(tableData)
+            ctx.setIsLoading(false)
         })
 
 };
-const loadUserProfileData = (ctx) => {
-    let userProfileData = {}
-    //TODO get Sender id from localStorage
-    const data = { sender: 2 }
-    loadUserData(data)
+const loadTxnStatus = (ctx) => {
+    let txnData = [];
+    loadTxnStatusData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                userProfileData = data.data.result
+                txnData = data.data.result
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -54,21 +48,44 @@ const loadUserProfileData = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.setUserData(userProfileData)
+            ctx.setTxnStatus(txnData)
+        })
+}
+const loadFilteredData = (ctx) => {
+    let tableData = [];
+    ctx.setIsLoading(true)
+    loadFilteredAdminData(ctx.data)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                tableData = data.data.result
+            } else {
+                if (data.data.Error === "no data available")
+                    log.info("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.setTableData(tableData)
+            ctx.setIsLoading(false)
         })
 }
 
-const pastTxnData = (ctx) => {
-    let stateData = {};
-    loadUserTxnDetails()
+const postBulkUpdate = (ctx) => {
+    ctx.setIsLoading(true)
+    postBulkUpdateData(ctx.data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                stateData = {
-                    recentOrders: data.data.result
-                }
+                NotificationManager.success(data.data.result);
             } else {
                 if (data.data.Error === "no data available")
-                    log.info("No data");
+                    NotificationManager.error("No data");
                 else {
                     log.error(data.data.Error);
                     NotificationManager.error(data.data.Error)
@@ -80,51 +97,18 @@ const pastTxnData = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.setState({
-                ...stateData
-            })
-        })
-
-};
-const fetchReceivers = (ctx) => {
-    let stateData = {};
-    let data = { "senderId": 2 }
-    loadReceiverData(data)
-        .then(data => {
-            if (!data.data.hasOwnProperty("Error")) {
-                stateData = {
-                    people: data.data.result
-                }
-            } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
-                else {
-                    log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
-                }
-            }
-        })
-        .catch(e => {
-            log.error(e);
-            NotificationManager.error("Error Occurred!")
-        })
-        .finally(() => {
-            ctx.setState({
-                ...stateData,
-                loading: false
-            })
+            ctx.refreshPage();
         })
 }
-const getCurrentRates = (ctx) => {
-    let rateAndCharges = { rate: 0, charges: 0 }
-    loadCompanyChargesData()
+const updateTxnStatus = (ctx) => {
+    ctx.setIsLoading(true)
+    updateStatus(ctx.data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                rateAndCharges.rate = data.data.result[0].exchangeRate
-                rateAndCharges.charges = data.data.result[0].serviceCharge
+                NotificationManager.success(data.data.result);
             } else {
                 if (data.data.Error === "no data available")
-                    log.info("No data");
+                    NotificationManager.error("No data");
                 else {
                     log.error(data.data.Error);
                     NotificationManager.error(data.data.Error)
@@ -136,15 +120,37 @@ const getCurrentRates = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.setFees(rateAndCharges.charges)
-            ctx.setRates(rateAndCharges.rate)
+            ctx.refreshPage()
         })
-
+}
+const deleteRecord = (ctx) => {
+    ctx.setIsLoading(true)
+    deleteTransaction(ctx.data)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                NotificationManager.success(data.data.result);
+            } else {
+                if (data.data.Error === "no data available")
+                    NotificationManager.error("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.refreshPage()
+        })
 }
 export default {
     loadData,
-    loadUserProfileData,
-    pastTxnData,
-    fetchReceivers,
-    getCurrentRates
+    loadTxnStatus,
+    loadFilteredData,
+    postBulkUpdate,
+    updateTxnStatus,
+    deleteRecord
 }

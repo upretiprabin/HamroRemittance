@@ -20,6 +20,21 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
             onCountryChange({ target: { value: formData[0].code } })
         }
     }, [])
+
+    useEffect(() => {
+        if (countries.length > 0) {
+            const selected = countries.find(data => data.code == "1")
+            if (selected) {
+                setSelectedCountry("1")
+                setRatesAndFees({
+                    convertTo: selected.currency,
+                    rate: selected.rate,
+                    fees: selected.fees
+                })
+                saveData(selected)
+            }
+        }
+    }, [countries])
     const onCountryChange = (e) => {
         setSelectedCountry(e.target.value)
         const selected = countries.find(data => data.code === e.target.value)
@@ -50,7 +65,6 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                                     <InputLabel htmlFor="country-helper">Send Money To:</InputLabel>
                                     <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
                                         input={<Input error={isError} name="country" id="country-helper" />}>
-                                        <MenuItem value=""><em>None</em></MenuItem>
                                         {countries?.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
                                     </Select>
                                     <FormHelperText>Select country to view rates</FormHelperText>
@@ -74,7 +88,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                 <RctCardContent >
                     <CardDataWithIcon
                         header='Fees'
-                        data={`from ${ratesAndFees.fees} AUD`}
+                        data={`${ratesAndFees.fees} AUD`}
                         iconRef='zmdi-money-off'
                         colorCode='bg-success' />
                 </RctCardContent>

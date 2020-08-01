@@ -7,6 +7,7 @@ class CustomerController {
     def customerService
     def customerAddressService
     def bankDetailsService
+    def transactionService
 
     /* def index() {
          def customers = customerService.getAllCustomers()
@@ -105,22 +106,37 @@ class CustomerController {
         Customer customer = Customer.findById(customerParams.customerId)
         try{
             if(customerParams.receiver){
+                if(!customer){
+                    render(["Error":"No receiver to delete."] as JSON)
+                    return
+                }
                 //delete customer address,address bank details, customer
-                customerAddressService.deleteCustomerAddress(customer)
-                bankDetailsService.deleteBankDetails(customer)
-                customerService.deleteCustomer(customer)
+                customerService.deleteReceiver(customer)
+                System.out.println("--delete success--receiver-")
+                render(["result":["message":"Receiver deleted successfully."]] as JSON)
             }else if(customerParams.sender){
-                //delete address
-                //delete bank details
-                //delete customer
-                //delete all the receivers
-                //delete all the transactions
-                //delete all the orders
-
+                Sender sender = Sender.findById(customerParams.customerId)
+                if(!customer){
+                    render(["Error":"No sender to delete."] as JSON)
+                    return
+                }
+                /**
+                 delete address
+                 delete bank details
+                 delete all the receivers
+                 delete all the transactions
+                 delete all the orders
+                 delete customer
+                 **/
                 customerAddressService.deleteCustomerAddress(customer)
                 bankDetailsService.deleteBankDetails(customer)
+                transactionService.deleteTransactions(sender)
+                customerService.deleteAllReceivers(customerParams)
+                customerService.deleteCustomer(customer)
+                System.out.println("--delete success---")
+                render(["result":["message":"Sender and its details deleted successfully."]] as JSON)
             }else{
-                render (["Error":"Not enough delete parameters."] as JSON)
+                render (["Error":"Error occurred while deleting customer."] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()

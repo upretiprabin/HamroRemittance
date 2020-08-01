@@ -2,11 +2,12 @@
  * Recent Orders
  */
 import React, { Component } from 'react';
+import Controller from "../../controllers/dashboardController"
 
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 // import ChevronRight from '@material-ui/icons/ChevronRight';
 
-class RecentOrders extends Component {
+class UserTransactionDetails extends Component {
 
 	state = {
 		recentOrders: null,
@@ -15,7 +16,7 @@ class RecentOrders extends Component {
 	}
 
 	componentDidMount() {
-		this.getRecentOrders();
+		Controller.pastTxnData(this);
 	}
 
 	// recent orders
@@ -103,4 +104,4 @@ class RecentOrders extends Component {
 	}
 }
 
-export default RecentOrders;
+export default UserTransactionDetails;

@@ -67,10 +67,10 @@ class CustomerAddressService {
         def customerAddress = CustomerAddress.findByCustomer(customer)
         if(customerAddress){
             def address = Address.findById(customerAddress.address.id)
+            customerAddress.delete(failOnError: true, flush: true)
             if(address){
                 address.delete(failOnError: true, flush: true)
             }
-            customerAddress.delete(failOnError: true, flush: true)
         }
     }
 }

@@ -5,11 +5,11 @@
 // api
 import requestHandler from '../RequestHandler';
 import URL from '../UrlMappings';
-import {userFromLocalStorage} from "../../../sagas/AuthenticationManager";
+import { userFromLocalStorage } from "../../../sagas/AuthenticationManager";
 import AppConfig from "Constants/AppConfig";
 
-const defaultConfig = (data)=>({
-    method:'post',
+const defaultConfig = (data) => ({
+    method: 'post',
     data
 });
 
@@ -49,8 +49,17 @@ const isUserEnabled = (username,password) => {
     return requestHandler.loadData(URL.USER_IS_USER_ENABLED,config);
 };
 
+const registerUser = (data) =>{
+    let config = defaultConfig(data);
+    /**TODO remove fake data and call endpoint after data has all keys present */
+    // return requestHandler.loadData(URL.USER_REGISTER, config);
+    return new Promise((res, rej) => { res({ data: { result: "" } }) })
+}
+
 export default {
     loginUser,
+    logout,
+    registerUser
     isUserEnabled,
     logout
 }

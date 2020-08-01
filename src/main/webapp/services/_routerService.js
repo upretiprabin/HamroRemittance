@@ -2,7 +2,8 @@
 import {
     AsyncHomeComponent,
     AsyncDashboardComponent,
-    AsyncTransactionComponent
+    AsyncTransactionComponent,
+    AsyncAdminDashboardComponent
 } from "Components/AsyncComponent/AsyncComponent";
 
 export default [
@@ -17,5 +18,9 @@ export default [
     {
         path: 'transaction',
         component: AsyncTransactionComponent
+    },
+    {
+        path: 'admin-dashboard',
+        component: AsyncAdminDashboardComponent
     }
 ]

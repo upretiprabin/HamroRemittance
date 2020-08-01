@@ -13,7 +13,6 @@ import ReceiverDetails from '../Receiver/ReceiverDetails'
 
 const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) => {
     const [activeIndex, setActiveIndex] = useState(0)
-    console.log("activeIndex at step three",activeIndex)
     const [selected, setSelected] = useState('')
     const postData = data => {
         addReceiver(data)

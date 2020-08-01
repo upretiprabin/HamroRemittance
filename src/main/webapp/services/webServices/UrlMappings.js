@@ -13,11 +13,20 @@ export default {
     //Transaction endpoints
     TRANSACTION_CREATE: 'transaction/saveTransaction',
     TRANSACTION_TEST_DATA: 'transaction/testData',
+    TRANSACTION_DELETE: 'adminDetails/deleteTransactionOrderDetails',
 
     //Reciever endpoints
-    RECIEVER_REGISTER: "customer/saveCustomer",
-    GET_RECIEVERS: "transaction/getReceivers",
-    
+    RECIEVER_REGISTER: 'customer/saveCustomer',
+    GET_RECIEVERS: 'transaction/getReceivers',
+
     //Company endpoints
-    GET_COMPANY_CHARGES: 'transaction/getCompanyCharges'
+    GET_COMPANY_CHARGES: 'transaction/getCompanyCharges',
+
+    //Admin-Dashboard endpoints
+    GET_TXN_DATA: 'adminDetails/getAllTransactionsOrderDetails',
+    GET_TXT_STATUS: 'transaction/fetchTransactionStatus',
+    GET_FILTERED_TXT_DATA: 'adminDetails/getTransactionOrdersByStatus',
+    POST_BULK_DATA: 'adminDetails/updateTransactionStatusBulk',
+    UPDATE_TXN_STATUS: 'adminDetails/storeTransactionStatusUpdate',
+    
 }

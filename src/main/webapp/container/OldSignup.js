@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
-import { Form, FormGroup, Input, FormFeedback } from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
+import { Form, FormGroup, Input, FormFeedback, Label } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 
@@ -21,6 +21,14 @@ import AppConfig from 'Constants/AppConfig';
 
 // validators
 import Validator from '../util/Validators'
+import { Divider } from '@material-ui/core';
+import DocumentIdentification from '../components/FormComponents/DocumentIdentification';
+
+import Controller from "../controllers/userController"
+
+import {
+   signIn
+} from 'Actions';
 
 
 class OldSignup extends Component {
@@ -41,26 +49,36 @@ class OldSignup extends Component {
       zip: { value: '', error: false },
       country: { value: 'Australia' },
       nationality: { value: '', error: false },
+      docType: { value: '', error: false },
+      docExpiry: { value: '', error: false },
+      docId: { value: '', error: false },
+      file: { value: null, error: false }
    };
 
 	/**
 	 * On User Signup
 	 */
    onUserSignUp() {
+      var formData = {}
       if (!this.validator()) {
-         var formData = {}
          for (let obj in this.state) {
             formData[obj] = this.state[obj].value
          }
          console.log(formData)
          /**
-          * TODO register
+          * TODO register and redirect to dashboard on successful sign in
           */
       }
+      Controller.register(this,formData)
    }
    onChangeValue = e => {
       let updatedState = this.state;
       updatedState[e.target.name].value = e.target.value
+      this.setState({ ...updatedState })
+   }
+   onFileSelected = e => {
+      let updatedState = this.state
+      updatedState.file.value = e.target.files[0]
       this.setState({ ...updatedState })
    }
    validator = () => {
@@ -76,24 +94,32 @@ class OldSignup extends Component {
                   updatedState[obj].error = false
                }
                break
-            case 'email':
-               if (!Validator.emailValidator(updatedState[obj].value)) {
-                  updatedState[obj].error = true
-                  error = true
-               } else {
-                  updatedState[obj].error = false
-               }
-               break
-            case 'password':
-               if (!Validator.passwordValidator(updatedState[obj].value)) {
-                  updatedState[obj].error = true
-                  error = true
-               } else {
-                  updatedState[obj].error = false
-               }
-               break
-            case 'confirmPassword':
-               if (updatedState[obj].value === updatedState.password.value) {
+            // case 'email':
+            //    if (!Validator.emailValidator(updatedState[obj].value)) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
+            // case 'password':
+            //    if (!Validator.passwordValidator(updatedState[obj].value)) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
+            // case 'confirmPassword':
+            //    if (updatedState[obj].value !== updatedState.password.value) {
+            //       updatedState[obj].error = true
+            //       error = true
+            //    } else {
+            //       updatedState[obj].error = false
+            //    }
+            //    break
+            case 'file':
+               if (updatedState[obj].value === null) {
                   updatedState[obj].error = true
                   error = true
                } else {
@@ -117,7 +143,12 @@ class OldSignup extends Component {
       return error
    }
    render() {
-      const { fName, mName, lName, phone, dob, email, password, confirmPassword, aLine1, aLine2, subUrb, state, zip, country, nationality } = this.state;
+      const {
+         fName, mName, lName,
+         phone, dob, email, password, confirmPassword,
+         aLine1, aLine2, subUrb, state, zip, country, nationality,
+         docType, docExpiry, docId, file
+      } = this.state;
       const { loading } = this.props;
       return (
          <QueueAnim type="bottom" duration={2000}>
@@ -152,31 +183,16 @@ class OldSignup extends Component {
                <div className="session-inner-wrapper">
                   <div className="container">
                      <div className="row row-eq-height">
-                        <div className="col-sm-9 col-md-9 col-lg-9">
+                        <div className="col-sm-12 col-md-12 col-lg-12">
                            <div className="session-body text-center">
                               <div className="session-head mb-15">
                                  <h2>Get started with {AppConfig.brandName}</h2>
                               </div>
                               <Form>
+                                 <Label>User Details</Label>
                                  <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} />
                                  <div className='row mt-10'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={email.error}
-                                             type="mail"
-                                             value={email.value}
-                                             name="email"
-                                             id="user-mail"
-                                             className="has-input input-lg"
-                                             placeholder="Email Address*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-email"></i></span>
-                                          <FormFeedback>Email address in not valid</FormFeedback>
-                                       </FormGroup>
-                                    </div>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={phone.error}
@@ -192,45 +208,10 @@ class OldSignup extends Component {
                                              }}
                                           />
                                           <span className="has-icon"><i className="ti-mobile"></i></span>
-                                          <FormFeedback>Required</FormFeedback>
+                                          <FormFeedback>Invalid</FormFeedback>
                                        </FormGroup>
                                     </div>
-                                 </div>
-                                 <div className='row'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={password.error}
-                                             value={password.value}
-                                             type="Password"
-                                             name="password"
-                                             id="pwd"
-                                             className="has-input input-lg"
-                                             placeholder="Password*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-lock"></i></span>
-                                          <FormFeedback>Password must contain more than 8 characters, 1 or more special character and a combination of upper and lowercase characters</FormFeedback>
-                                       </FormGroup>
-                                    </div><div className='col-sm-12 col-md-6 col-lg-6'>
-                                       <FormGroup className="has-wrapper">
-                                          <Input
-                                             invalid={confirmPassword.error}
-                                             value={confirmPassword.value}
-                                             type="password"
-                                             name="confirmPassword"
-                                             id="confm-pwd"
-                                             className="has-input input-lg"
-                                             placeholder="Confirm Password*"
-                                             onChange={(e) => this.onChangeValue(e)}
-                                          />
-                                          <span className="has-icon"><i className="ti-lock"></i></span>
-                                          <FormFeedback>Passwords dont match or empty passwords</FormFeedback>
-                                       </FormGroup>
-                                    </div>
-                                 </div>
-                                 <div className='row mt-10'>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={dob.error}
@@ -245,7 +226,7 @@ class OldSignup extends Component {
                                           <FormFeedback>Required</FormFeedback>
                                        </FormGroup>
                                     </div>
-                                    <div className='col-sm-12 col-md-6 col-lg-6'>
+                                    <div className='col-sm-12 col-md-6 col-lg-4'>
                                        <FormGroup className="has-wrapper">
                                           <Input
                                              invalid={nationality.error}
@@ -262,8 +243,11 @@ class OldSignup extends Component {
                                        </FormGroup>
                                     </div>
                                  </div>
+                                 <Label>User Address</Label>
                                  <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
-                                 <h5>By submitting this form, you accept Hamro Remit's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
+                                 <Label>User Documents</Label>
+                                 <DocumentIdentification file={file} docType={docType} docExpiry={docExpiry} docId={docId} onChangeValue={this.onChangeValue} onFileSelected={this.onFileSelected} />
+                                 <h5>By submitting this form, you accept Hamro Remittance's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
                                  <FormGroup className="mb-15">
                                     <Button
                                        className="btn-info text-white btn-block w-100"
@@ -283,7 +267,7 @@ class OldSignup extends Component {
                   </div>
                </div>
             </div>
-         </QueueAnim>
+         </QueueAnim >
       );
    }
 }

@@ -8,6 +8,7 @@ import com.remitapp.PayingAgentDetails
 import com.remitapp.Receiver
 import com.remitapp.Sender
 import com.remitapp.Transaction
+import com.remitapp.TransactionStatus
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -20,7 +21,7 @@ class TransactionService {
         def sender = Sender.findById(params.senderId)
         def receiver = Receiver.findById(params.receiverId)
         if(sender == null || receiver == null){
-            returnResult["Error"] = "Sender or Receiver no found.."
+            returnResult["Error"] = "Sender or Receiver not found.."
         }else{
             Transaction transaction = new Transaction()
             transaction.sender = sender
@@ -46,7 +47,7 @@ class TransactionService {
         orderDetails.comments = params.comments
         orderDetails.staffNotes = params.staffNotes
         orderDetails.emailOriginalCopy = params.emailOriginalCopy
-        orderDetails.status = params.status
+        orderDetails.status = params.status?:"awaitingPayments"
         orderDetails.trnNumber = params.trnNumber
         orderDetails.cashPickUpId = params.cashPickUpId
         orderDetails.transactionReason = params.transactionReason
@@ -92,13 +93,48 @@ class TransactionService {
         return companyCharges
     }
 
+    def returnTransactionStatus(){
+        def txnStatus = TransactionStatus.list()
+        return txnStatus
+    }
+
     def getCompanyChargesByCountry(def params){
         def country = params.country
         def companyCharges = CompanyCharges.findByCountry(country)
         return companyCharges
     }
 
-    def deleteTransaction(Sender sender){
-        def transaction = Transaction.findBySender(sender)
+    def deleteTransactions(Sender sender){
+        def transactions = Transaction.findBySender(sender)
+        if(transactions){
+            transactions.each{ transaction ->
+                deleteOrderDetails(transaction)
+                deleteTransaction(transaction)
+            }
+        }
+    }
+
+    def deleteTransaction(Transaction transaction){
+        transaction.delete(flush: true, failOnError:true)
+        System.out.println("--deleteOrderDetails--transaction-")
+    }
+
+    def deleteOrderDetails(Transaction transaction){
+        def orderDetails = OrderDetails.findByTransaction(transaction)
+        if(orderDetails){
+            orderDetails.delete(flush: true, failOnError: true)
+        }
+        System.out.println("--deleteOrderDetails---")
+    }
+
+    def deleteTransactionById(transactionParams){
+        def returnMessage = [:]
+        Transaction transaction = Transaction.findById(transactionParams.transactionId)
+        if(transaction){
+            deleteOrderDetails(transaction)
+            deleteTransaction(transaction)
+            returnMessage['message'] = "Transaction successfully deleted."
+        }
+        return returnMessage
     }
 }
