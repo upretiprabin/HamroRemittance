@@ -80,7 +80,26 @@ const verifyUser = (ctx, data) => {
         })
 }
 const saveUserDetails = (ctx, formData, data) => {
-    saveUserData(formData)
+    const userData = {
+        firstName: formData.fname,
+        middleName: formData.mName,
+        lastName: formData.lastName,
+        phoneNumber: formData.phone,
+        dateOfBirth: formData.dob,
+        nationality: formData.nationality,
+        sender: true,
+        emailAddress: localStorage.getItem('user-email'),
+        addressLineOne: formData.aLine1,
+        addressLineTwo: formData.aLine2,
+        suburbCity: formData.subUrb,
+        country: formData.country,
+        stateProvince: formData.state,
+        zipCode: formData.zip,
+        bankName: "Himalayan Bank",
+        branchId: "KathmanduNP",
+        accountNumber: "123456"
+    }
+    saveUserData(userData)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 isSuccess = true
@@ -99,11 +118,7 @@ const saveUserDetails = (ctx, formData, data) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            if (isSuccess) {
-                localStorage.removeItem('user-email')
-                localStorage.removeItem('key')
-                this.props.signIn(data, ctx.props.history)
-            }
+            localStorage.setItem('isRegistered', true)
         })
 }
 export default {
