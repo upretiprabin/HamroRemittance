@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {Form, FormGroup, Input } from 'reactstrap';
+import { Form, FormGroup, Input, FormFeedback } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
-import {
-    signIn
-} from 'Actions';
+import { signIn } from 'Actions';
+import Controller from './../controllers/userController.js'
+import Validator from './../util/Validators'
 
 class SignUp extends Component {
 
     state = {
         email: '',
         password: '',
-        confirmPassword : '',
-        showPassword : false
+        confirmPassword: '',
+        showPassword: false,
+        error: [false, false, false]
     };
 
-    onKeyPress(event){
-        if(event.key === "Enter"){
+    onKeyPress(event) {
+        if (event.key === "Enter") {
             this.onUserSignUp();
         }
     }
@@ -28,7 +29,30 @@ class SignUp extends Component {
      * On User Sign Up
      */
     onUserSignUp() {
-        this.props.history.push('/verify');
+        localStorage.setItem('user-email', this.state.email)
+        localStorage.setItem('key', btoa(this.state.password))
+        // this.props.history.push('/verify');
+        if (!this.validateData()) {
+            Controller.registerUser(this)
+        }
+    }
+    /**
+     * Validator
+     */
+    validateData() {
+        const { email, password, confirmPassword } = this.state
+        const isError = [false, false, false];
+        if (!Validator.emailValidator(email)) {
+            isError[0] = true
+        }
+        if (!Validator.passwordValidator(password)) {
+            isError[1] = true
+        }
+        if (password !== confirmPassword) {
+            isError[2] = true
+        }
+        this.setState({ error: isError })
+        return isError[0] || isError[1] || isError[2]
     }
 
     /**
@@ -38,30 +62,30 @@ class SignUp extends Component {
         this.props.history.push('/signIn');
     }
 
-    onShowPassword(){
-        let pwdDom = document.getElementById("pwd");
-        if(!this.state.showPassword)
-            pwdDom.type = "text";
-        else
-            pwdDom.type = "password";
-        this.setState({showPassword:!this.state.showPassword});
+    onShowPassword() {
+        // let pwdDom = document.getElementById("pwd");
+        // if(!this.state.showPassword)
+        //     pwdDom.type = "text";
+        // else
+        //     pwdDom.type = "password";
+        this.setState({ showPassword: !this.state.showPassword });
     }
 
     render() {
-        const { email, password, confirmPassword} = this.state;
+        const { email, password, confirmPassword, error } = this.state;
         const { loading } = this.props;
         return (
             <QueueAnim type="bottom" duration={2000}>
                 <div className="app-horizontal rct-session-wrapper">
                     {loading &&
-                    <LinearProgress />
+                        <LinearProgress />
                     }
                     <div className="container-fluid px-0 h-100">
                         <div className="row no-gutters h-100">
                             <div className="col-md-6">
                                 <div className="hero-wrap d-flex align-items-center h-100">
-                                    <div className="hero-mask opacity-8"/>
-                                    <div className="hero-bg hero-bg-scroll"/>
+                                    <div className="hero-mask opacity-8" />
+                                    <div className="hero-bg hero-bg-scroll" />
                                     <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
                                         <div className="row no-gutters">
                                             <div className="col-10 col-lg-9 mx-auto">
@@ -91,6 +115,7 @@ class SignUp extends Component {
                                             <Form>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
+                                                        invalid={error[0]}
                                                         type="mail"
                                                         value={email}
                                                         name="user-mail"
@@ -99,24 +124,28 @@ class SignUp extends Component {
                                                         placeholder="Email Address"
                                                         onChange={(event) => this.setState({ email: event.target.value })}
                                                     />
-                                                    <span className="has-icon"><i className="ti-email"/></span>
+                                                    <span className="has-icon"><i className="ti-email" /></span>
+                                                    <FormFeedback>Please enter valid e-mail id.</FormFeedback>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
+                                                        invalid={error[1]}
                                                         value={password}
-                                                        type="password"
+                                                        type={this.state.showPassword ? 'text' : 'password'}
                                                         name="user-pwd"
                                                         id="pwd"
                                                         className="has-input input-lg"
                                                         placeholder="Password"
                                                         onChange={(event) => this.setState({ password: event.target.value })}
                                                     />
-                                                    <span onClick={()=>{
+                                                    <span onClick={() => {
                                                         this.onShowPassword();
-                                                    }} title={"Show"} className="has-icon"><i className="ti-eye"/></span>
+                                                    }} title={"Show"} className="has-icon"><i className="ti-eye" /></span>
+                                                    <FormFeedback>Password must contain more than 8 characters, 1 or more special character and a combination of upper and lowercase characters</FormFeedback>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
+                                                        invalid={error[2]}
                                                         value={confirmPassword}
                                                         type="password"
                                                         name="confirmPwd"
@@ -125,6 +154,7 @@ class SignUp extends Component {
                                                         placeholder="Confirm Password"
                                                         onChange={(event) => this.setState({ confirmPassword: event.target.value })}
                                                     />
+                                                    <FormFeedback>Passwords dont match or empty passwords</FormFeedback>
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button

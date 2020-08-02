@@ -6,6 +6,9 @@ export default {
     USER_LOGOUT: 'user/logout',
     USER_IS_USER_ENABLED : 'user/isUserEnabled',
     USER_REGISTER: 'customer/saveCustomer',
+    USER_CREATE: 'user/create',
+    SEND_VERIFICATION_CODE: 'user/sendVerificationCode',
+    VERIFY_USER: 'user/verifyUser',
 
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'dashboard/loadData',

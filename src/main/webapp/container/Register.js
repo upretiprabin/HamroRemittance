@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import AppConfig from 'Constants/AppConfig';
 import Divider from "@material-ui/core/Divider/Divider";
-import {Card, FormGroup, Input, Form, Label, Col, InputGroup, InputGroupAddon, FormFeedback} from 'reactstrap';
+import { Card, FormGroup, Input, Form, Label, Col, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
 import IconButton from '@material-ui/core/IconButton';
 import IntlMessages from 'Util/IntlMessages';
 
@@ -13,6 +13,8 @@ import {
 import Validator from "../util/Validators";
 import NameForm from "../components/FormComponents/NameForm";
 import AddressForm from "../components/FormComponents/AddressForm";
+import DocumentIdentification from "../components/FormComponents/DocumentIdentification";
+import Controller from './../controllers/userController'
 
 class Register extends Component {
 
@@ -22,9 +24,6 @@ class Register extends Component {
         lName: { value: '', error: false },
         phone: { value: '', error: false },
         dob: { value: '', error: false },
-        email: { value: '', error: false },
-        password: { value: '', error: false },
-        confirmPassword: { value: '', error: false },
         aLine1: { value: '', error: false },
         aLine2: { value: '', error: false },
         subUrb: { value: '', error: false },
@@ -32,21 +31,40 @@ class Register extends Component {
         zip: { value: '', error: false },
         country: { value: 'Australia' },
         nationality: { value: '', error: false },
+        docType: { value: '', error: false },
+        docExpiry: { value: '', error: false },
+        docId: { value: '', error: false },
+        file: { value: null, error: false }
     };
-
+    onFileSelected = e => {
+        let updatedState = this.state
+        updatedState.file.value = e.target.files[0]
+        this.setState({ ...updatedState })
+    }
+    componentDidMount = () => {
+        const user = localStorage.getItem('user')
+        if (user) {
+            const data = {
+                username: localStorage.getItem('user-email'),
+                password: atob(localStorage.getItem('key'))
+            }
+            localStorage.removeItem('user-email')
+            localStorage.removeItem('key')
+            this.props.signIn(data, this.props.history)
+        }
+    }
     /**
      * On User Signup
      */
     onUserSignUp() {
         if (!this.validator()) {
-            let formData = {};
+            var formData = {}
             for (let obj in this.state) {
-                formData[obj] = this.state[obj].value
+                if (obj != 'file') {
+                    formData[obj] = this.state[obj].value
+                }
             }
-            console.log(formData);
-            /**
-             * TODO register
-             */
+            Controller.saveUserDetails(this, formData)
         }
     }
     onChangeValue = e => {
@@ -67,30 +85,14 @@ class Register extends Component {
                         updatedState[obj].error = false
                     }
                     break;
-                case 'email':
-                    if (!Validator.emailValidator(updatedState[obj].value)) {
-                        updatedState[obj].error = true;
+                case 'file':
+                    if (updatedState[obj].value === null) {
+                        updatedState[obj].error = true
                         error = true
                     } else {
                         updatedState[obj].error = false
                     }
-                    break;
-                case 'password':
-                    if (!Validator.passwordValidator(updatedState[obj].value)) {
-                        updatedState[obj].error = true;
-                        error = true
-                    } else {
-                        updatedState[obj].error = false
-                    }
-                    break;
-                case 'confirmPassword':
-                    if (updatedState[obj].value === updatedState.password.value) {
-                        updatedState[obj].error = true;
-                        error = true
-                    } else {
-                        updatedState[obj].error = false
-                    }
-                    break;
+                    break
                 case 'mName':
                 case 'aLine2':
                     break
@@ -110,21 +112,9 @@ class Register extends Component {
 
     render() {
         const {
-            fName,
-            mName,
-            lName,
-            phone,
-            dob,
-            email,
-            password,
-            confirmPassword,
-            aLine1,
-            aLine2,
-            subUrb,
-            state,
-            zip,
-            country,
-            nationality
+            fName, mName, lName,
+            phone, dob, aLine1, aLine2, subUrb, state, zip, country, nationality,
+            docType, docExpiry, docId, file
         } = this.state;
 
         return (
@@ -132,15 +122,15 @@ class Register extends Component {
                 <div className="register-wrapper container-fluid px-0 h-100">
                     <div className="no-gutters h-100">
                         <div className="hero-wrap d-flex align-items-center h-100">
-                            <div className="hero-bg hero-bg-scroll"/>
+                            <div className="hero-bg hero-bg-scroll" />
                             <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
                                 <div className="row no-gutters">
                                     <div className="col-10 col-lg-9 mx-auto">
                                         <div className="logo mt-40 mb-5 mb-md-0">
                                             <a className="d-flex"
-                                               href="/"
-                                               title="Hamro Remit">
-                                                <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100}/>
+                                                href="/"
+                                                title="Hamro Remit">
+                                                <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100} />
                                             </a>
                                         </div>
                                     </div>
@@ -149,28 +139,13 @@ class Register extends Component {
                                     <Card body className={"register-card hide-scroll"}>
                                         <div className="">
                                             <h1 className="ml-5 mb-10 text-center">Registration</h1>
-                                            <Divider/>
+                                            <Divider />
                                             <div className="session-body text-center mt-20">
                                                 <Form>
+                                                    <Label>User Details</Label>
                                                     <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} />
                                                     <div className='row mt-10'>
-                                                        <div className='col-sm-12 col-md-6 col-lg-6'>
-                                                            <FormGroup className="has-wrapper">
-                                                                <Input
-                                                                    invalid={email.error}
-                                                                    type="mail"
-                                                                    value={email.value}
-                                                                    name="email"
-                                                                    id="user-mail"
-                                                                    className="has-input input-lg"
-                                                                    placeholder="Email Address*"
-                                                                    onChange={(e) => this.onChangeValue(e)}
-                                                                />
-                                                                <span className="has-icon"><i className="ti-email"/></span>
-                                                                <FormFeedback>Email address in not valid</FormFeedback>
-                                                            </FormGroup>
-                                                        </div>
-                                                        <div className='col-sm-12 col-md-6 col-lg-6'>
+                                                        <div className='col-sm-12 col-md-4 col-lg-4'>
                                                             <FormGroup className="has-wrapper">
                                                                 <Input
                                                                     invalid={phone.error}
@@ -185,46 +160,11 @@ class Register extends Component {
                                                                             this.onChangeValue(e)
                                                                     }}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-mobile"/></span>
-                                                                <FormFeedback>Required</FormFeedback>
+                                                                <span className="has-icon"><i className="ti-mobile"></i></span>
+                                                                <FormFeedback>Invalid</FormFeedback>
                                                             </FormGroup>
                                                         </div>
-                                                    </div>
-                                                    <div className='row'>
-                                                        <div className='col-sm-12 col-md-6 col-lg-6'>
-                                                            <FormGroup className="has-wrapper">
-                                                                <Input
-                                                                    invalid={password.error}
-                                                                    value={password.value}
-                                                                    type="Password"
-                                                                    name="password"
-                                                                    id="pwd"
-                                                                    className="has-input input-lg"
-                                                                    placeholder="Password*"
-                                                                    onChange={(e) => this.onChangeValue(e)}
-                                                                />
-                                                                <span className="has-icon"><i className="ti-lock"/></span>
-                                                                <FormFeedback>Password must contain more than 8 characters, 1 or more special character and a combination of upper and lowercase characters</FormFeedback>
-                                                            </FormGroup>
-                                                        </div><div className='col-sm-12 col-md-6 col-lg-6'>
-                                                        <FormGroup className="has-wrapper">
-                                                            <Input
-                                                                invalid={confirmPassword.error}
-                                                                value={confirmPassword.value}
-                                                                type="password"
-                                                                name="confirmPassword"
-                                                                id="confm-pwd"
-                                                                className="has-input input-lg"
-                                                                placeholder="Confirm Password*"
-                                                                onChange={(e) => this.onChangeValue(e)}
-                                                            />
-                                                            <span className="has-icon"><i className="ti-lock"/></span>
-                                                            <FormFeedback>Passwords dont match or empty passwords</FormFeedback>
-                                                        </FormGroup>
-                                                    </div>
-                                                    </div>
-                                                    <div className='row mt-10'>
-                                                        <div className='col-sm-12 col-md-6 col-lg-6'>
+                                                        <div className='col-sm-12 col-md-4 col-lg-4'>
                                                             <FormGroup className="has-wrapper">
                                                                 <Input
                                                                     invalid={dob.error}
@@ -239,7 +179,7 @@ class Register extends Component {
                                                                 <FormFeedback>Required</FormFeedback>
                                                             </FormGroup>
                                                         </div>
-                                                        <div className='col-sm-12 col-md-6 col-lg-6'>
+                                                        <div className='col-sm-12 col-md-4 col-lg-4'>
                                                             <FormGroup className="has-wrapper">
                                                                 <Input
                                                                     invalid={nationality.error}
@@ -251,23 +191,24 @@ class Register extends Component {
                                                                     placeholder="Nationality*"
                                                                     onChange={(e) => this.onChangeValue(e)}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-flag-alt-2"/></span>
+                                                                <span className="has-icon"><i className="ti-flag-alt-2"></i></span>
                                                                 <FormFeedback>Required</FormFeedback>
                                                             </FormGroup>
                                                         </div>
                                                     </div>
+                                                    <Label>User Address</Label>
                                                     <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
-                                                    <h5 className={"mt-20"}>By submitting this form, you accept Hamro Remit's <a className="text-primary">Terms and Conditions</a> and <a className="text-primary">Privacy Policy</a>.</h5>
+                                                    <Label>User Documents</Label>
+                                                    <DocumentIdentification file={file} docType={docType} docExpiry={docExpiry} docId={docId} onChangeValue={this.onChangeValue} onFileSelected={this.onFileSelected} />
                                                     <FormGroup className="mb-15">
                                                         <Button
                                                             color="primary"
                                                             className="btn-block btn-custom text-white w-50"
                                                             variant="contained"
                                                             size="large"
-                                                            onClick={() => {}}
-                                                        >
-                                                            <span className={"p-5"}>Register</span>
-                                                        </Button>
+                                                            onClick={() => this.onUserSignUp()}>
+                                                            Register
+                            			                </Button>
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -283,6 +224,6 @@ class Register extends Component {
     }
 }
 
-export default connect(null,{
+export default connect(null, {
     signIn
 })(Register);

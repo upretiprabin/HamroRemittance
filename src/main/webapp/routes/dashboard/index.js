@@ -26,7 +26,11 @@ class Index extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        this.loadData();
+        if (!localStorage.getItem('isRegistered')) {
+            this.props.history.push('/register')
+        } else {
+            this.loadData();
+        }
     }
 
 
@@ -68,7 +72,7 @@ class Index extends Component {
                                     </RctCollapsibleCard>
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-4">
-                                   <UserProfileCard/>
+                                    <UserProfileCard />
 
                                     {/* Send Money Button */}
                                     <RctCollapsibleCard>

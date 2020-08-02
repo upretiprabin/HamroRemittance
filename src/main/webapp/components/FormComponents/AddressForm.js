@@ -6,7 +6,7 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
     return (
         <>
             <div className='row mt-10'>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
+                <div className='col-sm-12 col-md-12 col-lg-6'>
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={aLine1.error}
@@ -23,7 +23,7 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
+                <div className='col-sm-12 col-md-12 col-lg-6'>
                     <FormGroup className="has-wrapper">
                         <Input
                             type="text"
@@ -38,7 +38,9 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                         <span className="has-icon"><i className="ti-location-pin"></i></span>
                     </FormGroup>
                 </div>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
+            </div>
+            <div className='row'>
+                <div className='col-sm-12 col-md-6 col-lg-3'>
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={subUrb.error}
@@ -55,26 +57,7 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
-            </div>
-            <div className='row'>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
-                    <FormGroup className="has-wrapper">
-                        <Input
-                            invalid={zip.error}
-                            type="text"
-                            value={zip.value}
-                            name="zip"
-                            id="zip-code"
-                            className="has-input input-lg"
-                            placeholder="Zip*"
-                            disabled={disabled}
-                            onChange={(e) => onChangeValue(e)}
-                        />
-                        <span className="has-icon"><i className="ti-line-dashed"></i></span>
-                        <FormFeedback>Required</FormFeedback>
-                    </FormGroup>
-                </div>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
+                <div className='col-sm-12 col-md-6 col-lg-3'>
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={state.error}
@@ -91,7 +74,24 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
-                <div className='col-sm-12 col-md-6 col-lg-4'>
+                <div className='col-sm-12 col-md-6 col-lg-3'>
+                    <FormGroup className="has-wrapper">
+                        <Input
+                            invalid={zip.error}
+                            type="text"
+                            value={zip.value}
+                            name="zip"
+                            id="zip-code"
+                            className="has-input input-lg"
+                            placeholder="Zip*"
+                            disabled={disabled}
+                            onChange={(e) => onChangeValue(e)}
+                        />
+                        <span className="has-icon"><i className="ti-line-dashed"></i></span>
+                        <FormFeedback>Required</FormFeedback>
+                    </FormGroup>
+                </div>
+                <div className='col-sm-12 col-md-6 col-lg-3'>
                     <FormGroup className="has-wrapper">
                         <Input
                             type="select"

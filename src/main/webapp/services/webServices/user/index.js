@@ -17,37 +17,56 @@ const defaultConfig = (data) => ({
 /**
  * login
  */
-const loginUser = (email,password) => {
+const loginUser = (email, password) => {
     let config = {
-        method:'post',
-        auth:{
+        method: 'post',
+        auth: {
             username: email,
             password: password
         }
     };
-    return requestHandler.loadData(URL.USER_LOGIN_USER,config);
+    return requestHandler.loadData(URL.USER_LOGIN_USER, config);
+    return new Promise((res, rej) => {
+        res({ data: 'aa11' })
+    }).then((d) => d)
 };
 
 const logout = () => {
     let user = userFromLocalStorage();
     let data = {
-        email:user?.primaryEmail
+        email: user?.primaryEmail
     };
     let config = defaultConfig(data);
-    return requestHandler.loadData(URL.USER_LOGOUT,config);
+    return requestHandler.loadData(URL.USER_LOGOUT, config);
 };
 
-const isUserEnabled = (username,password) => {
+const isUserEnabled = (username, password) => {
     let data = {
         username,
-        password : btoa(password)
+        password: btoa(password)
     };
     let config = {
-        method:'post',
+        method: 'post',
         data
     };
-    return requestHandler.loadData(URL.USER_IS_USER_ENABLED,config);
+    return requestHandler.loadData(URL.USER_IS_USER_ENABLED, config);
 };
+const userRegistration = data => {
+    let config = defaultConfig(data)
+    return requestHandler.loadData(URL.USER_CREATE, config)
+}
+const sendVerificationCode = data => {
+    let config = defaultConfig(data)
+    return requestHandler.loadData(URL.SEND_VERIFICATION_CODE, config)
+}
+const saveUserDetails = data => {
+    let config = defaultConfig(data)
+    return requestHandler.loadData(URL.USER_REGISTER, config)
+}
+const verifyUser = (data) => {
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.VERIFY_USER, config)
+}
 
 const registerUser = (data) =>{
     let config = defaultConfig(data);
@@ -60,5 +79,9 @@ export default {
     loginUser,
     registerUser,
     isUserEnabled,
-    logout
+    logout,
+    userRegistration,
+    sendVerificationCode,
+    saveUserDetails,
+    verifyUser
 }

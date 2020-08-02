@@ -30,6 +30,9 @@ import {
    signIn
 } from 'Actions';
 
+//Controller
+import Controller from './../controllers/userController'
+
 
 class OldSignup extends Component {
 
@@ -59,15 +62,13 @@ class OldSignup extends Component {
 	 * On User Signup
 	 */
    onUserSignUp() {
-      var formData = {}
+      this.props.history.push('/')
       if (!this.validator()) {
          for (let obj in this.state) {
             formData[obj] = this.state[obj].value
          }
          console.log(formData)
-         /**
-          * TODO register and redirect to dashboard on successful sign in
-          */
+         Controller.saveUserDetails(this, formData)
       }
       Controller.register(this,formData)
    }

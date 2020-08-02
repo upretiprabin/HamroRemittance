@@ -1,45 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {Form, FormGroup, Input } from 'reactstrap';
+import { Form, FormGroup, Input } from 'reactstrap';
 import AppConfig from 'Constants/AppConfig';
-import {
-    signIn
-} from 'Actions';
+
+import Controller from './../controllers/userController.js'
 import OtpInput from 'react-otp-input';
 
 class Verify extends Component {
 
     state = {
-        otp : ''
+        email: '',
+        otp: ''
     };
 
-    onKeyPress(event){
-        if(event.key === "Enter"){
+    onKeyPress(event) {
+        if (event.key === "Enter") {
             this.onUserSignUp();
         }
     }
-
+    componentDidMount() {
+        const signUpEmail = localStorage.getItem('user-email');
+        if (signUpEmail == '' || signUpEmail == null) {
+            this.props.history.push('/signup')
+        }
+        this.setState({ email: signUpEmail })
+    }
     /**
      * On User Sign Up
      */
     onUserSignUp() {
-        this.props.history.push('/register');
+        // this.props.history.push('/register');
+        if ((this.state.otp + '').length == 4) {
+            Controller.verifyUser(this, { username: this.state.email, token: this.state.otp })
+        }
     }
 
     handleChange = otp => this.setState({ otp });
 
+    resendVerificationCode = () => {
+        Controller.sendVerificationCode(this, { email: this.state.email })
+    }
     render() {
-        const email  = "upretiprabin7946@gmail.com";
-        const {otp} = this.state;
+        const { otp, email } = this.state;
         return (
             <div className="app-horizontal rct-session-wrapper">
                 <div className="container-fluid px-0 h-100">
                     <div className="row no-gutters h-100">
                         <div className="col-md-6">
                             <div className="hero-wrap d-flex align-items-center h-100">
-                                <div className="hero-mask opacity-8"/>
-                                <div className="hero-bg hero-bg-scroll"/>
+                                <div className="hero-mask opacity-8" />
+                                <div className="hero-bg hero-bg-scroll" />
                                 <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
                                     <div className="row no-gutters">
                                         <div className="col-10 col-lg-9 mx-auto">
@@ -95,7 +106,7 @@ class Verify extends Component {
                                         </Form>
                                         <p className="text-3 text-center text-muted">
                                             Didn't receive the verification code?
-                                            <a href={"#"} className="ml-5 btn-link" onClick={() => this.onUserSignIn()}>Resend Code</a>
+                                            <a href={"#"} className="ml-5 btn-link" onClick={() => this.resendVerificationCode()}>Resend Code</a>
                                         </p>
                                     </div>
                                 </div>
@@ -108,6 +119,4 @@ class Verify extends Component {
     }
 }
 
-export default connect(null,{
-    signIn
-})(Verify);
+export default Verify;
