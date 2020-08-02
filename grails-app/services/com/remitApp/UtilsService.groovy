@@ -1,4 +1,4 @@
-package com.remitApp
+package com.remitapp
 
 import grails.gorm.transactions.Transactional
 

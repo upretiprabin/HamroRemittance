@@ -1,4 +1,4 @@
-package com.remitApp.admin
+package com.remitapp.admin
 
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification

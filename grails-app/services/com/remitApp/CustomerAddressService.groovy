@@ -1,4 +1,4 @@
-package com.remitApp
+package com.remitapp
 
 import com.remitapp.Address
 import com.remitapp.Customer

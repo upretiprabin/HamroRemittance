@@ -1,6 +1,6 @@
 package com.remitapp.um
 
-import com.remitApp.UserService
+import com.remitapp.UserService
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

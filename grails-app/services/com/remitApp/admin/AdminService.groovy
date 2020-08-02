@@ -1,4 +1,4 @@
-package com.remitApp.admin
+package com.remitapp.admin
 
 import com.remitapp.CashPickUp
 import com.remitapp.OrderDetails
