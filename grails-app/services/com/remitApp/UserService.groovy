@@ -1,4 +1,4 @@
-package com.remitApp
+package com.remitapp
 
 import com.remitapp.CustomException
 import com.remitapp.RolesEnum
