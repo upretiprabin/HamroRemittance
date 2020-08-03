@@ -1,8 +1,8 @@
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications"
 import { userRegistration, sendVerificationCodeToEmail, verifyUserCode, saveUserData } from "../services/passwordService";
-import {userFromLocalStorage} from "../sagas/AuthenticationManager";
-import {getFormattedDate} from "../helpers/helpers";
+import { userFromLocalStorage } from "../sagas/AuthenticationManager";
+import { getFormattedDate } from "../helpers/helpers";
 
 const registerUser = (ctx) => {
     const data = { username: ctx.state.email, password: ctx.state.password }
@@ -84,16 +84,16 @@ const verifyUser = (ctx, data) => {
 }
 const saveUserDetails = (ctx, formData) => {
     let user = userFromLocalStorage();
-    console.log("dob",formData.dob.toString())
+    console.log("dob", formData.dob.toString())
     const userData = {
-        firstName: formData.fname,
+        firstName: formData.fName,
         middleName: formData.mName,
-        lastName: formData.lastName,
+        lastName: formData.lName,
         phoneNumber: formData.phone,
-        dateOfBirth: getFormattedDate(formData.dob.toString(),"MM/DD/YYYY"),
+        dateOfBirth: getFormattedDate(formData.dob.toString(), "MM/DD/YYYY"),
         nationality: formData.nationality,
         sender: true,
-        username: user?.username,
+        emailAddress: user?.username,
         addressLineOne: formData.aLine1,
         addressLineTwo: formData.aLine2,
         suburbCity: formData.subUrb,
@@ -105,19 +105,29 @@ const saveUserDetails = (ctx, formData) => {
         accountNumber: "123456"
     }
     saveUserData(userData)
+    let isSuccess = false
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 NotificationManager.success("User Registered!")
+                let user = localStorage.getItem('user')
+                user.isRegistered = true;
+                localStorage.setItem('user', JSON.stringify(user))
+                isSuccess = true
             } else {
                 log.error(data.data.Error);
                 NotificationManager.error(data.data.Error)
             }
             user['isRegistered'] = true;
-            localStorage.setItem(user,JSON.stringify(user))
+            localStorage.setItem(user, JSON.stringify(user))
         })
         .catch(e => {
             log.error(e);
             NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            if(isSuccess){
+                ctx.props.history.push('/app/dashboard');
+            }
         })
 }
 export default {

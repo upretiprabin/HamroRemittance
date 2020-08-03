@@ -27,7 +27,7 @@ class Index extends Component {
     componentDidMount() {
         this._isMounted = true;
         const {user} = this.props;
-        if (user['isRegistered'] !== "true") {
+        if (!user['isRegistered']) {
             NotificationManager.error("You haven't been registered yet! Please register to continue.")
             this.props.history.push('/register')
         } else {
