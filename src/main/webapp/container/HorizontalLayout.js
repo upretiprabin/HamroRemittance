@@ -13,7 +13,6 @@ import routerService from "../services/_routerService";
 class RctHorizontalApp extends Component {
 	render() {
         const { match, location } = this.props;
-        console.log("match",match.url)
 		return (
 			<RctHorizontalLayout>
 				{routerService && routerService.map((route,key)=>

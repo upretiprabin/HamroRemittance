@@ -7,10 +7,10 @@ import RctHorizontalLayout from 'Components/RctHorizontalLayout';
 
 class HomeLayout extends Component {
     render() {
-        const { user } = this.props;
+        const { history } = this.props;
         return (
             <RctHorizontalLayout>
-                <AsyncHomeComponent/>
+                <AsyncHomeComponent history={history}/>
             </RctHorizontalLayout>
         );
     }
