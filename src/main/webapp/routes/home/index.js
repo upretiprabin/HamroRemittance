@@ -7,9 +7,6 @@ import ErrorBoundary from "Components/ErrorBoundary/index";
 import Controller from "../../controllers/dashboardController"
 import { NotificationContainer } from "react-notifications";
 import { connect } from 'react-redux';
-import {Card} from "reactstrap";
-import MatButton from '@material-ui/core/Button';
-import Select from "../../components/Select/Select"
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 
 // components
@@ -44,7 +41,7 @@ class Index extends Component {
     }
 
     loadData() {
-        Controller.loadData(this);
+        // Controller.loadData(this);
     }
 
     onUserLogin() {

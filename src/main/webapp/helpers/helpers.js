@@ -122,7 +122,9 @@ export function validatePhoneNumber(phoneNumber) {
  * */
 
 export function formatPhoneNumber(phoneNumberString,plainFormat=false) {
+    console.log("here in formatphone")
     let cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+    console.log("cleaned",cleaned)
     let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
     if (match) {
         let intlCode = '+1 ';

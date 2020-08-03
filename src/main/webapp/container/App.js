@@ -19,6 +19,7 @@ import Signup from "./SignUp";
 import InstantSend from "./InstantSend";
 import Verify from "./Verify";
 import Register from "./Register";
+import HomeLayout from "../routes/home/HomeLayout";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -47,8 +48,8 @@ class App extends Component {
 
     render() {
         const { location, match, user } = this.props;
-        if (location.pathname === '/' || location.pathname === '/app') {
-            return (<Redirect to={'/app/'+AppConfig.homePage} />);
+        if (location.pathname === '/') {
+            return (<Redirect to={'/'+AppConfig.homePage} />);
         }
         return (
             <RctThemeProvider>
@@ -60,6 +61,7 @@ class App extends Component {
                             authUser={user}
                             component={HorizontalLayout}
                         />
+                        <Route path="/home" component={HomeLayout} />
                         <Route path="/admin" component={RctDefaultLayout} />
                         <Route path="/forgot-password" component={ForgotPassword} />
                         <Route path="/signin" component={AppSignIn} />

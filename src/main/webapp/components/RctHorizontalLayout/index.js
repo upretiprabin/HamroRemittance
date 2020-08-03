@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 // Components
-import Header from 'Components/Header/Header';
 import Footer from 'Components/Footer/Footer';
 import HorizontalMenu from 'Components/HorizontalMenu/HorizontalMenu';
 
