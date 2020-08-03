@@ -1,5 +1,6 @@
 package com.remitapp.um
 
+import com.remitapp.Customer
 import com.remitapp.UserService
 import grails.plugin.springsecurity.SpringSecurityService
 import groovy.transform.EqualsAndHashCode
@@ -53,13 +54,14 @@ class User implements Serializable {
     def static collectClosure = {
         if(!it)
             return null
-
+        def isRegistered = Customer.findByEmailAddress(it.username)
         return [id :it.id,
                 username :it.username,
                 accountLocked :it.accountLocked,
                 accountExpired :it.accountExpired,
                 dateCreated :UserService.df.format(it.dateCreated),
-                enabled: it.enabled
+                enabled: it.enabled,
+                isRegistered : isRegistered?true:false
         ]
     }
 }

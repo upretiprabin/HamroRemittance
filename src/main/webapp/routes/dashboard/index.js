@@ -5,7 +5,7 @@
 import React, { Component } from 'react'
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import ErrorBoundary from "Components/ErrorBoundary/index";
-import { NotificationContainer } from "react-notifications";
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import { connect } from 'react-redux';
 // rct collapsible card
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -21,12 +21,14 @@ class Index extends Component {
 
     state = {
         data: null,
-        loading: false
+        loading: true
     };
 
     componentDidMount() {
         this._isMounted = true;
-        if (!localStorage.getItem('isRegistered')) {
+        const {user} = this.props;
+        if (user['isRegistered'] !== "true") {
+            NotificationManager.error("You haven't been registered yet! Please register to continue.")
             this.props.history.push('/register')
         } else {
             this.loadData();
@@ -43,6 +45,7 @@ class Index extends Component {
     }
 
     loadData() {
+        this.changeState({loading:false})
         // Controller.loadData(this);
     }
 
@@ -79,7 +82,7 @@ class Index extends Component {
                                         <SendMoneyNow />
                                     </RctCollapsibleCard>
 
-                                    {/* Reciever List */}
+                                    {/* Receiver List */}
                                     <RctCollapsibleCard
                                         heading='Receivers'
                                         collapsible
@@ -99,4 +102,10 @@ class Index extends Component {
     }
 }
 
-export default connect(null)(Index);
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user };
+};
+
+export default connect(mapStateToProps)(Index);

@@ -42,23 +42,23 @@ class Register extends Component {
         this.setState({ ...updatedState })
     }
     componentDidMount = () => {
-        const user = localStorage.getItem('user')
-        if (user) {
-            const data = {
-                username: localStorage.getItem('user-email'),
-                password: atob(localStorage.getItem('key'))
-            }
-            localStorage.removeItem('user-email')
-            localStorage.removeItem('key')
-            this.props.signIn(data, this.props.history)
-        }
+        // const user = localStorage.getItem('user')
+        // if (user) {
+        //     const data = {
+        //         username: localStorage.getItem('user-email'),
+        //         password: atob(localStorage.getItem('key'))
+        //     }
+        //     localStorage.removeItem('user-email')
+        //     localStorage.removeItem('key')
+        //     this.props.signIn(data, this.props.history)
+        // }
     }
     /**
      * On User Signup
      */
-    onUserSignUp() {
+    onRegister() {
         if (!this.validator()) {
-            var formData = {}
+            let formData = {}
             for (let obj in this.state) {
                 if (obj != 'file') {
                     formData[obj] = this.state[obj].value
@@ -160,7 +160,7 @@ class Register extends Component {
                                                                             this.onChangeValue(e)
                                                                     }}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-mobile"></i></span>
+                                                                <span className="has-icon"><i className="ti-mobile"/></span>
                                                                 <FormFeedback>Invalid</FormFeedback>
                                                             </FormGroup>
                                                         </div>
@@ -191,7 +191,7 @@ class Register extends Component {
                                                                     placeholder="Nationality*"
                                                                     onChange={(e) => this.onChangeValue(e)}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-flag-alt-2"></i></span>
+                                                                <span className="has-icon"><i className="ti-flag-alt-2"/></span>
                                                                 <FormFeedback>Required</FormFeedback>
                                                             </FormGroup>
                                                         </div>
@@ -199,14 +199,21 @@ class Register extends Component {
                                                     <Label>User Address</Label>
                                                     <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
                                                     <Label>User Documents</Label>
-                                                    <DocumentIdentification file={file} docType={docType} docExpiry={docExpiry} docId={docId} onChangeValue={this.onChangeValue} onFileSelected={this.onFileSelected} />
+                                                    <DocumentIdentification
+                                                        file={file}
+                                                        docType={docType}
+                                                        docExpiry={docExpiry}
+                                                        docId={docId}
+                                                        onChangeValue={this.onChangeValue}
+                                                        onFileSelected={this.onFileSelected}
+                                                    />
                                                     <FormGroup className="mb-15">
                                                         <Button
                                                             color="primary"
                                                             className="btn-block btn-custom text-white w-50"
                                                             variant="contained"
                                                             size="large"
-                                                            onClick={() => this.onUserSignUp()}>
+                                                            onClick={() => this.onRegister()}>
                                                             Register
                             			                </Button>
                                                     </FormGroup>

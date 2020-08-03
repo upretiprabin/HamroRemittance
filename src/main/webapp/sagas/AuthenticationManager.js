@@ -67,8 +67,10 @@ export function* signInUserWithEmailPassword({ payload }) {
             yield put(signinUserFailure(signInUser.message));
         }
         else {
-            localStorage.setItem('user', JSON.stringify(signInUser.data));
-            yield put(signinUserSuccess(signInUser.data));
+            let user = signInUser.data.result;
+            user['sessionPassword'] = btoa(password);
+            localStorage.setItem('user', JSON.stringify(user));
+            yield put(signinUserSuccess(signInUser.data.result));
             history.push('/app/dashboard');
             NotificationManager.success('User Logged In');
         }

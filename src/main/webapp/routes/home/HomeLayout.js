@@ -8,9 +8,6 @@ import RctHorizontalLayout from 'Components/RctHorizontalLayout';
 class HomeLayout extends Component {
     render() {
         const { user } = this.props;
-        if (user !== null) {
-            return (<Redirect to={'/app/dashboard'} />);
-        }
         return (
             <RctHorizontalLayout>
                 <AsyncHomeComponent/>

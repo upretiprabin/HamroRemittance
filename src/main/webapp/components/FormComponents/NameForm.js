@@ -17,7 +17,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue, disabled }) => {
                         disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
-                    <span className="has-icon"><i className="ti-user"></i></span>
+                    <span className="has-icon"><i className="ti-user"/></span>
                     <FormFeedback>Required</FormFeedback>
                 </FormGroup>
             </div>
@@ -34,7 +34,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue, disabled }) => {
                         disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
-                    <span className="has-icon"><i className="ti-user"></i></span>
+                    <span className="has-icon"><i className="ti-user"/></span>
                 </FormGroup>
             </div>
             <div className='col-sm-12 col-md-6 col-lg-4'>
@@ -50,7 +50,7 @@ const NameForm = ({ fName, mName, lName, onChangeValue, disabled }) => {
                         disabled={disabled}
                         onChange={(e) => onChangeValue(e)}
                     />
-                    <span className="has-icon"><i className="ti-user"></i></span>
+                    <span className="has-icon"><i className="ti-user"/></span>
                     <FormFeedback>Required</FormFeedback>
                 </FormGroup>
             </div>

@@ -1,8 +1,9 @@
 package com.remitapp
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
-
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class CustomerController {
     def customerService
     def customerAddressService
@@ -53,7 +54,7 @@ class CustomerController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":ex.message] as JSON)
         }
 
     }
@@ -96,7 +97,7 @@ class CustomerController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":ex.message] as JSON)
         }
 
     }
@@ -140,7 +141,7 @@ class CustomerController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex] as JSON)
+            render (["Error":ex.message] as JSON)
         }
 
     }

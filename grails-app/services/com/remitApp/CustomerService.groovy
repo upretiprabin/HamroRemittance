@@ -17,7 +17,7 @@ class CustomerService {
         def result = [:]
 
         //check email
-        def alreadyPresent = Customer.findByEmailAddress(params.emailAddress)
+        def alreadyPresent = Customer.findByEmailAddress(params.username)
         if(!alreadyPresent){
             def customer
             if(params?.sender){

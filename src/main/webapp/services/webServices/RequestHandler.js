@@ -1,9 +1,9 @@
 // api
 import api from 'Api';
-import { userFromLocalStorage } from "../../sagas/AuthenticationManager";
+import { userFromLocalStorage, clearLocalStorage } from "../../sagas/AuthenticationManager";
 import log from '../loggerService';
 
-//api interceptors
+// //api interceptors
 api.interceptors.request.use(function (config) {
     if (config.noAuth) {
         delete config.noAuth;
@@ -11,10 +11,10 @@ api.interceptors.request.use(function (config) {
     }
     if (!config.auth) {
         let user = userFromLocalStorage();
-        if (user?.sessionPassword && user?.primaryEmail) {
+        if (user?.sessionPassword && user?.username) {
             config.auth = {
-                username: user.primaryEmail,
-                password: user.sessionPassword
+                username: user.username,
+                password: atob(user.sessionPassword)
             }
         }
     }
@@ -28,10 +28,11 @@ api.interceptors.response.use(function (response) {
     return response;
 },function(error){
     let authorizedStatusList = [403,401];
-    // if(authorizedStatusList.includes(error.response?.status)){
-    //     if(location.pathname !== "/signin")
-    //         location.href = "/signin";
-    // }
+    if(authorizedStatusList.includes(error.response?.status)){
+        clearLocalStorage();
+        if(location.pathname !== "/signin")
+            location.href = "/signin";
+    }
     return Promise.reject(error);
 });
 
