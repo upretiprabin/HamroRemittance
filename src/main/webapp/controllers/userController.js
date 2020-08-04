@@ -84,7 +84,6 @@ const verifyUser = (ctx, data) => {
 }
 const saveUserDetails = (ctx, formData) => {
     let user = userFromLocalStorage();
-    console.log("dob", formData.dob.toString())
     const userData = {
         firstName: formData.fName,
         middleName: formData.mName,
@@ -105,29 +104,21 @@ const saveUserDetails = (ctx, formData) => {
         accountNumber: "123456"
     }
     saveUserData(userData)
-    let isSuccess = false
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 NotificationManager.success("User Registered!")
-                let user = localStorage.getItem('user')
-                user.isRegistered = true;
+                let user = userFromLocalStorage();
+                user['isRegistered'] = true;
                 localStorage.setItem('user', JSON.stringify(user))
-                isSuccess = true
+                ctx.props.history.push('/app/dashboard');
             } else {
                 log.error(data.data.Error);
                 NotificationManager.error(data.data.Error)
             }
-            user['isRegistered'] = true;
-            localStorage.setItem(user, JSON.stringify(user))
         })
         .catch(e => {
             log.error(e);
             NotificationManager.error("Error Occurred!")
-        })
-        .finally(() => {
-            if(isSuccess){
-                ctx.props.history.push('/app/dashboard');
-            }
         })
 }
 export default {
