@@ -3,6 +3,6 @@ import AppConfig from '../constants/AppConfig';
 
 export default
    axios.create({
-      baseURL: AppConfig.middleWareUrl,
+      baseURL: "/",
       timeout: 60000
    });

@@ -74,11 +74,15 @@ export function* signInUserWithEmailPassword({ payload }) {
         }
         else {
             let user = signInUser.data.result;
-            user['sessionPassword'] = btoa(password);
-            localStorage.setItem('user', JSON.stringify(user));
-            yield put(signinUserSuccess(signInUser.data.result));
-            history.push('/app/dashboard');
-            NotificationManager.success('User Logged In');
+            if(user){
+                user['sessionPassword'] = btoa(password);
+                localStorage.setItem('user', JSON.stringify(user));
+                yield put(signinUserSuccess(signInUser.data.result));
+                history.push('/app/dashboard');
+                NotificationManager.success('User Logged In');
+            }else{
+                yield put(signinUserFailure("Error Occurred"));
+            }
         }
     }
     catch (error) {

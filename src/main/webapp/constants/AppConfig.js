@@ -1,11 +1,6 @@
 /**
  * App Config File
  */
-
-const domain = "hamroremittance.com";
-const middleWareDevUrl = "http://127.0.0.1:8080";
-const middleWareProdUrl = `${domain}/`;
-
 const AppConfig = {
     appLogo: require('Assets/img/app_logo.png'),          // App Logo
     appVersion: '1.0.0',                                    // App version
@@ -46,7 +41,6 @@ const AppConfig = {
     copyRightText: '© Hamro Remit ' + (new Date()).getFullYear() ,      // Copy Right Text
     //support url
     supportUrl: "support@hamroremittance.com",
-    middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareProdUrl,
     homePage : "home"
 };
 

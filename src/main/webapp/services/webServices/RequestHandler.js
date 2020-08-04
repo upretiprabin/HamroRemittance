@@ -12,7 +12,7 @@ api.interceptors.request.use(function (config) {
     }
     if (!config.auth) {
         let user = userFromLocalStorage();
-        if (user?.sessionPassword && user?.username) {
+        if (user && user.sessionPassword && user.username) {
             config.auth = {
                 username: user.username,
                 password: atob(user.sessionPassword)

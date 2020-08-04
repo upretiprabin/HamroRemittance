@@ -26,9 +26,6 @@ const loginUser = (email, password) => {
         }
     };
     return requestHandler.loadData(URL.USER_LOGIN_USER, config);
-    return new Promise((res, rej) => {
-        res({ data: 'aa11' })
-    }).then((d) => d)
 };
 
 const logout = () => {
