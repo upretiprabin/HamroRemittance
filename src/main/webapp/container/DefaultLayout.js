@@ -17,9 +17,10 @@ class DefaultLayout extends Component {
         if (location.pathname === '/admin') {
             return (<Redirect to={'/admin/dashboard'} />);
         }
+        console.log("ss",`${match.url}/`)
 		return (
 			<RctAppLayout>
-				{routerService && routerService.map((route,key)=>
+				{routerService.adminRoutes && routerService.adminRoutes.map((route,key)=>
 					<Route key={key} path={`${match.url}/${route.path}`} component={route.component} />
 				)}
 			</RctAppLayout>

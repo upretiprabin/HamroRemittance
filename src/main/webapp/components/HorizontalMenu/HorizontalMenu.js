@@ -50,6 +50,11 @@ class HorizontalMenu extends Component {
                         </div>
                         <div className={"mt-15 menus"}>
                             <ul className="list-inline footer-menus mb-0">
+                                {!this.isHome() &&
+                                    <li className="list-inline-item">
+                                        <Link to={"/app/dashboard"} ><span className={"header-menu"}>DASHBOARD</span></Link>
+                                    </li>
+                                }
                                 <li className="list-inline-item">
                                     <Link to={sendUrl}><span className={"header-menu"}>SEND</span></Link>
                                 </li>

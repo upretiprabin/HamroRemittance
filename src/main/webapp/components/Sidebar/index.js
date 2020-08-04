@@ -12,7 +12,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { collapsedSidebarAction } from 'Actions';
 
 // components
-import UserBlock from './UserBlock';
+import UserBlockAdmin from './UserBlockAdmin';
 import SidebarContent from './SidebarContent';
 import AppConfig from 'Constants/AppConfig';
 
@@ -74,7 +74,7 @@ class Sidebar extends Component {
 								autoHideDuration={100}
 								style={{ height: 'calc(100vh - 60px)' }}
 							>
-								<UserBlock />
+								<UserBlockAdmin />
 								<SidebarContent />
 							</Scrollbars>
 						</div>

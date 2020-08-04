@@ -33,7 +33,7 @@ api.interceptors.response.use(function (response) {
         clearLocalStorage();
         if(location.pathname !== "/signin"){
             NotificationManager.error("Session timed out!");
-            location.href = "/signin";
+            // location.href = "/signin";
         }
     }
     return Promise.reject(error);
