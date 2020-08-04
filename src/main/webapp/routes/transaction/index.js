@@ -61,7 +61,7 @@ class Index extends Component {
             rowsPerPage: 5
         };
         return (
-            <div className="dashboard-wrapper">
+            <div className="transaction-wrapper mt-30 container">
                 <ErrorBoundary>
                     {loading &&
                         <div className="page-loader d-flex justify-content-center mb-30">

@@ -11,22 +11,33 @@ class HorizontalMenu extends Component {
 
     getHomeUrl(){
         let homeUrl = "/home";
-        let pathName = location.pathname;
-        if(pathName.includes("dashboard"))
+        if(!this.isHome())
             homeUrl = "/app/dashboard";
         return homeUrl;
     }
 
+    getSendUrl(){
+        let sendUrl = "/send";
+        if(!this.isHome())
+            sendUrl = "/app/transaction";
+        return sendUrl;
+    }
+
     getIndexPageNameAndUrl(){
-        let pathName = location.pathname;
-        let indexPageUrl = pathName.includes("home")?"/app/dashboard":"/home";
-        let indexPage = pathName.includes("home")?"DASHBOARD":"HOME";
+        let isHome = this.isHome();
+        let indexPageUrl = isHome?"/app/dashboard":"/home";
+        let indexPage = isHome?"DASHBOARD":"HOME";
         return {indexPage,indexPageUrl}
+    }
+
+    isHome(){
+        return location.pathname.includes("home");
     }
 
     render() {
         const {user} = this.props;
         let homeUrl = this.getHomeUrl();
+        let sendUrl = this.getSendUrl();
         let {indexPage,indexPageUrl} = this.getIndexPageNameAndUrl();
         return (
             <div className="horizontal-menu">
@@ -40,10 +51,15 @@ class HorizontalMenu extends Component {
                         <div className={"mt-15 menus"}>
                             <ul className="list-inline footer-menus mb-0">
                                 <li className="list-inline-item">
-                                    <Link to={"/send"}><span className={"header-menu"}>SEND</span></Link>
+                                    <Link to={sendUrl}><span className={"header-menu"}>SEND</span></Link>
                                 </li>
                                 <li className="list-inline-item">
-                                    <a href={"/home#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
+                                    {this.isHome() &&
+                                        <a href={"/home#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
+                                    }
+                                    {!this.isHome() &&
+                                        <Link to={"/app/how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></Link>
+                                    }
                                 </li>
                                 {!user &&
                                     <li className="list-inline-item">

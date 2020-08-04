@@ -1,6 +1,6 @@
 import React from "react";
 
-const HowItWorks = ({onSignUp})=>{
+const HowItWorks = ({onSignUp,noSignup})=>{
     return (
         <div id={"how-it-works"} className="how-it-works section">
             <div className="container">
@@ -60,10 +60,12 @@ const HowItWorks = ({onSignUp})=>{
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-2">
-                        <a href="#" onClick={onSignUp} className="btn btn-outline-primary shadow-none mt-2">
-                            Open a Free Account</a>
-                    </div>
+                    {!noSignup &&
+                        <div className="text-center mt-2">
+                            <a href="#" onClick={onSignUp} className="btn btn-outline-primary shadow-none mt-2">
+                                Open a Free Account</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

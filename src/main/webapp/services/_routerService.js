@@ -5,6 +5,7 @@ import {
     AsyncTransactionComponent,
     AsyncAdminDashboardComponent
 } from "Components/AsyncComponent/AsyncComponent";
+import HowItWorks from "../routes/howItWorks";
 
 export default [
     {
@@ -22,5 +23,9 @@ export default [
     {
         path: 'admin-dashboard',
         component: AsyncAdminDashboardComponent
+    },
+    {
+        path: 'how-it-works',
+        component: HowItWorks
     }
 ]
