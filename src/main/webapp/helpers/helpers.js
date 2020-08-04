@@ -106,7 +106,7 @@ export function validateEmail(email) {
  * */
 
 export function validatePasswordStrength(password) {
-    return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!*()_&+=])(?=\S+$).{12,}$/.test(password);
+    return /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^!*()_&+=])(?=\S+$).{8,}$/.test(password);
 }
 
 /**

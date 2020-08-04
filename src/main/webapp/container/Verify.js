@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { Form, FormGroup, Input } from 'reactstrap';
+import { Form, FormGroup } from 'reactstrap';
 import AppConfig from 'Constants/AppConfig';
 
 import Controller from './../controllers/userController.js'
 import OtpInput from 'react-otp-input';
+import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
 
 class Verify extends Component {
 
     state = {
         email: '',
-        otp: ''
+        otp: '',
+        loading:false
     };
+
+    _isMounted = false;
 
     onKeyPress(event) {
         if (event.key === "Enter") {
@@ -20,17 +23,27 @@ class Verify extends Component {
         }
     }
     componentDidMount() {
+        this._isMounted = true;
         const signUpEmail = localStorage.getItem('user-email');
         if (signUpEmail == '' || signUpEmail == null) {
             this.props.history.push('/signup')
         }
         this.setState({ email: signUpEmail })
     }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
+    changeState(data){
+        if(this._isMounted)
+            this.setState(data)
+    }
+
     /**
      * On User Sign Up
      */
-    onUserSignUp() {
-        // this.props.history.push('/register');
+    onVerify() {
         if ((this.state.otp + '').length == 4) {
             Controller.verifyUser(this, { username: this.state.email, token: this.state.otp })
         }
@@ -38,13 +51,16 @@ class Verify extends Component {
 
     handleChange = otp => this.setState({ otp });
 
-    resendVerificationCode = () => {
-        Controller.sendVerificationCode(this, { email: this.state.email })
+    resendVerificationCode() {
+        Controller.sendVerificationCode(this,this.state.email)
     }
     render() {
-        const { otp, email } = this.state;
+        const { otp, email, loading } = this.state;
         return (
             <div className="app-horizontal rct-session-wrapper">
+                {loading &&
+                <LinearProgress />
+                }
                 <div className="container-fluid px-0 h-100">
                     <div className="row no-gutters h-100">
                         <div className="col-md-6">
@@ -98,7 +114,7 @@ class Verify extends Component {
                                                     className="btn-block btn-primary text-white w-100"
                                                     variant="contained"
                                                     size="large"
-                                                    onClick={() => this.onUserSignUp()}
+                                                    onClick={() => this.onVerify()}
                                                 >
                                                     <span className={"p-5"}>Verify</span>
                                                 </Button>

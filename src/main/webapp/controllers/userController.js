@@ -5,20 +5,16 @@ import { userFromLocalStorage } from "../sagas/AuthenticationManager";
 import { getFormattedDate } from "../helpers/helpers";
 
 const registerUser = (ctx) => {
-    const data = { username: ctx.state.email, password: ctx.state.password }
-    let isSuccess = false;
+    const data = { username: ctx.state.email, password: ctx.state.password };
+    ctx.setState({loading:true});
     userRegistration(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                NotificationManager.success("User Credentials Saved!")
-                isSuccess = true
+                NotificationManager.success("User Created Successfully");
+                ctx.props.history.push("/verify")
             } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
-                else {
-                    log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
-                }
+                log.error(data.data.Error);
+                NotificationManager.error(data.data.Error)
             }
         })
         .catch(e => {
@@ -26,50 +22,42 @@ const registerUser = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            if (isSuccess) {
-                sendVerificationCode(ctx.state.email)
-                ctx.props.history.push('/verify')
-
-            }
+            ctx.changeState({loading:false})
         })
 
 };
 
-const sendVerificationCode = (email) => {
-    const data = { email }
+const sendVerificationCode = (ctx,email) => {
+    const data = { username : email };
+    ctx.changeState({loading :true});
     sendVerificationCodeToEmail(data)
         .then(data => {
             if (!data.data.hasOwnProperty('Error')) {
                 NotificationManager.success('Verification Code Sent! Please check your email.')
             } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
-                else {
-                    log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
-                }
+                log.error(data.data.Error);
+                NotificationManager.error(data.data.Error)
             }
         })
         .catch(e => {
             log.error(e);
             NotificationManager.error("Error Occurred!")
         })
+        .finally(()=>{
+            ctx.changeState({loading:false})
+        })
 }
 
 const verifyUser = (ctx, data) => {
-    let isSuccess = false
+    ctx.setState({loading:true});
     verifyUserCode(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                isSuccess = true
-                NotificationManager.success("User Verified!")
+                NotificationManager.success("User Verified!");
+                ctx.props.history.push('/register')
             } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
-                else {
-                    log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
-                }
+                log.error(data.data.Error);
+                NotificationManager.error(data.data.Error)
             }
         })
         .catch(e => {
@@ -77,11 +65,10 @@ const verifyUser = (ctx, data) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            if (isSuccess) {
-                ctx.props.history.push('/register')
-            }
+            ctx.setState({loading:true});
         })
-}
+};
+
 const saveUserDetails = (ctx, formData) => {
     let user = userFromLocalStorage();
     const userData = {

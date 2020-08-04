@@ -8,6 +8,7 @@ import AppConfig from 'Constants/AppConfig';
 import { signIn } from 'Actions';
 import Controller from './../controllers/userController.js'
 import Validator from './../util/Validators'
+import {validateEmail,validatePasswordStrength} from 'Helpers/helpers'
 
 class SignUp extends Component {
 
@@ -16,8 +17,26 @@ class SignUp extends Component {
         password: '',
         confirmPassword: '',
         showPassword: false,
-        error: [false, false, false]
+        invalidPassword:false,
+        invalidEmail:false,
+        passwordMatch:true,
+        loading:false
     };
+
+    _isMounted = false;
+
+    componentDidMount(){
+        this._isMounted = true;
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
+
+    changeState(data){
+        if(this._isMounted)
+            this.setState(data);
+    }
 
     onKeyPress(event) {
         if (event.key === "Enter") {
@@ -25,35 +44,58 @@ class SignUp extends Component {
         }
     }
 
+    handleEmail(event){
+        return new Promise((res,rej)=>{
+            this.setState({ email: event.target.value });
+            res();
+        }).then(()=>this.emailValidator())
+    }
+
+    handlePassword(event){
+        new Promise((res,rej)=>{
+            this.setState({ password: event.target.value });
+            res();
+        }).then(()=>{
+            this.passwordValidator();
+            if(this.state.confirmPassword !== "")
+                this.matchPasswords()
+        })
+    }
+
+    matchPasswords(){
+        this.setState({passwordMatch : this.state.password === this.state.confirmPassword})
+    }
+
+    emailValidator(){
+        let validate = validateEmail(this.state.email);
+        validate ? this.setState({invalidEmail:false}) : this.setState({invalidEmail:true});
+    };
+
+    handleConfirmPassword(event){
+        new Promise((res,rej)=>{
+            this.setState({ confirmPassword: event.target.value });
+            res();
+        }).then(()=> this.matchPasswords())
+
+    }
+
     /**
      * On User Sign Up
      */
     onUserSignUp() {
-        localStorage.setItem('user-email', this.state.email)
-        localStorage.setItem('key', btoa(this.state.password))
-        // this.props.history.push('/verify');
-        if (!this.validateData()) {
+        if (this.validateForm()) {
             Controller.registerUser(this)
         }
     }
-    /**
-     * Validator
-     */
-    validateData() {
-        const { email, password, confirmPassword } = this.state
-        const isError = [false, false, false];
-        if (!Validator.emailValidator(email)) {
-            isError[0] = true
-        }
-        if (!Validator.passwordValidator(password)) {
-            isError[1] = true
-        }
-        if (password !== confirmPassword) {
-            isError[2] = true
-        }
-        this.setState({ error: isError })
-        return isError[0] || isError[1] || isError[2]
+
+    validateForm(){
+        return this.state.email !== '' && this.state.password !== '' && !this.state.invalidPassword && this.state.passwordMatch
     }
+
+    passwordValidator(){
+        let validate = validatePasswordStrength(this.state.password);
+        validate ? this.setState({invalidPassword:false}) : this.setState({invalidPassword:true});
+    };
 
     /**
      * On Login
@@ -63,17 +105,19 @@ class SignUp extends Component {
     }
 
     onShowPassword() {
-        // let pwdDom = document.getElementById("pwd");
-        // if(!this.state.showPassword)
-        //     pwdDom.type = "text";
-        // else
-        //     pwdDom.type = "password";
         this.setState({ showPassword: !this.state.showPassword });
     }
 
     render() {
-        const { email, password, confirmPassword, error } = this.state;
-        const { loading } = this.props;
+        const {
+            email,
+            password,
+            confirmPassword,
+            invalidPassword,
+            invalidEmail,
+            passwordMatch,
+            loading
+        } = this.state;
         return (
             <QueueAnim type="bottom" duration={2000}>
                 <div className="app-horizontal rct-session-wrapper">
@@ -115,46 +159,45 @@ class SignUp extends Component {
                                             <Form>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
-                                                        invalid={error[0]}
                                                         type="mail"
                                                         value={email}
                                                         name="user-mail"
                                                         id="user-mail"
                                                         className="has-input input-lg"
                                                         placeholder="Email Address"
-                                                        onChange={(event) => this.setState({ email: event.target.value })}
+                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onChange={(event) => this.handleEmail(event)}
                                                     />
                                                     <span className="has-icon"><i className="ti-email" /></span>
-                                                    <FormFeedback>Please enter valid e-mail id.</FormFeedback>
+                                                    <span className={invalidEmail?"cred-error-label":"d-none"}>Email must be a valid format</span>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
-                                                        invalid={error[1]}
                                                         value={password}
-                                                        type={this.state.showPassword ? 'text' : 'password'}
+                                                        type="Password"
                                                         name="user-pwd"
                                                         id="pwd"
                                                         className="has-input input-lg"
                                                         placeholder="Password"
-                                                        onChange={(event) => this.setState({ password: event.target.value })}
+                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onChange={(event) => this.handlePassword(event)}
                                                     />
                                                     <span onClick={() => {
                                                         this.onShowPassword();
                                                     }} title={"Show"} className="has-icon"><i className="ti-eye" /></span>
-                                                    <FormFeedback>Password must contain more than 8 characters, 1 or more special character and a combination of upper and lowercase characters</FormFeedback>
+                                                    <span className={invalidPassword?"cred-error-label":"d-none"}><strong>Weak password</strong> <br/> Your password must have at least 8 characters, upper & lower case letters, at least one special character and at least one number.</span>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
-                                                        invalid={error[2]}
+                                                        type="Password"
                                                         value={confirmPassword}
-                                                        type="password"
-                                                        name="confirmPwd"
-                                                        id="confirmPwd"
-                                                        className="has-input input-lg"
+                                                        name="usr-pwd-confirm"
+                                                        id="usr-pwd-confirm"
+                                                        className={"has-input input-lg"}
                                                         placeholder="Confirm Password"
-                                                        onChange={(event) => this.setState({ confirmPassword: event.target.value })}
+                                                        onChange={(event) => this.handleConfirmPassword(event)}
                                                     />
-                                                    <FormFeedback>Passwords dont match or empty passwords</FormFeedback>
+                                                    <span className={!passwordMatch?"cred-error-label":"d-none"}>Passwords don't match</span>
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button
