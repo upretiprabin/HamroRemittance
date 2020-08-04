@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import AppConfig from 'Constants/AppConfig';
+import UserBlock from '../Sidebar/UserBlock';
 
 class HorizontalMenu extends Component {
 
@@ -57,6 +58,11 @@ class HorizontalMenu extends Component {
                                 {user &&
                                     <li className="list-inline-item sign-up">
                                         <Link to={indexPageUrl} className={"btn btn-primary"}><span className={"header-menu"}>{indexPage}</span></Link>
+                                    </li>
+                                }
+                                {user &&
+                                    <li className="list-inline-item">
+                                        <UserBlock/>
                                     </li>
                                 }
                             </ul>

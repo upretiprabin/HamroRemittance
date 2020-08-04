@@ -54,6 +54,12 @@ const signOutRequest = async () =>
 const isUserEnabledCheck = (email, password)=>
     middleware.User.isUserEnabled(email,password);
 
+export function getUserView(user){
+    if(user){
+        return null
+    }
+}
+
 /**
  * Signin User With Email & Password
  */

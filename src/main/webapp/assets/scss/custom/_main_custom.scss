@@ -70,3 +70,29 @@ body{
     }
   }
 }
+
+.user-profile-box {
+  display: inline-block;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background-color: $primary-border !important;
+  color: #fff !important;
+  font-weight: 800;
+  position: relative;
+  padding-top: 7px;
+  top: -1px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.user-profile-top{
+  background: $secondary-app-color;
+}
+
+.user-block-custom ul li:not(.user-profile-top) a {
+  background-color: #fff !important;
+  padding: 0.75rem 1rem !important;
+  display: block !important;
+  color: $secondary-app-color !important;
+}
