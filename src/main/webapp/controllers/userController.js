@@ -11,6 +11,7 @@ const registerUser = (ctx) => {
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 NotificationManager.success("User Created Successfully");
+                localStorage.setItem("user-email",ctx.state.email);
                 ctx.props.history.push("/verify")
             } else {
                 log.error(data.data.Error);
@@ -70,7 +71,7 @@ const verifyUser = (ctx, data) => {
 };
 
 const saveUserDetails = (ctx, formData) => {
-    let user = userFromLocalStorage();
+    let email = localStorage.getItem("user-email");
     const userData = {
         firstName: formData.fName,
         middleName: formData.mName,
@@ -79,7 +80,7 @@ const saveUserDetails = (ctx, formData) => {
         dateOfBirth: getFormattedDate(formData.dob.toString(), "MM/DD/YYYY"),
         nationality: formData.nationality,
         sender: true,
-        emailAddress: user?.username,
+        emailAddress: email,
         addressLineOne: formData.aLine1,
         addressLineTwo: formData.aLine2,
         suburbCity: formData.subUrb,
@@ -93,11 +94,9 @@ const saveUserDetails = (ctx, formData) => {
     saveUserData(userData)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                NotificationManager.success("User Registered!")
-                let user = userFromLocalStorage();
-                user['isRegistered'] = true;
-                localStorage.setItem('user', JSON.stringify(user))
-                ctx.props.history.push('/app/dashboard');
+                localStorage.removeItem("user-email");
+                NotificationManager.success("User Registered Successfully");
+                ctx.props.history.push('/signin');
             } else {
                 log.error(data.data.Error);
                 NotificationManager.error(data.data.Error)

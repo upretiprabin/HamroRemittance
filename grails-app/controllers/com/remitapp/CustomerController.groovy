@@ -15,6 +15,7 @@ class CustomerController {
          println "{customers as JSON} = ${customers as JSON}"
      }*/
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def saveCustomer(){
 
         println "{request.json} = ${request.JSON}"

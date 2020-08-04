@@ -3,6 +3,7 @@ package com.remitapp
 import com.remitapp.Customer
 import com.remitapp.Receiver
 import com.remitapp.Sender
+import com.remitapp.um.User
 
 //import grails.gorm.transactions.Transactional
 //import grails.transaction.Transactional
@@ -16,8 +17,13 @@ class CustomerService {
     def saveCustomer(params){
         def result = [:]
 
+        User user = User.findByUsername(params.emailAddress)
+        if(!user){
+            throw new CustomException("User not found! Please create your account first")
+        }
+
         //check email
-        def alreadyPresent = Customer.findByEmailAddress(params.username)
+        def alreadyPresent = Customer.findByEmailAddress(params.emailAddress)
         if(!alreadyPresent){
             def customer
             if(params?.sender){

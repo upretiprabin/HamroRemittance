@@ -9,6 +9,7 @@ import {
     signIn
 } from 'Actions';
 import {validateEmail} from 'Helpers/helpers'
+import { NotificationContainer } from 'react-notifications';
 
 class SignIn extends Component {
 
@@ -64,6 +65,7 @@ class SignIn extends Component {
        const { loading,user } = this.props;
        return (
            <QueueAnim type="bottom" duration={2000}>
+               <NotificationContainer/>
                <div className="app-horizontal rct-session-wrapper">
                    {loading &&
                    <LinearProgress />

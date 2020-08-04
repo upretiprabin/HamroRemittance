@@ -15,6 +15,7 @@ const MainApp = () => (
 	<Provider store={store}>
 		<MuiPickersUtilsProvider utils={MomentUtils}>
 			<Router>
+                <NotificationContainer />
 				<Switch>
 					<Route path="/" component={App} />
 				</Switch>

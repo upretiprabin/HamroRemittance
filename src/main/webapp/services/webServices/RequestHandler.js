@@ -2,6 +2,7 @@
 import api from 'Api';
 import { userFromLocalStorage, clearLocalStorage } from "../../sagas/AuthenticationManager";
 import log from '../loggerService';
+import { NotificationManager } from "react-notifications"
 
 // //api interceptors
 api.interceptors.request.use(function (config) {
@@ -30,8 +31,10 @@ api.interceptors.response.use(function (response) {
     let authorizedStatusList = [403,401];
     if(authorizedStatusList.includes(error.response?.status)){
         clearLocalStorage();
-        if(location.pathname !== "/signin")
+        if(location.pathname !== "/signin"){
+            NotificationManager.error("Session timed out!");
             location.href = "/signin";
+        }
     }
     return Promise.reject(error);
 });

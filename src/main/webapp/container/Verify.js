@@ -25,7 +25,7 @@ class Verify extends Component {
     componentDidMount() {
         this._isMounted = true;
         const signUpEmail = localStorage.getItem('user-email');
-        if (signUpEmail == '' || signUpEmail == null) {
+        if (signUpEmail === '' || signUpEmail == null) {
             this.props.history.push('/signup')
         }
         this.setState({ email: signUpEmail })

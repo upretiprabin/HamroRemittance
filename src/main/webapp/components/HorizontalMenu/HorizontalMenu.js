@@ -2,17 +2,37 @@
  * Horizontal Menu
  */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import AppConfig from 'Constants/AppConfig';
 
 class HorizontalMenu extends Component {
+
+    getHomeUrl(){
+        let homeUrl = "/home";
+        let pathName = location.pathname;
+        if(pathName.includes("dashboard"))
+            homeUrl = "/app/dashboard";
+        return homeUrl;
+    }
+
+    getIndexPageNameAndUrl(){
+        let pathName = location.pathname;
+        let indexPageUrl = pathName.includes("home")?"/app/dashboard":"/home";
+        let indexPage = pathName.includes("home")?"DASHBOARD":"HOME";
+        return {indexPage,indexPageUrl}
+    }
+
     render() {
+        const {user} = this.props;
+        let homeUrl = this.getHomeUrl();
+        let {indexPage,indexPageUrl} = this.getIndexPageNameAndUrl();
         return (
             <div className="horizontal-menu">
                 <div className="container">
                     <div className = "rct-header d-flex">
                         <div className="site-logo mr-15">
-                            <a href="/" className="logo-normal">
+                            <a href={homeUrl} className="logo-normal">
                                 <img src={AppConfig.appLogo} className="" alt="site-logo" width="100" height="55" />
                             </a>
                         </div>
@@ -22,14 +42,23 @@ class HorizontalMenu extends Component {
                                     <Link to={"/send"}><span className={"header-menu"}>SEND</span></Link>
                                 </li>
                                 <li className="list-inline-item">
-                                    <a href={"#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
+                                    <a href={"/home#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
                                 </li>
-                                <li className="list-inline-item">
-                                    <Link to={"/signin"}><span className={"header-menu"}>LOG IN</span></Link>
-                                </li>
-                                <li className="list-inline-item sign-up">
-                                    <Link to={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></Link>
-                                </li>
+                                {!user &&
+                                    <li className="list-inline-item">
+                                        <Link to={"/signin"}><span className={"header-menu"}>LOG IN</span></Link>
+                                    </li>
+                                }
+                                {!user &&
+                                    <li className="list-inline-item sign-up">
+                                        <Link to={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></Link>
+                                    </li>
+                                }
+                                {user &&
+                                    <li className="list-inline-item sign-up">
+                                        <Link to={indexPageUrl} className={"btn btn-primary"}><span className={"header-menu"}>{indexPage}</span></Link>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -40,5 +69,9 @@ class HorizontalMenu extends Component {
         );
     }
 }
-
-export default HorizontalMenu;
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user}
+};
+export default connect(mapStateToProps)(HorizontalMenu);
