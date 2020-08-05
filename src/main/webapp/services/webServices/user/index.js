@@ -31,7 +31,7 @@ const loginUser = (email, password) => {
 const logout = () => {
     let user = userFromLocalStorage();
     let data = {
-        email: user?.primaryEmail
+        email: user?.username
     };
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.USER_LOGOUT, config);

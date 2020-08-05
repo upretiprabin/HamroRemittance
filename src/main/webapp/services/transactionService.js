@@ -24,7 +24,7 @@ export const loadCompanyChargesData = () => {
 };
 
 export const testData = () => {
-    let email = userFromLocalStorage().primaryEmail;
+    let email = userFromLocalStorage().username;
     return middleware.Transaction.testData({
         email
     });

@@ -46,7 +46,7 @@ const AppConfig = {
     copyRightText: '© Hamro Remit ' + (new Date()).getFullYear() ,      // Copy Right Text
     //support url
     supportUrl: "support@hamroremittance.com",
-    middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareUrlResolver(domain,middleWareDevUrl),
+    middleWareUrl : process.env.NODE_ENV === "development" ? middleWareDevUrl :middleWareUrlResolver(),
     homePage : "home"
 };
 
