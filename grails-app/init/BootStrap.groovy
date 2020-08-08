@@ -3,10 +3,16 @@ import com.remitapp.CompanyCharges
 import com.remitapp.PayingAgentDetails
 import com.remitapp.TransactionStatus
 import com.remitapp.um.*
+import grails.plugin.springsecurity.SecurityFilterPosition
+import grails.plugin.springsecurity.SpringSecurityUtils
 
 class BootStrap {
 
     def init = { servletContext ->
+
+        SpringSecurityUtils.clientRegisterFilter(
+                'removeLoginPromptFilter', SecurityFilterPosition.OPENID_FILTER.order + 10)
+
 //        def adminRole = new Role(authority: 'ROLE_ADMIN').save()
 //
 //        def testUser = new User(username: 'admin', password: 'admin').save()
