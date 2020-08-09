@@ -6,6 +6,7 @@ import {
     AsyncAdminDashboardComponent
 } from "Components/AsyncComponent/AsyncComponent";
 import HowItWorks from "../routes/howItWorks";
+import AboutUs from "../container/AboutUs";
 
 const customerRoutes = [
     {
@@ -19,10 +20,6 @@ const customerRoutes = [
     {
         path: 'transaction',
         component: AsyncTransactionComponent
-    },
-    {
-        path: 'how-it-works',
-        component: HowItWorks
     }
 ];
 

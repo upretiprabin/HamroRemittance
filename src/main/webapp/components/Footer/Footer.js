@@ -2,12 +2,7 @@
  * Footer
  */
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-
-const isHome = ()=>{
-    return location.pathname.includes("home");
-};
 
 const Footer = () => (
    <div className="rct-footer footer d-flex justify-content-between align-items-center">
@@ -16,14 +11,8 @@ const Footer = () => (
                <div className="col-lg d-lg-flex align-items-center">
                    <ul className="nav justify-content-center justify-content-lg-start text-3">
                        <li className="nav-item"><Link className="nav-link" to="/about-us">About Us</Link></li>
-                       <li className="nav-item"><Link className="nav-link" to="#">Support</Link></li>
                        <li className="nav-item">
-                           {isHome() &&
-                           <a className="nav-link" href={"/home#how-it-works"} >How it works</a>
-                           }
-                           {!isHome() &&
-                           <Link className="nav-link" to={"/app/how-it-works"} >How it works</Link>
-                           }
+                           <Link className="nav-link" to={"/how-it-works"} >How it works</Link>
                        </li>
                        <li className="nav-item"><Link className="nav-link" to="/terms-and-conditions">Terms & Conditions</Link></li>
                    </ul>

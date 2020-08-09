@@ -25,6 +25,7 @@ import {checkUserSession,logoutUser,userLoaded} from 'Actions';
 import {authenticateUser} from '../sagas/AuthenticationManager';
 import TermsAndConditions from "./TermsAndConditions";
 import AboutUs from "./AboutUs";
+import HowItWorksPage from "../routes/howItWorks";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -93,6 +94,7 @@ class App extends Component {
                         <Route path="/register" component={Register} />
                         <Route path="/terms-and-conditions" component={TermsAndConditions} />
                         <Route path="/about-us" component={AboutUs} />
+                        <Route path="/how-it-works" component={HowItWorksPage} />
                         <Route component={AsyncSessionPage404Component} />
                     </Switch>
                 </Router>

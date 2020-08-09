@@ -6,3 +6,7 @@ export const middleWareUrlResolver = ()=>{
     log.info("Middleware URL:"+url);
     return url;
 };
+
+export const isHome = ()=>{
+    return location.pathname.includes("home");
+};

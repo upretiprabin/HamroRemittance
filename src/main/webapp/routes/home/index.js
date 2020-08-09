@@ -63,7 +63,6 @@ class Index extends Component {
         const {user} = this.props;
         const countryRate = 83.29;
         const noSignUp = !!user;
-        console.log("nosignup",noSignUp)
         return (
             <ErrorBoundary>
                 {loading &&

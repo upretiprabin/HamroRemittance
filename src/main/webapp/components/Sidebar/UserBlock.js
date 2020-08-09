@@ -49,7 +49,6 @@ class UserBlock extends Component {
 
     render() {
         let user = this.getUserDetails();
-        console.log("user",user)
         let view = this.props.view;
         let isDefaultView = getUserView(userFromLocalStorage());
         let switchViewText = "Admin Panel";
