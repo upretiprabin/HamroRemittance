@@ -9,16 +9,16 @@ import UserBlock from '../Sidebar/UserBlock';
 
 class HorizontalMenu extends Component {
 
-    getHomeUrl(){
+    getHomeUrl(isDefault){
         let homeUrl = "/home";
-        if(!this.isHome())
+        if(!isDefault && !this.isHome())
             homeUrl = "/app/dashboard";
         return homeUrl;
     }
 
-    getSendUrl(){
+    getSendUrl(isDefault,user){
         let sendUrl = "/send";
-        if(!this.isHome())
+        if(user)
             sendUrl = "/app/transaction";
         return sendUrl;
     }
@@ -35,9 +35,9 @@ class HorizontalMenu extends Component {
     }
 
     render() {
-        const {user} = this.props;
-        let homeUrl = this.getHomeUrl();
-        let sendUrl = this.getSendUrl();
+        const {user,isDefault} = this.props;
+        let homeUrl = this.getHomeUrl(isDefault);
+        let sendUrl = this.getSendUrl(isDefault,user);
         let {indexPage,indexPageUrl} = this.getIndexPageNameAndUrl();
         return (
             <div className="horizontal-menu">
@@ -50,16 +50,24 @@ class HorizontalMenu extends Component {
                         </div>
                         <div className={"mt-15 menus"}>
                             <ul className="list-inline footer-menus mb-0">
+                                {!this.isHome() && !isDefault &&
+                                    <li className="list-inline-item">
+                                        <Link to={"/app/dashboard"} ><span className={"header-menu"}>DASHBOARD</span></Link>
+                                    </li>
+                                }
                                 <li className="list-inline-item">
                                     <Link to={sendUrl}><span className={"header-menu"}>SEND</span></Link>
                                 </li>
                                 <li className="list-inline-item">
                                     {this.isHome() &&
-                                        <a href={"/home#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
+                                    <a href={"/home#how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></a>
                                     }
                                     {!this.isHome() &&
-                                        <Link to={"/app/how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></Link>
+                                    <Link to={"/how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></Link>
                                     }
+                                </li>
+                                <li className="list-inline-item">
+                                    <Link to={"/about-us"}><span className={"header-menu"}>ABOUT US</span></Link>
                                 </li>
                                 {!user &&
                                     <li className="list-inline-item">
@@ -68,12 +76,12 @@ class HorizontalMenu extends Component {
                                 }
                                 {!user &&
                                     <li className="list-inline-item sign-up">
-                                        <Link to={"/signup"} className={"btn btn-primary"}><span className={"header-menu"}>SIGN UP</span></Link>
+                                        <Link to={"/signup"} className={"btn btn-primary header-menu-btn"}><span className={"header-menu"}>SIGN UP</span></Link>
                                     </li>
                                 }
-                                {user &&
+                                {user && !isDefault &&
                                     <li className="list-inline-item sign-up">
-                                        <Link to={indexPageUrl} className={"btn btn-primary"}><span className={"header-menu"}>{indexPage}</span></Link>
+                                        <Link to={indexPageUrl} className={"btn btn-primary header-menu-btn"}><span className={"header-menu"}>{indexPage}</span></Link>
                                     </li>
                                 }
                                 {user &&

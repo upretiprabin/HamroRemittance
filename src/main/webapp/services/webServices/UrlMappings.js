@@ -9,6 +9,7 @@ export default {
     USER_CREATE: 'user/create',
     SEND_VERIFICATION_CODE: 'user/sendVerificationCode',
     VERIFY_USER: 'user/verifyUser',
+    CHECK_SESSION: 'user/checkSession',
 
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'dashboard/loadData',

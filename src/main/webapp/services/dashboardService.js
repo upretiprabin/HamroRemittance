@@ -2,7 +2,7 @@ import { userFromLocalStorage } from "../sagas/AuthenticationManager";
 import middleware from "Middleware";
 
 export const loadDashboardData = () => {
-    let email = userFromLocalStorage().primaryEmail;
+    let email = userFromLocalStorage().username;
     return middleware.Dashboard.loadData({
         email
     });

@@ -35,7 +35,7 @@ class UserBlock extends Component {
         let firstLetter = "P";
         let shortName = "Prabin U.";
         let fullName = "Prabin Upreti";
-        let email = user.username;
+        let email = user?.username;
         return {firstLetter,shortName,fullName,email}
     }
 
@@ -49,7 +49,6 @@ class UserBlock extends Component {
 
     render() {
         let user = this.getUserDetails();
-        console.log("user",user)
         let view = this.props.view;
         let isDefaultView = getUserView(userFromLocalStorage());
         let switchViewText = "Admin Panel";
@@ -77,8 +76,8 @@ class UserBlock extends Component {
                 <DropdownMenu>
                     <ul className="list-unstyled mb-0">
                         <li className="p-15 border-bottom user-profile-top rounded-top">
-                            <p className="text-white mb-0 fs-14">{user.fullName}</p>
-                            <span className="text-white fs-14">{user.email}</span>
+                            <p className="text-white mb-0 fs-14">{user?.fullName}</p>
+                            <span className="text-white fs-14">{user?.email}</span>
                         </li>
                         {!isDefaultView &&
                         <li className="border-top">

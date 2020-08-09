@@ -11,7 +11,8 @@ import {
     LOGOUT_USER,
     LOGOUT_USER_SUCCESS,
     LOGOUT_USER_FAILURE,
-    USER_LOADED
+    USER_LOADED,
+    SWITCH_VIEW
 } from './types';
 
 /**
@@ -22,6 +23,18 @@ export const signIn = (user, history) => ({
     payload: { user, history }
 });
 
+export const switchView = (view) => ({
+    type: SWITCH_VIEW,
+    payload: { view }
+});
+
+export const userLoaded = ()=>({
+    type : USER_LOADED
+});
+
+export const checkUserSession = (isCheck)=>({
+    type : isCheck?CHECK_USER_SESSION:UNCHECK_USER_SESSION
+});
 
 /**
  * Redux Action Signin User Success

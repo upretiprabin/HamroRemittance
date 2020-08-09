@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import { Form, FormGroup, Input } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
@@ -23,13 +20,6 @@ class InstantSend extends Component {
         if (event.key === "Enter") {
             this.onUserSignUp();
         }
-    }
-
-    /**
-     * On User Sign Up
-     */
-    onUserSignUp() {
-        this.props.history.push('/verify');
     }
 
     /**
@@ -104,12 +94,6 @@ class InstantSend extends Component {
     }
 }
 
-// map state to props
-const mapStateToProps = ({ authUser }) => {
-    const { loading } = authUser;
-    return { loading }
-};
-
-export default connect(mapStateToProps, {
+export default connect(null,{
     signIn
 })(InstantSend);

@@ -12,7 +12,7 @@ const getLogObj = (level,message,reqObj)=>({
     message : (reqObj ? message + " URL:"+reqObj.url+" DATA:"+JSON.stringify(reqObj.config?.data) : message)
 });
 
-const info = (log,reqObj = null) => loglevel.info(plain(getLogObj('INFO',log,reqObj)));
+const info = (log,reqObj = null) => console.log(log);
 
 const warn = (log,reqObj = null) => loglevel.warn(plain(getLogObj('WARN',log,reqObj)));
 
@@ -20,7 +20,7 @@ const debug = (log,reqObj = null) => loglevel.debug(plain(getLogObj('DEBUG',log,
 
 const trace = (log,reqObj = null) => loglevel.trace(plain(getLogObj('TRACE',log,reqObj)));
 
-const error = (log,reqObj = null) => loglevel.error(plain(getLogObj('ERROR',log,reqObj)));
+const error = (log,reqObj = null) => console.log(log);
 
 
 

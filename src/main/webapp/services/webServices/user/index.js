@@ -13,7 +13,6 @@ const defaultConfig = (data) => ({
     data
 });
 
-
 /**
  * login
  */
@@ -26,15 +25,12 @@ const loginUser = (email, password) => {
         }
     };
     return requestHandler.loadData(URL.USER_LOGIN_USER, config);
-    return new Promise((res, rej) => {
-        res({ data: 'aa11' })
-    }).then((d) => d)
 };
 
 const logout = () => {
     let user = userFromLocalStorage();
     let data = {
-        email: user?.primaryEmail
+        email: user?.username
     };
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.USER_LOGOUT, config);
@@ -68,6 +64,14 @@ const verifyUser = (data) => {
     return requestHandler.loadData(URL.VERIFY_USER, config)
 }
 
+const checkSession = (username) => {
+    let data = {
+        username
+    };
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.CHECK_SESSION, config)
+}
+
 const registerUser = (data) =>{
     let config = defaultConfig(data);
     /**TODO remove fake data and call endpoint after data has all keys present */
@@ -83,5 +87,6 @@ export default {
     userRegistration,
     sendVerificationCode,
     saveUserDetails,
-    verifyUser
+    verifyUser,
+    checkSession
 }

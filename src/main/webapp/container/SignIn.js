@@ -6,7 +6,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
 import {
-    signIn
+    signIn,
+    userLoaded
 } from 'Actions';
 import {validateEmail} from 'Helpers/helpers'
 import { NotificationContainer } from 'react-notifications';
@@ -18,6 +19,10 @@ class SignIn extends Component {
       password: '',
       invalidEmail:false
    };
+
+    componentDidMount(){
+        this.props.userLoaded(false);
+    }
 
 	/**
 	 * On User Login
@@ -172,5 +177,6 @@ const mapStateToProps = ({ authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-    signIn
+    signIn,
+    userLoaded
 })(SignIn);

@@ -15,7 +15,7 @@ class RctHorizontalApp extends Component {
         const { match, location } = this.props;
 		return (
 			<RctHorizontalLayout>
-				{routerService && routerService.map((route,key)=>
+				{routerService.customerRoutes && routerService.customerRoutes.map((route,key)=>
 					<Route key={key} path={`${match.url}/${route.path}`} component={route.component} />
 				)}
 			</RctHorizontalLayout>

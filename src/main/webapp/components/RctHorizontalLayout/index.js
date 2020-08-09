@@ -13,7 +13,7 @@ class RctHorizontalLayout extends Component {
 
     renderPage() {
         const { pathname } = this.props.location;
-        const { children, match } = this.props;
+        const { children, match, isDefault } = this.props;
         return (
             <Scrollbars
                 className="rct-scroll"
@@ -23,7 +23,7 @@ class RctHorizontalLayout extends Component {
             >
                 <div className="rct-page-content p-0">
                     {children}
-                    <Footer />
+                    <Footer isDefault={isDefault}/>
                 </div>
             </Scrollbars>
         );
@@ -36,7 +36,7 @@ class RctHorizontalLayout extends Component {
                     <div className="rct-page-wrapper">
                         <div className="rct-app-content">
                             <div className="rct-page">
-                                <HorizontalMenu />
+                                <HorizontalMenu isDefault={this.props.isDefault}/>
                                 {this.renderPage()}
                             </div>
                         </div>

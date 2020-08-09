@@ -20,6 +20,12 @@ import InstantSend from "./InstantSend";
 import Verify from "./Verify";
 import Register from "./Register";
 import HomeLayout from "../routes/home/HomeLayout";
+import log from '../services/loggerService';
+import {checkUserSession,logoutUser,userLoaded} from 'Actions';
+import {authenticateUser} from '../sagas/AuthenticationManager';
+import TermsAndConditions from "./TermsAndConditions";
+import AboutUs from "./AboutUs";
+import HowItWorksPage from "../routes/howItWorks";
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -42,8 +48,25 @@ class App extends Component {
 
     _isMounted = false;
 
-    componentWillUnmount(){
-        this._isMounted = false;
+    componentDidMount(){
+        this._isMounted = true;
+        const {user,checkSession} = this.props;
+        if(user && checkSession){
+            log.info("Checking user session !!!");
+            this.checkUserSession();
+        }
+        this.props.checkUserSession(false);
+    }
+
+    checkUserSession(){
+        authenticateUser()
+            .then(()=>{
+                this.props.userLoaded();
+            })
+            .catch(()=>{
+                if(this._isMounted)
+                    this.props.logoutUser("Expired")
+            })
     }
 
     render() {
@@ -69,6 +92,9 @@ class App extends Component {
                         <Route path="/send" component={InstantSend} />
                         <Route path="/verify" component={Verify} />
                         <Route path="/register" component={Register} />
+                        <Route path="/terms-and-conditions" component={TermsAndConditions} />
+                        <Route path="/about-us" component={AboutUs} />
+                        <Route path="/how-it-works" component={HowItWorksPage} />
                         <Route component={AsyncSessionPage404Component} />
                     </Switch>
                 </Router>
@@ -79,8 +105,8 @@ class App extends Component {
 
 // map state to props
 const mapStateToProps = ({ authUser }) => {
-    const { user } = authUser;
-    return { user };
+    const { user,checkSession } = authUser;
+    return { user,checkSession };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps,{checkUserSession,logoutUser,userLoaded})(App);

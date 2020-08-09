@@ -45,8 +45,12 @@ class Index extends Component {
         Controller.loadCompanyCharges(this);
     }
 
-    onUserLogin() {
-        this.props.history.push('/signin');
+    onSend() {
+        if (this.props.user)
+            this.props.history.push('/app/transaction');
+        else
+            this.props.history.push('/signin');
+
     }
 
     signUp() {
@@ -57,6 +61,8 @@ class Index extends Component {
         const {
             loading, countryRate
         } = this.state;
+        const { user } = this.props;
+        const noSignUp = !!user;
         return (
             <ErrorBoundary>
                 {loading &&
@@ -69,9 +75,9 @@ class Index extends Component {
                         <div className="">
                             <SessionSlider />
                         </div>
-                        <InstantSend countryRate={countryRate} onContinue={() => { this.onUserLogin() }} />
+                        <InstantSend countryRate={countryRate} onContinue={() => { this.onSend() }} />
                         <WhyChooseUs />
-                        <HowItWorks onSignUp={() => { this.signUp() }} />
+                        <HowItWorks onSignUp={() => { this.signUp() }} noSignup={noSignUp} />
                     </div>
                 }
                 <NotificationContainer />
@@ -80,4 +86,10 @@ class Index extends Component {
     }
 }
 
-export default connect(null)(Index);
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user }
+};
+
+export default connect(mapStateToProps)(Index);

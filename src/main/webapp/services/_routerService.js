@@ -6,8 +6,9 @@ import {
     AsyncAdminDashboardComponent
 } from "Components/AsyncComponent/AsyncComponent";
 import HowItWorks from "../routes/howItWorks";
+import AboutUs from "../container/AboutUs";
 
-export default [
+const customerRoutes = [
     {
         path: 'home',
         component: AsyncHomeComponent
@@ -19,13 +20,17 @@ export default [
     {
         path: 'transaction',
         component: AsyncTransactionComponent
-    },
-    {
-        path: 'admin-dashboard',
-        component: AsyncAdminDashboardComponent
-    },
-    {
-        path: 'how-it-works',
-        component: HowItWorks
     }
-]
+];
+
+const adminRoutes =  [
+    {
+        path: 'dashboard',
+        component: AsyncAdminDashboardComponent
+    }
+];
+
+export default {
+    adminRoutes,
+    customerRoutes
+}

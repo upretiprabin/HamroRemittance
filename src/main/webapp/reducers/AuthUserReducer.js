@@ -9,7 +9,11 @@ import {
     LOGIN_USER_FAILURE,
     LOGOUT_USER,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_FAILURE
+    LOGOUT_USER_FAILURE,
+    CHECK_USER_SESSION,
+    UNCHECK_USER_SESSION,
+    USER_LOADED,
+    SWITCH_VIEW
 } from 'Actions/types';
 
 /**
@@ -17,7 +21,9 @@ import {
  */
 const INIT_STATE = {
     user: userFromLocalStorage(),
-    loading: false
+    loading: false,
+    checkSession : false,
+    view : "CustomerPortal"
 };
 
 export default (state = INIT_STATE, action) => {
@@ -25,6 +31,12 @@ export default (state = INIT_STATE, action) => {
 
         case LOGIN_USER:
             return { ...state, loading: true };
+        case CHECK_USER_SESSION:
+            return { ...state, loading:true, checkSession : true };
+        case UNCHECK_USER_SESSION:
+            return { ...state, checkSession : false };
+        case USER_LOADED:
+            return { ...state, loading:false };
         case LOGIN_USER_SUCCESS:
             return { ...state, loading: false, user: action.payload };
         case LOGIN_USER_FAILURE:
