@@ -37,10 +37,11 @@ const loadData = (ctx) => {
 };
 const postData = (ctx, data) => {
     ctx.changeState({ loading: true })
+    let isSuccess = false
     postTransactionData(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                console.log('data posted')
+                isSuccess = true;
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -54,10 +55,11 @@ const postData = (ctx, data) => {
             log.error(e);
             NotificationManager.error("Error Occurred!")
         })
-        .finally(() => {
-            ctx.changeState({
-                loading: false
-            })
+        .finally(async () => {
+            if (isSuccess) {
+                NotificationManager.success('Transaction Posted for Verification')
+                ctx.changeState({ loading: false })
+            }
         })
 
 };
@@ -65,13 +67,13 @@ const loadReceivers = (ctx) => {
     // ctx.changeState({ loading: true })
     let stateData = {};
     //TODO : change later
-    let data = { "senderId": 2 }
+    let data = { "senderId": 3 }
     loadReceiverData(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 let receiverData = []
                 data.data.result.forEach(el => {
-                    console.log("el",el)
+                    console.log("el", el)
                     let receiverInfo = el.receiver;
                     let address = el.address;
                     let bankDetails = el.bankDetails;

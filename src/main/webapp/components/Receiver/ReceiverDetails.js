@@ -112,7 +112,7 @@ export default class ReceiverDetails extends React.Component {
                             <Label>User Address</Label>
                             <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <Divider />
-                            <Label className='mt-10'>Bank Details</Label>
+                            <Label className='mt-10'>Cash Pickup Details</Label>
                             <BankForm bank={bank} branch={branch} accNumber={accNumber} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
 
                             {!this.props.disabled && <div className="row">
@@ -120,7 +120,7 @@ export default class ReceiverDetails extends React.Component {
                                     <div className="d-flex justify-content-center">
                                         <FormGroup className="m-15">
                                             <Button
-                                                className="btn-info text-white btn-block w-100"
+                                                className="btn-primary text-white btn-block w-100"
                                                 variant="contained"
                                                 size="large"
                                                 onClick={(e) => this.onSubmit(e)}
@@ -129,7 +129,7 @@ export default class ReceiverDetails extends React.Component {
 
                                         <FormGroup className="m-15">
                                             <Button
-                                                className="btn-danger text-white btn-block w-100"
+                                                className="btn-secondary text-white btn-block w-100"
                                                 variant="contained"
                                                 size="large"
                                                 onClick={() => this.props.cancel()}

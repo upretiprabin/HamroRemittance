@@ -14,13 +14,13 @@ import IntlMessages from 'Util/IntlMessages';
 import { RctCard } from 'Components/RctCard/index';
 
 const StepFive = ({ saveData, selectedData, senderInfo }) => {
-    const [currency, amount, recipient, purpose] = selectedData
+    const [ratesAndAmount, recipient, purpose] = selectedData
     const transactionDetails = {
-        send: `${amount.send} AUD`,
-        receive: `${amount.receive} ${currency.currency}`,
-        rate: `1 AUD = ${currency.rate} ${currency.currency}`,
-        toPay: `${amount.send + currency.fees}`,
-        fee: `${currency.fees} AUD`,
+        send: `${ratesAndAmount.send} AUD`,
+        receive: `${ratesAndAmount.receive} NRS`,
+        rate: `1 AUD = ${ratesAndAmount.rate} NRS`,
+        toPay: `${ratesAndAmount.send + ratesAndAmount.fees}`,
+        fee: `${ratesAndAmount.fees} AUD`,
     }
     const confirmTransaction = ()=>{
         saveData(true)

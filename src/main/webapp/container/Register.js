@@ -78,7 +78,7 @@ class Register extends Component {
         for (let obj in updatedState) {
             switch (obj) {
                 case 'phone':
-                    if (!Validator.phoneValidator(updatedState[obj].value)) {
+                    if (!Validator.australianPhoneValidator(updatedState[obj].value)) {
                         updatedState[obj].error = true;
                         error = true
                     } else {
@@ -142,7 +142,9 @@ class Register extends Component {
                                             <Divider />
                                             <div className="session-body text-center mt-20">
                                                 <Form>
-                                                    <Label>User Details</Label>
+                                                    <div className="text-left">
+                                                        <Label className="text-left">User Details</Label>
+                                                    </div>
                                                     <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} />
                                                     <div className='row mt-10'>
                                                         <div className='col-sm-12 col-md-4 col-lg-4'>
@@ -160,7 +162,7 @@ class Register extends Component {
                                                                             this.onChangeValue(e)
                                                                     }}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-mobile"/></span>
+                                                                <span className="has-icon"><i className="ti-mobile" /></span>
                                                                 <FormFeedback>Invalid</FormFeedback>
                                                             </FormGroup>
                                                         </div>
@@ -174,6 +176,7 @@ class Register extends Component {
                                                                     id="user-dob"
                                                                     className="has-input input-lg"
                                                                     placeholder="Date of Birth*"
+                                                                    max={`${new Date().getFullYear()}-${('00' + (new Date().getMonth() + 1)).slice(-2)}-${('00' + new Date().getDate()).slice(-2)}`}
                                                                     onChange={(e) => this.onChangeValue(e)}
                                                                 />
                                                                 <FormFeedback>Required</FormFeedback>
@@ -191,14 +194,19 @@ class Register extends Component {
                                                                     placeholder="Nationality*"
                                                                     onChange={(e) => this.onChangeValue(e)}
                                                                 />
-                                                                <span className="has-icon"><i className="ti-flag-alt-2"/></span>
+                                                                <span className="has-icon"><i className="ti-flag-alt-2" /></span>
                                                                 <FormFeedback>Required</FormFeedback>
                                                             </FormGroup>
                                                         </div>
                                                     </div>
-                                                    <Label>User Address</Label>
+                                                    <div className="text-left">
+                                                        <Label className="text-left">User Address</Label>
+                                                    </div>
                                                     <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
-                                                    <Label>User Documents</Label>
+
+                                                    <div className="text-left">
+                                                        <Label className="text-left">User Documents</Label>
+                                                    </div>
                                                     <DocumentIdentification
                                                         file={file}
                                                         docType={docType}

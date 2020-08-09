@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react'
 import ErrorBoundary from "Components/ErrorBoundary/index";
-import Controller from "../../controllers/dashboardController"
+import Controller from "../../controllers/homeController"
 import { NotificationContainer } from "react-notifications";
 import { connect } from 'react-redux';
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
@@ -23,7 +23,8 @@ class Index extends Component {
 
     state = {
         data: null,
-        loading: false
+        loading: false,
+        countryRate: 0
     };
 
     componentDidMount() {
@@ -41,40 +42,39 @@ class Index extends Component {
     }
 
     loadData() {
-        // Controller.loadData(this);
+        Controller.loadCompanyCharges(this);
     }
 
     onUserLogin() {
         this.props.history.push('/signin');
     }
 
-    signUp(){
+    signUp() {
         this.props.history.push('/signup');
     }
 
     render() {
         const {
-            loading
+            loading, countryRate
         } = this.state;
-        const countryRate = 83.29;
         return (
             <ErrorBoundary>
                 {loading &&
-                <div className="page-loader d-flex justify-content-center mb-30">
-                    <CircularProgress />
-                </div>
+                    <div className="page-loader d-flex justify-content-center mb-30">
+                        <CircularProgress />
+                    </div>
                 }
                 {!loading &&
-                <div id={"dashboard-wrapper"} className="dashboard-wrapper">
-                    <div className="">
-                        <SessionSlider/>
+                    <div id={"dashboard-wrapper"} className="dashboard-wrapper">
+                        <div className="">
+                            <SessionSlider />
+                        </div>
+                        <InstantSend countryRate={countryRate} onContinue={() => { this.onUserLogin() }} />
+                        <WhyChooseUs />
+                        <HowItWorks onSignUp={() => { this.signUp() }} />
                     </div>
-                    <InstantSend countryRate={countryRate} onContinue={()=>{this.onUserLogin()}}/>
-                    <WhyChooseUs/>
-                    <HowItWorks onSignUp={()=>{this.signUp()}}/>
-                </div>
                 }
-                <NotificationContainer/>
+                <NotificationContainer />
             </ErrorBoundary>
         )
     }

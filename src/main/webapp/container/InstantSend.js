@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {Form, FormGroup, Input } from 'reactstrap';
+import { Form, FormGroup, Input } from 'reactstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import QueueAnim from 'rc-queue-anim';
 import AppConfig from 'Constants/AppConfig';
@@ -9,18 +9,18 @@ import {
     signIn
 } from 'Actions';
 import SendMoney from "../components/SendMoney/SendMoney";
+import Controller from '../controllers/homeController'
 
 class InstantSend extends Component {
 
     state = {
-        email: '',
-        password: '',
-        confirmPassword : '',
-        showPassword : false
+        countryRate: 0,
+        serviceCharge: 0,
+        showPassword: false
     };
 
-    onKeyPress(event){
-        if(event.key === "Enter"){
+    onKeyPress(event) {
+        if (event.key === "Enter") {
             this.onUserSignUp();
         }
     }
@@ -39,31 +39,36 @@ class InstantSend extends Component {
         this.props.history.push('/signIn');
     }
 
+    componentDidMount() {
+        Controller.loadCompanyCharges(this)
+    }
+
+    changeState(data) {
+        this.setState(data)
+    }
     render() {
-        const { email, password, confirmPassword} = this.state;
-        const fee = 7.49;
-        const countryRate = 82.95;
+        const { serviceCharge, countryRate } = this.state;
         const { loading } = this.props;
         return (
             <QueueAnim type="bottom" duration={2000}>
                 <div className="app-horizontal rct-session-wrapper">
                     {loading &&
-                    <LinearProgress />
+                        <LinearProgress />
                     }
                     <div className="container-fluid px-0 h-100">
                         <div className="row no-gutters h-100">
                             <div className="col-md-6">
                                 <div className="hero-wrap d-flex align-items-center h-100">
-                                    <div className="hero-mask opacity-8"/>
-                                    <div className="hero-bg hero-bg-scroll"/>
+                                    <div className="hero-mask opacity-8" />
+                                    <div className="hero-bg hero-bg-scroll" />
                                     <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
                                         <div className="row no-gutters">
                                             <div className="col-10 col-lg-9 mx-auto">
                                                 <div className="logo mt-40 mb-5 mb-md-0">
                                                     <a className="d-flex"
-                                                       href="/"
-                                                       title="Hamro Remit">
-                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100}/>
+                                                        href="/"
+                                                        title="Hamro Remit">
+                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100} />
                                                     </a>
                                                 </div>
                                             </div>
@@ -83,7 +88,7 @@ class InstantSend extends Component {
                                         <div className="col-11 col-lg-9 col-xl-8 mx-auto">
                                             <h3 className="ml-5 mb-4">Send</h3>
                                             <SendMoney
-                                                fee={fee}
+                                                fee={serviceCharge}
                                                 countryRate={countryRate}
                                                 onContinue={() => this.onUserSignIn()}
                                             />

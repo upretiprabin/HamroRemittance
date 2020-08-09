@@ -4,110 +4,122 @@
 import React, { useState, useEffect } from 'react';
 
 // rct card box
-import { RctCardContent } from 'Components/RctCard';
-import { FormControl, InputLabel, Select, MenuItem, FormHelperText, Input } from '@material-ui/core';
+
+import Select from "../Select/Select";
+import { Form, FormGroup, Input, Label } from 'reactstrap';
 
 const StepOne = ({ saveData, countries, isError, formData }) => {
-    const [selectedCountry, setSelectedCountry] = useState('')
     const [ratesAndFees, setRatesAndFees] = useState({
-        convertTo: "****",
-        rate: "****",
-        fees: "****"
+        rate: 0,
+        fees: 0
     })
+    const [sendAmount, setSendAmount] = useState('')
+    const [receiveAmount, setReceiveAmount] = useState('')
+    useEffect(() => {
+        setRatesAndFees(
+            countries[0] ?
+                {
+                    rate: countries[0].rate,
+                    fees: countries[0].fees
+                } :
+                {
+                    rate: 0,
+                    fees: 0
+                })
+    }, [countries]);
     useEffect(() => {
         if (formData[0] != null) {
-            setSelectedCountry(formData[0].code)
-            onCountryChange({ target: { value: formData[0].code } })
+            setSendAmount(formData[0].send)
+            setReceiveAmount(formData[0].receive)
         }
     }, [])
+    const handleAmountChange = (e, target) => {
+        let amount = e.target.value
 
-    useEffect(() => {
-        if (countries.length > 0) {
-            const selected = countries.find(data => data.code == "1")
-            if (selected) {
-                setSelectedCountry("1")
-                setRatesAndFees({
-                    convertTo: selected.currency,
-                    rate: selected.rate,
-                    fees: selected.fees
-                })
-                saveData(selected)
-            }
+        if (!Number(amount) && amount != '') {
+            return;
         }
-    }, [countries])
-    const onCountryChange = (e) => {
-        setSelectedCountry(e.target.value)
-        const selected = countries.find(data => data.code === e.target.value)
-        if (selected) {
-            setRatesAndFees({
-                convertTo: selected.currency,
-                rate: selected.rate,
-                fees: selected.fees
-            })
-        } else {
-            setRatesAndFees({
-                convertTo: "****",
-                rate: "****",
-                fees: "****"
-            })
+        calcRates(amount, target);
+    }
+    const calcRates = (amount, target) => {
+        amount = amount == "" ? 0 : parseFloat(amount)
+        const conversionData = ratesAndFees
+        var send, receive
+        if (target == 'send') {
+            send = amount
+            receive = Math.floor((amount * conversionData.rate) * 100) / 100
+            setReceiveAmount(receive)
+            setSendAmount(amount == 0 ? '' : amount)
         }
-
-        saveData(selected ? selected : undefined)
+        if (target == "receive") {
+            receive = amount
+            send = Math.ceil((amount / conversionData.rate) * 100) / 100
+            setSendAmount(send)
+            setReceiveAmount(amount == 0 ? '' : amount)
+        }
+        saveData({ send: send, receive: receive, ...ratesAndFees })
     }
     return (
-        <div className="row" >
-            <div className='col-sm-6 col-md-4 w-xs-half-block'>
-                <RctCardContent>
-                    <div className='current-widget bg-info'>
-                        <div className="d-flex justify-content-around">
-                            <div className="form-group">
-                                <FormControl fullWidth>
-                                    <InputLabel htmlFor="country-helper">Send Money To:</InputLabel>
-                                    <Select value={selectedCountry} onChange={(e) => { onCountryChange(e) }}
-                                        input={<Input error={isError} name="country" id="country-helper" />}>
-                                        {countries?.map((country, index) => <MenuItem key={index} value={country.code}>{country.name}</MenuItem>)}
-                                    </Select>
-                                    <FormHelperText>Select country to view rates</FormHelperText>
-                                </FormControl>
+        <div className="col-md-12 d-flex align-items-center">
+            <div className="container my-4">
+
+                <Form>
+                    <div className="row">
+                        <div className="col-11 col-lg-6 mx-auto">
+                            <div className={"send-money ml-5"}>
+                                <FormGroup className={"text-left"}>
+                                    <Label for="recipientGets" className={isError ? "text-danger" : ""}>You Send</Label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">$</span>
+                                        </div>
+                                        <Input invalid={isError} className={"w-50"} type="text" name="youSend" id="youSend" value={sendAmount} onChange={e => handleAmountChange(e, 'send')} />
+                                        < div className="aud input-group-append select-country">
+                                            <Select
+                                                optionList={[
+                                                    {
+                                                        'id': 1,
+                                                        'name': 'AUD'
+                                                    }
+                                                ]}
+                                                selection={"AUD"}
+                                            />
+                                        </div>
+                                    </div>
+                                </FormGroup>
                             </div>
                         </div>
-
+                        <div className="col-11 col-lg-6 mx-auto">
+                            <div className={"send-money ml-5"}>
+                                <FormGroup className={"text-left"}>
+                                    <Label for="recipientGets" className={isError ? "text-danger" : ""}>Recipient Gets</Label>
+                                    <div className="input-group">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">Rs.</span>
+                                        </div>
+                                        <Input invalid={isError} className={"w-50"} type="text" name="recipientGets" id="recipientGets" value={receiveAmount} onChange={e => handleAmountChange(e, 'receive')} />
+                                        <div className="input-group-append">
+                                            <Select
+                                                optionList={[
+                                                    {
+                                                        'id': 1,
+                                                        'name': 'NPR'
+                                                    }
+                                                ]}
+                                                selection={"NPR"}
+                                            />
+                                        </div>
+                                    </div>
+                                </FormGroup>
+                            </div>
+                        </div>
                     </div>
-                </RctCardContent>
-            </div>
-            <div className='col-sm-6 col-md-4 w-xs-half-block'>
-                <RctCardContent >
-                    <CardDataWithIcon
-                        header='Rate per AUD'
-                        data={selectedCountry === '' ? '****' : `${ratesAndFees.rate} ${ratesAndFees.convertTo}`}
-                        iconRef='zmdi-money-box'
-                        colorCode='bg-primary' />
-                </RctCardContent>
-            </div>
-            <div className='col-sm-6 col-md-4 w-xs-half-block'>
-                <RctCardContent >
-                    <CardDataWithIcon
-                        header='Fees'
-                        data={`${ratesAndFees.fees} AUD`}
-                        iconRef='zmdi-money-off'
-                        colorCode='bg-success' />
-                </RctCardContent>
-            </div>
-        </div >
-    )
-}
-const CardDataWithIcon = ({ header, data, iconRef, colorCode }) => (
-    <div className={`current-widget ${colorCode}`}>
-        <div className="d-flex justify-content-between">
-            <div className="align-items-start">
-                <h3 className="mb-10">{header}</h3>
-                <h2 className="mb-0">{data}</h2>
-            </div>
-            <div className="align-items-end">
-                <i className={`zmdi ${iconRef}`}></i>
+                    <p className="mb-1 text-center">Total fees : <span className="font-weight-500">{ratesAndFees.fees} AUD</span></p>
+                    <p className="mb-1 text-center">The current exchange rate is <span className="font-weight-500">1 AUD = {ratesAndFees.rate} NPR</span></p>
+                    <p className="mb-1 text-center">You pay : <span className="font-weight-500">{sendAmount == "" ? 0 : sendAmount + ratesAndFees.fees} AUD</span></p>
+                </Form>
             </div>
         </div>
-    </div>
-);
-
+    )
+}
 export default StepOne;

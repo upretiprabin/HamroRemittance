@@ -28,7 +28,7 @@ const StepFour = ({ saveData, formData, isError }) => {
             setSelectedPurpose(formData[3].purposeOfTransfer)
         }
     }, [])
-    const receiver = formData[2];
+    const receiver = formData[1];
     return (
         <>
             <div className="row text-center" >

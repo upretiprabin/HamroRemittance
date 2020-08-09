@@ -17,6 +17,10 @@ export const passwordValidator = (value) => {
     const regx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
     return regx.test(value)
 }
+const australianPhoneValidator = (value) => {
+    const regx = /^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/
+    return regx.test(value)
+}
 
-const Validator = { isEmptyString, isNumber, emailValidator, phoneValidator, passwordValidator }
+const Validator = { isEmptyString, isNumber, emailValidator, phoneValidator, passwordValidator, australianPhoneValidator }
 export default Validator

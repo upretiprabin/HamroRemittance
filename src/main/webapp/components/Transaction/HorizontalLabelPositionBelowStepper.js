@@ -11,20 +11,20 @@ import StepFour from './_StepFour';
 import { SnackbarContent, Snackbar } from '@material-ui/core';
 
 function getSteps() {
-    return ['Transaction details', 'Payment and amount details', 'Select Receiver', 'Receiver Details', 'Review Transaction'];
+    return ['Transaction details', 'Select Receiver', 'Receiver Details', 'Review Transaction'];
 }
 
 function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo, countries, addReceiver, error) {
     switch (stepIndex) {
         case 0:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} countries={countries} isError={error} formData={data} />
+        // case 1:
+        //     return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 1:
-            return <StepTwo saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
-        case 2:
             return <StepThree saveData={(obj) => saveStepData(obj, stepIndex)} receiverInfo={receiverInfo} isError={error} addReceiver={addReceiver} formData={data} />
-        case 3:
+        case 2:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
-        case 4:
+        case 3:
             return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} isError={error} />
         default:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
@@ -42,37 +42,37 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     handleNext = () => {
         const { activeStep, stepsData } = this.state;
         var updatedState;
-
+        console.log(stepsData)
         switch (activeStep) {
             case 0:
                 if (typeof (stepsData[activeStep]) != 'undefined') {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
-                    this.setError('Please select country!')
-                }
-                break
-            case 1:
-                if ((stepsData[activeStep] != null && stepsData[activeStep]?.send != '')) {
-                    updatedState = { activeStep: activeStep + 1 }
-                } else {
                     this.setError('Please input amount to be sent!')
                 }
                 break
-            case 2:
+            // case 1:
+            //     if ((stepsData[activeStep] != null && stepsData[activeStep]?.send != '')) {
+            //         updatedState = { activeStep: activeStep + 1 }
+            //     } else {
+            //         this.setError('Please input amount to be sent!')
+            //     }
+            //     break
+            case 1:
                 if (!(stepsData[activeStep] == null)) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
                     this.setError('Please select recipient!')
                 }
                 break
-            case 3:
+            case 2:
                 if (!!stepsData[activeStep] && !!(stepsData[activeStep]?.purposeOfTransfer != '') && !!(stepsData[activeStep]?.sourceOfFund != '')) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
                     this.setError('Please select purpose of transaction and source of funds!')
                 }
                 break
-            case 4:
+            case 3:
                 if (stepsData[activeStep] == true) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
@@ -87,17 +87,17 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     };
 
     saveTransaction = () => {
-        if (this.state.activeStep == 4 && this.state.stepsData[4] == true) {
+        if (this.state.activeStep == 3 && this.state.stepsData[3] == true) {
             let postData = {
-                "sendMoneyTo": this.state.stepsData[0].name,
+                "sendMoneyTo": 'Nepal',
                 "senderId": this.props.senderInfo._id,
-                "receiverId": this.state.stepsData[2]._id,
-                "subTotal": this.state.stepsData[1].send,
-                "total": this.state.stepsData[1].send + this.state.stepsData[0].fees,
-                "exchangedTotal": this.state.stepsData[1].receive,
+                "receiverId": this.state.stepsData[1]._id,
+                "subTotal": this.state.stepsData[0].send,
+                "total": this.state.stepsData[0].send + this.state.stepsData[0].fees,
+                "exchangedTotal": this.state.stepsData[0].receive,
                 "currency": "AUD",
-                "transactionReason": this.state.stepsData[3].purposeOfTransfer,
-                "sourceOfFund": this.state.stepsData[3].sourceOfFund,
+                "transactionReason": this.state.stepsData[2].purposeOfTransfer,
+                "sourceOfFund": this.state.stepsData[2].sourceOfFund,
                 "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
             };
             this.props.saveTransaction(postData)
@@ -152,7 +152,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     render() {
         const steps = getSteps();
         const { activeStep } = this.state;
-        const { senderInfo, receiverInfo , countries } = this.props
+        const { senderInfo, receiverInfo, countries } = this.props
         return (
             <div>
                 <Snackbar
