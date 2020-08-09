@@ -5,8 +5,12 @@ import com.remitapp.TransactionStatus
 import com.remitapp.um.*
 import grails.plugin.springsecurity.SecurityFilterPosition
 import grails.plugin.springsecurity.SpringSecurityUtils
+import grails.converters.JSON
 
 class BootStrap {
+    def customerService
+    def bankDetailsService
+    def customerAddressService
 
     def init = { servletContext ->
 
@@ -15,14 +19,15 @@ class BootStrap {
 
 //        def adminRole = new Role(authority: 'ROLE_ADMIN').save()
 //
-//        def testUser = new User(username: 'admin', password: 'admin').save()
+      /*  def testUser = new User(username: 'tbikash@gmail.com', password: 'admin').save()
+//        def testUser = User.findById(2)
 //
-//        UserRole.create testUser, adminRole
+       UserRole.create testUser, adminRole
 //
-//        UserRole.withSession {
-//            it.flush()
-//            it.clear()
-//        }
+        UserRole.withSession {
+            it.flush()
+            it.clear()
+        }*/
 //
 //        assert User.count() == 1
 //        assert Role.count() == 1
@@ -111,7 +116,67 @@ class BootStrap {
         transactionStatus9.statusId = "paidInNepal"
         transactionStatus9.statusDesc = "Paid In Nepal"
         transactionStatus9.save(flush:true, failOnError: true)*/
+/*
+
+              def json = """{
+  "firstName": "admin",
+  "middleName": "Kumar",
+  "lastName": "admin",
+  "phoneNumber": "9843462869",
+  "dateOfBirth": "09/15/1992",
+  "nationality": "nepali",
+  "sender": true,
+  "emailAddress": "admin@gmail.com",
+  "addressLineOne":"ktm",
+  "addressLineTwo":"NP",
+  "suburbCity":"ktmandu",
+  "country":"Australia",
+  "stateProvince":"bagmati",
+  "zipCode": "0099",
+  "bankName":"Himalayan Bank",
+  "branchId":"KathmanduNP",
+  "accountNumber":"123456"
+  }"""
+
+        def newParams = JSON.parse(json)
+
+        def addressParams = [:]
+        addressParams.addressLineOne = newParams.addressLineOne
+        addressParams.addressLineTwo = newParams.addressLineTwo
+        addressParams.suburbCity = newParams.suburbCity
+        addressParams.country = newParams.country
+        addressParams.stateProvince = newParams.stateProvince
+        addressParams.zipCode = newParams.zipCode
+
+        def bankDetails = [:]
+        bankDetails.bankName = newParams.bankName
+        bankDetails.branchId = newParams.branchId
+        bankDetails.accountNumber = newParams.accountNumber
+        //TODO: remove addressParams from newParams
+
+
+        def result = customerService.saveCustomer(newParams)
+        println "result ===== $result"
+        if(result.error){
+        }else{
+            def savedCustomer = result.customer
+            println "{savedCustomer.id} = ${savedCustomer.id}"
+
+            def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
+            println "bankDetailsResult = $bankDetailsResult"
+
+            def addressResult = customerAddressService.saveAddress(addressParams)
+            def savedAddress = addressResult.address
+            println "{savedAddress.id} = ${savedAddress.id}"
+            def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
+            println "finalResult = $finalResult"
+        }
+
     }
-    def destroy = {
+*/
+
+        println "------DEPLOYED----"
+        def destroy = {
+        }
     }
 }
