@@ -5,16 +5,27 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
+const isHome = ()=>{
+    return location.pathname.includes("home");
+};
+
 const Footer = () => (
    <div className="rct-footer footer d-flex justify-content-between align-items-center">
        <div className="container">
            <div className="row">
                <div className="col-lg d-lg-flex align-items-center">
                    <ul className="nav justify-content-center justify-content-lg-start text-3">
-                       <li className="nav-item"><a className="nav-link" href="#">About Us</a></li>
-                       <li className="nav-item"><a className="nav-link" href="#">Support</a></li>
-                       <li className="nav-item"><a className="nav-link" href="#">FAQ</a></li>
-                       <li className="nav-item"><a className="nav-link" href="#">How it works</a></li>
+                       <li className="nav-item"><Link className="nav-link" to="/about-us">About Us</Link></li>
+                       <li className="nav-item"><Link className="nav-link" to="#">Support</Link></li>
+                       <li className="nav-item">
+                           {isHome() &&
+                           <a className="nav-link" href={"/home#how-it-works"} >How it works</a>
+                           }
+                           {!isHome() &&
+                           <Link className="nav-link" to={"/app/how-it-works"} >How it works</Link>
+                           }
+                       </li>
+                       <li className="nav-item"><Link className="nav-link" to="/terms-and-conditions">Terms & Conditions</Link></li>
                    </ul>
                </div>
                <div className="col-lg d-lg-flex justify-content-lg-end mt-3 mt-lg-0">
@@ -62,13 +73,6 @@ const Footer = () => (
                    <div className="col-lg">
                        <p className="text-center text-lg-left mb-2 mb-lg-0">Copyright © 2020 <a href="#">Hamro Remit</a>. All
                            Rights Reserved.</p>
-                   </div>
-                   <div className="col-lg d-lg-flex align-items-center justify-content-lg-end">
-                       <ul className="nav justify-content-center">
-                           <li className="nav-item"><a className="nav-link" href="#">Security</a></li>
-                           <li className="nav-item"><a className="nav-link" href="#">Terms</a></li>
-                           <li className="nav-item"><a className="nav-link" href="#">Privacy</a></li>
-                       </ul>
                    </div>
                </div>
            </div>

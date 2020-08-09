@@ -66,6 +66,9 @@ class HorizontalMenu extends Component {
                                         <Link to={"/app/how-it-works"} ><span className={"header-menu"}>HOW IT WORKS</span></Link>
                                     }
                                 </li>
+                                <li className="list-inline-item">
+                                    <Link to={"/about-us"}><span className={"header-menu"}>ABOUT US</span></Link>
+                                </li>
                                 {!user &&
                                     <li className="list-inline-item">
                                         <Link to={"/signin"}><span className={"header-menu"}>LOG IN</span></Link>
