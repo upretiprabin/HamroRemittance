@@ -113,8 +113,8 @@ environments:
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            url: jdbc:mysql://localhost:3306/hamro_remit
             properties:
                 jmxEnabled: true
                 initialSize: 5
@@ -139,8 +139,8 @@ grails:
     mail:
         host: "smtp.gmail.com"
         port: 465
-        username: ""
-        password: ""
+        username: "hamro.remittance578@gmail.com"
+        password: "Pawd@remit"
         props:
             mail.smtp.auth: "true"
             mail.smtp.socketFactory.port: "465"
