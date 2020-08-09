@@ -154,4 +154,21 @@ class CustomerController {
         }
 
     }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getCustomerPersonalInfo(){
+        def customerParams = request.JSON
+        try{
+            def personalDetails = customerService.getCustomerPersonalInfo(customerParams)
+            println "personalDetails = $personalDetails"
+            if(personalDetails){
+                render(["result":personalDetails] as JSON)
+            }else{
+                render (["Error":"Error occurred while fetching customer details."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching customer details."] as JSON)
+        }
+    }
 }
