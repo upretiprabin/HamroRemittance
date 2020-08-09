@@ -29,9 +29,12 @@ class CustomerController {
         addressParams.zipCode = newParams.zipCode
 
         def bankDetails = [:]
-        bankDetails.bankName = newParams.bankName
-        bankDetails.branchId = newParams.branchId
-        bankDetails.accountNumber = newParams.accountNumber
+        if(params?.receiver){
+            bankDetails.bankName = newParams.bankName
+            bankDetails.branchId = newParams.branchId
+            bankDetails.accountNumber = newParams.accountNumber
+        }
+
         //TODO: remove addressParams from newParams
 
         try{
@@ -43,8 +46,10 @@ class CustomerController {
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
-                println "bankDetailsResult = $bankDetailsResult"
+                if(params?.receiver) {
+                    def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
+                    println "bankDetailsResult = $bankDetailsResult"
+                }
 
                 def addressResult = customerAddressService.saveAddress(addressParams)
                 def savedAddress = addressResult.address
@@ -61,7 +66,6 @@ class CustomerController {
     }
 
     def updateCustomer(){
-
         def customerParams = request.JSON
         def addressParams = [:]
         addressParams.customerId = customerParams.customerId
@@ -73,10 +77,12 @@ class CustomerController {
         addressParams.zipCode = customerParams.zipCode
 
         def bankDetails = [:]
-        bankDetails.customerId = customerParams.customerId
-        bankDetails.bankName = customerParams.bankName
-        bankDetails.branchId = customerParams.branchId
-        bankDetails.accountNumber = customerParams.accountNumber
+        if(params?.receiver) {
+            bankDetails.customerId = customerParams.customerId
+            bankDetails.bankName = customerParams.bankName
+            bankDetails.branchId = customerParams.branchId
+            bankDetails.accountNumber = customerParams.accountNumber
+        }
         //TODO: remove addressParams from newParams
 
         try{
@@ -88,8 +94,10 @@ class CustomerController {
                 def savedCustomer = result?.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                def bankDetailsResult = bankDetailsService.updateBankDetails(savedCustomer, bankDetails)
-                println "bankDetailsResult ==== $bankDetailsResult"
+                if(params?.receiver) {
+                    def bankDetailsResult = bankDetailsService.updateBankDetails(savedCustomer, bankDetails)
+                    println "bankDetailsResult ==== $bankDetailsResult"
+                }
 
                 def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
                 def savedAddress = addressResult.address
