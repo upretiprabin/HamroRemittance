@@ -16,6 +16,12 @@ class UserController {
         render (['result':user] as JSON)
     }
 
+    //TODO implement session handling
+    def checkSession(){
+        def username = springSecurityService.principal?.username
+        render (['result':username] as JSON)
+    }
+
     def logout(){
         session.invalidate()
         render (["result":"User logged out"] as JSON)

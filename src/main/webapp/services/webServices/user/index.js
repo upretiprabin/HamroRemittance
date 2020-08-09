@@ -13,7 +13,6 @@ const defaultConfig = (data) => ({
     data
 });
 
-
 /**
  * login
  */
@@ -65,6 +64,14 @@ const verifyUser = (data) => {
     return requestHandler.loadData(URL.VERIFY_USER, config)
 }
 
+const checkSession = (username) => {
+    let data = {
+        username
+    };
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.CHECK_SESSION, config)
+}
+
 const registerUser = (data) =>{
     let config = defaultConfig(data);
     /**TODO remove fake data and call endpoint after data has all keys present */
@@ -80,5 +87,6 @@ export default {
     userRegistration,
     sendVerificationCode,
     saveUserDetails,
-    verifyUser
+    verifyUser,
+    checkSession
 }

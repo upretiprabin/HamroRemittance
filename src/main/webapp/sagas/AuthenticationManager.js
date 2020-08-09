@@ -61,6 +61,12 @@ export function getUserView(user){
 }
 
 /**
+ * Check user session
+ * */
+export const authenticateUser = ()=>
+    middleware.User.checkSession(userFromLocalStorage()?.username);
+
+/**
  * Signin User With Email & Password
  */
 export function* signInUserWithEmailPassword({ payload }) {

@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -24,7 +23,6 @@ import { getAppLayout } from "Helpers/helpers";
 import Notifications from './Notifications';
 import ChatSidebar from './ChatSidebar';
 import DashboardOverlay from '../DashboardOverlay/DashboardOverlay';
-import LanguageProvider from './LanguageProvider';
 import SearchForm from './SearchForm';
 import QuickLinks from './QuickLinks';
 import MobileSearchForm from './MobileSearchForm';
@@ -130,7 +128,6 @@ class Header extends Component {
 								</a>
 							</Tooltip>
 						</li>
-						<LanguageProvider />
 						<Notifications />
 						<li className="list-inline-item setting-icon">
 							<Tooltip title="Chat" placement="bottom">

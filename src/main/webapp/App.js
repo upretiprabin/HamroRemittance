@@ -10,7 +10,9 @@ import './lib/reactifyCss';
 import App from './container/App';
 import store from './store';
 import { NotificationContainer } from 'react-notifications';
+import {checkUserSession} from "Actions";
 
+store.dispatch(checkUserSession(true));
 const MainApp = () => (
 	<Provider store={store}>
 		<MuiPickersUtilsProvider utils={MomentUtils}>

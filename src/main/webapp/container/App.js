@@ -20,6 +20,9 @@ import InstantSend from "./InstantSend";
 import Verify from "./Verify";
 import Register from "./Register";
 import HomeLayout from "../routes/home/HomeLayout";
+import log from '../services/loggerService';
+import {checkUserSession,logoutUser,userLoaded} from 'Actions';
+import {authenticateUser} from '../sagas/AuthenticationManager';
 
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
@@ -42,8 +45,25 @@ class App extends Component {
 
     _isMounted = false;
 
-    componentWillUnmount(){
-        this._isMounted = false;
+    componentDidMount(){
+        this._isMounted = true;
+        const {user,checkSession} = this.props;
+        if(user && checkSession){
+            log.info("Checking user session !!!");
+            this.checkUserSession();
+        }
+        this.props.checkUserSession(false);
+    }
+
+    checkUserSession(){
+        authenticateUser()
+            .then(()=>{
+                this.props.userLoaded();
+            })
+            .catch(()=>{
+                if(this._isMounted)
+                    this.props.logoutUser("Expired")
+            })
     }
 
     render() {
@@ -79,8 +99,8 @@ class App extends Component {
 
 // map state to props
 const mapStateToProps = ({ authUser }) => {
-    const { user } = authUser;
-    return { user };
+    const { user,checkSession } = authUser;
+    return { user,checkSession };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps,{checkUserSession,logoutUser,userLoaded})(App);
