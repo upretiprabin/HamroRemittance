@@ -20,7 +20,7 @@ const SendMoneyNow = ({ }) => {
                     <Table aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Todays Rate</TableCell>
+                                <TableCell align="center">Today's Rate</TableCell>
                                 <TableCell align="center">Fees</TableCell>
                             </TableRow>
                         </TableHead>

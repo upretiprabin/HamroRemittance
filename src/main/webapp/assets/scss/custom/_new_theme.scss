@@ -21,6 +21,9 @@
   .text-4{
     font-size: 1.125rem !important;
   }
+  .text-5 {
+    font-size: 1.3125rem !important;
+  }
   .text-3{
     font-size: 1rem !important;
   }
@@ -49,12 +52,14 @@
     padding: 5.5rem 0;
   }
 
-  a, a:focus {
+  a:not(.btn), a:focus:not(.btn) {
     color: $primary-btn;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
-
+  .bg-dark {
+    background-color: #111418 !important;
+  }
   .bg-dark-3 {
     background-color: #2b343c !important;
   }
@@ -66,6 +71,9 @@
   }
   .opacity-8 {
     opacity: 0.8;
+  }
+  .opacity-5 {
+    opacity: 0.5;
   }
   .card-img {
     width: 100%;
@@ -251,5 +259,45 @@
   .input-group-prepend{
     border : 1px solid $primary-border !important;
     border-right: 0 !important;
+  }
+
+  .btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+  }
+
+  .btn-outline-light:hover{
+    color: $primary-btn !important;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+  }
+  .rounded-lg {
+    border-radius: .3rem!important;
+  }
+  @media (min-width: 992px){
+    .mt-lg-n5, .my-lg-n5 {
+      margin-top: -3rem!important;
+    }
+  }
+
+  @media (min-width: 992px){
+    .pl-lg-5, .px-lg-5 {
+      padding-left: 3rem!important;
+    }
+  }
+  @media (min-width: 992px){
+    .pr-lg-5, .px-lg-5 {
+      padding-right: 3rem!important;
+    }
+  }
+  .bg-blue-gray{
+    background: $blue-gray;
+  }
+
+  .btn:not(.header-menu-btn){
+    padding: .8rem 2rem !important;
+    font-weight: 500 !important;
   }
 }
