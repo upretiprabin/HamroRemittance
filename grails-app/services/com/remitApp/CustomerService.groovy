@@ -155,4 +155,20 @@ class CustomerService {
         }
         return returnMap
     }
+
+    def getReceiversList(def cParams){
+        def returunList = []
+        def receivers = Receiver.findAllBySenderId(Customer.findByEmailAddress(cParams.emailAddress)?.id)
+        if(receivers){
+            receivers.each {eachReceiver ->
+                def eachMap = [:]
+                eachMap.id = eachReceiver.id
+                eachMap.receiverEmail = eachReceiver.emailAddress
+                eachMap.name = eachReceiver.firstName + " " + eachReceiver.middleName + " " + eachReceiver.lastName
+                returunList.add(eachMap)
+            }
+        }
+        println "returunList === $returunList"
+        return returunList
+    }
 }

@@ -188,4 +188,20 @@ class CustomerController {
             render (["Error":"Error occurred while fetching customer transactions."] as JSON)
         }
     }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getReceiversList(){
+        def customerParams = request.JSON
+        try{
+            def receivers = customerService.getReceiversList(customerParams)
+            if(receivers){
+                render(["result":receivers] as JSON)
+            }else{
+                render (["Error":"No receivers found."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching receivers list."] as JSON)
+        }
+    }
 }
