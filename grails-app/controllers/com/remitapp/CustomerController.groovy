@@ -171,4 +171,21 @@ class CustomerController {
             render (["Error":"Error occurred while fetching customer details."] as JSON)
         }
     }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getCustomerTransactions(){
+        def customerParams = request.JSON
+        try{
+            def transactions = transactionService.getCustomerTransactions(customerParams)
+            println "transactions = $transactions"
+            if(transactions){
+                render(["result":transactions] as JSON)
+            }else{
+                render (["Error":"No transactions found."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching customer transactions."] as JSON)
+        }
+    }
 }
