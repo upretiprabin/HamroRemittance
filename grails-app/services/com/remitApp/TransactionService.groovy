@@ -1,14 +1,6 @@
 package com.remitapp
 
-import com.remitapp.CashPickUp
-import com.remitapp.CompanyCharges
-import com.remitapp.Customer
-import com.remitapp.OrderDetails
-import com.remitapp.PayingAgentDetails
-import com.remitapp.Receiver
-import com.remitapp.Sender
-import com.remitapp.Transaction
-import com.remitapp.TransactionStatus
+
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -129,12 +121,33 @@ class TransactionService {
 
     def deleteTransactionById(transactionParams){
         def returnMessage = [:]
-        Transaction transaction = Transaction.findById(transactionParams.transactionId)
+        Transaction transaction = Transaction.findById(transactionParams?.transactionId)
         if(transaction){
             deleteOrderDetails(transaction)
             deleteTransaction(transaction)
             returnMessage['message'] = "Transaction successfully deleted."
         }
         return returnMessage
+    }
+
+    def getCustomerTransactions(trnParams){
+        def returnList = []
+        def transactions = Transaction.findAllBySender(Sender.findByEmailAddress(trnParams?.emailAddress))
+        if(transactions){
+            transactions.each { eachTxn ->
+                def returnMap = [:]
+                OrderDetails orderDetails = OrderDetails.findByTransaction(eachTxn)
+                if(orderDetails){
+                    returnMap.id = eachTxn.id
+                    returnMap.total = eachTxn.total
+                    returnMap.receiver = eachTxn.receiver.firstName +" "+eachTxn.receiver.middleName +" "+ eachTxn.receiver.lastName
+                    returnMap.receiverEmail = eachTxn.receiver.emailAddress
+                    returnMap.status = orderDetails.status
+                }
+                returnList.add(returnMap)
+            }
+        }
+        println "returnMap = $returnList"
+        return returnList
     }
 }

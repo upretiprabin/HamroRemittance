@@ -154,4 +154,54 @@ class CustomerController {
         }
 
     }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getCustomerPersonalInfo(){
+        def customerParams = request.JSON
+        try{
+            def personalDetails = customerService.getCustomerPersonalInfo(customerParams)
+            println "personalDetails = $personalDetails"
+            if(personalDetails){
+                render(["result":personalDetails] as JSON)
+            }else{
+                render (["Error":"Error occurred while fetching customer details."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching customer details."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getCustomerTransactions(){
+        def customerParams = request.JSON
+        try{
+            def transactions = transactionService.getCustomerTransactions(customerParams)
+            println "transactions = $transactions"
+            if(transactions){
+                render(["result":transactions] as JSON)
+            }else{
+                render (["Error":"No transactions found."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching customer transactions."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getReceiversList(){
+        def customerParams = request.JSON
+        try{
+            def receivers = customerService.getReceiversList(customerParams)
+            if(receivers){
+                render(["result":receivers] as JSON)
+            }else{
+                render (["Error":"No receivers found."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while fetching receivers list."] as JSON)
+        }
+    }
 }

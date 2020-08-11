@@ -1,8 +1,5 @@
 package com.remitapp
 
-import com.remitapp.Customer
-import com.remitapp.Receiver
-import com.remitapp.Sender
 import com.remitapp.um.User
 
 //import grails.gorm.transactions.Transactional
@@ -146,5 +143,32 @@ class CustomerService {
     def deleteCustomer(Customer customer){
         println "customer === $customer"
         customer.delete(failOnError: true, flush:  true)
+    }
+
+    def getCustomerPersonalInfo( def customerParams){
+        def returnMap = [:]
+        def customer = Customer.findByEmailAddress(customerParams.emailAddress)
+        if(customer){
+            returnMap.name = customer.firstName + " " + customer.middleName + " " + customer.lastName
+            returnMap.emailAddress = customer.emailAddress
+            returnMap.phoneNumber = customer.phoneNumber
+        }
+        return returnMap
+    }
+
+    def getReceiversList(def cParams){
+        def returunList = []
+        def receivers = Receiver.findAllBySenderId(Customer.findByEmailAddress(cParams.emailAddress)?.id)
+        if(receivers){
+            receivers.each {eachReceiver ->
+                def eachMap = [:]
+                eachMap.id = eachReceiver.id
+                eachMap.receiverEmail = eachReceiver.emailAddress
+                eachMap.name = eachReceiver.firstName + " " + eachReceiver.middleName + " " + eachReceiver.lastName
+                returunList.add(eachMap)
+            }
+        }
+        println "returunList === $returunList"
+        return returunList
     }
 }
