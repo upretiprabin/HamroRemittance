@@ -129,7 +129,7 @@ class CustomerService {
     }
 
     def deleteAllReceivers(customerParams){
-        def receivers = Customer.findAllBySenderId(customerParams.customerId)
+        def receivers = Customer.findAllBySenderEmailAddress(customerParams.userName)
         println "receivers ==== $receivers"
         receivers.each{ receiver ->
             deleteReceiver(receiver)
