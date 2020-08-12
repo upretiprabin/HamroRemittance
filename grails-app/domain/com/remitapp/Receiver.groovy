@@ -2,7 +2,7 @@ package com.remitapp
 
 class Receiver extends Customer{
 
-    int senderId
+    String senderEmailAddress
     String relationshipToSender
 
     static constraints = {
