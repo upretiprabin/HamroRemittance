@@ -14,9 +14,11 @@ class CustomerService {
     def saveCustomer(params){
         def result = [:]
 
-        User user = User.findByUsername(params.emailAddress)
-        if(!user){
-            throw new CustomException("User not found! Please create your account first")
+        if(params?.sender){
+            User user = User.findByUsername(params.emailAddress)
+            if(!user){
+                throw new CustomException("User not found! Please create your account first")
+            }
         }
 
         //check email
@@ -91,7 +93,7 @@ class CustomerService {
         receiver.lastName = params.lastName
         receiver.phoneNumber = params.phoneNumber
         receiver.emailAddress = params.emailAddress
-        receiver.senderId = params.senderId
+        receiver.senderEmailAddress = params.senderEmailAddress
         receiver.relationshipToSender = params.relationshipToSender
         receiver.save(failOnError: true, flush: true)
         return receiver
@@ -104,7 +106,7 @@ class CustomerService {
         receiver.lastName = params.lastName
         receiver.phoneNumber = params.phoneNumber
         receiver.emailAddress = params.emailAddress
-        receiver.senderId = params.senderId
+        receiver.senderEmailAddress = params.senderEmailAddress
         receiver.relationshipToSender = params.relationshipToSender
         receiver.save(failOnError: true, flush: true)
         return receiver
@@ -127,7 +129,7 @@ class CustomerService {
     }
 
     def deleteAllReceivers(customerParams){
-        def receivers = Customer.findAllBySenderId(customerParams.customerId)
+        def receivers = Customer.findAllBySenderEmailAddress(customerParams.userName)
         println "receivers ==== $receivers"
         receivers.each{ receiver ->
             deleteReceiver(receiver)

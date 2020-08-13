@@ -65,6 +65,7 @@ class CustomerController {
 
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def updateCustomer(){
         def customerParams = request.JSON
         def addressParams = [:]
@@ -113,7 +114,7 @@ class CustomerController {
 
     def deleteCustomer(){
         def customerParams = request.JSON
-        Customer customer = Customer.findById(customerParams.customerId)
+        Customer customer = Customer.findByEmailAddress(customerParams.userName)
         try{
             if(customerParams.receiver){
                 if(!customer){
@@ -125,7 +126,7 @@ class CustomerController {
                 System.out.println("--delete success--receiver-")
                 render(["result":["message":"Receiver deleted successfully."]] as JSON)
             }else if(customerParams.sender){
-                Sender sender = Sender.findById(customerParams.customerId)
+                Sender sender = Sender.findByEmailAddress(customerParams.userName)
                 if(!customer){
                     render(["Error":"No sender to delete."] as JSON)
                     return
