@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Controller from "../../controllers/dashboardController"
+import { getRandomColor } from '../../util/helpers';
+
+import { phoneNumberFormatter } from '../../util/Formatter'
+
 const UserProfileCard = ({ }) => {
     const [userData, setUserData] = useState({
         firstName: "",
@@ -10,7 +14,7 @@ const UserProfileCard = ({ }) => {
         phone: ""
     })
     useEffect(() => {
-        Controller.loadUserProfileData({setUserData});
+        Controller.loadUserProfileData({ setUserData });
     }, [])
 
 
@@ -27,13 +31,14 @@ const UserProfileCard = ({ }) => {
                     <div className="card text-right">
                         <div className="media">
                             <div className="media-left mr-25">
-                                <img src={userData.userImage} className="img-fluid rounded-circle" alt="user profile" width="100" height="100" />
+                                {userData.img === "" && <img src={userData.userImage} className="img-fluid rounded-circle" alt="user profile" width="100" height="100" />}
+                                {userData.img !== "" && <div className="user-image-alt-md p-10" style={{ background: getRandomColor() }}>{`${userData.firstName[0]} ${userData.lastName[0]}`}</div>}
                             </div>
                             <div className="media-body pt-10">
                                 <span className="mb-5 text-primary fs-14 d-block">Hello,</span>
                                 <h4 className="mb-5">{name}</h4>
                                 <span className="text-muted fs-14 mb-15 d-block"><i className="zmdi zmdi-email"></i> {userData.email}</span>
-                                <span className="text-muted fs-14 mb-15 d-block"><i className="zmdi zmdi-phone"></i> {userData.phone}</span>
+                                <span className="text-muted fs-14 mb-15 d-block"><i className="zmdi zmdi-phone"></i> {phoneNumberFormatter(userData.phone)}</span>
                             </div>
                         </div>
                     </div>

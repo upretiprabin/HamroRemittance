@@ -43,9 +43,6 @@ class Index extends Component {
         Controller.loadReceivers(this);
         Controller.loadCompanyCharges(this);
     }
-    postData(data) {
-        Controller.postData(this, data);
-    }
     addReceiver(data) {
         Controller.addReceiver(this, data);
     }
@@ -75,7 +72,6 @@ class Index extends Component {
                                     senderInfo={sender}
                                     receiverInfo={receivers}
                                     countries={countries}
-                                    saveTransaction={data => this.postData(data)}
                                     addReceiver={data => { this.addReceiver(data) }} />
                             </RctCollapsibleCard>
                         </div>

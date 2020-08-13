@@ -8,7 +8,9 @@ import StepTwo from './_StepTwo';
 import StepThree from './_StepThree';
 import StepFive from './_StepFive';
 import StepFour from './_StepFour';
-import { SnackbarContent, Snackbar } from '@material-ui/core';
+import { SnackbarContent, Snackbar, Fab } from '@material-ui/core';
+import NavigateNext from '@material-ui/icons/NavigateNext';
+import NavigateBefore from '@material-ui/icons/NavigateBefore';
 
 function getSteps() {
     return ['Transaction details', 'Select Receiver', 'Receiver Details', 'Review Transaction'];
@@ -86,23 +88,11 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
         this.setState(updatedState);
     };
 
-    saveTransaction = () => {
-        if (this.state.activeStep == 3 && this.state.stepsData[3] == true) {
-            let postData = {
-                "sendMoneyTo": 'Nepal',
-                "senderId": this.props.senderInfo._id,
-                "receiverId": this.state.stepsData[1]._id,
-                "subTotal": this.state.stepsData[0].send,
-                "total": this.state.stepsData[0].send + this.state.stepsData[0].fees,
-                "exchangedTotal": this.state.stepsData[0].receive,
-                "currency": "AUD",
-                "transactionReason": this.state.stepsData[2].purposeOfTransfer,
-                "sourceOfFund": this.state.stepsData[2].sourceOfFund,
-                "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
-            };
-            this.props.saveTransaction(postData)
-        }
-    }
+    // saveTransaction = () => {
+
+    //         this.props.saveTransaction(postData)
+    //     }
+    // }
     addReceiver = (data) => {
         let postData = {
             firstName: data.fName,
@@ -111,7 +101,6 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
             relationshipToSender: data.relation,
             phoneNumber: data.phone,
             emailAddress: data.email,
-            senderId: this.props.senderInfo._id,
             receiver: true,
             addressLineOne: data.aLine1,
             addressLineTwo: data.aLine2,
@@ -140,7 +129,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     saveStepData = (data, index) => {
         const updatedStepData = [...this.state.stepsData]
         updatedStepData[index] = data
-        this.setState({ stepsData: updatedStepData }, this.saveTransaction)
+        this.setState({ stepsData: updatedStepData })
         this.setError('');
     }
     setError = (errorMessage) => {
@@ -178,17 +167,44 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                         </div>
                     ) : (
                             <div className="pl-40">
+                                <div className="row">
+                                    <div className="col-6 text-left">
+                                        {this.state.activeStep != 0 ?
+                                            <span className='mr-10 ml-10' title="Back">
+                                                <Fab color="primary" disabled={activeStep === 0} onClick={this.handleBack}>
+                                                    <NavigateBefore />
+                                                </Fab>
+                                            </span>
+                                            : ''
+                                        }
+                                    </div>
+                                    <div className="col-6 text-right">
+                                        <span className='mr-10 ml-10' title="Next">
+                                            <Fab color="primary" onClick={this.handleNext}>
+                                                <NavigateNext />
+                                            </Fab>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, receiverInfo, countries, this.addReceiver, this.state.isError)}</div>
-                                {this.state.activeStep != 0 ?
-                                    <Button variant="contained" className="btn-danger text-white mr-10 mb-10" disabled={activeStep === 0} onClick={this.handleBack}>
-                                        Back
-                                    </Button>
-                                    : ''
-                                }
+                                <div className="text-center">
+                                    {this.state.activeStep != 0 ?
+                                        <span className='mr-10 ml-10'>
+                                            <Fab variant="extended" color="secondary" disabled={activeStep === 0} onClick={this.handleBack}>
+                                                <NavigateBefore />
+                                            Back
+                                        </Fab>
+                                        </span>
+                                        : ''
+                                    }
 
-                                <Button variant="contained" color="primary" className="text-white mr-10 mb-10" onClick={this.handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
+                                    <span className='mr-10 ml-10'>
+                                        <Fab variant="extended" color="primary" onClick={this.handleNext}>
+                                            Next
+                                    <NavigateNext />
+                                        </Fab>
+                                    </span>
+                                </div>
                             </div>
                         )}
                 </div>

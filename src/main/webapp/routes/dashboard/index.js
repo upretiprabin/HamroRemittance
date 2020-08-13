@@ -68,7 +68,6 @@ class Index extends Component {
                                 <div className="col-sm-12 col-md-12 col-lg-8">
                                     <RctCollapsibleCard
                                         heading='Recent Transactions'
-                                        collapsible
                                         fullBlock
                                     >
                                         <UserTransactionDetails />
@@ -85,7 +84,6 @@ class Index extends Component {
                                     {/* Receiver List */}
                                     <RctCollapsibleCard
                                         heading='Receivers'
-                                        collapsible
                                         fullBlock
                                     >
                                         <ReceiverList />

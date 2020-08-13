@@ -34,12 +34,20 @@ const loadData = (ctx) => {
 };
 const loadUserProfileData = (ctx) => {
     let userProfileData = {}
-    //TODO get Sender id from localStorage
-    const data = { sender: 2 }
-    loadUserData(data)
+    loadUserData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                userProfileData = data.data.result
+                const temp = data.data.result
+                const name = temp.name.split(' ')
+                userProfileData = {
+                    firstName: name[0],
+                    middleName: name.length == 2 ? '' : name[1],
+                    lastName: name.length == 2 ? '' : name[2],
+                    userImage: "",
+                    email: temp.emailAddress,
+                    phone: temp.phoneNumber
+                }
+
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -59,13 +67,11 @@ const loadUserProfileData = (ctx) => {
 }
 
 const pastTxnData = (ctx) => {
-    let stateData = {};
+    let txnData = [];
     loadUserTxnDetails()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                stateData = {
-                    recentOrders: data.data.result
-                }
+                txnData = data.data.result
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -80,9 +86,7 @@ const pastTxnData = (ctx) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            ctx.setState({
-                ...stateData
-            })
+            ctx.setRecentOrders(txnData)
         })
 
 };

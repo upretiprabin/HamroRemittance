@@ -1,15 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDropzone } from 'react-dropzone';
 
 import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
 const DocumentIdentification = ({
-                                    file,
-                                    docType,
-                                    docExpiry,
-                                    docId,
-                                    onChangeValue,
-                                    onFileSelected
-                                }) => {
+    file,
+    docType,
+    docExpiry,
+    docId,
+    onChangeValue,
+    onFileSelected
+}) => {
+
+    const [files, setFiles] = useState([]);
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*',
+        onDrop: acceptedFiles => {
+            setFiles(acceptedFiles.map(file => {
+                onFileSelected(file)
+                return Object.assign(file, {
+                    preview: URL.createObjectURL(file)
+                })
+            }
+            ));
+        }
+    });
+
+    const thumbs = files.map(file => (
+        <div style={thumb} key={file.name}>
+            <div style={thumbInner}>
+                <img
+                    src={file.preview}
+                    style={img}
+                />
+            </div>
+        </div>
+    ));
+
+    useEffect(() => () => {
+        // Make sure to revoke the data uris to avoid memory leaks
+        files.forEach(file => URL.revokeObjectURL(file.preview));
+    }, [files]);
     return (
         <div className={"register"}>
             <div className='row mt-10'>
@@ -26,8 +57,8 @@ const DocumentIdentification = ({
                             onChange={(e) => onChangeValue(e)}>
                             <option value=''>Document Type</option>
                             <option value='passport'>Passport</option>
-                            <option value='citizenship'>Citizenship</option>
-                            <option value='licence'>Driving Licence</option>
+                            <option value='photo_id'>Photo ID</option>
+                            <option value='licence'>Australian Driving License</option>
                         </Input>
                         <FormFeedback>Required</FormFeedback>
                     </FormGroup>
@@ -63,21 +94,58 @@ const DocumentIdentification = ({
                     </FormGroup>
                 </div>
             </div>
-            <div className='row'>
-                <div className='col-sm-12 col-md-12 col-lg-12'>
-                    <FormGroup className="has-wrapper">
-                        <Label className={file.error ? 'text-danger mr-20' : 'mr-20'}>Identification Document*</Label>
-                        <input
-                            accept="image/*"
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                            onChange={e => onFileSelected(e)}
-                        />
-                    </FormGroup>
+            <div className='row mb-10'>
+                <div className='col-sm-12 col-md-12 col-lg-6'>
+                    <Label className={file.error ? 'text-danger mr-20' : 'mr-20'}>Identification Document*</Label>
+                    <section className="container">
+                        <div {...getRootProps({ className: 'dropzone file-upload' })}>
+                            <input {...getInputProps()} />
+                            <p>Drag and drop the document image here or click to search for the document.</p>
+                        </div>
+                    </section>
+                </div>
+                <div className='col-sm-12 col-md-6 col-sm-6'>
+                    <Label className={file.error ? 'text-danger mr-20' : 'mr-20'}>Document Preview</Label>
+                    <aside style={thumbsContainer}>
+                        {thumbs}
+                    </aside>
                 </div>
             </div>
         </div>
     )
 }
 export default DocumentIdentification
+const thumbsContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    margin: '0 auto'
+};
+
+const thumb = {
+    display: 'inline-flex',
+    borderRadius: 2,
+    border: '1px solid #eeeef0',
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    borderRadius: 5,
+    background: "#eeeef0",
+    boxSizing: 'border-box'
+};
+
+const thumbInner = {
+    display: 'flex',
+    minWidth: 0,
+    overflow: 'hidden',
+    margin: '0 auto'
+};
+
+const img = {
+    display: 'block',
+    width: 'auto',
+    height: '100%'
+};

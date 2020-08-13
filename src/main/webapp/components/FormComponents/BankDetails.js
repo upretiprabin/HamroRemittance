@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import banks from './banks.json'
-const branches = ['Branch A', 'Branch B', 'Branch C', 'Branch D', 'Branch E', 'Branch F', 'Branch G']
 
 const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
     const [selectedCashPickup, setSelectedCashPickup] = useState(0)
+    useEffect(() => {
+        if (disabled) {
+            setSelectedCashPickup(1)
+        }
+    }, [])
     return (
         <>
             <div className='row mt-10'>
                 <div className='col-sm-12 col-md-12 col-lg-12'>
                     <FormGroup className="has-wrapper">
                         <Input
+                            disabled={disabled}
                             value={selectedCashPickup}
                             name="cashPickup"
                             id="cashPickUp"
@@ -70,6 +75,7 @@ const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
                                 value={branch.value}
                                 name="branch"
                                 id="bank-branch"
+                                placeholder="Branch*"
                                 className="has-input input-lg"
                                 disabled={disabled}
                                 bsSize="lg"
@@ -84,17 +90,14 @@ const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
                         <FormGroup className="has-wrapper">
                             <Input
                                 invalid={accNumber.error}
-                                type="number"
+                                type="text"
                                 value={accNumber.value}
                                 name="accNumber"
                                 id="account-number"
                                 className="has-input input-lg"
                                 placeholder="Account Number*"
                                 disabled={disabled}
-                                onChange={(e) => {
-                                    if (Number(e.target.value) || e.target.value == '' || e.target.value == "0")
-                                        onChangeValue(e)
-                                }}
+                                onChange={(e) => onChangeValue(e)}
                             />
                             <span className="has-icon"><i className="zmdi zmdi-pin-account"></i></span>
                             <FormFeedback>Required</FormFeedback>

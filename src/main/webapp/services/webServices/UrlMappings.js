@@ -4,7 +4,7 @@ export default {
     USER_FORGOT_PASSWORD: 'user/sendForgotPasswordEmail',
     USER_RESET_PASSWORD: 'user/resetPassword',
     USER_LOGOUT: 'user/logout',
-    USER_IS_USER_ENABLED : 'user/isUserEnabled',
+    USER_IS_USER_ENABLED: 'user/isUserEnabled',
     USER_REGISTER: 'customer/saveCustomer',
     USER_CREATE: 'user/create',
     SEND_VERIFICATION_CODE: 'user/sendVerificationCode',
@@ -12,7 +12,8 @@ export default {
     CHECK_SESSION: 'user/checkSession',
 
     //dashboard endpoints
-    DASHBOARD_LOAD_DATA: 'dashboard/loadData',
+    DASHBOARD_LOAD_DATA: 'customer/getCustomerTransactions',
+    LOAD_PERSONAL_DATA: 'customer/getCustomerPersonalInfo',
 
     //Transaction endpoints
     TRANSACTION_CREATE: 'transaction/saveTransaction',
@@ -32,5 +33,5 @@ export default {
     GET_FILTERED_TXT_DATA: 'adminDetails/getTransactionOrdersByStatus',
     POST_BULK_DATA: 'adminDetails/updateTransactionStatusBulk',
     UPDATE_TXN_STATUS: 'adminDetails/storeTransactionStatusUpdate',
-    
+
 }

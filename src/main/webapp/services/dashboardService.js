@@ -7,15 +7,15 @@ export const loadDashboardData = () => {
         email
     });
 };
-export const loadUserData = (data) => {
-    // let email = userFromLocalStorage().primaryEmail;
+export const loadUserData = () => {
+    let data = { emailAddress: userFromLocalStorage().username };
     return middleware.Dashboard.loadUserProfileData({
         data
     });
 };
 
-export const loadUserTxnDetails = (data) => {
-    // let email = userFromLocalStorage().primaryEmail;
+export const loadUserTxnDetails = () => {
+    let data = { emailAddress: userFromLocalStorage().username };
     return middleware.Dashboard.loadUserTxnData({
         data
     });

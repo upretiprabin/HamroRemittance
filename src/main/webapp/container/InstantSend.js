@@ -7,6 +7,7 @@ import {
 } from 'Actions';
 import SendMoney from "../components/SendMoney/SendMoney";
 import Controller from '../controllers/homeController'
+import { connect } from 'react-redux';
 
 class InstantSend extends Component {
 

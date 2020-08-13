@@ -36,6 +36,7 @@ export default class ReceiverDetails extends React.Component {
             updatedState.aLine1.value = userData.address.aLine1
             updatedState.aLine2.value = userData.address.aLine2
             updatedState.state.value = userData.address.state
+            updatedState.subUrb.value = userData.address.subUrb
             updatedState.zip.value = userData.address.zip
             updatedState.country.value = userData.address.country
             updatedState.relation.value = userData.relation
@@ -70,6 +71,7 @@ export default class ReceiverDetails extends React.Component {
                     break
                 case 'mName':
                 case 'aLine2':
+                case 'zip':
                     break
                 default:
                     if (updatedState[obj].value == '') {
@@ -110,7 +112,7 @@ export default class ReceiverDetails extends React.Component {
                             <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <RelationNContact relation={relation} phone={phone} email={email} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <Label>User Address</Label>
-                            <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
+                            <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} sender={false} />
                             <Divider />
                             <Label className='mt-10'>Cash Pickup Details</Label>
                             <BankForm bank={bank} branch={branch} accNumber={accNumber} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />

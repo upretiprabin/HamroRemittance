@@ -9,13 +9,16 @@ export const loadTransactionData = () => {
 };
 
 export const postTransactionData = (data) => {
+    data.senderEmailAddress = userFromLocalStorage().username;
     return middleware.Transaction.postData(data);
 }
 export const registerReceiver = (data) => {
+    data.senderEmailAddress = userFromLocalStorage().username;
     return middleware.Receiver.postReceiver(data);
 }
 
-export const loadReceiverData = (data) => {
+export const loadReceiverData = () => {
+    const data = { senderEmailAddress: userFromLocalStorage().username };
     return middleware.Transaction.loadReceivers(data);
 };
 

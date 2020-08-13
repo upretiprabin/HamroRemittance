@@ -36,7 +36,7 @@ const loadData = (ctx) => {
 
 };
 const postData = (ctx, data) => {
-    ctx.changeState({ loading: true })
+    ctx.setIsLoading(true)
     let isSuccess = false
     postTransactionData(data)
         .then(data => {
@@ -58,7 +58,7 @@ const postData = (ctx, data) => {
         .finally(async () => {
             if (isSuccess) {
                 NotificationManager.success('Transaction Posted for Verification')
-                ctx.changeState({ loading: false })
+                ctx.setIsLoading(false)
             }
         })
 
@@ -66,9 +66,7 @@ const postData = (ctx, data) => {
 const loadReceivers = (ctx) => {
     // ctx.changeState({ loading: true })
     let stateData = {};
-    //TODO : change later
-    let data = { "senderId": 3 }
-    loadReceiverData(data)
+    loadReceiverData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 let receiverData = []
@@ -86,6 +84,7 @@ const loadReceivers = (ctx) => {
                         address: {
                             aLine1: address?.addressLineOne, aLine2: address?.addressLineTwo, state: address?.stateProvince, zip: address?.zipCode,
                             country: address?.country,
+                            subUrb: address?.suburbCity
                         },
                         phoneNumber: receiverInfo?.phoneNumber,
                         bankDetails: {
@@ -163,7 +162,6 @@ const loadCompanyCharges = (ctx) => {
 
 };
 const addReceiver = (ctx, data) => {
-    // ctx.changeState({ loading: true })
     registerReceiver(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
@@ -183,9 +181,6 @@ const addReceiver = (ctx, data) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
-            // ctx.changeState({
-            //     loading: false
-            // })
         })
 
 };
@@ -197,7 +192,6 @@ const testTransaction = () => {
             console.log(data.data)
         })
 }
-
 
 export default {
     loadData,

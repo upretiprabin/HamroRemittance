@@ -38,7 +38,7 @@ class Register extends Component {
     };
     onFileSelected = e => {
         let updatedState = this.state
-        updatedState.file.value = e.target.files[0]
+        updatedState.file.value = e;
         this.setState({ ...updatedState })
     }
     componentDidMount = () => {
@@ -202,7 +202,7 @@ class Register extends Component {
                                                     <div className="text-left">
                                                         <Label className="text-left">User Address</Label>
                                                     </div>
-                                                    <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} />
+                                                    <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} sender={true} />
 
                                                     <div className="text-left">
                                                         <Label className="text-left">User Documents</Label>

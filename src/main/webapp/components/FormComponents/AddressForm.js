@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import countries from "./countries.json";
 
-const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCountry, disabled, onChangeValue }) => {
+const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCountry, disabled, onChangeValue, sender }) => {
     return (
         <>
             <div className='row mt-10'>
@@ -49,7 +49,7 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                             name="subUrb"
                             id="user-subUrb"
                             className="has-input input-lg"
-                            placeholder="SubUrb*"
+                            placeholder={sender ? "Suburb*" : "District*"}
                             disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
@@ -83,12 +83,11 @@ const AddressForm = ({ aLine1, aLine2, subUrb, state, zip, country, disabledCoun
                             name="zip"
                             id="zip-code"
                             className="has-input input-lg"
-                            placeholder="Zip*"
+                            placeholder={sender? "Post Code*": "Post Code"}
                             disabled={disabled}
                             onChange={(e) => onChangeValue(e)}
                         />
                         <span className="has-icon"><i className="ti-line-dashed"></i></span>
-                        <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
                 <div className='col-sm-12 col-md-6 col-lg-3'>
