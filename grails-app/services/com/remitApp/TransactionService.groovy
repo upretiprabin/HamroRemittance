@@ -63,7 +63,7 @@ class TransactionService {
 
     def getAllReceivers(def params){
         def returnList = []
-        def receivers = Customer.findAllBySenderId(params.senderId)
+        def receivers = Customer.findAllBySenderEmailAddress(params.senderEmailAddress)
         if(receivers){
             receivers.eachWithIndex { receiver, index ->
                 def receiverMap = [:]
