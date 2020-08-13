@@ -29,7 +29,7 @@ class CustomerController {
         addressParams.zipCode = newParams.zipCode
 
         def bankDetails = [:]
-        if(params?.receiver){
+        if(newParams?.receiver){
             bankDetails.bankName = newParams.bankName
             bankDetails.branchId = newParams.branchId
             bankDetails.accountNumber = newParams.accountNumber
@@ -46,7 +46,7 @@ class CustomerController {
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                if(params?.receiver) {
+                if(newParams?.receiver) {
                     def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
                     println "bankDetailsResult = $bankDetailsResult"
                 }

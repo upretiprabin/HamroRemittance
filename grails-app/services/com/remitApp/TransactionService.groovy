@@ -10,8 +10,8 @@ class TransactionService {
 
     def createNewTransactionAndOrder(params){
         def returnResult = [:]
-        def sender = Sender.findById(params.senderId)
-        def receiver = Receiver.findById(params.receiverId)
+        def sender = Sender.findByEmailAddress(params.senderEmailAddress)
+        def receiver = Receiver.findByEmailAddress(params.receiverEmailAddress)
         if(sender == null || receiver == null){
             returnResult["Error"] = "Sender or Receiver not found.."
         }else{
@@ -63,7 +63,7 @@ class TransactionService {
 
     def getAllReceivers(def params){
         def returnList = []
-        def receivers = Customer.findAllBySenderId(params.senderId)
+        def receivers = Customer.findAllBySenderEmailAddress(params.senderEmailAddress)
         if(receivers){
             receivers.eachWithIndex { receiver, index ->
                 def receiverMap = [:]
