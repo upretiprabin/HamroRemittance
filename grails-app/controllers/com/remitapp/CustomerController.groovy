@@ -29,7 +29,7 @@ class CustomerController {
         addressParams.zipCode = newParams.zipCode
 
         def bankDetails = [:]
-        if(params?.receiver){
+        if(newParams?.receiver){
             bankDetails.bankName = newParams.bankName
             bankDetails.branchId = newParams.branchId
             bankDetails.accountNumber = newParams.accountNumber
