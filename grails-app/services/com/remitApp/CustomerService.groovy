@@ -151,9 +151,21 @@ class CustomerService {
         def returnMap = [:]
         def customer = Customer.findByEmailAddress(customerParams.emailAddress)
         if(customer){
-            returnMap.name = customer.firstName + " " + customer.middleName + " " + customer.lastName
+            returnMap.firstName = customer.firstName
+            returnMap.middleName = customer.middleName
+            returnMap.lastName = customer.lastName
             returnMap.emailAddress = customer.emailAddress
             returnMap.phoneNumber = customer.phoneNumber
+
+            def address = CustomerAddress.findByCustomer(customer).address
+            if(address){
+                returnMap.addressLineOne = address.addressLineOne
+                returnMap.addressLineTwo = address.addressLineTwo
+                returnMap.suburbCity = address.suburbCity
+                returnMap.country = address.country
+                returnMap.stateProvince = address.stateProvince
+                returnMap.zipCode = address.zipCode
+            }
         }
         return returnMap
     }
