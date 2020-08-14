@@ -31,9 +31,8 @@ api.interceptors.response.use(function (response) {
     let authorizedStatusList = [403,401];
     if(authorizedStatusList.includes(error.response?.status)){
         clearLocalStorage();
-        if(location.pathname !== "/signin"){
-            NotificationManager.error("Session timed out!");
-            // location.href = "/signin";
+        if(location.pathname !== "/signin" && !location.pathname.includes("home")){
+            location.href = "/signin";
         }
     }
     return Promise.reject(error);

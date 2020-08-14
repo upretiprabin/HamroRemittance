@@ -22,7 +22,7 @@ const UserProfileCard = ({ }) => {
         e.preventDefault()
         //TODO
     }
-    const name = `${userData.firstName} ${userData.middleName == '' ? '' : userData.middleName[0] + '.'} ${userData.lastName}`
+    const name = `${userData?.firstName?userData.firstName:""} ${userData?.middleName === '' ? '' : (userData?.middleName?userData.middleName:"") + '.'} ${userData.lastName?userData.lastName:""}`
     return (
         <div className='row'>
             <div className='col-12'>
@@ -32,7 +32,7 @@ const UserProfileCard = ({ }) => {
                         <div className="media">
                             <div className="media-left mr-25">
                                 {userData.img === "" && <img src={userData.userImage} className="img-fluid rounded-circle" alt="user profile" width="100" height="100" />}
-                                {userData.img !== "" && <div className="user-image-alt-md p-10" style={{ background: getRandomColor() }}>{`${userData.firstName[0]} ${userData.lastName[0]}`}</div>}
+                                {userData.img !== "" && <div className="user-image-alt-md p-10" style={{ background: getRandomColor() }}>{`${userData?.firstName?userData.firstName[0]:""} ${userData?.lastName?userData.lastName[0]:""}`}</div>}
                             </div>
                             <div className="media-body pt-10">
                                 <span className="mb-5 text-primary fs-14 d-block">Hello,</span>

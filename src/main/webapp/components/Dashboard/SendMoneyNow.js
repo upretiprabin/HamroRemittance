@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom';
 import Controller from '../../controllers/dashboardController'
 
 const SendMoneyNow = ({ }) => {
-    const [rate, setRates] = useState(0)
-    const [fees, setFees] = useState(0)
+    const [rate, setRates] = useState(null)
+    const [fees, setFees] = useState(null)
     const history = useHistory()
     useEffect(() => {
         Controller.getCurrentRates({ setRates, setFees })
@@ -26,8 +26,22 @@ const SendMoneyNow = ({ }) => {
                         </TableHead>
                         <TableBody>
                             <TableRow>
-                                <TableCell align="center">1 AUD = {rate} NRS</TableCell>
-                                <TableCell align="center">{fees} AUD</TableCell>
+                                <TableCell align="center">
+                                    {rate &&
+                                        <span>1 AUD = {rate} NRS</span>
+                                    }
+                                    {!rate &&
+                                        <span>N/A</span>
+                                    }
+                                    </TableCell>
+                                <TableCell align="center">
+                                    {fees &&
+                                        <span>{fees} AUD</span>
+                                    }
+                                    {!fees &&
+                                        <span>N/A</span>
+                                    }
+                                </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell colSpan={2} align="center">

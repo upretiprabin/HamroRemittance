@@ -48,6 +48,11 @@ const UserTransactionDetails = () => {
 							</td>
 						</tr>
 					))}
+					{currentPageOrders?.length === 0 &&
+						<tr>
+							<td colSpan={5} className={"text-center"}> <i>No records available</i></td>
+						</tr>
+					}
 				</tbody>
 				<tfoot>
 					<tr>

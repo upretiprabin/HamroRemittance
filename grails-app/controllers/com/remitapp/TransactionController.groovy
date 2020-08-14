@@ -58,6 +58,7 @@ class TransactionController {
             render (["Error" : "No receiver found"] as JSON)
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def getCompanyCharges(){
         try{
             def result = transactionService.getCompanyChargesDetails()

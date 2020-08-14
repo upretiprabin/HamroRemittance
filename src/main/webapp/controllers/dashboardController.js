@@ -73,8 +73,8 @@ const pastTxnData = (ctx) => {
             if (!data.data.hasOwnProperty("Error")) {
                 txnData = data.data.result
             } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
+                if (data.data.Error === "No transactions found.")
+                    log.info("No transaction data");
                 else {
                     log.error(data.data.Error);
                     NotificationManager.error(data.data.Error)
@@ -100,8 +100,8 @@ const fetchReceivers = (ctx) => {
                     people: data.data.result
                 }
             } else {
-                if (data.data.Error === "no data available")
-                    log.info("No data");
+                if (data.data.Error === "No receiver found")
+                    log.info("No receiver data");
                 else {
                     log.error(data.data.Error);
                     NotificationManager.error(data.data.Error)
@@ -120,7 +120,7 @@ const fetchReceivers = (ctx) => {
         })
 }
 const getCurrentRates = (ctx) => {
-    let rateAndCharges = { rate: 0, charges: 0 }
+    let rateAndCharges = { rate: null, charges: null}
     loadCompanyChargesData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
