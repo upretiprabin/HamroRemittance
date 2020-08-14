@@ -40,6 +40,16 @@ export function userFromLocalStorage(){
     return JSON.parse(localStorage.getItem('user'))
 }
 
+export function userProfileFromLocalStorage(){
+    return JSON.parse(localStorage.getItem('user-profile'))
+}
+
+export function isUserAdmin(){
+    let user = userFromLocalStorage();
+    // return user?.isAdmin
+    return true;
+}
+
 const signInUserWithEmailPasswordRequest = (email, password) =>
     middleware.User.loginUser(email, password);
 
@@ -54,10 +64,8 @@ const signOutRequest = async () =>
 const isUserEnabledCheck = (email, password)=>
     middleware.User.isUserEnabled(email,password);
 
-export function getUserView(user){
-    if(user){
-        return null
-    }
+export function getUserView(){
+    return location.pathname.includes("admin")?"admin":"customer";
 }
 
 /**

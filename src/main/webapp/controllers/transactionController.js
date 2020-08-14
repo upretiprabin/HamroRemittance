@@ -71,7 +71,6 @@ const loadReceivers = (ctx) => {
             if (!data.data.hasOwnProperty("Error")) {
                 let receiverData = []
                 data.data.result.forEach(el => {
-                    console.log("el", el)
                     let receiverInfo = el.receiver;
                     let address = el.address;
                     let bankDetails = el.bankDetails;

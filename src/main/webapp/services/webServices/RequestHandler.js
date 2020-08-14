@@ -30,9 +30,9 @@ api.interceptors.response.use(function (response) {
 },function(error){
     let authorizedStatusList = [403,401];
     if(authorizedStatusList.includes(error.response?.status)){
-        clearLocalStorage();
+        // clearLocalStorage();
         if(location.pathname !== "/signin" && !location.pathname.includes("home")){
-            location.href = "/signin";
+            // location.href = "/signin";
         }
     }
     return Promise.reject(error);

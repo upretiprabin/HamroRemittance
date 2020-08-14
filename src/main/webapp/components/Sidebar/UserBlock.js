@@ -6,8 +6,7 @@ import { Dropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 import { connect } from 'react-redux';
 import { logoutUser,switchView } from 'Actions';
 import IntlMessages from 'Util/IntlMessages';
-import {userFromLocalStorage} from "../../sagas/AuthenticationManager";
-import {getUserView} from "../../sagas/AuthenticationManager";
+import {isUserAdmin,userProfileFromLocalStorage} from "../../sagas/AuthenticationManager";
 
 class UserBlock extends Component {
 
@@ -30,27 +29,20 @@ class UserBlock extends Component {
         this.setState({ userDropdownMenu: !this.state.userDropdownMenu });
     }
 
-    getUserDetails(){
-        let user = userFromLocalStorage();
-        let firstLetter = "P";
-        let shortName = "Prabin U.";
-        let fullName = "Prabin Upreti";
-        let email = user?.username;
-        return {firstLetter,shortName,fullName,email}
-    }
-
     switchView(){
         let switchView = "customer";
         if(this.props.view === "customer")
             switchView = "admin";
+        this.toggleUserDropdownMenu();
         this.props.switchView(switchView);
     }
 
 
     render() {
-        let user = this.getUserDetails();
+        let userProfile = userProfileFromLocalStorage();
         let view = this.props.view;
-        let isDefaultView = getUserView(userFromLocalStorage());
+        console.log("view",view)
+        let isAdmin = isUserAdmin();
         let switchViewText = "Admin Panel";
         if (view === "admin"){
             switchViewText = "Customer Portal";
@@ -75,11 +67,13 @@ class UserBlock extends Component {
                 </DropdownToggle>
                 <DropdownMenu>
                     <ul className="list-unstyled mb-0">
-                        <li className="p-15 border-bottom user-profile-top rounded-top">
-                            <p className="text-white mb-0 fs-14">{user?.fullName}</p>
-                            <span className="text-white fs-14">{user?.email}</span>
-                        </li>
-                        {!isDefaultView &&
+                        {userProfile &&
+                            <li className="p-15 border-bottom user-profile-top rounded-top">
+                                <p className="text-white mb-0 fs-14">{userProfile?.firstName?userProfile.firstName:""} {userProfile?.middleName?userProfile.middleName:""} {userProfile?.lastName?userProfile.lastName:""}</p>
+                                <span className="text-white fs-14">{userProfile?.email?userProfile.email:""}</span>
+                            </li>
+                        }
+                        {isAdmin &&
                         <li className="border-top">
                             <a href="#" onClick={() => this.switchView()}>
                                 <i className="user-menu-drpdwn fa fa-exchange mr-3"/>

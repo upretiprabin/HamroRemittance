@@ -116,8 +116,8 @@ class MainApp extends Component {
                 <div className="app-main-container">
                     <Sidebar
                         sidebar={this.renderSidebar()}
-                        open={windowWidth <= 1199 ? navCollapsed : false}
-                        docked={windowWidth > 1199 ? !navCollapsed : false}
+                        open={false}
+                        docked={true}
                         pullRight={rtlLayout}
                         onSetOpen={() => this.props.collapsedSidebarAction(false)}
                         styles={{ content: { overflowY: '' } }}

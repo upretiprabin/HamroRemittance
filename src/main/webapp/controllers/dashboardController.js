@@ -47,7 +47,7 @@ const loadUserProfileData = (ctx) => {
                     email: temp.emailAddress,
                     phone: temp.phoneNumber
                 }
-
+                localStorage.setItem("user-profile",JSON.stringify(userProfileData))
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");

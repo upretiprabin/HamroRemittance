@@ -28,6 +28,8 @@ import QuickLinks from './QuickLinks';
 import MobileSearchForm from './MobileSearchForm';
 
 import AppConfig from 'Constants/AppConfig';
+import UserBlock from "../Sidebar/UserBlock";
+import {Scrollbars} from "react-custom-scrollbars";
 
 class Header extends Component {
 
@@ -76,41 +78,16 @@ class Header extends Component {
 
 	render() {
 		const { isMobileSearchFormVisible } = this.state;
-		const { horizontalMenu, agencyMenu, location } = this.props;
 		return (
 			<AppBar position="static" className="rct-header">
 				<Toolbar className="d-flex justify-content-between w-100 pl-0">
 					<div className="d-flex align-items-center">
-						{(horizontalMenu || agencyMenu) &&
-							<div className="site-logo">
-								<Link to="/" className="logo-normal">
-									<img src={AppConfig.appLogo} className="img-fluid" alt="site-logo" width="67" height="17" />
-								</Link>
-							</div>
-						}
-						{!agencyMenu &&
 							<ul className="list-inline mb-0 navbar-left">
-								{!horizontalMenu ?
-									<li className="list-inline-item" onClick={(e) => this.onToggleNavCollapsed(e)}>
-										<Tooltip title="Sidebar Toggle" placement="bottom">
-											<IconButton color="inherit" mini="true" aria-label="Menu" className="humburger p-0">
-												<MenuIcon />
-											</IconButton>
-										</Tooltip>
-									</li> :
-									<li className="list-inline-item">
-										<Tooltip title="Sidebar Toggle" placement="bottom">
-											<IconButton color="inherit" aria-label="Menu" className="humburger p-0" component={Link} to="/">
-												<i className="ti-layout-sidebar-left"></i>
-											</IconButton>
-										</Tooltip>
-									</li>
-								}
-								{!horizontalMenu && <QuickLinks />}
+                                <QuickLinks />
 								<li className="list-inline-item search-icon d-inline-block">
 									<SearchForm />
 									<IconButton mini="true" className="search-icon-btn" onClick={() => this.openMobileSearchForm()}>
-										<i className="zmdi zmdi-search"></i>
+										<i className="zmdi zmdi-search"/>
 									</IconButton>
 									<MobileSearchForm
 										isOpen={isMobileSearchFormVisible}
@@ -118,39 +95,17 @@ class Header extends Component {
 									/>
 								</li>
 							</ul>
-						}
 					</div>
 					<ul className="navbar-right list-inline mb-0">
 						<li className="list-inline-item summary-icon">
 							<Tooltip title="Summary" placement="bottom">
 								<a href="#" className="header-icon tour-step-3" onClick={(e) => this.openDashboardOverlay(e)}>
-									<i className="zmdi zmdi-info-outline"></i>
+									<i className="zmdi zmdi-info-outline"/>
 								</a>
 							</Tooltip>
 						</li>
-						<Notifications />
-						<li className="list-inline-item setting-icon">
-							<Tooltip title="Chat" placement="bottom">
-								<IconButton aria-label="settings" onClick={() => this.setState({ customizer: true })}>
-									<i className="zmdi zmdi-comment"></i>
-								</IconButton>
-							</Tooltip>
-						</li>
-						<li className="list-inline-item">
-							<Tooltip title="Full Screen" placement="bottom">
-								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>
-									<i className="zmdi zmdi-crop-free"></i>
-								</IconButton>
-							</Tooltip>
-						</li>
+                        <UserBlock />
 					</ul>
-					<Drawer
-						anchor={'right'}
-						open={this.state.customizer}
-						onClose={() => this.setState({ customizer: false })}
-					>
-						<ChatSidebar />
-					</Drawer>
 				</Toolbar>
 				<DashboardOverlay
 					onClose={() => this.closeDashboardOverlay()}

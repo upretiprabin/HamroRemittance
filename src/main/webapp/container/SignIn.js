@@ -55,7 +55,6 @@ class SignIn extends Component {
     }
     showHidePassword(e) {
         let show = this.state.showPassword;
-        console.log(show)
         this.setState({ showPassword: !show });
     }
     emailValidator() {

@@ -1,8 +1,10 @@
 import React from 'react';
 import RctHorizontalLayout from "../components/RctHorizontalLayout";
 import {Link} from "react-router-dom";
+import {userFromLocalStorage} from "../sagas/AuthenticationManager";
 
 const Content = () =>{
+    const user = userFromLocalStorage();
     return (
         <div className={"about-us"}>
             <section className="page-header page-header-text-light py-0 mb-0">
@@ -17,7 +19,9 @@ const Content = () =>{
                                     <p className="text-5 text-white line-height-4 mb-4">Our mission is to help you save
                                         on transfer fees and exchange rates!</p>
                                     <span>
-                                        <Link to={"/signUp"} className="btn btn-primary m-2">Open a Free Account</Link>
+                                        {!user &&
+                                            <Link to={"/signUp"} className="btn btn-primary m-2">Open a Free Account</Link>
+                                        }
                                         <Link to={"/how-it-works"} className={"btn btn-outline-light m-2"} >See How it Works</Link>
                                     </span>
                                 </div>

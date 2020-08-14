@@ -15,6 +15,7 @@ import {
     USER_LOADED,
     SWITCH_VIEW
 } from 'Actions/types';
+import {getUserView} from "../sagas/AuthenticationManager";
 
 /**
  * initial auth user
@@ -23,7 +24,7 @@ const INIT_STATE = {
     user: userFromLocalStorage(),
     loading: false,
     checkSession : false,
-    view : "CustomerPortal"
+    view : getUserView()
 };
 
 export default (state = INIT_STATE, action) => {
@@ -50,6 +51,13 @@ export default (state = INIT_STATE, action) => {
             return { ...state, user: null, loading : false };
         case LOGOUT_USER_FAILURE:
             return { ...state, loading : false };
+        case SWITCH_VIEW:
+            let view = action.payload.view;
+            if(view){
+                // localStorage.setItem("view",view);
+                location.pathname = view === "admin"?"/admin":"/app/dashboard";
+            }
+            return { ...state, view:view?view:INIT_STATE.view };
         default: return { ...state };
     }
 }
