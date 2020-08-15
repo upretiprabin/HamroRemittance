@@ -56,11 +56,11 @@ class CustomerController {
                 println "{savedAddress.id} = ${savedAddress.id}"
                 def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
                 println "finalResult = $finalResult"
-                render (["result":finalResult.message] as JSON)
+                render (["result":finalResult] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex.message] as JSON)
+            render (["Error":"Error while saving customer."] as JSON)
         }
 
     }
@@ -103,11 +103,11 @@ class CustomerController {
                 def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
                 def savedAddress = addressResult.address
                 println "savedAddress === $savedAddress"
-                render (["result":addressResult.message] as JSON)
+                render (["result":addressResult] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex.message] as JSON)
+            render (["Error":"Error while updating customer."] as JSON)
         }
 
     }
@@ -151,7 +151,7 @@ class CustomerController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":ex.message] as JSON)
+            render (["Error":"Error occurred while deleting customer."] as JSON)
         }
 
     }
