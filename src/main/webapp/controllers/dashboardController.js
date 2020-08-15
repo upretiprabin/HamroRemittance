@@ -117,8 +117,8 @@ const getCurrentRates = (ctx) => {
     loadCompanyChargesData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                rateAndCharges.rate = data.data.result[0].exchangeRate
-                rateAndCharges.charges = data.data.result[0].serviceCharge
+                rateAndCharges.rate = data.data.result[0]?.exchangeRate
+                rateAndCharges.charges = data.data.result[0]?.serviceCharge
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");

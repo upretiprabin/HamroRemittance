@@ -41,7 +41,6 @@ class UserBlock extends Component {
     render() {
         let userProfile = userProfileFromLocalStorage();
         let view = this.props.view;
-        console.log("view",view)
         let isAdmin = isUserAdmin();
         let switchViewText = "Admin Panel";
         if (view === "admin"){
@@ -70,7 +69,7 @@ class UserBlock extends Component {
                         {userProfile &&
                             <li className="p-15 border-bottom user-profile-top rounded-top">
                                 <p className="text-white mb-0 fs-14">{userProfile?.firstName?userProfile.firstName:""} {userProfile?.middleName?userProfile.middleName:""} {userProfile?.lastName?userProfile.lastName:""}</p>
-                                <span className="text-white fs-14">{userProfile?.email?userProfile.email:""}</span>
+                                <span className="text-white fs-14">{userProfile?.emailAddress?userProfile.emailAddress:""}</span>
                             </li>
                         }
                         {isAdmin &&
