@@ -1,22 +1,38 @@
 /**
  * Stepper 1 Transaction Details
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 // rct card
 import { RctCard } from 'Components/RctCard/index';
 import Controller from '../../controllers/transactionController'
 import { CircularProgress } from '@material-ui/core';
+import Formatter from './../../util/Formatter'
 
-const StepFive = ({ selectedData, senderInfo }) => {
+const StepFive = ({ selectedData }) => {
     const [ratesAndAmount, recipient, purpose] = selectedData
     const [isLoading, setIsLoading] = useState(false);
+    const [senderInfo, setSenderInfo] = useState({
+        addressLineOne: "",
+        addressLineTwo: "",
+        country: "",
+        emailAddress: "",
+        firstName: "",
+        middleName: "",
+        stateProvince: "",
+        suburbCity: "",
+        zipCode: ""
+    })
+
+    useEffect(() => {
+        Controller.getSenderDetails({ setIsLoading, setSenderInfo })
+    }, [])
     const transactionDetails = {
-        send: `${ratesAndAmount.send} AUD`,
-        receive: `${ratesAndAmount.receive} NRS`,
+        send: `${ratesAndAmount.send}`,
+        receive: `${ratesAndAmount.receive}`,
         rate: `1 AUD = ${ratesAndAmount.rate} NRS`,
         toPay: `${ratesAndAmount.send + ratesAndAmount.fees}`,
-        fee: `${ratesAndAmount.fees} AUD`,
+        fee: `${ratesAndAmount.fees}`,
     }
     const confirmTransaction = () => {
         if (confirm("Please verify transaction before proceeding...")) {
@@ -55,26 +71,29 @@ const StepFive = ({ selectedData, senderInfo }) => {
                                 <div className="d-flex justify-content-between mb-30 add-full-card">
                                     <div className="add-card">
                                         <h4 className="mb-15">Sender</h4>
-                                        <span className="name">{`${senderInfo.name.fName} ${senderInfo.name.mName} ${senderInfo.name.lName}`}</span>
-                                        <span>{senderInfo.address.aLine1}</span>
-                                        <span>{senderInfo.address.aLine2 + ' ' + senderInfo.address.state}</span>
-                                        <span>{senderInfo.address.country}</span>
-                                        <span>Phone: {senderInfo.phoneNumber}</span>
-                                        <span>Email: {senderInfo.email}</span>
+                                        <span className="name">{`${senderInfo.firstName} ${senderInfo.middleName} ${senderInfo.lastName}`}</span>
+                                        <span>{senderInfo.addressLineOne}</span>
+                                        <span>{senderInfo.addressLineTwo}</span>
+                                        <span>{senderInfo.suburbCity + ', ' + senderInfo.stateProvince}</span>
+                                        <span>{senderInfo.country}</span>
+                                        <span>Phone: {Formatter.phoneNumberFormatter(senderInfo.phoneNumber)}</span>
+                                        <span>Email: {senderInfo.emailAddress}</span>
                                     </div>
                                     <div className="add-card">
                                         <h4 className="mb-15">Receiver</h4>
                                         <span className="name">{`${recipient.name.fName} ${recipient.name.mName} ${recipient.name.lName}`}</span>
                                         <span>{recipient.address.aLine1}</span>
-                                        <span>{recipient.address.aLine2 + ' ' + recipient.address.state}</span>
+                                        <span>{recipient.address.aLine2}</span>
+                                        <span>{recipient.address.subUrb + ' ' + recipient.address.state}</span>
                                         <span>{recipient.address.country}</span>
-                                        <span>Phone: {recipient.phoneNumber}</span>
+                                        <span>Phone: {Formatter.nepaliPhoneNumberFormatter(recipient.phoneNumber)}</span>
                                         <span>Email: {recipient.email}</span>
                                     </div>
                                 </div>
                                 <div className="order-status mb-30">
                                     <span>Order Date: {new Date().toDateString()}</span>
                                     <span>Purpose of Transaction: {purpose.purposeOfTransfer}</span>
+                                    <span>Source of Funds: {purpose.sourceOfFund}</span>
                                 </div>
                                 <div className="table-responsive mb-40">
                                     <table className="table table-borderless">
@@ -87,11 +106,11 @@ const StepFive = ({ selectedData, senderInfo }) => {
                                         <tbody>
                                             <tr align="center">
                                                 <td>Sent</td>
-                                                <td>{transactionDetails.send}</td>
+                                                <td>{Formatter.currencyFormatter(transactionDetails.send)} AUD</td>
                                             </tr>
                                             <tr align="center">
                                                 <td>Receiver Gets</td>
-                                                <td>{transactionDetails.receive}</td>
+                                                <td>{Formatter.currencyFormatter(transactionDetails.receive)} NRS</td>
                                             </tr>
                                             <tr align="center">
                                                 <td>Rate</td>
@@ -99,11 +118,11 @@ const StepFive = ({ selectedData, senderInfo }) => {
                                             </tr>
                                             <tr align="center">
                                                 <td>Fees</td>
-                                                <td className="text-gray fw-bold">{transactionDetails.fee}</td>
+                                                <td className="text-gray fw-bold">{Formatter.currencyFormatter(transactionDetails.fee)} AUD</td>
                                             </tr>
                                             <tr align="center">
                                                 <td className="fw-bold">To Pay</td>
-                                                <td className="fw-bold">{transactionDetails.toPay} AUD</td>
+                                                <td className="fw-bold">{Formatter.currencyFormatter(transactionDetails.toPay)} AUD</td>
                                             </tr>
                                         </tbody>
                                     </table>
