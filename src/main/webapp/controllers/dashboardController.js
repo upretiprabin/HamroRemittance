@@ -1,5 +1,6 @@
 import { loadDashboardData, loadUserData, loadUserTxnDetails } from "../services/dashboardService";
 import { loadCompanyChargesData, loadReceiverData } from '../services/transactionService'
+import { loadTxnStatusData } from '../services/adminDashboardService'
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
 //TODO: fetch data from endpoints when done
@@ -37,7 +38,6 @@ const loadUserProfileData = (ctx) => {
     loadUserData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                const temp = data.data.result
                 userProfileData = data.data.result
                 userProfileData.userImage = ''
                 localStorage.setItem("user-profile", JSON.stringify(userProfileData))
@@ -138,10 +138,31 @@ const getCurrentRates = (ctx) => {
         })
 
 }
+const getTxnStatusMap = (ctx) => {
+    loadTxnStatusData()
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                ctx.setStatusMap(data.data.result)
+            } else {
+                if (data.data.Error === "no data available")
+                    log.info("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+
+}
 export default {
     loadData,
     loadUserProfileData,
     pastTxnData,
     fetchReceivers,
-    getCurrentRates
+    getCurrentRates,
+    getTxnStatusMap
 }

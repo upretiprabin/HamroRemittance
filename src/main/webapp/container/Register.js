@@ -149,20 +149,24 @@ class Register extends Component {
                                                     <div className='row mt-10'>
                                                         <div className='col-sm-12 col-md-4 col-lg-4'>
                                                             <FormGroup className="has-wrapper">
-                                                                <Input
-                                                                    invalid={phone.error}
-                                                                    type="number"
-                                                                    value={phone.value}
-                                                                    name="phone"
-                                                                    id="user-phone"
-                                                                    className="has-input input-lg"
-                                                                    placeholder="Phone Number*"
-                                                                    onChange={(e) => {
-                                                                        if (Number(e.target.value) || e.target.value == '')
+                                                                <div className="input-group">
+                                                                    <div className="input-group-prepend">
+                                                                        <span className="input-group-text" >+61</span>
+                                                                    </div>
+                                                                    <Input
+                                                                        invalid={phone.error}
+                                                                        type="text"
+                                                                        value={phone.value}
+                                                                        name="phone"
+                                                                        id="user-phone"
+                                                                        className="has-input input-lg w-50"
+                                                                        placeholder="Phone Number*"
+                                                                        onChange={(e) => {
                                                                             this.onChangeValue(e)
-                                                                    }}
-                                                                />
-                                                                <span className="has-icon"><i className="ti-mobile" /></span>
+                                                                        }}
+                                                                    />
+                                                                    <span className="has-icon"><i className="ti-mobile"></i></span>
+                                                                </div>
                                                                 <FormFeedback>Invalid</FormFeedback>
                                                             </FormGroup>
                                                         </div>

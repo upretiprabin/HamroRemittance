@@ -25,22 +25,26 @@ const RelationNContact = ({ relation, phone, email, disabled, onChangeValue }) =
                 </div>
                 <div className='col-sm-12 col-md-6 col-lg-4'>
                     <FormGroup className="has-wrapper">
-                        <Input
-                            invalid={phone.error}
-                            type="number"
-                            value={phone.value}
-                            name="phone"
-                            id="user-phone"
-                            className="has-input input-lg"
-                            placeholder="Phone Number*"
-                            disabled={disabled}
-                            onChange={(e) => {
-                                if (Number(e.target.value) || e.target.value == '')
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" >+977</span>
+                            </div>
+                            <Input
+                                invalid={phone.error}
+                                type="text"
+                                value={phone.value}
+                                name="phone"
+                                id="user-phone"
+                                className="has-input input-lg w-50"
+                                placeholder="Phone Number*"
+                                disabled={disabled}
+                                onChange={(e) => {
                                     onChangeValue(e)
-                            }}
-                        />
-                        <span className="has-icon"><i className="ti-mobile"></i></span>
-                        <FormFeedback>Required</FormFeedback>
+                                }}
+                            />
+                            <span className="has-icon"><i className="ti-mobile"></i></span>
+                        </div>
+                        <FormFeedback>Invalid</FormFeedback>
                     </FormGroup>
                 </div>
                 <div className='col-sm-12 col-md-6 col-lg-4'>

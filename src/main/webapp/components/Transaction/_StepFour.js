@@ -31,7 +31,7 @@ const StepFour = ({ saveData, formData, isError }) => {
     const receiver = formData[1];
     return (
         <>
-            <div className="row text-center" >
+            <div className="row text-center mt-20" >
                 <div className='col-sm-12 col-md-12 col-lg-12'>
                     <RctCollapsibleCard heading="Receiver Details" fullBlock>
                         <RctCardContent>
@@ -105,7 +105,7 @@ const StepFour = ({ saveData, formData, isError }) => {
                             <Button
                                 disabled={editableForm}
                                 className="mr-10 mb-10 btn-icon"
-                                color="info" size="lg"
+                                color="secondary" size="lg"
                                 onClick={e => {
                                     setEditableForm(true)
                                 }}>

@@ -18,7 +18,7 @@ export default class ReceiverDetails extends React.Component {
         subUrb: { value: '', error: false },
         state: { value: '', error: false },
         zip: { value: '', error: false },
-        country: { value: '', error: false },
+        country: { value: 'Nepal', error: false },
         relation: { value: '', error: false },
         phone: { value: '', error: false },
         email: { value: '', error: false },
@@ -106,13 +106,13 @@ export default class ReceiverDetails extends React.Component {
         return (
             <div className="session-inner-wrapper">
                 <div className="container">
-                    <div className="row row-eq-height text-center">
+                    <div className="row row-eq-height">
                         <div className='col-sm-12 col-md-12 col-lg-12'>
                             <Label>User Details</Label>
                             <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <RelationNContact relation={relation} phone={phone} email={email} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <Label>User Address</Label>
-                            <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={false} onChangeValue={this.onChangeValue} disabled={this.props.disabled} sender={false} />
+                            <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} disabled={this.props.disabled} sender={false} />
                             <Divider />
                             <Label className='mt-10'>Cash Pickup Details</Label>
                             <BankForm bank={bank} branch={branch} accNumber={accNumber} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />

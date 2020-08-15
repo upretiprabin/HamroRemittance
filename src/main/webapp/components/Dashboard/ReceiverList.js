@@ -34,6 +34,15 @@ class ReceiverList extends Component {
         const { people } = this.state;
         return (
             <List className="discover-list-wrap">
+                {people.length === 0 &&
+                    <ListItem>
+                        <div className="d-flex justify-content-center w-100">
+                            <div className="d-flex align-items-center">
+                                <i>No Receivers added.</i>
+                            </div>
+                        </div>
+                    </ListItem>
+                }
                 {people && people.map((data, key) => (
                     <ListItem key={key}>
                         <div className="d-flex justify-content-between w-100">

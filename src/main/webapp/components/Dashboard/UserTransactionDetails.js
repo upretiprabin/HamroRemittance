@@ -5,17 +5,26 @@ import React, { Component, useState, useEffect } from 'react';
 import Controller from "../../controllers/dashboardController"
 
 import TablePagination from '@material-ui/core/TablePagination';
-
+import House from '@material-ui/icons/House';
 import { currencyFormatter } from '../../util/Formatter'
 
 const UserTransactionDetails = () => {
 	const [recentOrders, setRecentOrders] = useState([]);
+	const [statusMap, setStatusMap] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
 
 	useEffect(() => {
 		Controller.pastTxnData({ setRecentOrders });
+		Controller.getTxnStatusMap({ setStatusMap })
 	}, [])
+	const getStatusDesc = (id) => {
+		let status = statusMap.find(stat => {
+			return stat.statusId === id
+		})
+		if (status) return status.statusDesc
+		return ''
 
+	}
 	const handleChangePage = (event, newPage) => {
 		console.log(event, newPage)
 		setCurrentPage(newPage)
@@ -42,9 +51,9 @@ const UserTransactionDetails = () => {
 								<span className="fs-12">{order.receiverEmail}</span>
 							</td>
 							<td>{currencyFormatter(order.total)}</td>
-							<td>Bank Transfer</td>
+							<td className="text-center" title="Bank Transfer"><House/></td>
 							<td>
-								<span className={`badge select-${order.status} pt-5 pb-5`}>{order.status}</span>
+								<span className={`badge select-${order.status} pt-5 pb-5`}>{getStatusDesc(order.status)}</span>
 							</td>
 						</tr>
 					))}

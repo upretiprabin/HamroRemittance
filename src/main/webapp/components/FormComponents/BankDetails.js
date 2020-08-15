@@ -15,6 +15,7 @@ const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
                 <div className='col-sm-12 col-md-12 col-lg-12'>
                     <FormGroup className="has-wrapper">
                         <Input
+                            invalid={bank.error || branch.error || accNumber.error}
                             disabled={disabled}
                             value={selectedCashPickup}
                             name="cashPickup"

@@ -8,8 +8,10 @@ import { RctCard } from 'Components/RctCard/index';
 import Controller from '../../controllers/transactionController'
 import { CircularProgress } from '@material-ui/core';
 import Formatter from './../../util/Formatter'
+import AlertDialogSlide from '../Dialogs/AlertDialog';
 
-const StepFive = ({ selectedData }) => {
+const StepFive = ({ saveData, selectedData }) => {
+    const [dialogOpen, setDialogOpen] = useState(false)
     const [ratesAndAmount, recipient, purpose] = selectedData
     const [isLoading, setIsLoading] = useState(false);
     const [senderInfo, setSenderInfo] = useState({
@@ -35,20 +37,22 @@ const StepFive = ({ selectedData }) => {
         fee: `${ratesAndAmount.fees}`,
     }
     const confirmTransaction = () => {
-        if (confirm("Please verify transaction before proceeding...")) {
-            let formData = {
-                "sendMoneyTo": 'Nepal',
-                "receiverEmailAddress": selectedData[1].email,
-                "subTotal": selectedData[0].send,
-                "total": selectedData[0].send + selectedData[0].fees,
-                "exchangedTotal": selectedData[0].receive,
-                "currency": "AUD",
-                "transactionReason": selectedData[2].purposeOfTransfer,
-                "sourceOfFund": selectedData[2].sourceOfFund,
-                "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
-            };
-            Controller.postData({ setIsLoading, }, formData)
-        }
+        setDialogOpen(true)
+    }
+    const submitForm = () => {
+        setDialogOpen(false)
+        let formData = {
+            "sendMoneyTo": 'Nepal',
+            "receiverEmailAddress": selectedData[1].email,
+            "subTotal": selectedData[0].send,
+            "total": selectedData[0].send + selectedData[0].fees,
+            "exchangedTotal": selectedData[0].receive,
+            "currency": "AUD",
+            "transactionReason": selectedData[2].purposeOfTransfer,
+            "sourceOfFund": selectedData[2].sourceOfFund,
+            "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
+        };
+        Controller.postData({ setIsLoading, saveData }, formData)
     }
     return (
         <div className="invoice-wrapper">
@@ -133,15 +137,27 @@ const StepFive = ({ selectedData }) => {
                                         <p className="fs-14 text-pink">Please verify the details of receiver party before proceeding as error in details provided might result in delay of the transaction.</p>
                                     </div>
                                     <div className="totle-amount col-sm-12 col-md-4 text-right">
-                                        <h2 className="invoice-title">{transactionDetails.toPay} AUD</h2>
-                                        <Button variant="contained" className="btn-success text-white btn-icon" onClick={e => {
-                                            confirmTransaction()
-                                        }}><i className="ti-wallet mr-10"></i>Confirm Transaction</Button>
+                                        <h2 className="invoice-title">{Formatter.currencyFormatter(transactionDetails.toPay)} AUD</h2>
+                                        {!selectedData[3] &&
+                                            <Button variant="contained" className="btn-success text-white btn-icon" onClick={e => {
+                                                confirmTransaction()
+                                            }}><i className="ti-wallet mr-10"></i>Confirm Transaction</Button>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </RctCard>
                     </div>
+                    <AlertDialogSlide
+                        open={dialogOpen}
+                        title={"Confirm Transaction!"}
+                        body={"Please verify the details of receiver party before proceeding as error in details provided might result in delay of the transaction."}
+                        cancelText={"Cancel"}
+                        submitText={"Submit"}
+                        dialogType={"warning"}
+                        onCancel={e => setDialogOpen(false)}
+                        onSubmit={e => submitForm()}
+                    />
                 </div>
             }
         </div>

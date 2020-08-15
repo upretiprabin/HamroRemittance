@@ -138,6 +138,9 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
             errorMessage: errorMessage
         })
     }
+    newTransaction = () => {
+        this.setState({ activeStep: 0, stepsData: [], error: false, errorMessage: '' })
+    }
     render() {
         const steps = getSteps();
         const { activeStep } = this.state;
@@ -169,7 +172,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                             <div className="pl-40">
                                 <div className="row">
                                     <div className="col-6 text-left">
-                                        {this.state.activeStep != 0 ?
+                                        {activeStep != 0 && !(activeStep == 3 && this.state.stepsData[3]) ?
                                             <span className='mr-10 ml-10' title="Back">
                                                 <Fab color="primary" disabled={activeStep === 0} onClick={this.handleBack}>
                                                     <NavigateBefore />
@@ -179,16 +182,23 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                                         }
                                     </div>
                                     <div className="col-6 text-right">
-                                        <span className='mr-10 ml-10' title="Next">
-                                            <Fab color="primary" onClick={this.handleNext}>
-                                                <NavigateNext />
-                                            </Fab>
+                                        <span className='mr-10 ml-10' title={activeStep !== 3 ? "Next" : "Finish"}>
+                                            {activeStep != 3 &&
+                                                <Fab color="primary" onClick={this.handleNext}>
+                                                    <NavigateNext />
+                                                </Fab>
+                                            }
+                                            {(activeStep == 3 && this.state.stepsData[3]) &&
+                                                <Fab color="primary" onClick={this.newTransaction}>
+                                                    <NavigateNext />
+                                                </Fab>
+                                            }
                                         </span>
                                     </div>
                                 </div>
                                 <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, receiverInfo, countries, this.addReceiver, this.state.isError)}</div>
                                 <div className="text-center">
-                                    {this.state.activeStep != 0 ?
+                                    {activeStep != 0 && !(activeStep == 3 && this.state.stepsData[3]) ?
                                         <span className='mr-10 ml-10'>
                                             <Fab variant="extended" color="secondary" disabled={activeStep === 0} onClick={this.handleBack}>
                                                 <NavigateBefore />
@@ -199,10 +209,17 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                                     }
 
                                     <span className='mr-10 ml-10'>
-                                        <Fab variant="extended" color="primary" onClick={this.handleNext}>
-                                            Next
-                                    <NavigateNext />
-                                        </Fab>
+                                        {(activeStep == 3 && this.state.stepsData[3]) &&
+                                            <Fab variant="extended" color="primary" onClick={this.newTransaction}>
+                                                {"Finish"}
+                                                <NavigateNext />
+                                            </Fab>
+                                        }
+                                        {activeStep != 3 &&
+                                            <Fab variant="extended" color="primary" onClick={this.handleNext}>
+                                                {"Next"}
+                                                <NavigateNext />
+                                            </Fab>}
                                     </span>
                                 </div>
                             </div>

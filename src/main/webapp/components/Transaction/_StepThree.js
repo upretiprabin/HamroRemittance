@@ -16,8 +16,10 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
     const [selected, setSelected] = useState('')
     const postData = data => {
         addReceiver(data)
-        setActiveIndex(0)
     }
+    useEffect(() => {
+        setActiveIndex(0)
+    }, [receiverInfo])
     useEffect(() => {
         if (formData[2] != null) {
             setSelected(formData[2]._id)
@@ -67,7 +69,7 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
                                         </Form>
                                         <Button
                                             className="mr-10 mb-10 btn-icon"
-                                            color="info" size="lg"
+                                            color="secondary" size="lg"
                                             onClick={e => {
                                                 setActiveIndex(1)
                                             }}>

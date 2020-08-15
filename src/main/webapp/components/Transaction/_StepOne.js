@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 
 import Select from "../Select/Select";
 import { Form, FormGroup, Input, Label } from 'reactstrap';
+import { currencyFormatter } from '../../util/Formatter';
 
 const StepOne = ({ saveData, countries, isError, formData }) => {
     const [ratesAndFees, setRatesAndFees] = useState({
@@ -65,7 +66,9 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
 
                 <Form>
                     <div className="row">
-                        <div className="col-11 col-lg-6 mx-auto">
+                        <div className='col-sm-0 col-md-1 col-lg-3'>
+                        </div>
+                        <div className="col-sm-12 col-md-10 col-lg-6">
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>You Send</Label>
@@ -89,7 +92,11 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                                 </FormGroup>
                             </div>
                         </div>
-                        <div className="col-11 col-lg-6 mx-auto">
+                    </div>
+                    <div className="row">
+                        <div className='col-sm-0 col-md-1 col-lg-3'>
+                        </div>
+                        <div className="col-sm-12 col-md-10 col-lg-6">
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>Recipient Gets</Label>
@@ -116,10 +123,10 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                     </div>
                     <p className="mb-1 text-center">Total fees : <span className="font-weight-500">{ratesAndFees.fees} AUD</span></p>
                     <p className="mb-1 text-center">The current exchange rate is <span className="font-weight-500">1 AUD = {ratesAndFees.rate} NPR</span></p>
-                    <p className="mb-1 text-center">You pay : <span className="font-weight-500">{sendAmount == "" ? 0 : sendAmount + ratesAndFees.fees} AUD</span></p>
+                    <p className="mb-1 text-center">You pay : <span className="font-weight-500">{currencyFormatter(sendAmount == "" ? 0 : sendAmount + ratesAndFees.fees)} AUD</span></p>
                 </Form>
             </div>
-        </div>
+        </div >
     )
 }
 export default StepOne;

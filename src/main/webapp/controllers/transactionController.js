@@ -60,6 +60,7 @@ const postData = (ctx, data) => {
             if (isSuccess) {
                 NotificationManager.success('Transaction Posted for Verification')
                 ctx.setIsLoading(false)
+                ctx.saveData(true)
             }
         })
 
