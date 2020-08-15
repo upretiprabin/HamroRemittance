@@ -38,16 +38,9 @@ const loadUserProfileData = (ctx) => {
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 const temp = data.data.result
-                const name = temp.name.split(' ')
-                userProfileData = {
-                    firstName: name[0],
-                    middleName: name.length == 2 ? '' : name[1],
-                    lastName: name.length == 2 ? '' : name[2],
-                    userImage: "",
-                    email: temp.emailAddress,
-                    phone: temp.phoneNumber
-                }
-                localStorage.setItem("user-profile",JSON.stringify(userProfileData))
+                userProfileData = data.data.result
+                userProfileData.userImage = ''
+                localStorage.setItem("user-profile", JSON.stringify(userProfileData))
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -120,7 +113,7 @@ const fetchReceivers = (ctx) => {
         })
 }
 const getCurrentRates = (ctx) => {
-    let rateAndCharges = { rate: null, charges: null}
+    let rateAndCharges = { rate: null, charges: null }
     loadCompanyChargesData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
