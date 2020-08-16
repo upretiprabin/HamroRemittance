@@ -72,7 +72,11 @@ const forgotPassword = (email) => {
     return requestHandler.loadData(URL.USER_FORGOT_PASSWORD, config)
 }
 
-const resetPassword = (data) => {
+const resetPassword = (resetCode,password) => {
+    let data = {
+        resetCode,
+        password
+    };
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.USER_RESET_PASSWORD, config)
 }

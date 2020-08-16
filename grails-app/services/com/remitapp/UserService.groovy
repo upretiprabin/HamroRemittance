@@ -86,10 +86,30 @@ class UserService {
         }
     }
 
+    def resetPassword(def resetCode, def password){
+        if(!resetCode)
+            throw new CustomException("Reset code cannot be null")
+        VerificationToken verificationToken = VerificationToken.findByToken(resetCode)
+        if(!verificationToken)
+            throw new CustomException("Invalid reset code!")
+        if(verificationToken && verificationToken.expiryDate < new Date())
+            throw new CustomException("Token expired!")
+        password = getDecodedPassword(password)
+        User user = User.get(verificationToken.user.id)
+        user.password = password
+        if(user.save(flush : true)){
+            verificationToken.delete(flush: true)
+            return true
+        }else{
+            return null
+        }
+
+    }
+
     def sendForgotPasswordEmail(def email){
         User user = User.findByUsername(email)
         if(!user)
-            throw new Exception("User not registered with provided email.")
+            throw new CustomException("User not registered with provided email.")
         VerificationToken verificationToken = getVerificationToken(user, true)
         def result = emailService.sendVerificationEmail(verificationToken?.token,user,true)
         if(result){
@@ -104,7 +124,7 @@ class UserService {
 
     def getVerificationToken(User user, boolean isReset){
         VerificationToken verificationToken = VerificationToken.findByUserAndIsReset(user,isReset)
-        if(!verificationToken || verificationToken.expiryDate > new Date()){
+        if(!verificationToken || verificationToken.expiryDate < new Date()){
             if(verificationToken)
                 verificationToken.delete(flush: true)
             verificationToken = new VerificationToken()

@@ -20,7 +20,7 @@ class EmailService {
     def emailBody(isReset,token){
         def body = "Verification Code for Hamro Remittance : ${token}"
         if(isReset)
-            body = "Please click this link https://127.0.0.1:3000/reset-password?reset-code=${token}"
+            body = "Please click this link http://127.0.0.1:3000/reset-password?reset-code=${token}"
         return body
     }
 
