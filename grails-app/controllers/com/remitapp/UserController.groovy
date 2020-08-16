@@ -28,6 +28,32 @@ class UserController {
     }
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def sendForgotPasswordEmail(){
+        def requestJSON = request.JSON
+        def email = requestJSON.email
+        def result = null
+        if(!email){
+            render(["Error" : "Invalid parameters"] as JSON)
+            return
+        }
+        try{
+            result = userService.sendForgotPasswordEmail(email)
+        }catch(CustomException e){
+            log.error("Error occurred! $e")
+            render (["Error" : e.message] as JSON)
+            return
+        }catch(Exception e){
+            log.error("Error occurred! $e")
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+        }
+        if(result){
+            render (['result':"Forgot password email sent"] as JSON)
+        }else{
+            render (["Error" : "Error Occurred! Please check logs."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def create(){
         def requestJson = request.JSON
         def username = requestJson.username

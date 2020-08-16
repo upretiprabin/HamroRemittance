@@ -43,7 +43,9 @@ class Register extends Component {
     }
     componentDidMount = () => {
         const {user} = this.props;
-        if(user){
+        if(user && user.isRegistered === false){
+            localStorage.setItem("user-email",user.username);
+        }else{
             this.props.history.push("/home/")
         }
     }
@@ -59,6 +61,8 @@ class Register extends Component {
                 }
             }
             Controller.saveUserDetails(this, formData)
+        }else{
+            console.log("Not validated")
         }
     }
     onChangeValue = e => {

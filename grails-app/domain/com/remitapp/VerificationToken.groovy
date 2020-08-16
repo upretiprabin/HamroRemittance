@@ -9,6 +9,7 @@ class VerificationToken {
     String token
     Date expiryDate = calculateExpiryDate()
     Date createdDate = new Date()
+    boolean isReset = false
 
     static constraints = {
         token blank: false, unique: true

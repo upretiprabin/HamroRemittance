@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Input } from 'reactstrap';
+import { FormGroup, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import QueueAnim from 'rc-queue-anim';
 import { Redirect } from 'react-router-dom';
@@ -8,6 +8,7 @@ import AppConfig from 'Constants/AppConfig';
 import {NotificationContainer,NotificationManager} from "react-notifications";
 import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
 import {validateEmail} from "../helpers/helpers";
+import {sendPasswordResetEmail} from "../services/passwordService";
 
 class ForgotPassword extends Component {
 
@@ -50,7 +51,15 @@ class ForgotPassword extends Component {
             if (this.state.email !== '' && !this.state.invalidEmail) {
                 this.setState({loading:true});
                 sendPasswordResetEmail(this.state.email)
-                    .then((success)=>this.setState({resetEmailSent:true,loading:false}))
+                    .then((data)=>{
+                        if(!data.data.hasOwnProperty("Error"))
+                            this.setState({resetEmailSent:true,loading:false})
+                        else{
+                            this.setState({loading:false});
+                            NotificationManager.error(data.data.Error)
+                        }
+
+                    })
                     .catch((failure)=>{
                             this.setState({loading:false});
                             NotificationManager.error(failure.message)

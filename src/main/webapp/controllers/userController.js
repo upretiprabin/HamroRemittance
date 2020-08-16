@@ -1,6 +1,6 @@
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications"
-import { userRegistration, sendVerificationCodeToEmail, verifyUserCode, saveUserData } from "../services/passwordService";
+import { userRegistration, sendVerificationCodeToEmail, verifyUserCode, saveUserData } from "../services/userService";
 import { userFromLocalStorage } from "../sagas/AuthenticationManager";
 import { getFormattedDate } from "../helpers/helpers";
 
