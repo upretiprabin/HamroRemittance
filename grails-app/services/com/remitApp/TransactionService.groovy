@@ -143,7 +143,7 @@ class TransactionService {
                     returnMap.receiver = eachTxn.receiver.firstName +" "+eachTxn.receiver.middleName +" "+ eachTxn.receiver.lastName
                     returnMap.receiverEmail = eachTxn.receiver.emailAddress
                     returnMap.status = orderDetails.status
-                    returnMap.statusDesc = TransactionStatus.findByStatusId(orderDetails.status)?.statusDesc
+                    returnMap.statusDesc = TransactionStatusEnum.getTransactionStatus(orderDetails.status)?:""
                     returnMap.dateCreated = eachTxn.dateCreated
                 }
                 returnList.add(returnMap)

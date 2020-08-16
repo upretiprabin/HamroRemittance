@@ -10,21 +10,12 @@ import { currencyFormatter } from '../../util/Formatter'
 
 const UserTransactionDetails = () => {
 	const [recentOrders, setRecentOrders] = useState([]);
-	const [statusMap, setStatusMap] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
 
 	useEffect(() => {
 		Controller.pastTxnData({ setRecentOrders });
-		Controller.getTxnStatusMap({ setStatusMap })
 	}, [])
-	const getStatusDesc = (id) => {
-		let status = statusMap.find(stat => {
-			return stat.statusId === id
-		})
-		if (status) return status.statusDesc
-		return ''
 
-	}
 	const handleChangePage = (event, newPage) => {
 		console.log(event, newPage)
 		setCurrentPage(newPage)
@@ -53,7 +44,7 @@ const UserTransactionDetails = () => {
 							<td>{currencyFormatter(order.total)}</td>
 							<td className="text-center" title="Bank Transfer"><House/></td>
 							<td>
-								<span className={`badge select-${order.status} pt-5 pb-5`}>{getStatusDesc(order.status)}</span>
+								<span className={`badge select-${order.status} pt-5 pb-5`}>{order.statusDesc}</span>
 							</td>
 						</tr>
 					))}
