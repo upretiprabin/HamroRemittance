@@ -31,7 +31,12 @@ class InstantSend extends Component {
     }
 
     componentDidMount() {
-        Controller.loadCompanyCharges(this)
+        const {user} = this.props;
+        if(user){
+           this.props.history.push("/app/transaction")
+        }else{
+            Controller.loadCompanyCharges(this)
+        }
     }
 
     changeState(data) {
@@ -95,6 +100,12 @@ class InstantSend extends Component {
     }
 }
 
-export default connect(null,{
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user };
+};
+
+export default connect(mapStateToProps,{
     signIn
 })(InstantSend);

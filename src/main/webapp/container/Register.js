@@ -42,16 +42,10 @@ class Register extends Component {
         this.setState({ ...updatedState })
     }
     componentDidMount = () => {
-        // const user = localStorage.getItem('user')
-        // if (user) {
-        //     const data = {
-        //         username: localStorage.getItem('user-email'),
-        //         password: atob(localStorage.getItem('key'))
-        //     }
-        //     localStorage.removeItem('user-email')
-        //     localStorage.removeItem('key')
-        //     this.props.signIn(data, this.props.history)
-        // }
+        const {user} = this.props;
+        if(user){
+            this.props.history.push("/home/")
+        }
     }
     /**
      * On User Signup
@@ -243,6 +237,12 @@ class Register extends Component {
     }
 }
 
-export default connect(null, {
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user };
+};
+
+export default connect(mapStateToProps, {
     signIn
 })(Register);
