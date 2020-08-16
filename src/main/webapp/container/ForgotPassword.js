@@ -1,62 +1,151 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
-
-// app config
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AppConfig from 'Constants/AppConfig';
+import {NotificationContainer,NotificationManager} from "react-notifications";
+import LinearProgress from "@material-ui/core/LinearProgress/LinearProgress";
+import {validateEmail} from "../helpers/helpers";
 
-export default class Forgotpwd extends Component {
+class ForgotPassword extends Component {
+
+    state = {
+        email: '',
+        invalidEmail:false,
+        resetEmailSent:false,
+        loading:false
+    };
+
+    componentDidMount(){
+        const {user} = this.props;
+        if(user)
+            this.props.history.push("/home")
+    }
+
+    onKeyPress(event) {
+        if (event.key === "Enter") {
+            this.sendResetEmail();
+        }
+    }
+
+    handleEmail(event){
+        new Promise((res,rej)=>{
+            this.setState({ email: event.target.value });
+            res();
+        }).then(()=>this.emailValidator())
+    }
+
+    emailValidator(){
+        let validate = validateEmail(this.state.email);
+        validate ? this.setState({invalidEmail:false}) : this.setState({invalidEmail:true});
+    };
+
+    /**
+     * Send reset email
+     */
+    sendResetEmail() {
+        if(!this.state.resetEmailSent){
+            if (this.state.email !== '' && !this.state.invalidEmail) {
+                this.setState({loading:true});
+                sendPasswordResetEmail(this.state.email)
+                    .then((success)=>this.setState({resetEmailSent:true,loading:false}))
+                    .catch((failure)=>{
+                            this.setState({loading:false});
+                            NotificationManager.error(failure.message)
+                        }
+                    )
+            }
+        }else{
+            this.props.history.push("/home/");
+        }
+    }
+
     render() {
+        const { email,loading } = this.state;
         return (
             <QueueAnim type="bottom" duration={2000}>
-                <div className="rct-session-wrapper" key="1">
-                    <AppBar position="static" className="session-header">
-                        <Toolbar>
-                            <div className="container">
-                                <div className="d-flex justify-content-between">
-                                    <div className="session-logo">
-                                        <Link to="/">
-                                            <img src={AppConfig.appLogo} alt="session-logo" className="img-fluid" width="110" height="35" />
-                                        </Link>
-                                    </div>
-                                    <div className="session-social-icon">
-                                        <IconButton className="text-white" aria-label="facebook">
-                                            <i className="zmdi zmdi-facebook"></i>
-                                        </IconButton>
-                                        <IconButton className="text-white" aria-label="twitter">
-                                            <i className="zmdi zmdi-twitter"></i>
-                                        </IconButton>
-                                        <IconButton className="text-white" aria-label="google">
-                                            <i className="zmdi zmdi-google"></i>
-                                        </IconButton>
+                <NotificationContainer />
+                <div className="app-horizontal rct-session-wrapper">
+                    {loading &&
+                    <LinearProgress />
+                    }
+                    <div className="container-fluid px-0 h-100">
+                        <div className="row no-gutters h-100">
+                            <div className="col-md-6">
+                                <div className="hero-wrap d-flex align-items-center h-100">
+                                    <div className="hero-mask opacity-8" />
+                                    <div className="hero-bg hero-bg-scroll" />
+                                    <div className="hero-content mx-auto w-100 h-100 d-flex flex-column">
+                                        <div className="row no-gutters">
+                                            <div className="col-10 col-lg-9 mx-auto">
+                                                <div className="logo mt-40 mb-5 mb-md-0">
+                                                    <a className="d-flex"
+                                                       href="/"
+                                                       title="Hamro Remit">
+                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100} />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row no-gutters my-auto">
+                                            <div className="col-10 col-lg-9 mx-auto">
+                                                <h1 className="text-11 text-white mb-4">Convenient, Quick & Secure</h1>
+                                                <p className="text-4 text-white line-height-4 mb-5">Instant money transfer from Australia to Nepal.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </Toolbar>
-                    </AppBar>
-                    <div className="session-inner-wrapper p-4 h-100 p-md-0">
-                        <div className="row">
-                            <div className="col-sm-8 col-lg-5 mx-auto">
-                                <div className="session-body text-center">
-                                    <div className="session-head mb-30">
-                                        <h2>Get started with {AppConfig.brandName}</h2>
-                                        <p className="mb-0">Most powerful ReactJS admin panel</p>
+                            <div className="col-md-6 d-flex align-items-center">
+                                <div className="container my-4">
+                                    <div className="row">
+                                        <div className="col-11 col-lg-9 col-xl-8 mx-auto">
+                                            <h3 className="ml-5 mb-4">Forgot Password?</h3>
+                                            {!this.state.resetEmailSent &&
+
+                                            <p className="black-text mb-20 ml-5">
+                                                <span>Enter the email address associated with your account. We will email you instructions to reset your password.</span>
+                                            </p>
+                                            }
+                                            {this.state.resetEmailSent &&
+
+                                            <p className="black-text mb-20 ml-5">
+                                                <span>A password reset email was sent to <span className={'theme-text-color'}><strong>{this.state.email}</strong>.</span> Please check this email for further instructions.</span>
+                                            </p>
+                                            }
+                                            <div className={"ml-5"}>
+                                                {!this.state.resetEmailSent &&
+                                                <FormGroup className="has-wrapper">
+                                                    <Input
+                                                        type="mail"
+                                                        value={email}
+                                                        name="user-mail"
+                                                        id="user-mail"
+                                                        className="has-input input-lg"
+                                                        placeholder="Email Address"
+                                                        onKeyPress={(event) => { this.onKeyPress(event) }}
+                                                        onChange={(event) => this.handleEmail(event)}
+                                                    />
+                                                    <span className="has-icon"><i className="ti-email" /></span>
+                                                    <span className={this.state.invalidEmail ? "cred-error-label" : "d-none"}>Email must be a valid format</span>
+                                                </FormGroup>
+                                                }
+                                                <FormGroup className="mb-15">
+                                                    <Button
+                                                        color="primary"
+                                                        className="btn-block btn-primary text-white w-100"
+                                                        variant="contained"
+                                                        size="large"
+                                                        onClick={() => this.sendResetEmail()}
+                                                    >
+                                                        <span className={"p-5"}>{this.state.resetEmailSent?'Okay':'Send Reset Instructions'}</span>
+                                                    </Button>
+                                                </FormGroup>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <Form>
-                                        <FormGroup className="has-wrapper">
-                                            <Input type="mail" name="user-mail" id="user-mail" className="has-input input-lg" placeholder="Enter Email Address" onChange={(event) => this.setState({ email: event.target.value })} />
-                                            <span className="has-icon"><i className="ti-email"></i></span>
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Button variant="contained" className="btn-info text-white btn-block btn-large w-100">Reset Password</Button>
-                                        </FormGroup>
-                                        <Button component={Link} to="/session/login" className="btn-dark btn-block btn-large text-white w-100">Already having account?  Login</Button>
-                                    </Form>
                                 </div>
                             </div>
                         </div>
@@ -66,3 +155,11 @@ export default class Forgotpwd extends Component {
         );
     }
 }
+
+// map state to props
+const mapStateToProps = ({ authUser }) => {
+    const { user } = authUser;
+    return { user }
+};
+
+export default connect(mapStateToProps)(ForgotPassword);
