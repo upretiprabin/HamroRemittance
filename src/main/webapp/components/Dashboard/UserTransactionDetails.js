@@ -17,7 +17,6 @@ const UserTransactionDetails = () => {
 	}, [])
 
 	const handleChangePage = (event, newPage) => {
-		console.log(event, newPage)
 		setCurrentPage(newPage)
 	};
 	const currentPageOrders = recentOrders.slice(currentPage * 10, currentPage * 10 + 10)
@@ -26,10 +25,9 @@ const UserTransactionDetails = () => {
 			<table className="table table-hover mb-0">
 				<thead>
 					<tr>
-						<th>Order ID</th>
 						<th>Customer Name</th>
 						<th>Sent Amount</th>
-						<th>Cash Pickup</th>
+						<th>Receive Amount</th>
 						<th>Status</th>
 						<th>Receipt</th>
 					</tr>
@@ -37,15 +35,17 @@ const UserTransactionDetails = () => {
 				<tbody>
 					{currentPageOrders && currentPageOrders.map((order, key) => (
 						<tr key={key}>
-							<td>#{order.id}</td>
 							<td>
 								<span className="d-block fw-normal">{order.receiver}</span>
 								<span className="fs-12">{order.receiverEmail}</span>
 							</td>
-							<td>{currencyFormatter(order.total)}</td>
-							<td >Bank Transfer</td>
 							<td>
-								<span className={`badge select-${order.status} pt-5 pb-5`}>{order.statusDesc}</span>
+								<span className="d-block fw-normal">{currencyFormatter(order.total)}</span>
+							</td><td>
+								<span className="d-block fw-normal">Rs.{currencyFormatter(order.exchangedTotal).substr(1)}</span>
+							</td>
+							<td>
+								<span className={`badge select-${order.status} pt-5 pb-5`}>{order.status == "readyForCollectionInNepal" ? "Ready For Collection" : order.statusDesc}</span>
 							</td>
 							<td className="text-center">
 								<span title={"fileName"} onClick={() => window.open("https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/file.jpg", "_blank")}>
