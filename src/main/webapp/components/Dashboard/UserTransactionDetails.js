@@ -5,7 +5,7 @@ import React, { Component, useState, useEffect } from 'react';
 import Controller from "../../controllers/dashboardController"
 
 import TablePagination from '@material-ui/core/TablePagination';
-import House from '@material-ui/icons/House';
+import InsertDriveFile from '@material-ui/icons/InsertDriveFile';
 import { currencyFormatter } from '../../util/Formatter'
 
 const UserTransactionDetails = () => {
@@ -31,6 +31,7 @@ const UserTransactionDetails = () => {
 						<th>Sent Amount</th>
 						<th>Cash Pickup</th>
 						<th>Status</th>
+						<th>Receipt</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,9 +43,14 @@ const UserTransactionDetails = () => {
 								<span className="fs-12">{order.receiverEmail}</span>
 							</td>
 							<td>{currencyFormatter(order.total)}</td>
-							<td className="text-center" title="Bank Transfer"><House/></td>
+							<td >Bank Transfer</td>
 							<td>
 								<span className={`badge select-${order.status} pt-5 pb-5`}>{order.statusDesc}</span>
+							</td>
+							<td className="text-center">
+								<span title={"fileName"} onClick={() => window.open("https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/file.jpg", "_blank")}>
+									<InsertDriveFile />
+								</span>
 							</td>
 						</tr>
 					))}

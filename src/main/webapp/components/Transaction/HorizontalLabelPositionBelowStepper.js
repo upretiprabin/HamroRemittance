@@ -4,16 +4,17 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import StepOne from './_StepOne';
-import StepTwo from './_StepTwo';
 import StepThree from './_StepThree';
 import StepFive from './_StepFive';
 import StepFour from './_StepFour';
+import ReceiptUpload from './ReceiptUpload';
+
 import { SnackbarContent, Snackbar, Fab } from '@material-ui/core';
 import NavigateNext from '@material-ui/icons/NavigateNext';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
 
 function getSteps() {
-    return ['Transaction details', 'Select Receiver', 'Receiver Details', 'Review Transaction'];
+    return ['Transaction details', 'Select Receiver', 'Receiver Details', 'Receipt Upload', 'Review Transaction'];
 }
 
 function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo, countries, addReceiver, error) {
@@ -27,6 +28,8 @@ function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo,
         case 2:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 3:
+            return <ReceiptUpload saveData={(obj) => saveStepData(obj, stepIndex)} formData={data}  isError={error} />
+        case 4:
             return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} isError={error} />
         default:
             return <StepOne saveData={(obj) => saveStepData(obj, stepIndex)} />
@@ -44,7 +47,6 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
     handleNext = () => {
         const { activeStep, stepsData } = this.state;
         var updatedState;
-        console.log(stepsData)
         switch (activeStep) {
             case 0:
                 if (typeof (stepsData[activeStep]) != 'undefined') {
@@ -75,6 +77,13 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                 }
                 break
             case 3:
+                if (stepsData[activeStep] && stepsData[activeStep]?.length !== 0) {
+                    updatedState = { activeStep: activeStep + 1 }
+                } else {
+                    this.setError('Please upload receipt image!')
+                }
+                break
+            case 4:
                 if (stepsData[activeStep] == true) {
                     updatedState = { activeStep: activeStep + 1 }
                 } else {
@@ -127,6 +136,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
         });
     };
     saveStepData = (data, index) => {
+        console.log(data)
         const updatedStepData = [...this.state.stepsData]
         updatedStepData[index] = data
         this.setState({ stepsData: updatedStepData })
@@ -172,7 +182,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                             <div className="pl-40">
                                 <div className="row">
                                     <div className="col-6 text-left">
-                                        {activeStep != 0 && !(activeStep == 3 && this.state.stepsData[3]) ?
+                                        {activeStep != 0 && !(activeStep == 4 && this.state.stepsData[4]) ?
                                             <span className='mr-10 ml-10' title="Back">
                                                 <Fab color="primary" disabled={activeStep === 0} onClick={this.handleBack}>
                                                     <NavigateBefore />
@@ -182,13 +192,13 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                                         }
                                     </div>
                                     <div className="col-6 text-right">
-                                        <span className='mr-10 ml-10' title={activeStep !== 3 ? "Next" : "Finish"}>
-                                            {activeStep != 3 &&
+                                        <span className='mr-10 ml-10' title={activeStep !== 4 ? "Next" : "Finish"}>
+                                            {activeStep != 4 &&
                                                 <Fab color="primary" onClick={this.handleNext}>
                                                     <NavigateNext />
                                                 </Fab>
                                             }
-                                            {(activeStep == 3 && this.state.stepsData[3]) &&
+                                            {(activeStep == 4 && this.state.stepsData[4]) &&
                                                 <Fab color="primary" onClick={this.newTransaction}>
                                                     <NavigateNext />
                                                 </Fab>
@@ -198,7 +208,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                                 </div>
                                 <div>{getStepContent(activeStep, this.saveStepData, this.state.stepsData, senderInfo, receiverInfo, countries, this.addReceiver, this.state.isError)}</div>
                                 <div className="text-center">
-                                    {activeStep != 0 && !(activeStep == 3 && this.state.stepsData[3]) ?
+                                    {activeStep != 0 && !(activeStep == 4 && this.state.stepsData[4]) ?
                                         <span className='mr-10 ml-10'>
                                             <Fab variant="extended" color="secondary" disabled={activeStep === 0} onClick={this.handleBack}>
                                                 <NavigateBefore />
@@ -209,13 +219,13 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                                     }
 
                                     <span className='mr-10 ml-10'>
-                                        {(activeStep == 3 && this.state.stepsData[3]) &&
+                                        {(activeStep == 4 && this.state.stepsData[4]) &&
                                             <Fab variant="extended" color="primary" onClick={this.newTransaction}>
                                                 {"Finish"}
                                                 <NavigateNext />
                                             </Fab>
                                         }
-                                        {activeStep != 3 &&
+                                        {activeStep != 4 &&
                                             <Fab variant="extended" color="primary" onClick={this.handleNext}>
                                                 {"Next"}
                                                 <NavigateNext />

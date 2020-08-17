@@ -114,7 +114,7 @@ const StepFive = ({ saveData, selectedData }) => {
                                             </tr>
                                             <tr align="center">
                                                 <td>Receiver Gets</td>
-                                                <td>{Formatter.currencyFormatter(transactionDetails.receive)} NRS</td>
+                                                <td>{Formatter.currencyFormatter(transactionDetails.receive).substr(1)} NRS</td>
                                             </tr>
                                             <tr align="center">
                                                 <td>Rate</td>
@@ -138,7 +138,7 @@ const StepFive = ({ saveData, selectedData }) => {
                                     </div>
                                     <div className="totle-amount col-sm-12 col-md-4 text-right">
                                         <h2 className="invoice-title">{Formatter.currencyFormatter(transactionDetails.toPay)} AUD</h2>
-                                        {!selectedData[3] &&
+                                        {!selectedData[4] &&
                                             <Button variant="contained" className="btn-success text-white btn-icon" onClick={e => {
                                                 confirmTransaction()
                                             }}><i className="ti-wallet mr-10"></i>Confirm Transaction</Button>

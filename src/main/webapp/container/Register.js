@@ -42,7 +42,7 @@ class Register extends Component {
         this.setState({ ...updatedState })
     }
     componentDidMount = () => {
-        const {user} = this.props;
+        const { user } = this.props;
         if(user){
             this.props.history.push("/home/")
         }
@@ -159,9 +159,9 @@ class Register extends Component {
                                                                             this.onChangeValue(e)
                                                                         }}
                                                                     />
+                                                                    <FormFeedback>Invalid</FormFeedback>
                                                                     <span className="has-icon"><i className="ti-mobile"></i></span>
                                                                 </div>
-                                                                <FormFeedback>Invalid</FormFeedback>
                                                             </FormGroup>
                                                         </div>
                                                         <div className='col-sm-12 col-md-4 col-lg-4'>

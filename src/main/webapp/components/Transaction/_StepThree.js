@@ -21,8 +21,8 @@ const StepThree = ({ saveData, receiverInfo, isError, addReceiver, formData }) =
         setActiveIndex(0)
     }, [receiverInfo])
     useEffect(() => {
-        if (formData[2] != null) {
-            setSelected(formData[2]._id)
+        if (formData[1] != null) {
+            setSelected(formData[1]._id)
             setActiveIndex(0)
         }
     }, [])

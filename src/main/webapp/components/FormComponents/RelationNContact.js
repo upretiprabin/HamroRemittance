@@ -42,9 +42,9 @@ const RelationNContact = ({ relation, phone, email, disabled, onChangeValue }) =
                                     onChangeValue(e)
                                 }}
                             />
+                            <FormFeedback>Invalid</FormFeedback>
                             <span className="has-icon"><i className="ti-mobile"></i></span>
                         </div>
-                        <FormFeedback>Invalid</FormFeedback>
                     </FormGroup>
                 </div>
                 <div className='col-sm-12 col-md-6 col-lg-4'>
