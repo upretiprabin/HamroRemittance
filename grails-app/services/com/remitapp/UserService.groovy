@@ -58,6 +58,10 @@ class UserService {
         if(user){
             UserRole.findAllByUser(user)*.delete(flush: true,failOnError: true)
             VerificationToken.findAllByUser(user)*.delete(flush: true,failOnError: true)
+            Customer customer = Customer.findByEmailAddress(user.username)
+            CustomerAddress.findAllByCustomer(customer)*.delete(flush:true, failOnError: true)
+            BankDetails.findAllByCustomer(customer)*.delete(flush:true, failOnError: true)
+            Customer.findAllByEmailAddress(user.username)*.delete(flush: true, failOnError: true)
             user.delete(flush: true, failOnError: true)
             return true
         }else{
@@ -82,10 +86,45 @@ class UserService {
         }
     }
 
-    def sendVerificationToken(def username){
-        User user = User.findByUsername(username)
-        VerificationToken verificationToken = VerificationToken.findByUser(user)
-        if(!verificationToken || verificationToken.expiryDate > new Date()){
+    def resetPassword(def resetCode, def password){
+        if(!resetCode)
+            throw new CustomException("Reset code cannot be null")
+        VerificationToken verificationToken = VerificationToken.findByToken(resetCode)
+        if(!verificationToken)
+            throw new CustomException("Invalid reset code!")
+        if(verificationToken && verificationToken.expiryDate < new Date())
+            throw new CustomException("Token expired!")
+        password = getDecodedPassword(password)
+        User user = User.get(verificationToken.user.id)
+        user.password = password
+        if(user.save(flush : true)){
+            verificationToken.delete(flush: true)
+            return true
+        }else{
+            return null
+        }
+
+    }
+
+    def sendForgotPasswordEmail(def email){
+        User user = User.findByUsername(email)
+        if(!user)
+            throw new CustomException("User not registered with provided email.")
+        VerificationToken verificationToken = getVerificationToken(user, true)
+        def result = emailService.sendVerificationEmail(verificationToken?.token,user,true)
+        if(result){
+            verificationToken.save(flush:true, failOnError: true)
+            return true
+        }
+        else{
+            verificationToken.delete(flush:true, failOnError: true)
+            return null
+        }
+    }
+
+    def getVerificationToken(User user, boolean isReset){
+        VerificationToken verificationToken = VerificationToken.findByUserAndIsReset(user,isReset)
+        if(!verificationToken || verificationToken.expiryDate < new Date()){
             if(verificationToken)
                 verificationToken.delete(flush: true)
             verificationToken = new VerificationToken()
@@ -94,7 +133,15 @@ class UserService {
         String token = utilsService.getRandomNumberOf4Digit()
         verificationToken.token = token
         verificationToken.user = user
-        def result = emailService.sendVerificationEmail(token,user)
+        if(isReset)
+            verificationToken.isReset = true
+        return verificationToken
+    }
+
+    def sendVerificationToken(def username){
+        User user = User.findByUsername(username)
+        VerificationToken verificationToken = getVerificationToken(user, false)
+        def result = emailService.sendVerificationEmail(verificationToken?.token,user,false)
         if(result){
             verificationToken.save(flush:true, failOnError:true)
             return true
@@ -104,10 +151,10 @@ class UserService {
         }
     }
 
-    def validateToken(def token, User user){
+    def validateToken(def token, User user, boolean isReset){
         if(!user)
             throw new CustomException("User not found. Please sign up to create new user")
-        VerificationToken verificationToken = VerificationToken.findByTokenAndUser(token,user)
+        VerificationToken verificationToken = VerificationToken.findByTokenAndUserAndIsReset(token,user,isReset)
         if(!verificationToken)
             throw new CustomException("Invalid token!")
         if(verificationToken.expiryDate < new Date()){
@@ -121,7 +168,7 @@ class UserService {
         User user = User.findByUsername(username)
         VerificationToken verificationToken = null
         try{
-            verificationToken = validateToken(token,user)
+            verificationToken = validateToken(token,user,false)
             if(verificationToken){
                 user.enabled = true
                 user.save(flush: true, failOnError : true)

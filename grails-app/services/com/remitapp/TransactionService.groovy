@@ -140,6 +140,7 @@ class TransactionService {
                 if(orderDetails){
                     returnMap.id = eachTxn.id
                     returnMap.total = eachTxn.total
+                    returnMap.exchangedTotal = eachTxn.exchangedTotal
                     returnMap.receiver = eachTxn.receiver.firstName +" "+eachTxn.receiver.middleName +" "+ eachTxn.receiver.lastName
                     returnMap.receiverEmail = eachTxn.receiver.emailAddress
                     returnMap.status = orderDetails.status

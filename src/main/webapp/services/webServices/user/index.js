@@ -64,6 +64,23 @@ const verifyUser = (data) => {
     return requestHandler.loadData(URL.VERIFY_USER, config)
 }
 
+const forgotPassword = (email) => {
+    let data = {
+        email
+    };
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.USER_FORGOT_PASSWORD, config)
+}
+
+const resetPassword = (resetCode,password) => {
+    let data = {
+        resetCode,
+        password
+    };
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.USER_RESET_PASSWORD, config)
+}
+
 const checkSession = (username) => {
     let data = {
         username
@@ -88,5 +105,7 @@ export default {
     sendVerificationCode,
     saveUserDetails,
     verifyUser,
+    forgotPassword,
+    resetPassword,
     checkSession
 }

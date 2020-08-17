@@ -14,6 +14,7 @@ import HorizontalLayout from './HorizontalLayout';
 import AppConfig from "Constants/AppConfig";
 import {AsyncSessionPage404Component} from "../components/AsyncComponent/AsyncComponent";
 import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 import AppSignIn from "./SignIn";
 import Signup from "./SignUp";
 import InstantSend from "./InstantSend";
@@ -87,6 +88,7 @@ class App extends Component {
                         <Route path="/home" component={HomeLayout} />
                         <Route path="/admin" component={RctDefaultLayout} />
                         <Route path="/forgot-password" component={ForgotPassword} />
+                        <Route path="/reset-password" component={ResetPassword} />
                         <Route path="/signin" component={AppSignIn} />
                         <Route path="/signup" component={Signup} />
                         <Route path="/send" component={InstantSend} />

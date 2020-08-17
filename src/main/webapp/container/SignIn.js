@@ -69,6 +69,10 @@ class SignIn extends Component {
         this.props.history.push('/signup');
     }
 
+    onForgotPassword() {
+        this.props.history.push('/forgot-password');
+    }
+
     render() {
         const { email, password } = this.state;
         const { loading, user } = this.props;
@@ -155,7 +159,7 @@ class SignIn extends Component {
                                             </Form>
                                             <div className="row">
                                                 <div className="col-sm text-left mb-4 ml-5">
-                                                    <a className="btn-link" href="#">Forgotten Password ?</a>
+                                                    <a className="btn-link" href="#" onClick={() => this.onForgotPassword()}>Forgotten Password ?</a>
                                                 </div>
                                             </div>
                                             <p className="text-3 text-center text-muted">
