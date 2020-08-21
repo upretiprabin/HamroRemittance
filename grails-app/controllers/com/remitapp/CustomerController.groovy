@@ -151,7 +151,7 @@ class CustomerController {
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":"Error occurred while deleting customer."] as JSON)
+            render (["Error":"Error occurred while deleting ${customerParams.receiver?'receiver':'customer'}."] as JSON)
         }
 
     }

@@ -26,6 +26,12 @@ const AsyncTransactionComponent = Loadable({
     loading: () => <RctPageLoader />,
 });
 
+// receiver
+const AsyncReceiverComponent = Loadable({
+    loader: () => import("../../routes/receiver"),
+    loading: () => <RctPageLoader />
+});
+
 // Session Page 404
 const AsyncSessionPage404Component = Loadable({
     loader: () => import("Routes/session/404"),
@@ -42,5 +48,6 @@ export {
     AsyncHomeComponent,
     AsyncSessionPage404Component,
     AsyncTransactionComponent,
+    AsyncReceiverComponent,
     AsyncAdminDashboardComponent
 };

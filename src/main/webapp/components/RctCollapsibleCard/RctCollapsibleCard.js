@@ -35,15 +35,24 @@ class RctCollapsibleCard extends Component {
 		this.setState({ close: true });
 	}
 
+	linkHeader = (e) => {
+	    e.preventDefault();
+	    this.props.linkHeader();
+	}
+
 	render() {
 		const { close, reload, collapse } = this.state;
-		const { children, collapsible, closeable, reloadable, heading, fullBlock, colClasses, customClasses, headingCustomClasses, contentCustomClasses, badge } = this.props;
+		const { children, collapsible, closeable, reloadable, heading, fullBlock, colClasses, customClasses, headingCustomClasses, contentCustomClasses, badge, linkHeader} = this.props;
 		return (
 			<div className={classnames(colClasses ? colClasses : '', { 'd-block': !collapse })}>
 				<div className={classnames(`rct-block ${customClasses ? customClasses : ''}`, { 'd-none': close })}>
 					{heading &&
 						<div className={`rct-block-title ${headingCustomClasses ? headingCustomClasses : ''}`}>
-							<h4>{heading} {badge && <Badge className="p-1 ml-10" color={badge.class}>{badge.name}</Badge>}</h4>
+							<h4>
+							    {heading}
+							    {badge && <Badge className="p-1 ml-10" color={badge.class}>{badge.name}</Badge>}
+							    {linkHeader && <a className="float-right header5" onClick={this.linkHeader}>View All</a>}
+							</h4>
 							{(collapsible || reloadable || closeable) &&
 								<div className="contextual-link">
 									{collapsible && <a href="#" onClick={(e) => this.onCollapse(e)}><i className="ti-minus"></i></a>}

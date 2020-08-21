@@ -21,7 +21,14 @@ const postReceiver = (data) => {
     return requestHandler.loadData(URL.RECIEVER_REGISTER, config);
 }
 
+const deleteReceiver = (data) => {
+    const config = defaultConfig(data);
+    console.log(URL.DELETE_CUSTOMER, config)
+    return requestHandler.loadData(URL.DELETE_CUSTOMER, config);
+}
+
 export default {
     loadData,
-    postReceiver
+    postReceiver,
+    deleteReceiver
 }

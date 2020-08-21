@@ -96,3 +96,16 @@ body{
   display: block !important;
   color: $secondary-app-color !important;
 }
+
+.float-right {
+    float: right!important;
+}
+
+.app-horizontal .receiver-container .fa{
+    color: #808080 !important;
+    cursor: pointer;
+}
+
+.header5{
+    font-size: smaller!important;
+}

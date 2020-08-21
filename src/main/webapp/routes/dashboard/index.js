@@ -49,10 +49,12 @@ class Index extends Component {
         // Controller.loadData(this);
     }
 
+    linkToReceivers = () => {
+        this.props.history.push('/app/receiver');
+    }
+
     render() {
-        const {
-            loading
-        } = this.state;
+        const { loading } = this.state;
 
         return (
             <div className="dashboard-wrapper">
@@ -84,7 +86,7 @@ class Index extends Component {
                                     {/* Receiver List */}
                                     <RctCollapsibleCard
                                         heading='Receivers'
-                                        fullBlock
+                                        fullBlock linkHeader={this.linkToReceivers}
                                     >
                                         <ReceiverList />
                                     </RctCollapsibleCard>

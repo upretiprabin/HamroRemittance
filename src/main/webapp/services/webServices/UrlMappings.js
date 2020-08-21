@@ -14,6 +14,7 @@ export default {
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'customer/getCustomerTransactions',
     LOAD_PERSONAL_DATA: 'customer/getCustomerPersonalInfo',
+    DELETE_CUSTOMER: 'customer/deleteCustomer',
 
     //Transaction endpoints
     TRANSACTION_CREATE: 'transaction/saveTransaction',
