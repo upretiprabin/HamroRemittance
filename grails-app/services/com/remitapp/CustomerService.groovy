@@ -156,6 +156,8 @@ class CustomerService {
             returnMap.lastName = customer.lastName
             returnMap.emailAddress = customer.emailAddress
             returnMap.phoneNumber = customer.phoneNumber
+            returnMap.nationality = customer.nationality
+            returnMap.dateOfBirth = customer.dateOfBirth
 
             def address = CustomerAddress.findByCustomer(customer).address
             if(address){
