@@ -10,6 +10,8 @@ export default {
     SEND_VERIFICATION_CODE: 'user/sendVerificationCode',
     VERIFY_USER: 'user/verifyUser',
     CHECK_SESSION: 'user/checkSession',
+    USER_PASSWORD_CHANGE: 'user/changePassword',
+    UPDATE_USER_DETAILS: 'customer/updateCustomer',
 
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'customer/getCustomerTransactions',

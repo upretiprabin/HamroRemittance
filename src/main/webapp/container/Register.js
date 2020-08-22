@@ -42,12 +42,12 @@ class Register extends Component {
         this.setState({ ...updatedState })
     }
     componentDidMount = () => {
-        const {user} = this.props;
-        if(user && user.isRegistered === false){
-            localStorage.setItem("user-email",user.username);
-        }else{
-            this.props.history.push("/home/")
-        }
+        // const {user} = this.props;
+        // if(user && user.isRegistered === false){
+        //     localStorage.setItem("user-email",user.username);
+        // }else{
+        //     this.props.history.push("/home/")
+        // }
     }
     /**
      * On User Signup

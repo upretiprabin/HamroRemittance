@@ -4,7 +4,8 @@ import {
     AsyncDashboardComponent,
     AsyncTransactionComponent,
     AsyncReceiverComponent,
-    AsyncAdminDashboardComponent
+    AsyncAdminDashboardComponent,
+    AsyncUserProfileComponent
 } from "Components/AsyncComponent/AsyncComponent";
 import HowItWorks from "../routes/howItWorks";
 import AboutUs from "../container/AboutUs";
@@ -25,10 +26,14 @@ const customerRoutes = [
     {
         path: 'receiver',
         component: AsyncReceiverComponent
+    },
+    {
+        path: 'user-profile',
+        component: AsyncUserProfileComponent
     }
 ];
 
-const adminRoutes =  [
+const adminRoutes = [
     {
         path: 'dashboard',
         component: AsyncAdminDashboardComponent

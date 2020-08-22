@@ -3,8 +3,10 @@ import Controller from "../../controllers/dashboardController"
 import { getRandomColor } from '../../util/helpers';
 
 import { phoneNumberFormatter } from '../../util/Formatter'
+import { useHistory } from 'react-router-dom';
 
 const UserProfileCard = ({ }) => {
+    const history = useHistory();
     const [userData, setUserData] = useState({
         firstName: "",
         middleName: "",
@@ -16,11 +18,9 @@ const UserProfileCard = ({ }) => {
     useEffect(() => {
         Controller.loadUserProfileData({ setUserData });
     }, [])
-
-
     const redirectToEditProfile = (e) => {
         e.preventDefault()
-        //TODO
+        history.push('user-profile');
     }
     const name = `${userData?.firstName ? userData.firstName : ""} ${userData?.middleName === '' ? '' : (userData?.middleName ? userData.middleName[0] : "") + '.'} ${userData.lastName ? userData.lastName : ""}`
     return (

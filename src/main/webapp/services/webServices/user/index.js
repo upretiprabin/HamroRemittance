@@ -72,7 +72,7 @@ const forgotPassword = (email) => {
     return requestHandler.loadData(URL.USER_FORGOT_PASSWORD, config)
 }
 
-const resetPassword = (resetCode,password) => {
+const resetPassword = (resetCode, password) => {
     let data = {
         resetCode,
         password
@@ -88,8 +88,16 @@ const checkSession = (username) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.CHECK_SESSION, config)
 }
+const updateUserDetails = (data) => {
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.UPDATE_USER_DETAILS, config)
+}
 
-const registerUser = (data) =>{
+const updateUserPassword = (data) => {
+    let config = defaultConfig(data)
+    return requestHandler.loadData(URL.USER_PASSWORD_CHANGE, config)
+}
+const registerUser = (data) => {
     let config = defaultConfig(data);
     /**TODO remove fake data and call endpoint after data has all keys present */
     // return requestHandler.loadData(URL.USER_REGISTER, config);
@@ -107,5 +115,7 @@ export default {
     verifyUser,
     forgotPassword,
     resetPassword,
-    checkSession
+    checkSession,
+    updateUserDetails,
+    updateUserPassword
 }
