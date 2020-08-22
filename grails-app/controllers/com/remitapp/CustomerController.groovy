@@ -69,7 +69,7 @@ class CustomerController {
     def updateCustomer(){
         def customerParams = request.JSON
         def addressParams = [:]
-        addressParams.customerId = customerParams.customerId
+//        addressParams.customerId = customerParams.customerId
         addressParams.addressLineOne = customerParams.addressLineOne
         addressParams.addressLineTwo = customerParams.addressLineTwo
         addressParams.suburbCity = customerParams.suburbCity
@@ -79,7 +79,7 @@ class CustomerController {
 
         def bankDetails = [:]
         if(params?.receiver) {
-            bankDetails.customerId = customerParams.customerId
+//            bankDetails.customerId = customerParams.customerId
             bankDetails.bankName = customerParams.bankName
             bankDetails.branchId = customerParams.branchId
             bankDetails.accountNumber = customerParams.accountNumber
@@ -103,7 +103,7 @@ class CustomerController {
                 def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
                 def savedAddress = addressResult.address
                 println "savedAddress === $savedAddress"
-                render (["result":addressResult] as JSON)
+                render (["result":"Updated Customer Successfully."] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()

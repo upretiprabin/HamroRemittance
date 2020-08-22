@@ -72,16 +72,16 @@ class CustomerService {
     }
 
     def updateSender(def params){
-        def dob = commonService.getFormattedDate(params.dateOfBirth)
+        def dob = commonService.getFormattedDate(params?.dateOfBirth)
         println "dob ==== $dob"
-        Sender sender = Sender.findById(params.customerId)
+        Sender sender = Sender.findByEmailAddress(params.emailAddress)
         sender.firstName = params?.firstName
         sender.middleName = params?.middleName
-        sender.lastName = params.lastName
-        sender.phoneNumber = params.phoneNumber
+        sender.lastName = params?.lastName
+        sender.phoneNumber = params?.phoneNumber
         sender.dateOfBirth = dob
-        sender.nationality = params.nationality
-        sender.emailAddress = params.emailAddress
+        sender.nationality = params?.nationality
+//        sender.emailAddress = params.emailAddress
         sender.save(flush: true, failOnError: true)
         return sender
     }
@@ -100,14 +100,14 @@ class CustomerService {
     }
 
     def updateReceiver(def params){
-        Receiver receiver = Receiver.findById(params.customerId)
+        Receiver receiver = Receiver.findByEmailAddress(params.emailAddress)
         receiver.firstName = params?.firstName
         receiver.middleName = params?.middleName
-        receiver.lastName = params.lastName
-        receiver.phoneNumber = params.phoneNumber
-        receiver.emailAddress = params.emailAddress
-        receiver.senderEmailAddress = params.senderEmailAddress
-        receiver.relationshipToSender = params.relationshipToSender
+        receiver.lastName = params?.lastName
+        receiver.phoneNumber = params?.phoneNumber
+//        receiver.emailAddress = params.emailAddress
+//        receiver.senderEmailAddress = params.senderEmailAddress
+        receiver.relationshipToSender = params?.relationshipToSender
         receiver.save(failOnError: true, flush: true)
         return receiver
     }
