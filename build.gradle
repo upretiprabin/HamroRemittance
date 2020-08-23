@@ -117,7 +117,8 @@ tasks.withType(Test) {
     systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
 }
 
+//js should be unminified to avoid b.replace error on war
 assets {
-    minifyJs = true
+    minifyJs = false
     minifyCss = true
 }
