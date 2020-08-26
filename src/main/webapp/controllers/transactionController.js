@@ -166,7 +166,7 @@ const addReceiver = (ctx, data) => {
     registerReceiver(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                console.log('data posted')
+                NotificationManager.success("Receiver Added")
                 loadReceivers(ctx);
             } else {
                 if (data.data.Error === "no data available")

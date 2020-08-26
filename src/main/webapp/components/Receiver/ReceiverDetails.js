@@ -98,7 +98,7 @@ export default class ReceiverDetails extends React.Component {
         }
         if (!this.validator()) {
             /**TODO */
-            this.props.disabled == null ? this.props.addReceiver(formData) : this.props.updateReceiver(formdata)
+            this.props.disabled == null ? this.props.addReceiver(formData) : this.props.updateReceiver(formData)
         }
     }
     render() {

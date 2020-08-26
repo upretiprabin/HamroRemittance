@@ -5,7 +5,7 @@ import banks from './banks.json'
 const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
     const [selectedCashPickup, setSelectedCashPickup] = useState(0)
     useEffect(() => {
-        if (disabled) {
+        if (disabled!== null && disabled !== true) {
             setSelectedCashPickup(1)
         }
     }, [])

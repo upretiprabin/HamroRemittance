@@ -9,6 +9,7 @@ import { Fab } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import Controller from '../../controllers/dashboardController'
 import { getRandomColor } from '../../util/helpers';
+import { withRouter } from 'react-router-dom';
 
 class ReceiverList extends Component {
 
@@ -25,9 +26,16 @@ class ReceiverList extends Component {
     }
 
     editReceiver(key) {
-        /**TODO
-         * Redirect to receiver page
-         */
+        this.props.history.push({
+            pathname: '/app/receiver',
+            state: { userId: key }
+        })
+    }
+    addReceiver() {
+        this.props.history.push({
+            pathname: '/app/receiver',
+            state: { userId: -1 }
+        })
     }
 
     render() {
@@ -57,14 +65,14 @@ class ReceiverList extends Component {
                                 </div>
                             </div>
                             <div className="d-flex align-items-center">
-                                <Fab color="primary" aria-label="add" size="small" onClick={() => this.editReceiver(key)}>
+                                <Fab color="primary" aria-label="add" size="small" onClick={() => this.editReceiver(data.receiver.id)}>
                                     <EditIcon />
                                 </Fab>
                             </div>
                         </div>
                     </ListItem>
                 ))}
-                <ListItem button>
+                <ListItem button onClick={e =>this.addReceiver()}>
                     <div className="d-flex justify-content-center w-100">
                         <div className="d-flex align-items-center">
                             <span className={classnames('badge badge-pill badge-lg', { 'badge-info': true, 'badge-dark': true })}>Add Receiver</span>
@@ -76,4 +84,4 @@ class ReceiverList extends Component {
     }
 }
 
-export default ReceiverList;
+export default withRouter(ReceiverList);

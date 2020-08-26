@@ -26,9 +26,15 @@ const deleteReceiver = (data) => {
     console.log(URL.DELETE_CUSTOMER, config)
     return requestHandler.loadData(URL.DELETE_CUSTOMER, config);
 }
+const editReceiver = (data)=>{
+    const config = defaultConfig(data);
+    console.log(URL.DELETE_CUSTOMER, config)
+    return requestHandler.loadData(URL.UPDATE_USER_DETAILS, config);
+}
 
 export default {
     loadData,
     postReceiver,
-    deleteReceiver
+    deleteReceiver,
+    editReceiver
 }
