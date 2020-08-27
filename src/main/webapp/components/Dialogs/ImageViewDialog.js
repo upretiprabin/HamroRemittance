@@ -32,11 +32,11 @@ export default class ImageViewDialog extends React.Component {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <div style={{
+                            <span style={{
                                 background: "#eeeef0",
                                 borderRadius: 5
                             }}>
-                                <div
+                                <span
                                     style={{
                                         display: 'inline-flex',
                                         border: '1px solid #eeeef0',
@@ -46,7 +46,7 @@ export default class ImageViewDialog extends React.Component {
                                         borderRadius: 5,
                                         boxSizing: 'border-box'
                                     }}>
-                                    <div
+                                    <span
                                         style={{
                                             display: 'flex',
                                             minWidth: 0,
@@ -61,9 +61,9 @@ export default class ImageViewDialog extends React.Component {
                                                 height: '100%'
                                             }}
                                         />
-                                    </div>
-                                </div>
-                            </div>
+                                    </span>
+                                </span>
+                            </span>
                         </DialogContentText>
                     </DialogContent>
                 </Dialog>
