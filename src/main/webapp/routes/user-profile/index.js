@@ -49,7 +49,7 @@ class Index extends Component {
     render() {
         const { loading, userData, selected, initials, bgColor } = this.state
         return (
-            <div className="transaction-wrapper mt-30 container">
+            <div className="user-profile-wrapper mt-30 container">
                 <ErrorBoundary>
                     {loading &&
                         <div className="page-loader d-flex justify-content-center mb-30">
@@ -64,23 +64,21 @@ class Index extends Component {
                                     <div className="flex text-right">
                                         <Button variant={selected === 0 ? "outlined" : "contained"} className="m-5" color={selected === 0 ? "primary" : "inherit"} onClick={e => this.changeSelected(0)}>User Details</Button>
                                         <Button variant={selected === 1 ? "outlined" : "contained"} className="m-5" color={selected === 1 ? "primary" : "inherit"} onClick={e => this.changeSelected(1)}>Identification Document</Button>
-                                        <Button variant={selected === 2 ? "outlined" : "contained"} className="m-5" color={selected === 2 ? "primary" : "info"} onClick={e => this.changeSelected(2)}>Change Password</Button>
+                                        <Button variant={selected === 2 ? "outlined" : "contained"} className="m-5" color={selected === 2 ? "primary" : "inherit"} onClick={e => this.changeSelected(2)}>Change Password</Button>
                                     </div>
                                 </div>
                             </div>
                             <div className='row mt-20 ml-20'>
-                                <div className="col-sm-12 col-md-12 col-lg-4 mb-20">
-                                    <div className="row">
-                                        <div className="col-sm-12 col-md-12 col-lg-12">
-                                            <div className="ml-auto mr-auto">
-                                                <div className="user-image-alt-lg p-10"
-                                                    style={{ background: bgColor }}>
-                                                    {initials}
-                                                </div>
-                                                <div className="p-10">
-                                                    <span className="badge mt-25 p-10" style={{ background: bgColor }}>{userData.username}</span>
-                                                </div>
+                                <div className="col-sm-12 col-md-12 col-lg-4 ">
+                                    <div className="col-sm-12 col-md-12 col-lg-12 mb-20" style={{height:"fit-content"}}>
+                                        <div className="ml-auto mr-auto">
+                                            <div className="user-image-alt-lg p-10"
+                                                 style={{ background: bgColor }}>
+                                                {initials}
                                             </div>
+                                        </div>
+                                        <div className="text-center mt-25">
+                                            <span className="text-3" style={{ color: bgColor }}><i>{userData?.username}</i></span>
                                         </div>
                                     </div>
                                 </div>

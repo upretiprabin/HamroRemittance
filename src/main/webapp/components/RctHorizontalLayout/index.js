@@ -36,7 +36,7 @@ class RctHorizontalLayout extends Component {
                     <div className="rct-page-wrapper">
                         <div className="rct-app-content">
                             <div className="rct-page">
-                                <HorizontalMenu isDefault={this.props.isDefault}/>
+                                <HorizontalMenu isDefault={this.props.isDefault} history={this.props.history}/>
                                 {this.renderPage()}
                             </div>
                         </div>

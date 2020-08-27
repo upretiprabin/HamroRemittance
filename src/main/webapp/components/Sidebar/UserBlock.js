@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { logoutUser,switchView } from 'Actions';
 import IntlMessages from 'Util/IntlMessages';
 import {isUserAdmin,userProfileFromLocalStorage} from "../../sagas/AuthenticationManager";
+import {Link} from "react-router-dom";
 
 class UserBlock extends Component {
 
@@ -35,6 +36,13 @@ class UserBlock extends Component {
             switchView = "admin";
         this.toggleUserDropdownMenu();
         this.props.switchView(switchView);
+    }
+
+    goToUserProfile(){
+        if(this.props.view === "customer")
+            this.props.history?.push("/app/user-profile");
+        else
+            this.props.history?.push("/admin/user-profile");
     }
 
 
@@ -68,8 +76,10 @@ class UserBlock extends Component {
                     <ul className="list-unstyled mb-0">
                         {userProfile &&
                             <li className="p-15 border-bottom user-profile-top rounded-top">
-                                <p className="text-white mb-0 fs-14">{userProfile?.firstName?userProfile.firstName:""} {userProfile?.middleName?userProfile.middleName:""} {userProfile?.lastName?userProfile.lastName:""}</p>
-                                <span className="text-white fs-14">{userProfile?.emailAddress?userProfile.emailAddress:""}</span>
+                                <a href={"#"} onClick={()=>{this.goToUserProfile()}}>
+                                    <p className="text-white mb-0 fs-14">{userProfile?.firstName?userProfile.firstName:""} {userProfile?.middleName?userProfile.middleName:""} {userProfile?.lastName?userProfile.lastName:""}</p>
+                                    <span className="text-white fs-14">{userProfile?.emailAddress?userProfile.emailAddress:""}</span>
+                                </a>
                             </li>
                         }
                         {isAdmin &&

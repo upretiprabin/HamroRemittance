@@ -29,7 +29,7 @@ class ReceiverTable extends Component {
                     let receiverIndex = tableMeta.rowData[0];
                     this.changeState({ receiverIndexInUse: receiverIndex });
                     return (<div>
-                        <CustomIcon name="fa fa-pencil fa-lg" title="Edit" action={() => { this.openEditForm(false); }} /> | <CustomIcon name="fa fa-trash fa-lg" title="Delete" action={() => { this.setDialogOpen(true); }} />
+                        <CustomIcon name="fa fa-pencil fa-lg text-warning p-5" title="Edit" action={() => { this.openEditForm(false); }} /> | <CustomIcon name="fa fa-trash fa-lg text-danger p-5" title="Delete" action={() => { this.setDialogOpen(true); }} />
                     </div>)
                 }
             }

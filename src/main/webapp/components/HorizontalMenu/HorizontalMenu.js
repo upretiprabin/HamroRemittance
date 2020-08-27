@@ -35,7 +35,7 @@ class HorizontalMenu extends Component {
     }
 
     render() {
-        const {user,isDefault} = this.props;
+        const {user,isDefault,history} = this.props;
         let homeUrl = this.getHomeUrl(isDefault);
         let sendUrl = this.getSendUrl(isDefault,user);
         let {indexPage,indexPageUrl} = this.getIndexPageNameAndUrl();
@@ -86,7 +86,7 @@ class HorizontalMenu extends Component {
                                 }
                                 {user &&
                                     <li className="list-inline-item">
-                                        <UserBlock/>
+                                        <UserBlock history={history}/>
                                     </li>
                                 }
                             </ul>
