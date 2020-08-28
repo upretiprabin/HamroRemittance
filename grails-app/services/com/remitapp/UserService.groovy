@@ -205,4 +205,20 @@ class UserService {
         byte[] decoded = encoded.decodeBase64()
         return new String(decoded)
     }
+
+    def changePassword(params){
+        def result = [:]
+        def oldPassword = params.oldPassword
+        def newPassword = params.newPassword
+        def username = params.username
+        User user = User.findByUsername(username)
+        if(!validatePassword(getDecodedPassword(oldPassword),user))
+            throw new CustomException("Invalid username or password!")
+        else{
+            user.password = getDecodedPassword(newPassword)
+            user.save(flush: true, failOnError: true)
+            result.message = "Password Changed Successfully."
+        }
+        return result
+    }
 }
