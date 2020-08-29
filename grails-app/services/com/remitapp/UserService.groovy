@@ -212,6 +212,9 @@ class UserService {
         def newPassword = params.newPassword
         def username = params.username
         User user = User.findByUsername(username)
+        if(!user){
+            throw new CustomException("Invalid user!")
+        }
         if(!validatePassword(getDecodedPassword(oldPassword),user))
             throw new CustomException("Invalid username or password!")
         else{

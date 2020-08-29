@@ -191,7 +191,6 @@ class UserController {
         render (['result':result] as JSON)
     }
 
-    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def changePassword(){
         def requestJson = request.JSON
         def result = null
