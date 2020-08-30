@@ -55,13 +55,26 @@ class User implements Serializable {
         if(!it)
             return null
         def isRegistered = Customer.findByEmailAddress(it.username)
+        def isAdmin = isAdmin(it.username)
         return [id :it.id,
                 username :it.username,
                 accountLocked :it.accountLocked,
                 accountExpired :it.accountExpired,
                 dateCreated :UserService.df.format(it.dateCreated),
                 enabled: it.enabled,
-                isRegistered : isRegistered?true:false
+                isRegistered : isRegistered?true:false,
+                isAdmin : isAdmin
         ]
+    }
+
+    def static isAdmin(username){
+        def user = User.findByUsername(username)
+        def role = Role.findByAuthority("ROLE_ADMIN")
+        def userRoles = UserRole.findAllByUserAndRole(user,role)
+        if(userRoles){
+            return true
+        }else{
+            return false
+        }
     }
 }
