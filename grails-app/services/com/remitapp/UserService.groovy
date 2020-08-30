@@ -207,7 +207,7 @@ class UserService {
     }
 
     def changePassword(params){
-        def result = [:]
+//        def result = [:]
         def oldPassword = params.oldPassword
         def newPassword = params.newPassword
         def username = params.username
@@ -220,8 +220,8 @@ class UserService {
         else{
             user.password = getDecodedPassword(newPassword)
             user.save(flush: true, failOnError: true)
-            result.message = "Password Changed Successfully."
+//            result.message = "Password Changed Successfully."
         }
-        return result
+        return User.collectClosure(user)
     }
 }
