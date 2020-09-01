@@ -25,7 +25,9 @@ export const updateUserData = (data) => {
     data.sender = true
     return middleware.User.updateUserDetails(data)
 }
-export const changeUserPassword = (data)=>{
-    data.emailAddress = userFromLocalStorage().username
+export const changeUserPassword = (data) => {
+    data.username = userFromLocalStorage().username
+    data.oldPassword = new Buffer(data.existingPassword).toString('base64')
+    data.newPassword = new Buffer(data.password).toString('base64')
     return middleware.User.updateUserPassword(data)
 }

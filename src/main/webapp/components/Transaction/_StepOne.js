@@ -76,7 +76,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>$</span>
                                         </div>
-                                        <Input invalid={isError} className={"w-50"} type="text" name="youSend" id="youSend" value={sendAmount} onChange={e => handleAmountChange(e, 'send')} />
+                                        <Input invalid={isError} className={"w-50"} type="number" name="youSend" id="youSend" value={sendAmount} onChange={e => handleAmountChange(e, 'send')} />
                                         < div className="aud input-group-append select-country">
                                             <Select
                                                 optionList={[
@@ -104,7 +104,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>Rs.</span>
                                         </div>
-                                        <Input invalid={isError} className={"w-50"} type="text" name="recipientGets" id="recipientGets" value={receiveAmount} onChange={e => handleAmountChange(e, 'receive')} />
+                                        <Input invalid={isError} className={"w-50"} type="number" name="recipientGets" id="recipientGets" value={receiveAmount} onChange={e => handleAmountChange(e, 'receive')} />
                                         <div className="input-group-append">
                                             <Select
                                                 optionList={[

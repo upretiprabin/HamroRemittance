@@ -82,6 +82,9 @@ var updateUserPassword = function updateUserPassword(ctx, data) {
 
     _reactNotifications.NotificationManager.error("Error Occurred!");
   })["finally"](function () {
+    var user = JSON.parse(localStorage.getItem('user'));
+    user.sessionPassword = new Buffer(ctx.state.password.value).toString('base64');
+    localStorage.setItem('user', JSON.stringify(user));
     ctx.changeState({
       loading: false
     });

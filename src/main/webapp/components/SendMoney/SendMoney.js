@@ -39,7 +39,7 @@ const SendMoney = ({
                         <div className="input-group-prepend">
                             <span className="input-group-text" style={inputGroupTextStyle}>$</span>
                         </div>
-                        <Input className={"w-50"} type="text" name="youSend" id="youSend" />
+                        <Input className={"w-50"} type="number" name="youSend" id="youSend" />
                         <div className="aud input-group-append select-country">
                             <Select
                                 optionList={countryList2}
@@ -54,7 +54,7 @@ const SendMoney = ({
                         <div className="input-group-prepend">
                             <span className="input-group-text" style={inputGroupTextStyle}>Rs.</span>
                         </div>
-                        <Input className={"w-50"} type="text" name="recipientGets" id="recipientGets" />
+                        <Input className={"w-50"} type="number" name="recipientGets" id="recipientGets" />
                         <div className="input-group-append">
                             <Select
                                 optionList={countryList}

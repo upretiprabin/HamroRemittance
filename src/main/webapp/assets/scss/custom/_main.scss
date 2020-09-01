@@ -135,7 +135,22 @@
 }
 /*==========bg for Select==========*/
 
-
+@media (max-width: 500px) and (min-width: 200px) {
+	.MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.stepper-rtl.MuiStepper-alternativeLabel.MuiPaper-elevation0{
+		display: none !important;
+	}
+	#stepperTitle{
+		display: block;
+	}
+}
+@media (min-width: 500px) {
+	.MuiPaper-root.MuiStepper-root.MuiStepper-horizontal.stepper-rtl.MuiStepper-alternativeLabel.MuiPaper-elevation0{
+		display: flex;
+	}
+	#stepperTitle{
+		display: none;
+	}
+}
 .select-awaitingPayments{
 	background-color: #B0A3D4;
 }

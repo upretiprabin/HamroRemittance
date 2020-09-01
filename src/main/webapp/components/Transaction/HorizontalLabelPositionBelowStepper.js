@@ -28,7 +28,7 @@ function getStepContent(stepIndex, saveStepData, data, senderInfo, receiverInfo,
         case 2:
             return <StepFour saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 3:
-            return <ReceiptUpload saveData={(obj) => saveStepData(obj, stepIndex)} formData={data}  isError={error} />
+            return <ReceiptUpload saveData={(obj) => saveStepData(obj, stepIndex)} formData={data} isError={error} />
         case 4:
             return <StepFive saveData={(obj) => saveStepData(obj, stepIndex)} selectedData={data} senderInfo={senderInfo} isError={error} />
         default:
@@ -180,6 +180,7 @@ export default class HorizontalLabelPositionBelowStepper extends React.Component
                         </div>
                     ) : (
                             <div className="pl-40">
+                                <h3 id="stepperTitle" className="text-center">{getSteps()[activeStep]}</h3>
                                 <div className="row">
                                     <div className="col-6 text-left">
                                         {activeStep != 0 && !(activeStep == 4 && this.state.stepsData[4]) ?

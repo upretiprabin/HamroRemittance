@@ -8,7 +8,7 @@ import AppConfig from 'Constants/AppConfig';
 import { signIn } from 'Actions';
 import Controller from './../controllers/userController.js'
 import Validator from './../util/Validators'
-import {validateEmail,validatePasswordStrength} from 'Helpers/helpers'
+import { validateEmail, validatePasswordStrength } from 'Helpers/helpers'
 
 class SignUp extends Component {
 
@@ -17,24 +17,25 @@ class SignUp extends Component {
         password: '',
         confirmPassword: '',
         showPassword: false,
-        invalidPassword:false,
-        invalidEmail:false,
-        passwordMatch:true,
-        loading:false
+        showConfirmPassword: false,
+        invalidPassword: false,
+        invalidEmail: false,
+        passwordMatch: true,
+        loading: false
     };
 
     _isMounted = false;
 
-    componentDidMount(){
+    componentDidMount() {
         this._isMounted = true;
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this._isMounted = false;
     }
 
-    changeState(data){
-        if(this._isMounted)
+    changeState(data) {
+        if (this._isMounted)
             this.setState(data);
     }
 
@@ -44,38 +45,38 @@ class SignUp extends Component {
         }
     }
 
-    handleEmail(event){
-        return new Promise((res,rej)=>{
+    handleEmail(event) {
+        return new Promise((res, rej) => {
             this.setState({ email: event.target.value });
             res();
-        }).then(()=>this.emailValidator())
+        }).then(() => this.emailValidator())
     }
 
-    handlePassword(event){
-        new Promise((res,rej)=>{
+    handlePassword(event) {
+        new Promise((res, rej) => {
             this.setState({ password: event.target.value });
             res();
-        }).then(()=>{
+        }).then(() => {
             this.passwordValidator();
-            if(this.state.confirmPassword !== "")
+            if (this.state.confirmPassword !== "")
                 this.matchPasswords()
         })
     }
 
-    matchPasswords(){
-        this.setState({passwordMatch : this.state.password === this.state.confirmPassword})
+    matchPasswords() {
+        this.setState({ passwordMatch: this.state.password === this.state.confirmPassword })
     }
 
-    emailValidator(){
+    emailValidator() {
         let validate = validateEmail(this.state.email);
-        validate ? this.setState({invalidEmail:false}) : this.setState({invalidEmail:true});
+        validate ? this.setState({ invalidEmail: false }) : this.setState({ invalidEmail: true });
     };
 
-    handleConfirmPassword(event){
-        new Promise((res,rej)=>{
+    handleConfirmPassword(event) {
+        new Promise((res, rej) => {
             this.setState({ confirmPassword: event.target.value });
             res();
-        }).then(()=> this.matchPasswords())
+        }).then(() => this.matchPasswords())
 
     }
 
@@ -88,13 +89,13 @@ class SignUp extends Component {
         }
     }
 
-    validateForm(){
+    validateForm() {
         return this.state.email !== '' && this.state.password !== '' && !this.state.invalidPassword && this.state.passwordMatch
     }
 
-    passwordValidator(){
+    passwordValidator() {
         let validate = validatePasswordStrength(this.state.password);
-        validate ? this.setState({invalidPassword:false}) : this.setState({invalidPassword:true});
+        validate ? this.setState({ invalidPassword: false }) : this.setState({ invalidPassword: true });
     };
 
     /**
@@ -104,8 +105,11 @@ class SignUp extends Component {
         this.props.history.push('/signIn');
     }
 
-    onShowPassword() {
-        this.setState({ showPassword: !this.state.showPassword });
+    onShowPassword(target) {
+        if (target === 'PASSWORD')
+            this.setState({ showPassword: !this.state.showPassword });
+        if (target === 'CONFIRM_PASSWORD')
+            this.setState({ showConfirmPassword: !this.state.showConfirmPassword });
     }
 
     render() {
@@ -116,7 +120,9 @@ class SignUp extends Component {
             invalidPassword,
             invalidEmail,
             passwordMatch,
-            loading
+            loading,
+            showPassword,
+            showConfirmPassword
         } = this.state;
         return (
             <QueueAnim type="bottom" duration={2000}>
@@ -135,9 +141,9 @@ class SignUp extends Component {
                                             <div className="col-10 col-lg-9 mx-auto">
                                                 <div className="logo mt-40 mb-5 mb-md-0">
                                                     <a className="d-flex"
-                                                       href="/"
-                                                       title="Hamro Remit">
-                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100}/>
+                                                        href="/"
+                                                        title="Hamro Remit">
+                                                        <img src={AppConfig.appLogo} alt="Hamro Remit" height={55} width={100} />
                                                     </a>
                                                 </div>
                                             </div>
@@ -165,31 +171,31 @@ class SignUp extends Component {
                                                         id="user-mail"
                                                         className="has-input input-lg"
                                                         placeholder="Email Address"
-                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onKeyPress={(event) => { this.onKeyPress(event) }}
                                                         onChange={(event) => this.handleEmail(event)}
                                                     />
                                                     <span className="has-icon"><i className="ti-email" /></span>
-                                                    <span className={invalidEmail?"cred-error-label":"d-none"}>Email must be a valid format</span>
+                                                    <span className={invalidEmail ? "cred-error-label" : "d-none"}>Email must be a valid format</span>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
                                                         value={password}
-                                                        type="Password"
+                                                        type={showPassword ? 'text' : 'password'}
                                                         name="user-pwd"
                                                         id="pwd"
                                                         className="has-input input-lg"
                                                         placeholder="Password"
-                                                        onKeyPress={(event)=>{this.onKeyPress(event)}}
+                                                        onKeyPress={(event) => { this.onKeyPress(event) }}
                                                         onChange={(event) => this.handlePassword(event)}
                                                     />
                                                     <span onClick={() => {
-                                                        this.onShowPassword();
+                                                        this.onShowPassword('PASSWORD');
                                                     }} title={"Show"} className="has-icon"><i className="ti-eye" /></span>
-                                                    <span className={invalidPassword?"cred-error-label":"d-none"}><strong>Weak password</strong> <br/> Your password must have at least 8 characters, upper & lower case letters, at least one special character and at least one number.</span>
+                                                    <span className={invalidPassword ? "cred-error-label" : "d-none"}><strong>Weak password</strong> <br /> Your password must have at least 8 characters, upper & lower case letters, at least one special character and at least one number.</span>
                                                 </FormGroup>
                                                 <FormGroup className="has-wrapper">
                                                     <Input
-                                                        type="Password"
+                                                        type={showConfirmPassword ? 'text' : 'password'}
                                                         value={confirmPassword}
                                                         name="usr-pwd-confirm"
                                                         id="usr-pwd-confirm"
@@ -197,7 +203,10 @@ class SignUp extends Component {
                                                         placeholder="Confirm Password"
                                                         onChange={(event) => this.handleConfirmPassword(event)}
                                                     />
-                                                    <span className={!passwordMatch?"cred-error-label":"d-none"}>Passwords don't match</span>
+                                                    <span onClick={() => {
+                                                        this.onShowPassword('CONFIRM_PASSWORD');
+                                                    }} title={"Show"} className="has-icon"><i className="ti-eye" /></span>
+                                                    <span className={!passwordMatch ? "cred-error-label" : "d-none"}>Passwords don't match</span>
                                                 </FormGroup>
                                                 <FormGroup className="mb-15">
                                                     <Button

@@ -63,6 +63,9 @@ const updateUserPassword = (ctx, data) => {
             NotificationManager.error("Error Occurred!")
         })
         .finally(() => {
+            let user = JSON.parse(localStorage.getItem('user'));
+            user.sessionPassword = new Buffer(ctx.state.password.value).toString('base64');
+            localStorage.setItem('user', JSON.stringify(user))
             ctx.changeState({ loading: false });
         })
 }

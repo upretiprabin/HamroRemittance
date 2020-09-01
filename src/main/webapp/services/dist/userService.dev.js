@@ -50,7 +50,9 @@ var updateUserData = function updateUserData(data) {
 exports.updateUserData = updateUserData;
 
 var changeUserPassword = function changeUserPassword(data) {
-  data.emailAddress = (0, _AuthenticationManager.userFromLocalStorage)().username;
+  data.username = (0, _AuthenticationManager.userFromLocalStorage)().username;
+  data.oldPassword = new Buffer(data.existingPassword).toString('base64');
+  data.newPassword = new Buffer(data.password).toString('base64');
   return _Middleware["default"].User.updateUserPassword(data);
 };
 
