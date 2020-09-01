@@ -28,9 +28,13 @@ class ReceiverTable extends Component {
                 customBodyRender: (value, tableMeta, updateValue) => {
                     let receiverIndex = tableMeta.rowData[0];
                     this.changeState({ receiverIndexInUse: receiverIndex });
-                    return (<div>
-                        <CustomIcon name="fa fa-pencil fa-lg text-warning p-5" title="Edit" action={() => { this.openEditForm(false); }} /> | <CustomIcon name="fa fa-trash fa-lg text-danger p-5" title="Delete" action={() => { this.setDialogOpen(true); }} />
-                    </div>)
+                    return (
+                    <div className="d-flex align-items-center">
+                        <CustomIcon name="fa fa-pencil fa-lg text-warning p-5" title="Edit" action={() => { this.openEditForm(false); }} />
+                        <div className="verticalLine"></div>
+                        <CustomIcon name="fa fa-trash fa-lg text-danger p-5" title="Delete" action={() => { this.setDialogOpen(true); }} />
+                    </div>
+                    )
                 }
             }
         }
@@ -38,11 +42,9 @@ class ReceiverTable extends Component {
 
     options =
         {
-            viewColumns: false, print: false, download: false, filter: false, search: false, selectableRows: false,
+            viewColumns: false, print: false, download: false, filter: false, selectableRows: false,
             textLabels: { body: { noMatch: 'No records found' } },
-            customToolbar: () => {
-                return (<CustomIcon name="fa fa-user-plus fa-lg" title="Add Receiver" action={() => { this.openAddForm(false); }} />)
-            }
+            responsive: 'standard'
         }
 
     state = {
@@ -137,7 +139,7 @@ class ReceiverTable extends Component {
         const { add, receivers, dialogOpen, tableData } = this.state;
 
         return (
-            <div className="mt-30 container mb-30 receiver-container">
+            <div className="mt-30 container mb-30 receiver-container screenHeight">
                 {!tableData &&
 
                     <RctCollapsibleCard
@@ -154,7 +156,7 @@ class ReceiverTable extends Component {
                 {tableData &&
                     <>
                         <MUIDataTable
-                            title={"Receivers"}
+                            title={<CustomIcon name="fa fa-user-plus fa-lg" title="Add Receiver" preText="Receivers" action={() => { this.openAddForm(false); }} />}
                             data={receivers}
                             columns={this.columns}
                             options={this.options}

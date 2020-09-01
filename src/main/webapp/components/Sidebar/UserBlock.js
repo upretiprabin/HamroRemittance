@@ -72,7 +72,7 @@ class UserBlock extends Component {
 						</span>
                     </div>
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu right>
                     <ul className="list-unstyled mb-0">
                         {userProfile &&
                             <li className="p-15 border-bottom user-profile-top rounded-top">

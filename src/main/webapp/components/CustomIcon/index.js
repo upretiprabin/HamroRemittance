@@ -26,9 +26,12 @@ class CustomIcon extends Component{
     }
 
     render(){
-       const {name, title, action} = this.props;
+       const {name, title, preText, action} = this.props;
         return (
-            <span onClick={this.action}><i className={name} title={title}></i></span>
+            <div className="d-flex">
+                {preText && <h4> {preText} &nbsp;&nbsp;&nbsp; <span onClick={this.action}><i className={name} title={title}></i></span></h4>}
+                {!preText && <span onClick={this.action}><i className={name} title={title}></i></span>}
+            </div>
         )
     }
 }

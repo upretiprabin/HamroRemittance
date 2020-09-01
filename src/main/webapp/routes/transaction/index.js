@@ -67,7 +67,7 @@ class Index extends Component {
                     }
                     {!loading &&
                         <div>
-                            <RctCollapsibleCard heading="Send Money">
+                            <RctCollapsibleCard heading="Send Money" colClasses="d-flex">
                                 <HorizontalLabelPositionBelowStepper
                                     senderInfo={sender}
                                     receiverInfo={receivers}

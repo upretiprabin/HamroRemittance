@@ -18,7 +18,7 @@ const countryList2 = [
 ];
 
 const style = {
-    "width": "70%"
+    "width": "100%"
 };
 
 const inputGroupTextStyle = {
@@ -35,7 +35,7 @@ const SendMoney = ({
             <Form>
                 <FormGroup className={"text-left"}>
                     <Label for="youSend">You Send</Label>
-                    <div style={style} className="input-group">
+                    <div style={style} className="input-group d-flex flex-row">
                         <div className="input-group-prepend">
                             <span className="input-group-text" style={inputGroupTextStyle}>$</span>
                         </div>
@@ -50,7 +50,7 @@ const SendMoney = ({
                 </FormGroup>
                 <FormGroup className={"text-left"}>
                     <Label for="recipientGets">Recipient Gets</Label>
-                    <div style={style} className="input-group">
+                    <div style={style} className="input-group d-flex flex-row">
                         <div className="input-group-prepend">
                             <span className="input-group-text" style={inputGroupTextStyle}>Rs.</span>
                         </div>

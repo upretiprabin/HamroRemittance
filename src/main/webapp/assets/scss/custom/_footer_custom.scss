@@ -1,8 +1,10 @@
 .footer{
   background: #fff;
   color: #252b33;
-  padding: 4.125rem 0 !important;
+  padding: 2.125rem 0 !important;
   border-top: 1px solid #ecf3f5;
+  display: flex !important;
+  align-self: stretch !important;
 }
 .social-icons {
   margin: 0;

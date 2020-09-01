@@ -17,3 +17,78 @@
     }
   }
 }
+
+@media (min-width: 100px) and (max-width: 700px){
+    .horizontal-menu {
+        border-bottom: 1px solid darkgray;
+        box-shadow: 0 4px 2px -2px darkgray;
+       .rct-header {
+            flex-direction: row;
+            .site-logo{
+                display: none!important;
+            }
+            .hideLogin{
+                display: flex !important;
+                width: 100%;
+                flex-direction: row-reverse;
+                font-weight: 500;
+                .list-inline-item{
+                    align-self: center;
+                }
+            }
+            .hideHamBtn{
+                display: flex!important;
+            }
+       }
+      .menus {
+        display: none!important;
+      }
+    }
+    .dashboard-wrapper .send{
+        width: 65%!important;
+        top: 6em!important;
+        left: calc(50% - 35vw)!important;
+    }
+
+    .rct-page-content{
+        font-size: 0.875em!important;
+    }
+    .session-slider {
+        img{
+            height: 35em!important;
+        }
+    }
+    .terms-wrapper .page-title h2{
+        width: unset!important;
+    }
+
+    .hero-wrap{
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+    .fit-content-width{
+        width: fit-content;
+     }
+}
+
+.list-inline{
+    display: flex;
+    align-items: center;
+}
+.list-inline-item{
+    display: flex;
+}
+
+.horizontal-menu {
+    .container{
+        max-width: 100%;
+    }
+    .hideHamBtn, .hideLogin{
+        display: none!important;
+    }
+}
+
+.header-nav{
+    background: ghostwhite;
+    box-shadow: 0px 0px 15px darkgray;
+}

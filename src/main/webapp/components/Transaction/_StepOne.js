@@ -72,7 +72,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>You Send</Label>
-                                    <div className="input-group">
+                                    <div className="input-group d-flex flex-row">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>$</span>
                                         </div>
@@ -100,7 +100,7 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>Recipient Gets</Label>
-                                    <div className="input-group">
+                                    <div className="input-group d-flex flex-row">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>Rs.</span>
                                         </div>
