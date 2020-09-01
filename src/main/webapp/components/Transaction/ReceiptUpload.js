@@ -28,8 +28,8 @@ const ReceiptUpload = ({ formData, saveData, isError }) => {
             ));
         }
     });
-    const thumbs = files.map(file => (
-        <div style={{
+    const thumbs = files.map((file, index) => (
+        <div key={index} style={{
             background: "#eeeef0",
             borderRadius: 5
         }}>

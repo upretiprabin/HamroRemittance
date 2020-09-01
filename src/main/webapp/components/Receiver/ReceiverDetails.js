@@ -108,10 +108,10 @@ export default class ReceiverDetails extends React.Component {
                 <div className="container">
                     <div className="row row-eq-height">
                         <div className='col-sm-12 col-md-12 col-lg-12'>
-                            <Label>User Details</Label>
+                            <Label>Receiver Details</Label>
                             <NameForm fName={fName} mName={mName} lName={lName} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
                             <RelationNContact relation={relation} phone={phone} email={email} onChangeValue={this.onChangeValue} disabled={this.props.disabled} />
-                            <Label>User Address</Label>
+                            <Label>Receiver Address</Label>
                             <AddressForm aLine1={aLine1} aLine2={aLine2} subUrb={subUrb} zip={zip} state={state} country={country} disabledCountry={true} onChangeValue={this.onChangeValue} disabled={this.props.disabled} sender={false} />
                             <Divider />
                             <Label className='mt-10'>Cash Pickup Details</Label>
