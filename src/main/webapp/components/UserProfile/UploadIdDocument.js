@@ -74,7 +74,7 @@ class UploadIdDocument extends Component {
                         variant="contained"
                         size="large"
                         onClick={() => this.props.history.push('dashboard')}>
-                        Cancel
+                        Return to Dashboard
                     </Button>
                 </FormGroup>
             </div>
