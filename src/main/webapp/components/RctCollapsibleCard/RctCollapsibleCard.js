@@ -45,7 +45,7 @@ class RctCollapsibleCard extends Component {
 		const { children, collapsible, closeable, reloadable, heading, fullBlock, colClasses, customClasses, headingCustomClasses, contentCustomClasses, badge, linkHeader} = this.props;
 		return (
 			<div className={classnames(colClasses ? colClasses : '', { 'd-block': !collapse })}>
-				<div className={classnames(`rct-block ${customClasses ? customClasses : ''}`, { 'd-none': close })}>
+				<div className={classnames(`rct-block grow-1 ${customClasses ? customClasses : ''}`, { 'd-none': close })}>
 					{heading &&
 						<div className={`rct-block-title ${headingCustomClasses ? headingCustomClasses : ''}`}>
 							<h4>

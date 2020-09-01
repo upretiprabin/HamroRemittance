@@ -8,12 +8,14 @@ import { Scrollbars } from 'react-custom-scrollbars';
 // Components
 import Footer from 'Components/Footer/Footer';
 import HorizontalMenu from 'Components/HorizontalMenu/HorizontalMenu';
+import classnames from 'classnames';
 
 class RctHorizontalLayout extends Component {
 
     renderPage() {
         const { pathname } = this.props.location;
         const { children, match, isDefault } = this.props;
+        const _className = classnames("rct-page-content p-0 d-flex flex-column", (pathname.includes("home") || pathname.includes("receiver"))?"":"fit-content-width")
         return (
             <Scrollbars
                 className="rct-scroll"
@@ -21,7 +23,7 @@ class RctHorizontalLayout extends Component {
                 autoHideDuration={100}
                 style={{ height: 'calc(100vh - 100px)' }}
             >
-                <div className="rct-page-content p-0">
+                <div className={_className}>
                     {children}
                     <Footer isDefault={isDefault}/>
                 </div>

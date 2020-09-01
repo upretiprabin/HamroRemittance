@@ -72,11 +72,11 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>You Send</Label>
-                                    <div className="input-group">
+                                    <div className="input-group d-flex flex-row">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>$</span>
                                         </div>
-                                        <Input invalid={isError} className={"w-50"} type="text" name="youSend" id="youSend" value={sendAmount} onChange={e => handleAmountChange(e, 'send')} />
+                                        <Input invalid={isError} className={"w-25"} type="text" name="youSend" id="youSend" value={sendAmount} onChange={e => handleAmountChange(e, 'send')} />
                                         < div className="aud input-group-append select-country">
                                             <Select
                                                 optionList={[
@@ -100,11 +100,11 @@ const StepOne = ({ saveData, countries, isError, formData }) => {
                             <div className={"send-money ml-5"}>
                                 <FormGroup className={"text-left"}>
                                     <Label for="recipientGets" className={isError ? "text-danger" : ""}>Recipient Gets</Label>
-                                    <div className="input-group">
+                                    <div className="input-group d-flex flex-row">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text" style={{width:"45px"}}>Rs.</span>
                                         </div>
-                                        <Input invalid={isError} className={"w-50"} type="text" name="recipientGets" id="recipientGets" value={receiveAmount} onChange={e => handleAmountChange(e, 'receive')} />
+                                        <Input invalid={isError} className={"w-25"} type="text" name="recipientGets" id="recipientGets" value={receiveAmount} onChange={e => handleAmountChange(e, 'receive')} />
                                         <div className="input-group-append">
                                             <Select
                                                 optionList={[

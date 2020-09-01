@@ -109,3 +109,44 @@ body{
 .header5{
     font-size: smaller!important;
 }
+
+@media (max-width: 1430px){
+    .dashboard-wrapper .send{
+        top: 10%!important;
+    }
+    .horizontal-menu .menus{
+        right: 5%!important;
+    }
+}
+.navbar-right{
+    display: flex!important;
+}
+
+.grow-1{
+    flex: 1!important;
+}
+
+.fit-content-width{
+    width: inherit;
+}
+
+.verticalLine{
+    border: 1px solid gray;
+    align-self: stretch!important;
+    margin-left: 9%;
+    margin-right: 9%;
+}
+
+.receiver-container {
+    .MuiToolbar-root{
+        display: flex !important;
+    }
+    [class^="MUIDataTableToolbar-actions-"]{
+        display: flex!important;
+        justify-content: flex-end;
+    }
+}
+
+.screenHeight{
+    height: calc(55vh);
+}

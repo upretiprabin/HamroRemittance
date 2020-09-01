@@ -104,7 +104,9 @@ class Header extends Component {
 								</a>
 							</Tooltip>
 						</li>
-                        <UserBlock />
+						<li>
+                            <UserBlock />
+                        </li>
 					</ul>
 				</Toolbar>
 				<DashboardOverlay
