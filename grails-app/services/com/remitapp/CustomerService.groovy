@@ -10,6 +10,7 @@ class CustomerService {
     def commonService
     def customerAddressService
     def bankDetailsService
+    def transactionService
 
     def saveCustomer(params){
         def result = [:]
@@ -137,8 +138,10 @@ class CustomerService {
     }
 
     def deleteReceiver(Customer receiver){
+        Sender sender = Sender.findBySenderEmailAddress(receiver.getEmailAddress())
         customerAddressService.deleteCustomerAddress(receiver)
         bankDetailsService.deleteBankDetails(receiver)
+        transactionService.deleteTransactions(sender)
         deleteCustomer(receiver)
     }
 
