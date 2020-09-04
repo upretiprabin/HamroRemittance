@@ -2,6 +2,7 @@ package com.remitapp
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class CustomerController {
@@ -9,6 +10,7 @@ class CustomerController {
     def customerAddressService
     def bankDetailsService
     def transactionService
+    def identificationDetailsService
 
     /* def index() {
          def customers = customerService.getAllCustomers()
@@ -40,13 +42,13 @@ class CustomerController {
         try{
             def result = customerService.saveCustomer(newParams)
             println "result ===== $result"
-            if(result.error){
-                render (["Error":result.error] as JSON)
-            }else{
+            if (result.error) {
+                render(["Error": result.error] as JSON)
+            } else {
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                if(newParams?.receiver) {
+                if (newParams?.receiver) {
                     def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
                     println "bankDetailsResult = $bankDetailsResult"
                 }
@@ -56,17 +58,17 @@ class CustomerController {
                 println "{savedAddress.id} = ${savedAddress.id}"
                 def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
                 println "finalResult = $finalResult"
-                render (["result":finalResult] as JSON)
+                render(["result": finalResult] as JSON)
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace()
-            render (["Error":"Error while saving customer."] as JSON)
+            render(["Error": "Error while saving customer."] as JSON)
         }
 
     }
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def updateCustomer(){
+    def updateCustomer() {
         def customerParams = request.JSON
         def addressParams = [:]
 //        addressParams.customerId = customerParams.customerId
@@ -78,7 +80,7 @@ class CustomerController {
         addressParams.zipCode = customerParams.zipCode
 
         def bankDetails = [:]
-        if(params?.receiver) {
+        if (params?.receiver) {
 //            bankDetails.customerId = customerParams.customerId
             bankDetails.bankName = customerParams.bankName
             bankDetails.branchId = customerParams.branchId
@@ -86,16 +88,16 @@ class CustomerController {
         }
         //TODO: remove addressParams from newParams
 
-        try{
+        try {
             def result = customerService.updateCustomer(customerParams)
             println "result ==== $result"
-            if(result?.error){
-                render (["Error":result.error] as JSON)
-            }else{
+            if (result?.error) {
+                render(["Error": result.error] as JSON)
+            } else {
                 def savedCustomer = result?.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                if(params?.receiver) {
+                if (params?.receiver) {
                     def bankDetailsResult = bankDetailsService.updateBankDetails(savedCustomer, bankDetails)
                     println "bankDetailsResult ==== $bankDetailsResult"
                 }
@@ -103,32 +105,32 @@ class CustomerController {
                 def addressResult = customerAddressService.updateAddress(savedCustomer, addressParams)
                 def savedAddress = addressResult.address
                 println "savedAddress === $savedAddress"
-                render (["result":"Updated Customer Successfully."] as JSON)
+                render(["result": "Updated Customer Successfully."] as JSON)
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace()
-            render (["Error":"Error while updating customer."] as JSON)
+            render(["Error": "Error while updating customer."] as JSON)
         }
 
     }
 
-    def deleteCustomer(){
+    def deleteCustomer() {
         def customerParams = request.JSON
         Customer customer = Customer.findByEmailAddress(customerParams.userName)
-        try{
-            if(customerParams.receiver){
-                if(!customer){
-                    render(["Error":"No receiver to delete."] as JSON)
+        try {
+            if (customerParams.receiver) {
+                if (!customer) {
+                    render(["Error": "No receiver to delete."] as JSON)
                     return
                 }
                 //delete customer address,address bank details, customer
                 customerService.deleteReceiver(customer)
                 System.out.println("--delete success--receiver-")
-                render(["result":["message":"Receiver deleted successfully."]] as JSON)
-            }else if(customerParams.sender){
+                render(["result": ["message": "Receiver deleted successfully."]] as JSON)
+            } else if (customerParams.sender) {
                 Sender sender = Sender.findByEmailAddress(customerParams.userName)
-                if(!customer){
-                    render(["Error":"No sender to delete."] as JSON)
+                if (!customer) {
+                    render(["Error": "No sender to delete."] as JSON)
                     return
                 }
                 /**
@@ -145,64 +147,125 @@ class CustomerController {
                 customerService.deleteAllReceivers(customerParams)
                 customerService.deleteCustomer(customer)
                 System.out.println("--delete success---")
-                render(["result":["message":"Sender and its details deleted successfully."]] as JSON)
-            }else{
-                render (["Error":"Error occurred while deleting customer."] as JSON)
+                render(["result": ["message": "Sender and its details deleted successfully."]] as JSON)
+            } else {
+                render(["Error": "Error occurred while deleting customer."] as JSON)
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace()
-            render (["Error":"Error occurred while deleting ${customerParams.receiver?'receiver':'customer'}."] as JSON)
+            render(["Error": "Error occurred while deleting ${customerParams.receiver ? 'receiver' : 'customer'}."] as JSON)
         }
 
     }
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def getCustomerPersonalInfo(){
+    def getCustomerPersonalInfo() {
         def customerParams = request.JSON
-        try{
+        try {
             def personalDetails = customerService.getCustomerPersonalInfo(customerParams)
             println "personalDetails = $personalDetails"
-            if(personalDetails){
-                render(["result":personalDetails] as JSON)
-            }else{
-                render (["Error":"Error occurred while fetching customer details."] as JSON)
+            if (personalDetails) {
+                render(["result": personalDetails] as JSON)
+            } else {
+                render(["Error": "Error occurred while fetching customer details."] as JSON)
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace()
-            render (["Error":"Error occurred while fetching customer details."] as JSON)
+            render(["Error": "Error occurred while fetching customer details."] as JSON)
         }
     }
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def getCustomerTransactions(){
+    def getCustomerTransactions() {
         def customerParams = request.JSON
-        try{
+        try {
             def transactions = transactionService.getCustomerTransactions(customerParams)
             println "transactions = $transactions"
-            if(transactions){
-                render(["result":transactions] as JSON)
-            }else{
-                render (["Error":"No transactions found."] as JSON)
+            if (transactions) {
+                render(["result": transactions] as JSON)
+            } else {
+                render(["Error": "No transactions found."] as JSON)
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace()
-            render (["Error":"Error occurred while fetching customer transactions."] as JSON)
+            render(["Error": "Error occurred while fetching customer transactions."] as JSON)
         }
     }
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def getReceiversList(){
+    def getReceiversList() {
+        def customerParams = request.JSON
+        try {
+            def receivers = customerService.getReceiversList(customerParams)
+            if (receivers) {
+                render(["result": receivers] as JSON)
+            } else {
+                render(["Error": "No receivers found."] as JSON)
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace()
+            render(["Error": "Error occurred while fetching receivers list."] as JSON)
+        }
+    }
+
+   /* @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def addNumbers() {
+        println "----here-----"
+        println "params = $params"
+    }*/
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def uploadIdDocument() {
+        def identityParams = request.JSON
+        String SAVE_DIR = "identityDocs";
+        def resourcePath = servletContext.getRealPath("/")
+        def altPath = resourcePath + "../../../../"
+        println "altPath ====== $altPath"
+        String savePath = altPath + File.separator + SAVE_DIR
+        println "savePath = $savePath"
+        String saveLocalPath = resourcePath + File.separator + SAVE_DIR
+        MultipartFile image = params.indentityImage;
+        def username = params.emailAddress
+//        def username  = "thagunna.harish8@gmail.com"
+        def imageId = Customer.findByEmailAddress(username)?.id
+
+        try{
+            identificationDetailsService.saveDoc(saveLocalPath, image, imageId)
+            identificationDetailsService.copyFileUsingStream(new File(saveLocalPath, "${imageId}"), new File(savePath,"${imageId}"))
+
+            def pathForDb = SAVE_DIR + File.separator + imageId
+            /*println "pathForDb == $pathForDb"
+            identityParams.emailAddress = "thagunna.harish8@gmail.com"
+            identityParams.documentType = "PASSPORT"
+            identityParams.identityNumber = "1234-23"
+            identityParams.issuedBy = "Nepal Gov"
+            identityParams.expiryDate = new Date()
+            identityParams.imageOfId = pathForDb*/
+            identityParams.imageOfId = pathForDb
+
+            def response = identificationDetailsService.addIdentificationDetails(identityParams)
+            render(["result": response] as JSON)
+
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render(["Error": "Error occurred while saving identity image."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getIdentityImage() {
         def customerParams = request.JSON
         try{
-            def receivers = customerService.getReceiversList(customerParams)
-            if(receivers){
-                render(["result":receivers] as JSON)
-            }else{
-                render (["Error":"No receivers found."] as JSON)
+            def result = identificationDetailsService.getImage(customerParams)
+            if (result) {
+                render(["result": result] as JSON)
+            } else {
+                render(["Error": "No identity image found."] as JSON)
             }
         }catch(Exception ex){
             ex.printStackTrace()
-            render (["Error":"Error occurred while fetching receivers list."] as JSON)
+            render(["Error": "Error occurred while fetching identity image."] as JSON)
         }
     }
+
 }

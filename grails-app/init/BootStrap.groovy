@@ -6,11 +6,13 @@ import com.remitapp.um.*
 import grails.plugin.springsecurity.SecurityFilterPosition
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.converters.JSON
+import grails.util.Holders
 
 class BootStrap {
     def customerService
     def bankDetailsService
     def customerAddressService
+    def identificationDetailsService
 
     def init = { servletContext ->
 
@@ -174,6 +176,11 @@ class BootStrap {
 
     }
 */
+
+        String externalLocation = Holders.config.imagePath
+        String webAppDirectory = servletContext.getRealPath("/identityDocs/")
+
+        identificationDetailsService.copyImageFromExternalLocation(externalLocation,webAppDirectory)
 
         println "------DEPLOYED----"
         def destroy = {
