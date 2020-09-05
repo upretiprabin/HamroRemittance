@@ -12,8 +12,9 @@ class TransactionController {
     def saveTransaction(){
         def transactionParams = request.JSON
         println "transactionParams ==== $transactionParams"
+        def resourcePath = servletContext.getRealPath("/")
         try{
-            def result = transactionService.createNewTransactionAndOrder(transactionParams)
+            def result = transactionService.createNewTransactionAndOrder(transactionParams,resourcePath)
             render (["result":result] as JSON)
         }catch(Exception ex){
             ex.printStackTrace()

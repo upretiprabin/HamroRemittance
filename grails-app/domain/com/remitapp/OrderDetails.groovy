@@ -13,6 +13,7 @@ class OrderDetails {
     String sourceOfFund
     String payingAgentsId
     String sendMoneyTo
+    String receiptPath
     Date dateCreated
 
 
@@ -26,6 +27,7 @@ class OrderDetails {
         transactionReason(nullable: true, balnk: true)
         sourceOfFund(nullable: true, balnk: true)
         payingAgentsId(nullable: true, balnk: true)
+        receiptPath(nullable: true, balnk: true)
     }
 
     static mapping = {

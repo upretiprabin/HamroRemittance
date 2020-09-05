@@ -179,8 +179,11 @@ class BootStrap {
 
         String externalLocation = Holders.config.imagePath
         String webAppDirectory = servletContext.getRealPath("/identityDocs/")
-
         identificationDetailsService.copyImageFromExternalLocation(externalLocation,webAppDirectory)
+
+        String externalReceiptLocation = Holders.config.receiptPath
+        String webAppReceiptDirectory = servletContext.getRealPath("/receiptPath/")
+        identificationDetailsService.copyImageFromExternalLocation(externalReceiptLocation,webAppReceiptDirectory)
 
         println "------DEPLOYED----"
         def destroy = {

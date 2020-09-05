@@ -149,3 +149,4 @@ grails:
 
 #imagePath: '/opt/identityDocs/'
 imagePath: '/Users/hthagunna/Documents/hamroNew/identityDocs/'
+receiptPath: '/Users/hthagunna/Documents/hamroNew/receiptPath/'

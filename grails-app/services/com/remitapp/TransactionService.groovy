@@ -2,13 +2,15 @@ package com.remitapp
 
 
 import grails.gorm.transactions.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 @Transactional
 class TransactionService {
     def customerAddressService
     def bankDetailsService
+    def identificationDetailsService
 
-    def createNewTransactionAndOrder(params){
+    def createNewTransactionAndOrder(params,resourcePath){
         def returnResult = [:]
         def sender = Sender.findByEmailAddress(params.senderEmailAddress)
         def receiver = Receiver.findByEmailAddress(params.receiverEmailAddress)
@@ -25,14 +27,15 @@ class TransactionService {
             transaction.customMessage = params.customMessage
             transaction.save(flush: true, failOnError: true)
 
-            createNewOrder(params, transaction)
+            def receiptPath = uploadReceipt(params, transaction, sender, resourcePath)
+            createNewOrder(params, transaction, receiptPath)
             returnResult["message"] = "Successfully Saved.."
         }
 
         return returnResult
     }
 
-    def createNewOrder(params, Transaction transaction){
+    def createNewOrder(params, Transaction transaction, receiptPath){
 
         OrderDetails orderDetails = new OrderDetails()
         orderDetails.transaction = transaction
@@ -46,6 +49,7 @@ class TransactionService {
         orderDetails.sourceOfFund = params.sourceOfFund
         orderDetails.payingAgentsId = params.payingAgentsId
         orderDetails.sendMoneyTo = params.sendMoneyTo
+        orderDetails.receiptPath = params.receiptPath
 
         orderDetails.save(flush: true, failOnError: true)
 
@@ -152,5 +156,27 @@ class TransactionService {
         }
         println "returnMap = $returnList"
         return returnList
+    }
+
+    def uploadReceipt(params, transaction, sender, resourcePath) {
+        def receiptPath
+        String SAVE_DIR = "receipts";
+        def altPath = resourcePath + "../../../../"
+        println "altPath ====== $altPath"
+        String savePath = altPath + File.separator + SAVE_DIR
+        println "savePath = $savePath"
+        String saveLocalPath = resourcePath + File.separator + SAVE_DIR
+        MultipartFile image = params.receiptImage;
+        def imageId = sender?.id+"_"+transaction?.id
+        try{
+            identificationDetailsService.saveDoc(saveLocalPath, image, imageId)
+            identificationDetailsService.copyFileUsingStream(new File(saveLocalPath, "${imageId}"), new File(savePath,"${imageId}"))
+            receiptPath = SAVE_DIR + File.separator + imageId
+            println "receiptPath ==== $receiptPath"
+            return receiptPath
+
+        }catch(Exception ex){
+            ex.printStackTrace()
+        }
     }
 }
