@@ -138,6 +138,7 @@ body{
 }
 
 .receiver-container {
+    flex: 1 0 auto;
     .MuiToolbar-root{
         display: flex !important;
     }
@@ -146,7 +147,15 @@ body{
         justify-content: flex-end;
     }
 }
+.dashboard-wrapper, .transaction-wrapper{
+    flex: 1 0 auto;
+}
 
-.screenHeight{
-    height: calc(55vh);
+.rct-page-content{
+   height: 100%;
+}
+
+.rct-footer.footer{
+    display: flex!important;
+    flex-shrink:0;
 }

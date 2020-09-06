@@ -58,19 +58,17 @@ class ReceiverTable extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        this.loadReceivers();
-    }
-    isAddEdit = () => {
         let userId = this.props.location.state?.userId == null ? null : this.props.location.state?.userId
         if (userId === -1) {
             this.openAddForm(false)
         }
-        if (userId !== null) {
-            this.setState({ receiverIndexInUse: userId }, this.openEditForm(false))
+        else if (userId !== null) {
+            this.loadReceivers(userId);
         }
-        this.props.history.replace('/app/receiver')
+        else{
+            this.loadReceivers(null);
+        }
     }
-
 
     componentWillUnmount() {
         this._isMounted = false;
@@ -82,8 +80,8 @@ class ReceiverTable extends Component {
         }
     }
 
-    loadReceivers() {
-        Controller.loadReceivers(this);
+    loadReceivers(receiverInUse) {
+        Controller.loadReceivers(this, receiverInUse);
     }
 
     openAddForm = (status) => {

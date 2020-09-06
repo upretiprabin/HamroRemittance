@@ -95,7 +95,7 @@ class HorizontalMenu extends Component {
                                     </li>
                                 }
                                 {user &&
-                                    <li className="list-inline-item hideUser">
+                                    <li className="list-inline-item">
                                         <UserBlock history={history}/>
                                     </li>
                                 }

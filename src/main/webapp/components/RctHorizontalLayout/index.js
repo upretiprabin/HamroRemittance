@@ -15,7 +15,6 @@ class RctHorizontalLayout extends Component {
     renderPage() {
         const { pathname } = this.props.location;
         const { children, match, isDefault } = this.props;
-        const _className = classnames("rct-page-content p-0 d-flex flex-column", (pathname.includes("home") || pathname.includes("receiver"))?"":"fit-content-width")
         return (
             <Scrollbars
                 className="rct-scroll"
@@ -23,7 +22,7 @@ class RctHorizontalLayout extends Component {
                 autoHideDuration={100}
                 style={{ height: 'calc(100vh - 100px)' }}
             >
-                <div className={_className}>
+                <div className={"rct-page-content p-0 d-flex flex-column"}>
                     {children}
                     <Footer isDefault={isDefault}/>
                 </div>
