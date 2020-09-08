@@ -4,7 +4,7 @@ import { loadReceiverData, registerReceiver } from "../services/transactionServi
 import { deleteReceiver,updateReceiver } from "../services/receiverService";
 import log from "../services/loggerService"
 
-const loadReceivers = (ctx) => {
+const loadReceivers = (ctx, receiverInUse) => {
     let stateData = {};
     loadReceiverData()
         .then(data => {
@@ -44,7 +44,17 @@ const loadReceivers = (ctx) => {
                 });
                 stateData = {
                     receivers: receiverData,
-                    receiverDetails: receiverDetails
+                    receiverDetails: receiverDetails,
+                    receiverIndexInUse: receiverInUse?receiverInUse:0
+                }
+                if(receiverInUse){
+                    stateData = {
+                        receivers: receiverData,
+                        receiverDetails: receiverDetails,
+                        receiverIndexInUse: receiverInUse,
+                        add: false,
+                        tableData: false
+                    }
                 }
             } else {
                 if (data.data.Error === "No receiver found")
@@ -63,7 +73,6 @@ const loadReceivers = (ctx) => {
             ctx.changeState({
                 ...stateData,
             })
-            ctx.isAddEdit()
         })
 
 };
@@ -107,7 +116,7 @@ const deleteReceiverData = (ctx, data1, data2) => {
             NotificationManager.error(data.data.Error);
         }
         stateData = {
-            openDialog: false,
+            dialogOpen: false,
             receiverIndexInUse: 0,
             receivers: data2
         }

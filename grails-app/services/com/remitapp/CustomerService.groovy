@@ -138,7 +138,7 @@ class CustomerService {
     }
 
     def deleteReceiver(Customer receiver){
-        Sender sender = Sender.findBySenderEmailAddress(receiver.getEmailAddress())
+        Sender sender = Sender.findByEmailAddress(receiver.senderEmailAddress)
         customerAddressService.deleteCustomerAddress(receiver)
         bankDetailsService.deleteBankDetails(receiver)
         transactionService.deleteTransactions(sender)
