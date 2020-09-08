@@ -17,6 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default class ImageViewDialog extends React.Component {
     render() {
         const { open, fileName, filePath, onCancel } = this.props
+        const path = '/static/media/prayer_wheels.bb7e729a.jpg'
         return (
             <div>
                 <Dialog
@@ -32,19 +33,17 @@ export default class ImageViewDialog extends React.Component {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <span style={{
-                                background: "#eeeef0",
-                                borderRadius: 5
-                            }}>
+                            <span>
                                 <span
                                     style={{
+                                        background: "#eeeef0",
+                                        borderRadius: 5,
                                         display: 'inline-flex',
                                         border: '1px solid #eeeef0',
-                                        width: "auto",
-                                        height: "500px",
                                         padding: 10,
                                         borderRadius: 5,
-                                        boxSizing: 'border-box'
+                                        boxSizing: 'border-box',
+                                        marginRight: "24px",
                                     }}>
                                     <span
                                         style={{
@@ -54,11 +53,12 @@ export default class ImageViewDialog extends React.Component {
                                             margin: '0 auto'
                                         }}>
                                         <img
-                                            src={filePath}
+                                            src={path}
+                                            alt="Receipt Image"
                                             style={{
                                                 display: 'block',
-                                                width: 'auto',
-                                                height: '100%'
+                                                width: "auto",
+                                                height: "500px",
                                             }}
                                         />
                                     </span>

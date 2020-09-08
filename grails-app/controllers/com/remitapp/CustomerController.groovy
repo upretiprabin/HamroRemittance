@@ -216,17 +216,14 @@ class CustomerController {
 
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def uploadIdDocument() {
-        def identityParams = request.JSON
+        def identityParams = params
         String SAVE_DIR = "identityDocs";
         def resourcePath = servletContext.getRealPath("/")
         def altPath = resourcePath + "../../../../"
-        println "altPath ====== $altPath"
-        String savePath = altPath + File.separator + SAVE_DIR
-        println "savePath = $savePath"
-        String saveLocalPath = resourcePath + File.separator + SAVE_DIR
-        MultipartFile image = params.indentityImage;
-        def username = params.emailAddress
-//        def username  = "thagunna.harish8@gmail.com"
+        String savePath = altPath +  SAVE_DIR
+        String saveLocalPath = resourcePath  + SAVE_DIR
+        MultipartFile image = identityParams.identityImage;
+        def username = identityParams.emailAddress
         def imageId = Customer.findByEmailAddress(username)?.id
 
         try{
@@ -234,13 +231,6 @@ class CustomerController {
             identificationDetailsService.copyFileUsingStream(new File(saveLocalPath, "${imageId}"), new File(savePath,"${imageId}"))
 
             def pathForDb = SAVE_DIR + File.separator + imageId
-            /*println "pathForDb == $pathForDb"
-            identityParams.emailAddress = "thagunna.harish8@gmail.com"
-            identityParams.documentType = "PASSPORT"
-            identityParams.identityNumber = "1234-23"
-            identityParams.issuedBy = "Nepal Gov"
-            identityParams.expiryDate = new Date()
-            identityParams.imageOfId = pathForDb*/
             identityParams.imageOfId = pathForDb
 
             def response = identificationDetailsService.addIdentificationDetails(identityParams)

@@ -50,7 +50,8 @@ const StepFive = ({ saveData, selectedData }) => {
             "currency": "AUD",
             "transactionReason": selectedData[2].purposeOfTransfer,
             "sourceOfFund": selectedData[2].sourceOfFund,
-            "cashPickUpId": 1 //TODO:: change later to cashPickUpId from receiverDetails
+            "cashPickUpId": 1, //TODO:: change later to cashPickUpId from receiverDetails
+            "receiptImage": selectedData[3]
         };
         Controller.postData({ setIsLoading, saveData }, formData)
     }

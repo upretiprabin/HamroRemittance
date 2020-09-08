@@ -10,7 +10,7 @@ class TransactionController {
     def index() { }
 
     def saveTransaction(){
-        def transactionParams = request.JSON
+        def transactionParams = params
         println "transactionParams ==== $transactionParams"
         def resourcePath = servletContext.getRealPath("/")
         try{

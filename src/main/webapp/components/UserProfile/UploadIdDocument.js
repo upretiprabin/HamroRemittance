@@ -7,6 +7,7 @@ import { FormGroup } from 'reactstrap';
 import DocumentIdentification from '../FormComponents/DocumentIdentification';
 import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
+import Controller from "./../../controllers/userProfileController"
 class UploadIdDocument extends Component {
 
     _isMounted = false;
@@ -20,7 +21,7 @@ class UploadIdDocument extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        this.loadData();
+        // this.loadData();
     }
 
 
@@ -40,9 +41,51 @@ class UploadIdDocument extends Component {
         this.setState({ ...updatedState })
     };
 
-    loadData() {
-        // Controller.loadUserData(this)
+    uploadIdDocument = () => {
+        const { docType, docId, docExpiry, file } = this.state
+        if (!this.validator()) {
+            let data = {
+                documentType: docType.value,
+                identityNumber: docId.value,
+                issuedBy: "***",
+                expiryDate: docExpiry.value,
+                identityImage: file.value
+            }
+            Controller.uploadIdDocument(this,data)
+        }
+
     }
+    validator = () => {
+        let error = false;
+        let updatedState = this.state;
+        delete updatedState['loading']
+        for (let obj in updatedState) {
+            switch (obj) {
+                case 'file':
+                    if (updatedState[obj].value === null) {
+                        updatedState[obj].error = true
+                        error = true
+                    } else {
+                        updatedState[obj].error = false
+                    }
+                    break
+                default:
+                    if (updatedState[obj].value == '') {
+                        updatedState[obj].error = true;
+                        error = true
+                    } else {
+                        updatedState[obj].error = false
+                    }
+                    break
+            }
+        }
+        this.setState({ ...updatedState });
+        return error
+    };
+    setFile = (e) => {
+        this.changeState({ file: { value: e, error: false } })
+    }
+
     render() {
         const {
             docExpiry, docType, docId, file
@@ -57,7 +100,7 @@ class UploadIdDocument extends Component {
                 </div>
                 <div className='row'>
                     <div className='col-sm-12 col-md-12 col-lg-12'>
-                        <DocumentIdentification file={file} docType={docType} docId={docId} docExpiry={docExpiry} onChangeValue={this.onChangeValue} onFileSelected={e => console.log(e)} />
+                        <DocumentIdentification file={file} docType={docType} docId={docId} docExpiry={docExpiry} onChangeValue={this.onChangeValue} onFileSelected={e => this.setFile(e)} />
                     </div>
                 </div>
 
@@ -66,7 +109,7 @@ class UploadIdDocument extends Component {
                         className="text-white pr-20 pl-20 btn-primary"
                         variant="contained"
                         size="large"
-                        onClick={() => this.onRegister()}>
+                        onClick={() => this.uploadIdDocument()}>
                         Update Document
                     </Button>
                     <Button

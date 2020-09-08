@@ -31,7 +31,8 @@ const ReceiptUpload = ({ formData, saveData, isError }) => {
     const thumbs = files.map((file, index) => (
         <div key={index} style={{
             background: "#eeeef0",
-            borderRadius: 5
+            borderRadius: 5,
+            width: "auto",
         }}>
             <div>{file.name}</div>
             <div style={thumb} key={file.name}>
@@ -82,8 +83,7 @@ const thumbsContainer = {
 const thumb = {
     display: 'inline-flex',
     border: '1px solid #eeeef0',
-    width: "auto",
-    height: "50vh",
+    margin: 8,
     padding: 10,
     borderRadius: 5,
     boxSizing: 'border-box'
@@ -98,6 +98,6 @@ const thumbInner = {
 
 const img = {
     display: 'block',
-    width: '100%',
-    height: '100%'
+    width: 'auto',
+    height: '400px'
 };

@@ -12,6 +12,7 @@ export default {
     CHECK_SESSION: 'user/checkSession',
     USER_PASSWORD_CHANGE: 'user/changePassword',
     UPDATE_USER_DETAILS: 'customer/updateCustomer',
+    USER_ID_UPLOAD: 'customer/uploadIdDocument',
 
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'customer/getCustomerTransactions',

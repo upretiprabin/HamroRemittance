@@ -7,6 +7,7 @@ import requestHandler from '../RequestHandler';
 import URL from '../UrlMappings';
 import { userFromLocalStorage } from "../../../sagas/AuthenticationManager";
 import AppConfig from "Constants/AppConfig";
+import { getEnum } from '../../../util/helpers';
 
 const defaultConfig = (data) => ({
     method: 'post',
@@ -103,6 +104,21 @@ const registerUser = (data) => {
     // return requestHandler.loadData(URL.USER_REGISTER, config);
     return new Promise((res, rej) => { res({ data: { result: "" } }) })
 };
+const saveIdentificationDocument = (data) => {
+    let formData = new FormData();
+    formData.append('emailAddress', data.emailAddress);
+    formData.append('documentType', getEnum(data.documentType));
+    formData.append('identityNumber', data.identityNumber);
+    formData.append('issuedBy', data.issuedBy);
+    formData.append('expiryDate', data.expiryDate);
+    formData.append('identityImage', data.identityImage);
+    let config = {
+        method: 'post',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+    };
+    return requestHandler.loadData(URL.USER_ID_UPLOAD, config)
+}
 
 export default {
     loginUser,
@@ -117,5 +133,6 @@ export default {
     resetPassword,
     checkSession,
     updateUserDetails,
-    updateUserPassword
+    updateUserPassword,
+    saveIdentificationDocument
 }

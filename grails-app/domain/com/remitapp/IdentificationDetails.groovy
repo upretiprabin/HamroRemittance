@@ -15,5 +15,6 @@ class IdentificationDetails {
 
 enum DocumentType {
     PASSPORT,
+    PHOTOID,
     DRIVINGLICENCE
 }

@@ -11,3 +11,9 @@ export const getRandomColor = () => {
     }
     return color;
 }
+export const getEnum = (data) => {
+    if (data === "passport") return "PASSPORT"
+    if (data === 'photo_id') return "PHOTOID"
+    if (data === 'licence') return "DRIVINGLICENCE"
+    else return data
+}

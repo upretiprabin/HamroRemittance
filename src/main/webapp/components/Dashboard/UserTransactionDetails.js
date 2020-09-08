@@ -24,8 +24,9 @@ const UserTransactionDetails = () => {
 		setCurrentPage(newPage)
 	};
 	const openImage = id => {
-		setFileName('sth')
-		setFilePath('https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/file.jpg')
+		setFileName('Receipt for Transaction id: #' + id)
+		let userID = JSON.parse(localStorage.getItem('user')).id
+		setFilePath(`${userID}_${id}`)
 		setDialogOpen(true)
 	}
 	const currentPageOrders = recentOrders.slice(currentPage * 10, currentPage * 10 + 10)
@@ -58,7 +59,7 @@ const UserTransactionDetails = () => {
 									<span className={`badge select-${order.status} pt-5 pb-5`}>{order.status == "readyForCollectionInNepal" ? "Ready For Collection" : order.statusDesc}</span>
 								</td>
 								<td className="text-center">
-									<span title={"fileName"} onClick={e => openImage()}>
+									<span title={"fileName"} onClick={e => openImage(order.id)}>
 										<InsertDriveFile />
 									</span>
 								</td>

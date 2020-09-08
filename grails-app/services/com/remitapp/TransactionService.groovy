@@ -20,9 +20,9 @@ class TransactionService {
             Transaction transaction = new Transaction()
             transaction.sender = sender
             transaction.receiver = receiver
-            transaction.subTotal = params.subTotal
-            transaction.total = params.total
-            transaction.exchangedTotal = params.exchangedTotal
+            transaction.subTotal = Float.parseFloat(params?.subTotal)
+            transaction.total = Float.parseFloat(params.total)
+            transaction.exchangedTotal = Float.parseFloat(params.exchangedTotal)
             transaction.currency = params.currency
             transaction.customMessage = params.customMessage
             transaction.save(flush: true, failOnError: true)
@@ -44,7 +44,7 @@ class TransactionService {
         orderDetails.emailOriginalCopy = params.emailOriginalCopy
         orderDetails.status = params.status?:"awaitingPayments"
         orderDetails.trnNumber = params.trnNumber
-        orderDetails.cashPickUpId = params.cashPickUpId
+        orderDetails.cashPickUpId = Integer.parseInt(params.cashPickUpId)
         orderDetails.transactionReason = params.transactionReason
         orderDetails.sourceOfFund = params.sourceOfFund
         orderDetails.payingAgentsId = params.payingAgentsId

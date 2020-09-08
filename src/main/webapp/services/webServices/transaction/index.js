@@ -64,8 +64,16 @@ const loadData = (data) => {
     })
 };
 const postData = (data) => {
-    const config = defaultConfig(data);
-    console.log(URL.TRANSACTION_CREATE, config)
+    let formData = new FormData();
+    for (var key in data) {
+        formData.append(key, data[key]);
+    }
+
+    let config = {
+        method: 'post',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+    };
     return requestHandler.loadData(URL.TRANSACTION_CREATE, config);
 }
 const loadReceivers = (data) => {

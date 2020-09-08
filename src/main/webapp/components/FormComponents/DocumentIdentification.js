@@ -146,6 +146,7 @@ const thumbInner = {
 
 const img = {
     display: 'block',
+    margin: "auto",
     width: 'auto',
     height: '100%'
 };

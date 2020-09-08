@@ -1,6 +1,6 @@
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications"
-import { updateUserData, changeUserPassword } from "../services/userService";
+import { updateUserData, changeUserPassword, saveIdDocument } from "../services/userService";
 import { loadUserData } from "../services/dashboardService";
 import { getFormattedDate } from "../helpers/helpers";
 
@@ -69,9 +69,29 @@ const updateUserPassword = (ctx, data) => {
             ctx.changeState({ loading: false });
         })
 }
-
+const uploadIdDocument = (ctx, data) => {
+    ctx.changeState({ loading: true });
+    data.expiryDate = getFormattedDate(data.expiryDate.toString(), "MM/DD/YYYY")
+    saveIdDocument(data)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                NotificationManager.success('File Uploaded Successfully!')
+            } else {
+                log.error(data.data.Error);
+                NotificationManager.error(data.data.Error)
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.changeState({ loading: false });
+        })
+}
 export default {
     getUserDetails,
     updateUser,
-    updateUserPassword
+    updateUserPassword,
+    uploadIdDocument
 }
