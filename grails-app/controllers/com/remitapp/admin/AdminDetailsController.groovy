@@ -133,4 +133,18 @@ class AdminDetailsController {
             render (["Error":"Exception occurred while deleting transaction details."] as JSON)
         }
     }
+
+    def getAllSenders(){
+        try{
+            def result = adminService.getAllSenders()
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["result":["message":"No any senders found."]] as JSON)
+            }
+        }catch(Exception ex) {
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while fetching the senders list."] as JSON)
+        }
+    }
 }
