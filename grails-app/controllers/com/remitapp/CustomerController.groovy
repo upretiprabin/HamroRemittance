@@ -208,12 +208,6 @@ class CustomerController {
         }
     }
 
-   /* @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
-    def addNumbers() {
-        println "----here-----"
-        println "params = $params"
-    }*/
-
     @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def uploadIdDocument() {
         def identityParams = params
@@ -225,9 +219,9 @@ class CustomerController {
         MultipartFile image = identityParams.identityImage;
         def username = identityParams.emailAddress
         def imageId = Customer.findByEmailAddress(username)?.id
-
         try{
             identificationDetailsService.saveDoc(saveLocalPath, image, imageId)
+            identificationDetailsService.createDirectory(savePath)
             identificationDetailsService.copyFileUsingStream(new File(saveLocalPath, "${imageId}"), new File(savePath,"${imageId}"))
 
             def pathForDb = SAVE_DIR + File.separator + imageId

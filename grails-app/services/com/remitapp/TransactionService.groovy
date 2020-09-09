@@ -170,6 +170,7 @@ class TransactionService {
         def imageId = sender?.id+"_"+transaction?.id
         try{
             identificationDetailsService.saveDoc(saveLocalPath, image, imageId)
+            identificationDetailsService.createDirectory(savePath)
             identificationDetailsService.copyFileUsingStream(new File(saveLocalPath, "${imageId}"), new File(savePath,"${imageId}"))
             receiptPath = SAVE_DIR + File.separator + imageId
             println "receiptPath ==== $receiptPath"

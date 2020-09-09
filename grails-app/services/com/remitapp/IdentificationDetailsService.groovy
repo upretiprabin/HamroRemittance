@@ -22,6 +22,7 @@ class IdentificationDetailsService {
     }
 
     def saveDoc(saveLocalPath, image, imageId) {
+        createDirectory(saveLocalPath)
         File uploadedImage = new File(saveLocalPath, "${imageId}");
         if (uploadedImage?.exists()) {
             uploadedImage.delete()
@@ -83,6 +84,13 @@ class IdentificationDetailsService {
             log.info("Copied images from external location")
         }catch (e){
             log.info("Error while copying images from external location",e)
+        }
+    }
+
+    def createDirectory(path){
+        File directory = new File(path);
+        if (!directory.exists()){
+            directory.mkdir();
         }
     }
 }
