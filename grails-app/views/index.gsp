@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Hamro Remit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <!-- Use For Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
