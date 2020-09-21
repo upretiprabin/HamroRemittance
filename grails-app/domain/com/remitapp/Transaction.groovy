@@ -4,6 +4,7 @@ class Transaction {
     static belongsTo = [sender: Sender, receiver: Receiver]
     float subTotal
     float discount
+    float taxPercentage
     float total
     float exchangedTotal
     String currency
@@ -13,6 +14,7 @@ class Transaction {
 
     static constraints = {
         discount(nullable: true, blank: true)
+        taxPercentage(nullable: true, blank: true)
         customMessage(nullable: true, blank: true)
     }
 

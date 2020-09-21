@@ -21,6 +21,12 @@ class TransactionService {
             transaction.sender = sender
             transaction.receiver = receiver
             transaction.subTotal = Float.parseFloat(params?.subTotal)
+            if(params.taxPercentage) {
+                transaction.taxPercentage = Float.parseFloat(params?.taxPercentage)
+            }
+            if(params.discount) {
+                transaction.discount = Float.parseFloat(params?.discount)
+            }
             transaction.total = Float.parseFloat(params.total)
             transaction.exchangedTotal = Float.parseFloat(params.exchangedTotal)
             transaction.currency = params.currency
@@ -43,7 +49,9 @@ class TransactionService {
         orderDetails.staffNotes = params.staffNotes
         orderDetails.emailOriginalCopy = params.emailOriginalCopy
         orderDetails.status = params.status?:"awaitingPayments"
-        orderDetails.trnNumber = params.trnNumber
+        if(params.trnNumber) {
+            orderDetails.trnNumber = params.trnNumber
+        }
         orderDetails.cashPickUpId = Integer.parseInt(params.cashPickUpId)
         orderDetails.transactionReason = params.transactionReason
         orderDetails.sourceOfFund = params.sourceOfFund
