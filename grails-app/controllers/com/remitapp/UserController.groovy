@@ -8,6 +8,9 @@ class UserController {
 
     def userService
     def springSecurityService
+    def customerService
+    def bankDetailsService
+    def customerAddressService
 
     def login(){
         def username = springSecurityService.principal?.username
@@ -85,11 +88,14 @@ class UserController {
         def requestJson = request.JSON
         def username = requestJson.username
         def password = requestJson.password
+        def adminUserName = requestJson.adminUserName
         def result = null
         try{
-            def user = userService.create(username, password)
-            if(user)
+            def user = userService.create(username, password, adminUserName)
+            if(user && !adminUserName)
                 result = userService.sendVerificationToken(username)
+            if(adminUserName)
+                saveCustomer(requestJson)
         }catch(CustomException e){
             log.error("Error occurred! $e")
             render (["Error" : e.message] as JSON)
@@ -206,5 +212,52 @@ class UserController {
             return
         }
         render (['result':result] as JSON)
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def saveCustomer(newParams){
+        def addressParams = [:]
+        addressParams.addressLineOne = newParams.addressLineOne
+        addressParams.addressLineTwo = newParams.addressLineTwo
+        addressParams.suburbCity = newParams.suburbCity
+        addressParams.country = newParams.country
+        addressParams.stateProvince = newParams.stateProvince
+        addressParams.zipCode = newParams.zipCode
+
+        def bankDetails = [:]
+        if(newParams?.receiver){
+            bankDetails.bankName = newParams.bankName
+            bankDetails.branchId = newParams.branchId
+            bankDetails.accountNumber = newParams.accountNumber
+        }
+
+        //TODO: remove addressParams from newParams
+        try{
+            def result = customerService.saveCustomer(newParams)
+            println "result ===== $result"
+            if (result.error) {
+                render(["Error": result.error] as JSON)
+//                println "error = ${result.error}"
+            } else {
+                def savedCustomer = result.customer
+                println "{savedCustomer.id} = ${savedCustomer.id}"
+
+                if (newParams?.receiver) {
+                    def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
+                    println "bankDetailsResult = $bankDetailsResult"
+                }
+
+                def addressResult = customerAddressService.saveAddress(addressParams)
+                def savedAddress = addressResult.address
+                println "{savedAddress.id} = ${savedAddress.id}"
+                def finalResult = customerAddressService.saveCustomerAddress(savedCustomer, savedAddress)
+                println "finalResult = $finalResult"
+                render(["result": finalResult] as JSON)
+            }
+        } catch (Exception ex) {
+            println "Error while saving customer."
+            ex.printStackTrace()
+            render(["Error": "Error while saving customer."] as JSON)
+        }
     }
 }

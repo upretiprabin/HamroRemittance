@@ -25,16 +25,25 @@ class UserService {
         return User.collectClosure(user)
     }
 
-    def create(def username, def password){
+    def create(def username, def password, def adminUserName = null){
         User user = null
         try{
+            if(adminUserName){
+                if(!hasRole(adminUserName,"ROLE_ADMIN")){
+                    throw new CustomException("User has no admin role.")
+                }
+            }
             user = new User()
             if(User.findByUsername(username)){
                 throw new CustomException("Username already exists.")
             }
             user.username = username
             user.password = password
-            user.enabled = false
+            if(adminUserName){
+                user.enabled = true
+            }else{
+                user.enabled = false
+            }
             if(user.hasErrors()){
                 log.error(user.getErrors())
                 throw new Exception("Error Occurred!")
@@ -223,5 +232,16 @@ class UserService {
 //            result.message = "Password Changed Successfully."
         }
         return User.collectClosure(user)
+    }
+
+    def hasRole(username, role){
+        def user = User.findByUsername(username)
+        def rle = Role.findByAuthority(role)
+        def userRoles = UserRole.findAllByUserAndRole(user,rle)
+        if(userRoles){
+            return true
+        }else{
+            return false
+        }
     }
 }
