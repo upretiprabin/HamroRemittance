@@ -47,10 +47,12 @@ class TransactionService {
         orderDetails.transaction = transaction
         orderDetails.comments = params.comments
         orderDetails.staffNotes = params.staffNotes
-        orderDetails.emailOriginalCopy = params.emailOriginalCopy
         orderDetails.status = params.status?:"awaitingPayments"
         if(params.trnNumber) {
             orderDetails.trnNumber = params.trnNumber
+        }
+        if(params.emailInvoice) {
+            orderDetails.emailInvoice = params.emailInvoice
         }
         orderDetails.cashPickUpId = Integer.parseInt(params.cashPickUpId)
         orderDetails.transactionReason = params.transactionReason
