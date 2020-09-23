@@ -36,11 +36,17 @@ const deleteTransactionData = (data) => {
     return requestHandler.loadData(URL.TRANSACTION_DELETE, config)
 }
 
+const saveTrnValue = (trn,orderDetailsId) => {
+    let config = defaultConfig({trnNumber: trn, orderDetailsId: orderDetailsId});
+    return requestHandler.loadData(URL.SAVE_TRN_VALUE, config)
+}
+
 export default {
     loadData,
     loadStatusData,
     loadFilteredData,
     postBulkUpdate,
     updateTxnStatus,
-    deleteTransactionData
+    deleteTransactionData,
+    saveTrnValue
 }

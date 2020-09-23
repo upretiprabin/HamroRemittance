@@ -8,6 +8,8 @@ import Controller from "../../controllers/receiverController"
 import ReceiverDetails from '../../components/Receiver/ReceiverDetails'
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
 
 class ReceiverTable extends Component {
 
@@ -133,11 +135,23 @@ class ReceiverTable extends Component {
     setDialogOpen = (status) => {
         this.changeState({ dialogOpen: status })
     }
+
+
+    getMuiTheme = () => createMuiTheme({
+        overrides: {
+            MUIDataTableHeadCell: {
+              root:{
+                zIndex: '1!important'
+              }
+            }
+        }
+    })
+
     render() {
         const { add, receivers, dialogOpen, tableData } = this.state;
 
         return (
-            <div className="mt-30 container mb-30 receiver-container screenHeight">
+            <div className="mt-30 container mb-30 receiver-container">
                 {!tableData &&
 
                     <RctCollapsibleCard
@@ -153,12 +167,14 @@ class ReceiverTable extends Component {
                 }
                 {tableData &&
                     <>
-                        <MUIDataTable
-                            title={<CustomIcon name="fa fa-user-plus fa-lg" title="Add Receiver" preText="Receivers" action={() => { this.openAddForm(false); }} />}
-                            data={receivers}
-                            columns={this.columns}
-                            options={this.options}
-                        />
+                        <MuiThemeProvider theme={this.getMuiTheme()}>
+                            <MUIDataTable
+                                title={<CustomIcon name="fa fa-user-plus fa-lg" title="Add Receiver" preText="Receivers" action={() => { this.openAddForm(false); }} />}
+                                data={receivers}
+                                columns={this.columns}
+                                options={this.options}
+                            />
+                        </MuiThemeProvider>
                         <AlertDialogSlide
                             open={dialogOpen}
                             title={"Confirm Delete!"}

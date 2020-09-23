@@ -22,7 +22,7 @@ class RctHorizontalLayout extends Component {
                 autoHideDuration={100}
                 style={{ height: 'calc(100vh - 100px)' }}
             >
-                <div className={"rct-page-content p-0 d-flex flex-column"}>
+                <div className={"rct-page-content d-flex flex-column"}>
                     {children}
                     <Footer isDefault={isDefault}/>
                 </div>

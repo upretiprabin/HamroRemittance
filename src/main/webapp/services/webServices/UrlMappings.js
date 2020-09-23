@@ -37,5 +37,6 @@ export default {
     GET_FILTERED_TXT_DATA: 'adminDetails/getTransactionOrdersByStatus',
     POST_BULK_DATA: 'adminDetails/updateTransactionStatusBulk',
     UPDATE_TXN_STATUS: 'adminDetails/storeTransactionStatusUpdate',
+    SAVE_TRN_VALUE: 'adminDetails/saveTrnValue'
 
 }

@@ -73,7 +73,7 @@ class MainApp extends Component {
                 autoHideDuration={100}
                 style={this.getScrollBarStyle()}
             >
-                <div className="rct-page-content">
+                <div className="rct-page-content d-flex flex-column">
                     <ErrorBoundary>
                         {children}
                     </ErrorBoundary>
@@ -116,8 +116,8 @@ class MainApp extends Component {
                 <div className="app-main-container">
                     <Sidebar
                         sidebar={this.renderSidebar()}
-                        open={false}
-                        docked={true}
+                        open={windowWidth <= 1199 ? navCollapsed : false}
+                        docked={windowWidth > 1199 ? !navCollapsed : false}
                         pullRight={rtlLayout}
                         onSetOpen={() => this.props.collapsedSidebarAction(false)}
                         styles={{ content: { overflowY: '' } }}

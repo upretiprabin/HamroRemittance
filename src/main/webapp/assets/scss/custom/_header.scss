@@ -329,8 +329,8 @@
 /*======= Responsive ========*/
 
 @media (max-width: 500px) {
-   .rct-header .site-logo,
-   .summary-icon {
+   .rct-header .site-logo/*,
+   .summary-icon*/ {
       display: none !important;
    }
 }

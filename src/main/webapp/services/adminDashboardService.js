@@ -22,3 +22,6 @@ export const updateStatus = (data) => {
 export const deleteTransaction=(data)=>{
     return middleware.AdminDashboard.deleteTransactionData(data);
 }
+export const saveTrnValue = (trn, orderDetailsId)=>{
+    return middleware.AdminDashboard.saveTrnValue(trn, orderDetailsId);
+}

@@ -64,7 +64,7 @@ class Sidebar extends Component {
 					<div className={classNames("rct-sidebar-content", { "sidebar-overlay-dark": isDarkSidenav, 'sidebar-overlay-light': !isDarkSidenav })}>
 						<div className="site-logo">
 							<Link to="/admin" className="logo-normal">
-								<img src={AppConfig.appLogo} className="img-fluid" alt="site-logo" width="67" height="17" />
+								<img src={AppConfig.appLogo} className="img-fluid" alt="site-logo" width="80" height="20" />
 							</Link>
 						</div>
 						<div className="rct-sidebar-wrap">

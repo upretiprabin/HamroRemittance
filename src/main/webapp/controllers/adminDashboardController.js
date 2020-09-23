@@ -1,4 +1,4 @@
-import { loadAdminDashboardData, loadTxnStatusData, loadFilteredAdminData, postBulkUpdateData, updateStatus,deleteTransaction } from "../services/adminDashboardService";
+import { loadAdminDashboardData, loadTxnStatusData, loadFilteredAdminData, postBulkUpdateData, updateStatus, deleteTransaction, saveTrnValue} from "../services/adminDashboardService";
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
 
@@ -146,11 +146,32 @@ const deleteRecord = (ctx) => {
             ctx.refreshPage()
         })
 }
+
+const saveTRN = (ctx) => {
+    ctx.setIsLoading(true)
+    saveTrnValue(ctx.trn,ctx.orderDetailsId)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                NotificationManager.success(data.data.result);
+            } else {
+                log.error(data.data.Error);
+                NotificationManager.error(data.data.Error)
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.refreshPage()
+        })
+}
 export default {
     loadData,
     loadTxnStatus,
     loadFilteredData,
     postBulkUpdate,
     updateTxnStatus,
-    deleteRecord
+    deleteRecord,
+    saveTRN
 }

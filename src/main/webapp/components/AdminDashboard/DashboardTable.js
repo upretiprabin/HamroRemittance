@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 import Controller from "../../controllers/adminDashboardController"
-import { Input, Select, MenuItem, FormControlLabel, TextField, TableRow, TableCell, FormControl, InputLabel, Button, IconButton, CircularProgress } from '@material-ui/core';
+import { Input, Select, MenuItem, Breadcrumbs, Typography, Link, TextField, TableRow, TableCell, FormControl, InputLabel, Button, IconButton, CircularProgress } from '@material-ui/core';
 import MUIDataTable from 'mui-datatables';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const DashboardTable = () => {
@@ -37,7 +38,8 @@ const DashboardTable = () => {
             "label": "Date",
             "options": {
                 "filter": true,
-                "sort": true
+                "sort": true,
+                "setCellProps": value => ({ style: { whiteSpace: 'pre' } })
             }
         },
         {
@@ -97,7 +99,16 @@ const DashboardTable = () => {
             "label": "TRN",
             "options": {
                 "filter": false,
-                "sort": false
+                "sort": false,
+                "customBodyRender": (value, tableMeta, updateValue) => {
+                    const orderDetailsId =  tableMeta.rowData[0];
+                    return (
+                        <form className="d-flex" onSubmit={e => saveTRN(e,orderDetailsId)}>
+                            <Input className={"width80"} defaultValue={value} id={"trn-"+orderDetailsId} inputProps={{ 'aria-label': 'description' }}/>&nbsp;&nbsp;
+                            <Button type="submit" size="small" color="secondary" variant="contained">Save</Button>
+                        </form>
+                    )
+                }
             }
             //TODO change to custom body render with text felid and button
         },
@@ -148,11 +159,12 @@ const DashboardTable = () => {
     ]
     const txnTableOptions = {
         filterType: 'dropdown',
-        responsive: 'stacked',
+        responsive: 'standard',
         onRowsSelect: (currentRowSelected, selectedRows) => {
             setSelected([...selectedRows])
         },
         pagination: true,
+        textLabels: { body: { noMatch: 'No records found' } },
         rowsPerPage: 5
     };
 
@@ -218,9 +230,34 @@ const DashboardTable = () => {
         }
         Controller.updateTxnStatus({ refreshPage, setIsLoading, data })
     }
+
+    const getMuiTheme = () => createMuiTheme({
+        overrides: {
+            MUIDataTableHeadCell: {
+              data: {
+                whiteSpace: 'pre'
+              },
+              root:{
+                zIndex: '1!important'
+              }
+            },
+            MUIDataTableSelectCell: {
+                root:{
+                    zIndex: '10!important',
+                    backgroundColor: '#fff'
+                }
+            }
+        }
+    })
+
+    const saveTRN = (e, orderDetailsId) =>{
+        const trn = document.getElementById("trn-"+orderDetailsId).value;
+        Controller.saveTRN({setIsLoading, refreshPage, trn, orderDetailsId});
+    }
+
     return (
         <RctCollapsibleCard
-            colClasses="col-sm-12 col-md-12 col-lg-12"
+            colClasses="col-sm-12 col-md-12 col-lg-12 pd0"
             collapsible
             reloadable
             closeable
@@ -232,7 +269,7 @@ const DashboardTable = () => {
                 </div>
             }
             {!isLoading &&
-                <>
+                <div>
                     <div className="row m-10">
                         <div className="col-lg-3 col-md-6 col-sm-12 form-group">
                             <FormControl>
@@ -260,15 +297,21 @@ const DashboardTable = () => {
                             </FormControl>
                         </div>
                     </div>
-                    <div className='m-5'>
+                    <Breadcrumbs className="m-20" separator="" aria-label="breadcrumb">
+                        <Typography variant="h6" color="textPrimary">Show</Typography>
+                        {txnStatus?.map((data, index) =>
+                            (index<5) && <Link key={index} color={filter == data.statusId?"text-primary":"inherit"} value={data.statusId} onClick={(event) => filterTxnStatus(event)} component="button">{data.statusDesc}</Link>
+                        )}
+                    </Breadcrumbs>
+                    <MuiThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             title={"Orders"}
                             data={tableData}
                             columns={txnTableColumns}
                             options={txnTableOptions}
                         />
-                    </div>
-                </>
+                    </MuiThemeProvider>
+                </div>
             }
         </RctCollapsibleCard>
     )

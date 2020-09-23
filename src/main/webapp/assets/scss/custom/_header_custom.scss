@@ -20,8 +20,6 @@
 
 @media (min-width: 100px) and (max-width: 700px){
     .horizontal-menu {
-        border-bottom: 1px solid darkgray;
-        box-shadow: 0 4px 2px -2px darkgray;
        .rct-header {
             flex-direction: row;
             .site-logo{
@@ -82,6 +80,7 @@
 .horizontal-menu {
     .container{
         max-width: 100%;
+        padding: 0!important;
     }
     .hideHamBtn, .hideLogin{
         display: none!important;
@@ -91,4 +90,8 @@
 .header-nav{
     background: ghostwhite;
     box-shadow: 0px 0px 15px darkgray;
+}
+
+.rct-sidebar .sidebar-overlay-light .site-logo{
+    height: 7.25em;
 }

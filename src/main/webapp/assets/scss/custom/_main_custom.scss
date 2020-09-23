@@ -151,11 +151,19 @@ body{
     flex: 1 0 auto;
 }
 
-.rct-page-content{
-   height: 100%;
-}
-
 .rct-footer.footer{
     display: flex!important;
     flex-shrink:0;
+    .container{
+        padding: 0 4em!important;
+        max-width: 100%;
+    }
+}
+
+.width80{
+    width: 100px;
+}
+
+.pd0{
+    padding: 0!important;
 }

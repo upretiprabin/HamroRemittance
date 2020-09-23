@@ -5,7 +5,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => (
-   <div className="rct-footer footer d-flex justify-content-between align-items-center">
+   <div className="rct-footer footer">
        <div className="container">
            <div className="row">
                <div className="col-lg d-lg-flex align-items-center">

@@ -4,10 +4,11 @@
 	width: 100%;
 }
 .rct-header{
-	box-shadow: $footer-box-shadow;
-	background-color: $footer-bg;
+    position: relative;
+	box-shadow: 0px 1px 10px -1px rgba(0, 0, 0, 0.2) !important; //$footer-box-shadow
+	background-color: #fff; //$footer-bg
 	padding: 1.25rem; //20px;
-	z-index: 9;
+	z-index: 99 !important;
 	h5 {
 		margin-bottom: 0;
 		color: $gray-600;

@@ -5,6 +5,7 @@ import com.remitapp.Customer
 import com.remitapp.OrderDetails
 import com.remitapp.Transaction
 import grails.gorm.transactions.Transactional
+import java.text.SimpleDateFormat
 
 @Transactional
 class AdminService {
@@ -39,7 +40,10 @@ class AdminService {
             eachMap['sender'] = eachOrder.transaction.sender.firstName + " " +
                     eachOrder.transaction.sender.middleName + " " +
                     eachOrder.transaction.sender.lastName
-            eachMap['dateCreated'] = eachOrder.dateCreated
+            Date date = new Date(eachOrder.dateCreated.getTime())
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd")
+            String db_date = formatter.format(date)
+            eachMap['dateCreated'] = db_date
             eachMap['status'] = eachOrder.status
             eachMap['total'] = eachOrder.transaction.total
             eachMap['currency'] = eachOrder.transaction.currency

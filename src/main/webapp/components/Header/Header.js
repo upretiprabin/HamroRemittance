@@ -83,6 +83,13 @@ class Header extends Component {
 				<Toolbar className="d-flex justify-content-between w-100 pl-0">
 					<div className="d-flex align-items-center">
 							<ul className="list-inline mb-0 navbar-left">
+                                <li className="list-inline-item" onClick={(e) => this.onToggleNavCollapsed(e)}>
+                                    <Tooltip title="Sidebar Toggle" placement="bottom">
+                                        <IconButton color="inherit" mini="true" aria-label="Menu" className="humburger p-0">
+                                            <MenuIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </li>
                                 <QuickLinks />
 								<li className="list-inline-item search-icon d-inline-block">
 									<SearchForm />
@@ -104,7 +111,7 @@ class Header extends Component {
 								</a>
 							</Tooltip>
 						</li>
-						<li>
+						<li className="d-flex">
                             <UserBlock />
                         </li>
 					</ul>
