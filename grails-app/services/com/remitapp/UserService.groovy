@@ -29,9 +29,7 @@ class UserService {
         User user = null
         try{
             if(adminUserName){
-                if(!hasRole(adminUserName,"ROLE_ADMIN")){
-                    throw new CustomException("User has no admin role.")
-                }
+                checkUser(adminUserName)
             }
             user = new User()
             if(User.findByUsername(username)){
@@ -233,6 +231,13 @@ class UserService {
         }
         return User.collectClosure(user)
     }
+
+    def checkUser(adminUserName){
+        if(!hasRole(adminUserName,"ROLE_ADMIN")){
+            throw new CustomException("User has no admin role.")
+        }
+    }
+
 
     def hasRole(username, role){
         def user = User.findByUsername(username)

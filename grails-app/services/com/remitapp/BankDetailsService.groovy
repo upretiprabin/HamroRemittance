@@ -52,4 +52,15 @@ class BankDetailsService {
         returnVal.dateCreated = bankDetails.dateCreated
         return returnVal
     }
+
+    def saveRemitDetails(Customer customer, def params){
+        def returnResult = [:]
+        LocalRemitDetails remitDetails = new LocalRemitDetails()
+        remitDetails.customer = customer
+        remitDetails.remitName = params.remitName
+        remitDetails.district = params.district
+        remitDetails.phNumber = params.phNumber
+        remitDetails.save(flush: true, failOnError: true)
+        returnResult["message"] = "Remit Details successfully Saved."
+    }
 }

@@ -91,11 +91,16 @@ class UserController {
         def adminUserName = requestJson.adminUserName
         def result = null
         try{
-            def user = userService.create(username, password, adminUserName)
-            if(user && !adminUserName)
-                result = userService.sendVerificationToken(username)
-            if(adminUserName)
+            if(adminUserName && requestJson?.receiver){
+                userService.checkUser(adminUserName)
                 saveCustomer(requestJson)
+            }else{
+                def user = userService.create(username, password, adminUserName)
+                if(user && !adminUserName)
+                    result = userService.sendVerificationToken(username)
+                if(adminUserName)
+                    saveCustomer(requestJson)
+            }
         }catch(CustomException e){
             log.error("Error occurred! $e")
             render (["Error" : e.message] as JSON)
@@ -225,10 +230,17 @@ class UserController {
         addressParams.zipCode = newParams.zipCode
 
         def bankDetails = [:]
-        if(newParams?.receiver){
+        if(newParams?.receiver && newParams.bankName){
             bankDetails.bankName = newParams.bankName
             bankDetails.branchId = newParams.branchId
             bankDetails.accountNumber = newParams.accountNumber
+        }
+
+        def remitDetails = [:]
+        if(newParams?.receiver && newParams.remitName){
+            remitDetails.remitName = newParams.remitName
+            remitDetails.district = newParams.district
+            remitDetails.phNumber = newParams.phNumber
         }
 
         //TODO: remove addressParams from newParams
@@ -242,9 +254,13 @@ class UserController {
                 def savedCustomer = result.customer
                 println "{savedCustomer.id} = ${savedCustomer.id}"
 
-                if (newParams?.receiver) {
+                if (newParams?.receiver && newParams.bankName) {
                     def bankDetailsResult = bankDetailsService.saveBankDetails(savedCustomer, bankDetails)
                     println "bankDetailsResult = $bankDetailsResult"
+                }
+                if (newParams?.receiver && newParams.remitName) {
+                    def remitDetailsResult = bankDetailsService.saveRemitDetails(savedCustomer, remitDetails)
+                    println "remitDetailsResult = $remitDetailsResult"
                 }
 
                 def addressResult = customerAddressService.saveAddress(addressParams)
