@@ -10,7 +10,6 @@ class AdminDetailsController {
 //    def index() { }
 
     def getAllTransactionsOrderDetails(){
-        println " here----"
         try{
             def result = adminService.getAllTransactionOrders()
             if(result){
