@@ -1,6 +1,8 @@
 import com.remitapp.CashPickUp
 import com.remitapp.CompanyCharges
 import com.remitapp.PayingAgentDetails
+import com.remitapp.PayingAgentStatements
+import com.remitapp.PayingAgents
 import com.remitapp.TransactionStatus
 import com.remitapp.um.*
 import grails.plugin.springsecurity.SecurityFilterPosition
@@ -176,6 +178,18 @@ class BootStrap {
 
     }
 */
+
+        /*PayingAgents payingAgents = new PayingAgents()
+        payingAgents.name = "Citizen Bank"
+        payingAgents.address = "KTM"
+        payingAgents.save()
+
+        PayingAgentStatements payingAgentStatements = new PayingAgentStatements()
+        payingAgentStatements.payingAgents = payingAgents
+        payingAgentStatements.transactionId = 5
+        payingAgentStatements.debit = 5000.00
+        payingAgentStatements.balance = 10000.00
+        payingAgentStatements.save()*/
 
         String externalLocation = Holders.config.imagePath
         String webAppDirectory = servletContext.getRealPath("/identityDocs/")
