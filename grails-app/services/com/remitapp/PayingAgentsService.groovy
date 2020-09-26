@@ -18,11 +18,11 @@ class PayingAgentsService {
         def returnList = []
         PayingAgentStatements payingAgentStatements = new PayingAgentStatements()
         PayingAgents payingAgents = PayingAgents.findById(params?.payingAgentsId)
-        Transaction transaction = Transaction.findById(params.transactionsId)
-        if (payingAgents && transaction) {
+        OrderDetails orderDetails = OrderDetails.findById(params.orderDetailsId)
+        if (payingAgents && orderDetails) {
             payingAgentStatements.payingAgents = payingAgents
-            payingAgentStatements.transactionId = params.transactionsId
-            payingAgentStatements.credit = transaction.total
+            payingAgentStatements.transactionId = orderDetails.transaction?.id
+            payingAgentStatements.credit = orderDetails.transaction.total
             payingAgentStatements.save(flush: true, failOnError: true)
             returnList.add("Saved Successfully.")
         }
