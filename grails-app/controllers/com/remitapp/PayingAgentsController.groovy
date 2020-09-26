@@ -22,4 +22,8 @@ class PayingAgentsController {
             render (["Error":"Error occurred while fetching paying agents."] as JSON)
         }
     }
+
+    def updatePayingAgentsForCustomerTxns(){
+
+    }
 }
