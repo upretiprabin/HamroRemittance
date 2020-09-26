@@ -6,6 +6,7 @@ class PayingAgentStatements {
     float debit
     float credit
     float balance
+    String description
     Date dateCreated = new Date()
 
     static constraints = {
@@ -13,5 +14,6 @@ class PayingAgentStatements {
         debit(nullable: true, blank: true)
         credit(nullable: true, blank: true)
         balance(nullable: true, blank: true)
+        description(nullable: true, blank: true)
     }
 }
