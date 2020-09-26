@@ -46,10 +46,12 @@ class BankDetailsService {
     def getBankDetails(Customer customer){
         def returnVal = [:]
         def bankDetails = BankDetails.findByCustomer(customer)
-        returnVal.bankName = bankDetails.bankName
-        returnVal.branchId = bankDetails.branchId
-        returnVal.accountNumber = bankDetails.accountNumber
-        returnVal.dateCreated = bankDetails.dateCreated
+        if(bankDetails){
+            returnVal.bankName = bankDetails.bankName
+            returnVal.branchId = bankDetails.branchId
+            returnVal.accountNumber = bankDetails.accountNumber
+            returnVal.dateCreated = bankDetails.dateCreated
+        }
         return returnVal
     }
 
@@ -62,5 +64,18 @@ class BankDetailsService {
         remitDetails.phNumber = params.phNumber
         remitDetails.save(flush: true, failOnError: true)
         returnResult["message"] = "Remit Details successfully Saved."
+    }
+
+    def getRemitDetails(Customer customer){
+        def returnVal = [:]
+        def remitDetails = LocalRemitDetails.findByCustomer(customer)
+        if(remitDetails){
+            returnVal.remitName = remitDetails.remitName
+            returnVal.district = remitDetails.district
+            returnVal.phNumber = remitDetails.phNumber
+            returnVal.dateCreated = remitDetails.dateCreated
+        }
+        println "remitDetails ========= $returnVal"
+        return returnVal
     }
 }

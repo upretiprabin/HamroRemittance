@@ -5,6 +5,7 @@ class LocalRemitDetails {
     String remitName
     String district
     String phNumber
+    Date dateCreated = new Date()
 
     static constraints = {
     }

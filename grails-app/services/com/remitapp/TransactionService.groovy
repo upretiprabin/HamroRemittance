@@ -78,15 +78,25 @@ class TransactionService {
     def getAllReceivers(def params){
         def returnList = []
         def receivers = Customer.findAllBySenderEmailAddress(params.senderEmailAddress)
+        def isCustomerPortal = params.isCustomerPortal
         if(receivers){
             receivers.eachWithIndex { receiver, index ->
                 def receiverMap = [:]
+                def remitDetails = [:]
                 def address = customerAddressService.getCustomerAddress(receiver)
                 def bankDetails = bankDetailsService.getBankDetails(receiver)
-                receiverMap.receiver = receiver
-                receiverMap.address = address
-                receiverMap.bankDetails = bankDetails
-                returnList.add(receiverMap)
+                if(!isCustomerPortal) remitDetails = bankDetailsService.getRemitDetails(receiver)
+                if(!bankDetails.isEmpty()){
+                    receiverMap.bankDetails = bankDetails
+                    receiverMap.receiver = receiver
+                    receiverMap.address = address
+                    returnList.add(receiverMap)
+                }else if(!remitDetails.isEmpty() && !isCustomerPortal){
+                    receiverMap.remitDetails = remitDetails
+                    receiverMap.receiver = receiver
+                    receiverMap.address = address
+                    returnList.add(receiverMap)
+                }
             }
         }else{
             return null
