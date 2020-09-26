@@ -17,8 +17,11 @@ const loadData = (data) => {
 };
 const postReceiver = (data) => {
     const config = defaultConfig(data);
-    console.log(URL.RECIEVER_REGISTER, config)
     return requestHandler.loadData(URL.RECIEVER_REGISTER, config);
+}
+const postReceiverAdmin = (data) => {
+    const config = defaultConfig(data);
+    return requestHandler.loadData(URL.USER_CREATE, config);
 }
 
 const deleteReceiver = (data) => {
@@ -26,7 +29,7 @@ const deleteReceiver = (data) => {
     console.log(URL.DELETE_CUSTOMER, config)
     return requestHandler.loadData(URL.DELETE_CUSTOMER, config);
 }
-const editReceiver = (data)=>{
+const editReceiver = (data) => {
     const config = defaultConfig(data);
     console.log(URL.DELETE_CUSTOMER, config)
     return requestHandler.loadData(URL.UPDATE_USER_DETAILS, config);
@@ -36,5 +39,6 @@ export default {
     loadData,
     postReceiver,
     deleteReceiver,
-    editReceiver
+    editReceiver,
+    postReceiverAdmin
 }

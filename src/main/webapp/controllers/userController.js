@@ -86,9 +86,6 @@ const saveUserDetails = (ctx, formData) => {
         country: formData.country,
         stateProvince: formData.state,
         zipCode: formData.zip,
-        bankName: "Himalayan Bank",
-        branchId: "KathmanduNP",
-        accountNumber: "123456"
     }
     saveUserData(userData)
         .then(data => {

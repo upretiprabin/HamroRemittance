@@ -20,6 +20,11 @@ export const verifyUserCode = (data) => {
 export const saveUserData = (data) => {
     return middleware.User.saveUserDetails(data)
 };
+
+export const saveUserDataFromAdmin = (data) => {
+    data.adminUserName = userFromLocalStorage().username
+    return middleware.User.saveUserDetailsFromAdmin(data)
+};
 export const updateUserData = (data) => {
     data.emailAddress = userFromLocalStorage().username
     data.sender = true
@@ -31,7 +36,10 @@ export const changeUserPassword = (data) => {
     data.newPassword = new Buffer(data.password).toString('base64')
     return middleware.User.updateUserPassword(data)
 }
-export const saveIdDocument = (data) =>{
+export const saveIdDocument = (data) => {
     data.emailAddress = userFromLocalStorage().username
     return middleware.User.saveIdentificationDocument(data)
+}
+export const getSenders = () => {
+    return middleware.User.getSenderList();
 }

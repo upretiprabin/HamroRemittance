@@ -48,6 +48,11 @@ const AsyncAdminDashboardComponent = Loadable({
     loader: () => import("../../routes/admin-dashboard"),
     loading: () => <RctPageLoader />,
 });
+// admin-transaction
+const AsyncAdminTransactionComponent = Loadable({
+    loader: () => import("../../routes/admin-transaction"),
+    loading: () => <RctPageLoader />,
+});
 export {
     AsyncDashboardComponent,
     AsyncHomeComponent,
@@ -55,5 +60,6 @@ export {
     AsyncTransactionComponent,
     AsyncReceiverComponent,
     AsyncAdminDashboardComponent,
-    AsyncUserProfileComponent
+    AsyncUserProfileComponent,
+    AsyncAdminTransactionComponent
 };

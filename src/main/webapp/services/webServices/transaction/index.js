@@ -78,14 +78,12 @@ const postData = (data) => {
 }
 const loadReceivers = (data) => {
     const config = defaultConfig(data);
-    console.log(URL.GET_RECIEVERS, config)
     return requestHandler.loadData(URL.GET_RECIEVERS, config);
 }
 const loadCompanyCharges = () => {
     const config = {
         method: 'get'
     };
-    console.log(URL.GET_COMPANY_CHARGES, config)
     return requestHandler.loadData(URL.GET_COMPANY_CHARGES, config);
 }
 

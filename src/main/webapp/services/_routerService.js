@@ -5,7 +5,8 @@ import {
     AsyncTransactionComponent,
     AsyncReceiverComponent,
     AsyncAdminDashboardComponent,
-    AsyncUserProfileComponent
+    AsyncUserProfileComponent,
+    AsyncAdminTransactionComponent
 } from "Components/AsyncComponent/AsyncComponent";
 import HowItWorks from "../routes/howItWorks";
 import AboutUs from "../container/AboutUs";
@@ -37,6 +38,9 @@ const adminRoutes = [
     {
         path: 'dashboard',
         component: AsyncAdminDashboardComponent
+    }, {
+        path: 'transaction',
+        component: AsyncAdminTransactionComponent
     }
 ];
 

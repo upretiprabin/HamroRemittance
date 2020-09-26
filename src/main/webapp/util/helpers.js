@@ -1,3 +1,4 @@
+import RandExp from "randexp";
 export const getRandomColor = () => {
     var letters = '0123456789'.split('');
     var color = '#';
@@ -16,4 +17,9 @@ export const getEnum = (data) => {
     if (data === 'photo_id') return "PHOTOID"
     if (data === 'licence') return "DRIVINGLICENCE"
     else return data
+}
+
+export const getPasswordFromRegEx = () => {
+    const regx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
+    return new RandExp(regx).gen();
 }

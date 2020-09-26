@@ -60,6 +60,10 @@ const saveUserDetails = data => {
     let config = defaultConfig(data)
     return requestHandler.loadData(URL.USER_REGISTER, config)
 }
+const saveUserDetailsFromAdmin = data => {
+    let config = defaultConfig(data)
+    return requestHandler.loadData(URL.USER_CREATE, config)
+}
 const verifyUser = (data) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.VERIFY_USER, config)
@@ -119,7 +123,12 @@ const saveIdentificationDocument = (data) => {
     };
     return requestHandler.loadData(URL.USER_ID_UPLOAD, config)
 }
-
+const getSenderList = () => {
+    let config = {
+        method: 'post'
+    };
+    return requestHandler.loadData(URL.USER_LIST, config)
+};
 export default {
     loginUser,
     registerUser,
@@ -134,5 +143,7 @@ export default {
     checkSession,
     updateUserDetails,
     updateUserPassword,
-    saveIdentificationDocument
+    saveIdentificationDocument,
+    getSenderList,
+    saveUserDetailsFromAdmin
 }

@@ -85,8 +85,7 @@ const pastTxnData = (ctx) => {
 };
 const fetchReceivers = (ctx) => {
     let stateData = {};
-    let data = { "senderId": 2 }
-    loadReceiverData(data)
+    loadReceiverData()
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 stateData = {

@@ -82,7 +82,7 @@ const DocumentIdentification = ({
                     <FormGroup className="has-wrapper">
                         <Input
                             invalid={docExpiry.error}
-                            type="text"
+                            type="date"
                             value={docExpiry.value}
                             name="docExpiry"
                             id="doc-expiry"

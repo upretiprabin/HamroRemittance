@@ -13,6 +13,7 @@ export default {
     USER_PASSWORD_CHANGE: 'user/changePassword',
     UPDATE_USER_DETAILS: 'customer/updateCustomer',
     USER_ID_UPLOAD: 'customer/uploadIdDocument',
+    USER_LIST: 'adminDetails/getAllSenders',
 
     //dashboard endpoints
     DASHBOARD_LOAD_DATA: 'customer/getCustomerTransactions',

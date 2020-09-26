@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react'
 import { FormGroup, Input, FormFeedback } from 'reactstrap';
 import banks from './banks.json'
 
-const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
+const AdminBankForm = ({ remit, district, remitPhone, bank, branch, accNumber, disabled, onChangeValue }) => {
     const [selectedCashPickup, setSelectedCashPickup] = useState(0)
     useEffect(() => {
         if (disabled !== null && disabled == true) {
             setSelectedCashPickup(1)
         }
     }, [])
+    const onChangeCashPickup = (e) =>{
+        onChangeValue(e)
+        setSelectedCashPickup(e.target.value)
+    }
     return (
         <>
             <div className='row mt-10'>
                 <div className='col-sm-12 col-md-12 col-lg-12'>
                     <FormGroup className="has-wrapper">
                         <Input
-                            invalid={bank.error || branch.error || accNumber.error}
                             disabled={disabled}
                             value={selectedCashPickup}
                             name="cashPickup"
@@ -23,11 +26,11 @@ const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
                             className="has-input input-lg"
                             type="select"
                             bsSize="lg"
-                            onChange={(e) => setSelectedCashPickup(e.target.value)}>
+                            onChange={(e) => onChangeCashPickup(e)}>
                             <option value='0'>Select Cash PickUp Type*</option>
                             <option value='1'>Bank Transfer</option>
+                            <option value='2'>Local Remit</option>
                         </Input>
-                        <FormFeedback>Required</FormFeedback>
                     </FormGroup>
                 </div>
             </div>
@@ -104,8 +107,66 @@ const BankForm = ({ bank, branch, accNumber, disabled, onChangeValue }) => {
                             <FormFeedback>Required</FormFeedback>
                         </FormGroup>
                     </div>
-                </div>}
+                </div>
+            }
+            {
+                selectedCashPickup == 2 &&
+                <div className='row mt-10'>
+                    <div className='col-sm-12 col-md-6 col-lg-4'>
+                        <FormGroup className="has-wrapper">
+                            <Input
+                                invalid={remit.error}
+                                type="text"
+                                value={remit.value}
+                                name="remit"
+                                id="remit-name"
+                                className="has-input input-lg"
+                                placeholder="Remit Name*"
+                                disabled={disabled}
+                                onChange={(e) => onChangeValue(e)}
+                            />
+                            <span className="has-icon"><i className="zmdi zmdi-store"></i></span>
+                            <FormFeedback>Required</FormFeedback>
+                        </FormGroup>
+                    </div>
+                    <div className='col-sm-12 col-md-6 col-lg-4'>
+                        <FormGroup className="has-wrapper">
+                            <Input
+                                invalid={district.error}
+                                type="text"
+                                value={district.value}
+                                name="district"
+                                id="remit-district"
+                                className="has-input input-lg"
+                                placeholder="District*"
+                                disabled={disabled}
+                                onChange={(e) => onChangeValue(e)}
+                            />
+                            <span className="has-icon"><i className="zmdi zmdi-my-location"></i></span>
+                            <FormFeedback>Required</FormFeedback>
+                        </FormGroup>
+                    </div>
+                    <div className='col-sm-12 col-md-6 col-lg-4'>
+                        <FormGroup className="has-wrapper">
+                            <Input
+                                invalid={remitPhone.error}
+                                type="number"
+                                value={remitPhone.value}
+                                name="remitPhone"
+                                id="remit-phone"
+                                className="has-input input-lg"
+                                placeholder="Remit Phone Number*"
+                                disabled={disabled}
+                                onChange={(e) => onChangeValue(e)}
+                            />
+                            <span className="has-icon"><i className="zmdi zmdi-phone"></i></span>
+                            <FormFeedback>Required</FormFeedback>
+                        </FormGroup>
+                    </div>
+                </div>
+            }
+
         </>
     )
 }
-export default BankForm
+export default AdminBankForm
