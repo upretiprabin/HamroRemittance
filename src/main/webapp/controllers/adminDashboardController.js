@@ -1,4 +1,4 @@
-import { loadAdminDashboardData, loadTxnStatusData, loadFilteredAdminData, postBulkUpdateData, updateStatus, deleteTransaction, saveTrnValue} from "../services/adminDashboardService";
+import { loadAdminDashboardData, loadTxnStatusData, loadAgentsData, loadFilteredAdminData, postBulkUpdateData, updateStatus, updatePAgent, deleteTransaction, saveTrnValue} from "../services/adminDashboardService";
 import log from "../services/loggerService"
 import { NotificationManager } from "react-notifications";
 
@@ -14,7 +14,7 @@ const loadData = (ctx) => {
                     log.info("No data");
                 else {
                     log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
+//                    NotificationManager.error(data.data.Error)
                 }
             }
         })
@@ -51,6 +51,31 @@ const loadTxnStatus = (ctx) => {
             ctx.setTxnStatus(txnData)
         })
 }
+
+const loadPayingAgents = (ctx) => {
+    let pynAgentData = [];
+    loadAgentsData()
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                pynAgentData = data.data.result
+            } else {
+                if (data.data.Error === "no data available")
+                    log.info("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.setPayingAgents(pynAgentData)
+        })
+}
+
 const loadFilteredData = (ctx) => {
     let tableData = [];
     ctx.setIsLoading(true)
@@ -63,7 +88,7 @@ const loadFilteredData = (ctx) => {
                     log.info("No data");
                 else {
                     log.error(data.data.Error);
-                    NotificationManager.error(data.data.Error)
+//                    NotificationManager.error(data.data.Error)
                 }
             }
         })
@@ -123,6 +148,31 @@ const updateTxnStatus = (ctx) => {
             ctx.refreshPage()
         })
 }
+
+const updatePayingAgent = (ctx) => {
+    ctx.setIsLoading(true)
+    updatePAgent(ctx.data)
+        .then(data => {
+            if (!data.data.hasOwnProperty("Error")) {
+                NotificationManager.success(data.data.result);
+            } else {
+                if (data.data.Error === "no data available")
+                    NotificationManager.error("No data");
+                else {
+                    log.error(data.data.Error);
+                    NotificationManager.error(data.data.Error)
+                }
+            }
+        })
+        .catch(e => {
+            log.error(e);
+            NotificationManager.error("Error Occurred!")
+        })
+        .finally(() => {
+            ctx.refreshPage()
+        })
+}
+
 const deleteRecord = (ctx) => {
     ctx.setIsLoading(true)
     deleteTransaction(ctx.data)
@@ -169,9 +219,11 @@ const saveTRN = (ctx) => {
 export default {
     loadData,
     loadTxnStatus,
+    loadPayingAgents,
     loadFilteredData,
     postBulkUpdate,
     updateTxnStatus,
+    updatePayingAgent,
     deleteRecord,
     saveTRN
 }

@@ -9,7 +9,9 @@ export const loadTxnStatusData = () => {
     // let email = userFromLocalStorage().primaryEmail;
     return middleware.AdminDashboard.loadStatusData();
 };
-
+export const loadAgentsData = () => {
+    return middleware.AdminDashboard.loadAgentsData();
+};
 export const loadFilteredAdminData = (data) => {
     return middleware.AdminDashboard.loadFilteredData(data);
 }
@@ -19,6 +21,9 @@ export const postBulkUpdateData = (data) => {
 export const updateStatus = (data) => {
     return middleware.AdminDashboard.updateTxnStatus(data);
 }
+export const updatePAgent = (data) => {
+    return middleware.AdminDashboard.updatePayingAgent(data);
+};
 export const deleteTransaction=(data)=>{
     return middleware.AdminDashboard.deleteTransactionData(data);
 }

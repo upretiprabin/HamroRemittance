@@ -8,9 +8,11 @@ class PayingAgentsController {
 
     def index() { }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def getPayingAgents(){
         try{
             def result = payingAgentsService.returnPayingAgents()
+            println "result ---paying agents--- $result"
             if(result){
                 render (["result":result] as JSON)
             }else{

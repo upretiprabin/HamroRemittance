@@ -19,6 +19,10 @@ const loadStatusData = (data) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.GET_TXT_STATUS, config)
 }
+const loadAgentsData = (data) => {
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.GET_PAYING_AGENTS, config)
+}
 const loadFilteredData = (data) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.GET_FILTERED_TXT_DATA, config)
@@ -30,6 +34,10 @@ const postBulkUpdate = (data) => {
 const updateTxnStatus = (data) => {
     let config = defaultConfig(data);
     return requestHandler.loadData(URL.UPDATE_TXN_STATUS, config)
+}
+const updatePayingAgent = (data) => {
+    let config = defaultConfig(data);
+    return requestHandler.loadData(URL.UPDATE_PAYING_AGENT, config)
 }
 const deleteTransactionData = (data) => {
     let config = defaultConfig(data);
@@ -44,9 +52,11 @@ const saveTrnValue = (trn,orderDetailsId) => {
 export default {
     loadData,
     loadStatusData,
+    loadAgentsData,
     loadFilteredData,
     postBulkUpdate,
     updateTxnStatus,
+    updatePayingAgent,
     deleteTransactionData,
     saveTrnValue
 }

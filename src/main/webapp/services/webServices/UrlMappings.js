@@ -36,8 +36,10 @@ export default {
     GET_TXN_DATA: 'adminDetails/getAllTransactionsOrderDetails',
     GET_TXT_STATUS: 'transaction/fetchTransactionStatus',
     GET_FILTERED_TXT_DATA: 'adminDetails/getTransactionOrdersByStatus',
+    GET_PAYING_AGENTS: 'payingAgents/getPayingAgents',
     POST_BULK_DATA: 'adminDetails/updateTransactionStatusBulk',
     UPDATE_TXN_STATUS: 'adminDetails/storeTransactionStatusUpdate',
+    UPDATE_PAYING_AGENT: 'payingAgents/updatePayingAgentsForCustomerTxns',
     SAVE_TRN_VALUE: 'adminDetails/saveTrnValue'
 
 }
