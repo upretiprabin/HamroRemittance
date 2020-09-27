@@ -14,6 +14,13 @@ export default {
             "menu_icon": "transaction",
             "path": "/admin/transaction",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.paying_agents",
+            "id": "paying_agents",
+            "menu_icon": "paying_agents",
+            "path": "/admin/paying-agents",
+            "child_routes": null
         }
     ],
 

@@ -53,6 +53,12 @@ const AsyncAdminTransactionComponent = Loadable({
     loader: () => import("../../routes/admin-transaction"),
     loading: () => <RctPageLoader />,
 });
+
+// paying-agents
+const AsyncPayingAgentsComponent = Loadable({
+    loader: () => import("../../routes/paying-agents"),
+    loading: () => <RctPageLoader />,
+});
 export {
     AsyncDashboardComponent,
     AsyncHomeComponent,
@@ -61,5 +67,6 @@ export {
     AsyncReceiverComponent,
     AsyncAdminDashboardComponent,
     AsyncUserProfileComponent,
-    AsyncAdminTransactionComponent
+    AsyncAdminTransactionComponent,
+    AsyncPayingAgentsComponent
 };
