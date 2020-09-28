@@ -28,4 +28,20 @@ class PayingAgentsService {
         }
         return returnList
     }
+
+    def savePayingAgent(params){
+        def returnMsg = []
+        PayingAgents payingAgents = new PayingAgents()
+        if(params.name){
+            if(PayingAgents.findByName(params.name)){
+                returnMsg.add("Paying agent with name $params.name already registered.")
+            }else{
+                payingAgents.name = params.name
+                payingAgents.address = params.address
+                payingAgents.save(flush: true, failOnError: true)
+                returnMsg.add("Saved Successfully.")
+            }
+        }
+        return returnMsg
+    }
 }
