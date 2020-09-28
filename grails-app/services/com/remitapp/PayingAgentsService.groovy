@@ -64,4 +64,33 @@ class PayingAgentsService {
         }
         return returnMsg
     }
+
+    def getPayingAgentStatement(params){
+        def returnList = []
+        PayingAgents payingAgents = PayingAgents.findById(params.payingAgentsId)
+        if(payingAgents){
+            def payingAgentStatements = PayingAgentStatements.findAllByPayingAgents(payingAgents)
+            if(payingAgentStatements){
+               def eachVal = [:]
+                def index = 0
+                payingAgentStatements.each { k->
+                    def eachRecord = [:]
+                    eachRecord["date"] = k.dateCreated
+                    eachRecord["order"] = k.transactionId
+                    eachRecord["descOrReceiver"] = k.description
+                    eachRecord["debit"] = k.debit
+                    eachRecord["credit"] = k.credit
+                    eachRecord["balance"] = k.balance
+                    eachVal[index] = eachRecord
+                    index++
+                }
+                returnList.add(eachVal)
+            }else{
+                returnList.add("No records found for ${payingAgents.name}.")
+            }
+        }else{
+            returnList.add("Invalid paying agent.")
+        }
+        return returnList
+    }
 }
