@@ -3,6 +3,7 @@ package com.remitapp.admin
 import com.remitapp.CashPickUp
 import com.remitapp.Customer
 import com.remitapp.OrderDetails
+import com.remitapp.PayingAgentStatements
 import com.remitapp.Transaction
 import grails.gorm.transactions.Transactional
 import java.text.SimpleDateFormat
@@ -53,7 +54,7 @@ class AdminService {
                     eachOrder.transaction.receiver.lastName
             eachMap['exchangedTotal'] = eachOrder.transaction.exchangedTotal
             eachMap['location'] = CashPickUp.findById(eachOrder.cashPickUpId).type
-            eachMap['payingAgent'] = eachOrder.payingAgentsId
+            eachMap['payingAgentsId'] = (PayingAgentStatements.findByTransactionId(eachOrder.transaction.id))?.transactionId
 
             returnList.add(eachMap)
         }
