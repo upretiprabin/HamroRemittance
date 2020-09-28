@@ -37,7 +37,6 @@ class PayingAgentsController {
         }
     }
 
-    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def createPayingAgent(){
         def pgParams = request.JSON
         try{
@@ -50,6 +49,22 @@ class PayingAgentsController {
         }catch(Exception ex){
             ex.printStackTrace()
             render (["Error":"Exception occurred while creating paying agent."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def createPayingAgentTransaction(){
+        def pgParams = request.JSON
+        try{
+            def result = payingAgentsService.savePayingAgentTransaction(pgParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while creating paying agents transaction."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while creating paying agents transaction."] as JSON)
         }
     }
 }

@@ -44,4 +44,24 @@ class PayingAgentsService {
         }
         return returnMsg
     }
+
+    def savePayingAgentTransaction(params){
+        def returnMsg = []
+        PayingAgents payingAgents = PayingAgents.findById(params.payingAgentsId)
+        if(payingAgents){
+            PayingAgentStatements payingAgentStatements = new PayingAgentStatements()
+            payingAgentStatements.payingAgents = payingAgents
+            payingAgentStatements.description = params.description
+            if(params.transactionType == "receive"){
+                payingAgentStatements.credit = params.amount
+            }else if(params.transactionType == "payment"){
+                payingAgentStatements.debit = params.amount
+            }
+            payingAgentStatements.save(flush: true, failOnError: true)
+            returnMsg.add("Saved Successfully.")
+        }else{
+            returnMsg.add("Invalid paying agent.")
+        }
+        return returnMsg
+    }
 }
