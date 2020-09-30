@@ -8,11 +8,9 @@ class PayingAgentsController {
 
     def index() { }
 
-    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def getPayingAgents(){
         try{
             def result = payingAgentsService.returnPayingAgents()
-            println "result ---paying agents--- $result"
             if(result){
                 render (["result":result] as JSON)
             }else{
@@ -24,7 +22,6 @@ class PayingAgentsController {
         }
     }
 
-    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def updatePayingAgentsForCustomerTxns(){
         def pgParams = request.JSON
         try{
@@ -37,6 +34,52 @@ class PayingAgentsController {
         }catch(Exception ex){
             ex.printStackTrace()
             render (["Error":"Exception occurred while saving paying agent value for transaction."] as JSON)
+        }
+    }
+
+    def createPayingAgent(){
+        def pgParams = request.JSON
+        try{
+            def result = payingAgentsService.savePayingAgent(pgParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while creating paying agent."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while creating paying agent."] as JSON)
+        }
+    }
+
+    def createPayingAgentTransaction(){
+        def pgParams = request.JSON
+        try{
+            def result = payingAgentsService.savePayingAgentTransaction(pgParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while creating paying agents transaction."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while creating paying agents transaction."] as JSON)
+        }
+    }
+
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def getPayingAgentStatement(){
+        def pgParams = request.JSON
+        try{
+            def result = payingAgentsService.getPayingAgentStatement(pgParams)
+            if(result){
+                render (["result":result] as JSON)
+            }else{
+                render (["Error":"Error occurred while fetching paying agents statement."] as JSON)
+            }
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Exception occurred while fetching paying agents statement."] as JSON)
         }
     }
 }
