@@ -7,13 +7,15 @@ import Dashboard from './dashboard';
 import Transaction from './transaction';
 import Receiver from './receiver'
 import AdminDashboard from './adminDashboard'
+import PayingAgents from './payingAgents'
 
 export default {
     User,
     Dashboard,
     Transaction,
     Receiver,
-    AdminDashboard
+    AdminDashboard,
+    PayingAgents
 }
 
 
