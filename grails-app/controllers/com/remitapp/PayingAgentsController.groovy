@@ -73,7 +73,11 @@ class PayingAgentsController {
         try{
             def result = payingAgentsService.getPayingAgentStatement(pgParams)
             if(result){
-                render (["result":result] as JSON)
+                if(result.error){
+                    render (["Error":result.error] as JSON)
+                }else{
+                    render (["result":result.result] as JSON)
+                }
             }else{
                 render (["Error":"Error occurred while fetching paying agents statement."] as JSON)
             }

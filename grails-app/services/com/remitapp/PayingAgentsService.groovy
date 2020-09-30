@@ -66,6 +66,7 @@ class PayingAgentsService {
     }
 
     def getPayingAgentStatement(params){
+        def returnMap = [:]
         def returnList = []
         PayingAgents payingAgents = PayingAgents.findById(params.payingAgentsId)
         if(payingAgents){
@@ -85,12 +86,15 @@ class PayingAgentsService {
                     index++
                 }
                 returnList.add(eachVal)
+                returnMap["result"] = returnList
             }else{
-                returnList.add("No records found for ${payingAgents.name}.")
+                def returnMsg = "No records found for ${payingAgents.name}."
+                returnMap["error"] = returnMsg
             }
         }else{
-            returnList.add("Invalid paying agent.")
+            def returnMsg ="Invalid paying agent."
+            returnMap["error"] = returnMsg
         }
-        return returnList
+        return returnMap
     }
 }
