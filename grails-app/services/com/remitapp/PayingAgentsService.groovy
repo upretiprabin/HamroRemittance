@@ -30,22 +30,26 @@ class PayingAgentsService {
     }
 
     def savePayingAgent(params){
+        def returnMap = [:]
         def returnMsg = []
         PayingAgents payingAgents = new PayingAgents()
         if(params.name){
             if(PayingAgents.findByName(params.name)){
                 returnMsg.add("Paying agent with name $params.name already registered.")
+                returnMap["error"] = returnMsg
             }else{
                 payingAgents.name = params.name
                 payingAgents.address = params.address
                 payingAgents.save(flush: true, failOnError: true)
                 returnMsg.add("Saved Successfully.")
+                returnMap["result"] = returnMsg
             }
         }
-        return returnMsg
+        return returnMap
     }
 
     def savePayingAgentTransaction(params){
+        def returnMap = [:]
         def returnMsg = []
         PayingAgents payingAgents = PayingAgents.findById(params.payingAgentsId)
         if(payingAgents){
@@ -59,10 +63,12 @@ class PayingAgentsService {
             }
             payingAgentStatements.save(flush: true, failOnError: true)
             returnMsg.add("Saved Successfully.")
+            returnMap["result"] = returnMsg
         }else{
             returnMsg.add("Invalid paying agent.")
+            returnMap["error"] = returnMsg
         }
-        return returnMsg
+        return returnMap
     }
 
     def getPayingAgentStatement(params){
