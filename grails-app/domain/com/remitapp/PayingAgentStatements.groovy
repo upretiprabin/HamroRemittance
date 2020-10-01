@@ -2,7 +2,7 @@ package com.remitapp
 
 class PayingAgentStatements {
     static belongsTo = [payingAgents: PayingAgents]
-    int transactionId
+    String transactionId
     float debit
     float credit
     float balance

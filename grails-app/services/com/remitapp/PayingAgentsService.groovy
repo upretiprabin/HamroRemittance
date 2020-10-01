@@ -56,6 +56,7 @@ class PayingAgentsService {
             PayingAgentStatements payingAgentStatements = new PayingAgentStatements()
             payingAgentStatements.payingAgents = payingAgents
             payingAgentStatements.description = params.description
+            payingAgentStatements.transactionId = null
             if(params.transactionType == "receive"){
                 payingAgentStatements.credit = params.amount
             }else if(params.transactionType == "payment"){
