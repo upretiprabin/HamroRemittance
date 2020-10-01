@@ -12,7 +12,7 @@ const defaultConfig = (data) => ({
 });
 
 const createPayingAgent = (data) => {
-    let config = defaultConfig(data);
+    let config = defaultConfig(data.data);
     return requestHandler.loadData(URL.CREATE_PAYING_AGENT, config);
 };
 const fetchAgents = () => {
@@ -25,7 +25,7 @@ const createTransaction = (data) => {
 }
 
 const fetchOrders = (data) => {
-    const config = defaultConfig({});
+    const config = defaultConfig(data);
     return requestHandler.loadData(URL.FETCH_ORDERS, config);
 }
 

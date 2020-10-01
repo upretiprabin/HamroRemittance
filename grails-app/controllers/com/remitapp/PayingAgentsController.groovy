@@ -8,6 +8,7 @@ class PayingAgentsController {
 
     def index() { }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def getPayingAgents(){
         try{
             def result = payingAgentsService.returnPayingAgents()
@@ -22,6 +23,7 @@ class PayingAgentsController {
         }
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def updatePayingAgentsForCustomerTxns(){
         def pgParams = request.JSON
         try{
@@ -37,6 +39,7 @@ class PayingAgentsController {
         }
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def createPayingAgent(){
         def pgParams = request.JSON
         try{
@@ -52,6 +55,7 @@ class PayingAgentsController {
         }
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
     def createPayingAgentTransaction(){
         def pgParams = request.JSON
         try{

@@ -15,6 +15,6 @@ export const createNewPayingAgentTransaction = (data) => {
         data
     });
 };
-export const fetchOrdersForPayingAgent = () => {
-    return middleware.PayingAgents.fetchOrders();
+export const fetchOrdersForPayingAgent = (data) => {
+    return middleware.PayingAgents.fetchOrders(data);
 };

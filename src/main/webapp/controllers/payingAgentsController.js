@@ -7,7 +7,7 @@ const createPayingAgent = (ctx, data) => {
     createNewPayingAgent(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                NotificationManager.error("Paying Agent Created!")
+                NotificationManager.success("Paying Agent Created!")
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -51,12 +51,12 @@ const fetchPayingAgents = (ctx) => {
         })
 }
 
-const createPayingAgentTransaction = (ctx) => {
+const createPayingAgentTransaction = (ctx, data) => {
     ctx.setLoading(true)
     createNewPayingAgentTransaction(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
-                NotificationManager.error("Paying Agent Transaction Created!")
+                NotificationManager.success("Paying Agent Transaction Created!")
             } else {
                 if (data.data.Error === "no data available")
                     log.info("No data");
@@ -75,10 +75,10 @@ const createPayingAgentTransaction = (ctx) => {
         })
 }
 
-const fetchOrdersForSelectedPayingAgent = (ctx) => {
+const fetchOrdersForSelectedPayingAgent = (ctx,data) => {
     ctx.setLoading(true)
     let list = []
-    fetchOrdersForPayingAgent()
+    fetchOrdersForPayingAgent(data)
         .then(data => {
             if (!data.data.hasOwnProperty("Error")) {
                 list = data.data.result
