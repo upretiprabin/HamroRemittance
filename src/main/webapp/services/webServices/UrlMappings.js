@@ -40,6 +40,12 @@ export default {
     POST_BULK_DATA: 'adminDetails/updateTransactionStatusBulk',
     UPDATE_TXN_STATUS: 'adminDetails/storeTransactionStatusUpdate',
     UPDATE_PAYING_AGENT: 'payingAgents/updatePayingAgentsForCustomerTxns',
-    SAVE_TRN_VALUE: 'adminDetails/saveTrnValue'
+    SAVE_TRN_VALUE: 'adminDetails/saveTrnValue',
 
+    //Paying Agents endpoints
+
+    CREATE_PAYING_TRANSACTION: "payingAgents/createPayingAgentTransaction",
+    CREATE_PAYING_AGENT: "payingAgents/createPayingAgent",
+    FETCH_PAYING_AGENTS: "payingAgents/getPayingAgents",
+    FETCH_ORDERS: "payingAgents/getPayingAgentStatement"
 }

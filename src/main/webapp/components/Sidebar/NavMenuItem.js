@@ -43,6 +43,7 @@ class NavMenuItem extends Component {
         const menuIcons = {
             'dashboard' : 'fa-dashboard',
             'transaction': 'fa-money',
+            'paying_agents': 'fa-credit-card',
             'settings' : 'fa-cog'
         };
         return (

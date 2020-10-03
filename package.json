@@ -106,6 +106,7 @@
     "react-dropzone-component": "^3.2.0",
     "react-helmet": "^5.2.1",
     "react-hot-loader": "^4.8.0",
+    "react-html-table-to-excel": "^2.0.0",
     "react-instantsearch": "^6.1.0",
     "react-intl": "^2.9.0",
     "react-joyride": "1.11.4",
