@@ -20,7 +20,7 @@ const fetchAgents = () => {
     return requestHandler.loadData(URL.FETCH_PAYING_AGENTS, config);
 }
 const createTransaction = (data) => {
-    const config = defaultConfig(data);
+    const config = defaultConfig(data.data);
     return requestHandler.loadData(URL.CREATE_PAYING_TRANSACTION, config);
 }
 

@@ -36,11 +36,11 @@ class Index extends Component {
     changeSelected(id) {
         this.setState({ selected: id })
     }
-    handleIndexChange = (e,i) =>{
-        this.changeState({index:i})
+    handleIndexChange = (i) => {
+        this.changeState({ index: i })
     }
     render() {
-        const { loading,index } = this.state
+        const { loading, index } = this.state
         return (
             <div className="mt-30">
                 <ErrorBoundary>
@@ -51,22 +51,22 @@ class Index extends Component {
                     }
                     {!loading &&
                         <RctCollapsibleCard heading="Paying Agents">
-                                <Paper>
-                                    <Tabs
-                                        value={index}
-                                        onChange={(e,i)=>this.handleIndexChange(e,i)}
-                                        indicatorColor="primary"
-                                        textColor="primary"
-                                        centered
-                                    >
-                                        <Tab label="Statement" />
-                                        <Tab label="Create Transaction" />
-                                        <Tab label="Create Paying Agent" />
-                                    </Tabs>
-                                    {index == 0 && <PayingAgentsStatement />}
-                                    {index == 1 && <PayingAgentsCreateTransaction />}
-                                    {index == 2 && <PayingAgentsCreate />}
-                                </Paper>
+                            <Paper>
+                                <Tabs
+                                    value={index}
+                                    onChange={(e, i) => this.handleIndexChange(i)}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    centered
+                                >
+                                    <Tab label="Statement" />
+                                    <Tab label="Create Transaction" />
+                                    <Tab label="Create Paying Agent" />
+                                </Tabs>
+                                {index == 0 && <PayingAgentsStatement />}
+                                {index == 1 && <PayingAgentsCreateTransaction handleIndexChange={this.handleIndexChange} />}
+                                {index == 2 && <PayingAgentsCreate handleIndexChange={this.handleIndexChange} />}
+                            </Paper>
                         </RctCollapsibleCard>
                     }
                 </ErrorBoundary>

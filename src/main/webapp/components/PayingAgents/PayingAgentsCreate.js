@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, CircularProgress, TextField } from '@material-ui/core'
 import Controller from './../../controllers/payingAgentsController'
 
-const PayingAgentsCreate = () => {
+const PayingAgentsCreate = ({handleIndexChange}) => {
     const [name, setName] = useState('')
     const [address, setAddress] = useState('')
     const [loading, setLoading] = useState(false)
@@ -10,7 +10,7 @@ const PayingAgentsCreate = () => {
     const [addressError, setAddressError] = useState(false)
     const handleSubmit = () => {
         if (name != '' && address != '') {
-            const ctx = { setLoading }
+            const ctx = { setLoading,handleIndexChange }
             const data = {
                 name: name,
                 address: address

@@ -23,6 +23,7 @@ const createPayingAgent = (ctx, data) => {
         })
         .finally(() => {
             ctx.setLoading(false)
+            ctx.handleIndexChange(1)
         })
 };
 const fetchPayingAgents = (ctx) => {
@@ -72,6 +73,7 @@ const createPayingAgentTransaction = (ctx, data) => {
         })
         .finally(() => {
             ctx.setLoading(false)
+            ctx.handleIndexChange(0)
         })
 }
 

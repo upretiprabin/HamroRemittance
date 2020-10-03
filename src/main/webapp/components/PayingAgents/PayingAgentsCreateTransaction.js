@@ -4,7 +4,7 @@ import { Button, CircularProgress, FormControl, FormControlLabel, Radio, RadioGr
 import { Autocomplete } from '@material-ui/lab'
 
 import Controller from './../../controllers/payingAgentsController'
-const PayingAgentsCreateTransaction = () => {
+const PayingAgentsCreateTransaction = ({ handleIndexChange }) => {
     const [payingAgents, setPayingAgents] = useState([])
     const [selectedAgent, changeSelectedAgent] = useState(null)
     const [value, setValue] = useState('receive');
@@ -34,14 +34,13 @@ const PayingAgentsCreateTransaction = () => {
     }
     const handleSubmit = () => {
         if (selectedAgent != null && amount != 0 && desc != null) {
-            const ctx = { setLoading }
+            const ctx = { setLoading, handleIndexChange }
             const data = {
                 payingAgentsId: selectedAgent.id,
                 transactionType: value,
                 amount: parseFloat(amount),
                 description: desc
             }
-            console.log(data)
             Controller.createPayingAgentTransaction(ctx, data)
         } else {
             if (amount == 0) setAmountError(true)
@@ -93,8 +92,8 @@ const PayingAgentsCreateTransaction = () => {
                                 <div className='col-s-12 col-md-12 col-lg-12'>
                                     <FormControl component="fieldset" >
                                         <RadioGroup row aria-label="paymentType" name="paymentType" value={value} onChange={handleRadioChange} className='text-center'>
-                                            <FormControlLabel value="payment" control={<Radio />} label="Credit" />
-                                            <FormControlLabel value="receive" control={<Radio />} label="Debit" />
+                                            <FormControlLabel value="receive" control={<Radio />} label="Credit" />
+                                            <FormControlLabel value="payment" control={<Radio />} label="Debit" />
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
