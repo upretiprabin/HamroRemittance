@@ -1,11 +1,14 @@
 .horizontal-menu{
   .header-menu{
-    color: $primary-text;
+    color: $primary-text !important;
     font-weight: 500;
     margin: 0 15px 0 15px;
   }
+  .selected{
+    border-bottom: 2px solid $primary-btn !important;
+  }
   .header-menu:hover,.header-menu:focus,.header-menu:active{
-    color: $primary-btn;
+    color: $primary-btn !important;
   }
   .menus{
     position: absolute;

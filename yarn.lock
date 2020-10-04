@@ -8424,6 +8424,13 @@ react-hot-loader@^4.8.0:
     shallowequal "^1.1.0"
     source-map "^0.7.3"
 
+react-html-table-to-excel@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-html-table-to-excel/-/react-html-table-to-excel-2.0.0.tgz#c5b183121e4a07b47ce936337150dabb60f6012e"
+  integrity sha1-xbGDEh5KB7R86TYzcVDau2D2AS4=
+  dependencies:
+    prop-types "^15.5.10"
+
 react-input-autosize@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
