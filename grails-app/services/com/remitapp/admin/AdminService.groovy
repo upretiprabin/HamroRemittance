@@ -54,7 +54,7 @@ class AdminService {
                     eachOrder.transaction.receiver.lastName
             eachMap['exchangedTotal'] = eachOrder.transaction.exchangedTotal
             eachMap['location'] = CashPickUp.findById(eachOrder.cashPickUpId).type
-            eachMap['payingAgentsId'] = (PayingAgentStatements.findByTransactionId(eachOrder.transaction.id))?.transactionId
+            eachMap['payingAgentsId'] = (PayingAgentStatements.findByTransactionId(eachOrder.transaction.id))?.payingAgentsId
 
             returnList.add(eachMap)
         }

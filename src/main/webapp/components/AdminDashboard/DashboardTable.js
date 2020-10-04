@@ -121,7 +121,7 @@ const DashboardTable = () => {
             }
         },
         {
-            "name": "payingAgent",
+            "name": "payingAgentsId",
             "label": "Paying Agent",
             "options": {
                 "filter": true,
