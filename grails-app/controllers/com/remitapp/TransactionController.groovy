@@ -111,6 +111,18 @@ class TransactionController {
         }
     }
 
+    @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
+    def saveCompanyCharges(){
+        def chargeParams = request.JSON
+        try{
+            transactionService.saveCompanyChargesByCountry(chargeParams)
+            render (["result":"Saved Successfully."] as JSON)
+        }catch(Exception ex){
+            ex.printStackTrace()
+            render (["Error":"Error occurred while saving company charges."] as JSON)
+        }
+    }
+
     def testData(){
         render ([result:true] as JSON)
     }

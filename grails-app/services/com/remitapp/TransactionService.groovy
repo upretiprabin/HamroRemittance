@@ -120,6 +120,23 @@ class TransactionService {
         return companyCharges
     }
 
+    def saveCompanyChargesByCountry(def params){
+        def companyCharges = CompanyCharges.findByCountry("Nepal")
+        if(companyCharges){
+            companyCharges.exchangeRate = params.exchangeRate
+            companyCharges.serviceCharge = params.serviceCharge
+            companyCharges.taxPercentage = params.taxPercentage
+        }else{
+            companyCharges = new CompanyCharges()
+            companyCharges.exchangeRate = params.exchangeRate
+            companyCharges.serviceCharge = params.serviceCharge
+            companyCharges.taxPercentage = params.taxPercentage
+            companyCharges.country = "Nepal"
+            companyCharges.defaultCurrency="NPR"
+        }
+        companyCharges.save(flush: true, failOnError: true)
+    }
+
     def deleteTransactions(Sender sender){
         def transactions = Transaction.findBySender(sender)
         if(transactions){
