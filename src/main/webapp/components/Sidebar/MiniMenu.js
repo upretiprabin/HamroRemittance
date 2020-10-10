@@ -27,7 +27,7 @@ class MiniMenu extends Component {
                   <div tabIndex={0} role="button"
                      onClick={this.toggleDrawer(false)}
                      onKeyDown={this.toggleDrawer(false)}>
-                        <ListItem button component={NavLink} to={{pathname: "/home"}} activeClassName="selected" exact>
+                        <ListItem button component={NavLink} to={{pathname: "/home"}} activeClassName="Mui-selected" exact>
                           <ListItemText primary="HOME" />
                         </ListItem>
                         <Divider />

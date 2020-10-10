@@ -47,8 +47,8 @@
     }
     .dashboard-wrapper .send{
         width: 65%!important;
-        top: 6em!important;
-        left: calc(50% - 35vw)!important;
+        top: 5%!important;
+        margin-left: -32.5% !important;
     }
 
     .rct-page-content{
@@ -70,6 +70,10 @@
     .fit-content-width{
         width: fit-content;
      }
+
+    .otp-container input{
+        width: 4em !important;
+    }
 }
 
 .list-inline{
